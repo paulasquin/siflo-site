@@ -1,0 +1,133 @@
+"""Builds siflo.aidiligence.eu from the texts kept in the Siflo repository.
+
+The privacy policy is written in `siflo/docs/play/privacy-policy.md`; this script turns it into a
+static page, next to a support page. Run from the repository root:
+
+    uv run --with markdown python tools/build.py [path/to/siflo]
+"""
+
+import html
+import re
+import sys
+from pathlib import Path
+
+import markdown
+
+ROOT = Path(__file__).resolve().parent.parent
+SIFLO = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT.parent / "siflo")
+PLAY = SIFLO / "docs" / "play"
+
+CONTACT = "contact@aidiligence.eu"
+PUBLISHER = "Guardia SAS — SIREN 910 991 140"
+
+STYLE = """
+:root { color-scheme: light dark; --fg: #1f1b18; --muted: #6a625c; --bg: #fffbf8; --line: #eee4dc; --accent: #d95a00; }
+@media (prefers-color-scheme: dark) { :root { --fg: #efe9e4; --muted: #a99f97; --bg: #17130f; --line: #2f2822; --accent: #ff8a3d; } }
+* { box-sizing: border-box; }
+body { font: 16px/1.6 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); margin: 0; }
+main { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+header { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+header img { width: 40px; height: 40px; border-radius: 10px; }
+header a { color: inherit; text-decoration: none; font-weight: 600; font-size: 1.15em; }
+nav { margin-left: auto; display: flex; gap: 16px; font-size: .95em; }
+nav a { font-weight: 400; font-size: 1em; color: var(--muted); }
+h1 { font-size: 1.7em; line-height: 1.25; margin: 1.2em 0 .4em; }
+h2 { font-size: 1.2em; margin-top: 2em; }
+a { color: var(--accent); }
+.lead { font-size: 1.15em; color: var(--muted); }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85em; }
+"""
+
+
+def page(title: str, body: str, depth: int) -> str:
+    up = "../" * depth
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title>
+<link rel="icon" href="{up}assets/icon.png">
+<style>{STYLE}</style>
+</head>
+<body>
+<main>
+<header>
+  <img src="{up}assets/icon.png" alt="">
+  <a href="{up}">Siflo</a>
+  <nav><a href="{up}privacy/">Privacy</a><a href="{up}privacy/#francais">Confidentialité</a></nav>
+</header>
+{body}
+<footer>{html.escape(PUBLISHER)} — <a href="mailto:{CONTACT}">{CONTACT}</a></footer>
+</main>
+</body>
+</html>
+"""
+
+
+def from_markdown(name: str) -> tuple[str, str]:
+    """Title and HTML body of a text in docs/play, without its editorial notes."""
+    text = (PLAY / name).read_text()
+    # Notes for us (sources, status) are blockquotes; never publish them.
+    text = "\n".join(line for line in text.splitlines() if not line.startswith(">"))
+    title = re.search(r"^# (.+)$", text, re.M).group(1)
+    body = markdown.markdown(text, extensions=["extra", "sane_lists"])
+    # Stable anchors for the two languages.
+    body = body.replace("<h2>English</h2>", '<h2 id="english">English</h2>')
+    body = body.replace("<h2>Français</h2>", '<h2 id="francais">Français</h2>')
+    return title, body
+
+
+def write(path: str, content: str) -> None:
+    out = ROOT / path
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(content)
+    print("wrote", path)
+
+
+INDEX = f"""
+<h1>Siflo — Whistle signals</h1>
+<p class="lead">Whistle signals and messages for your group, from phone to phone, even without a
+network. For canyoning, climbing, caving and every outing where the whistle does not always get
+through.</p>
+
+<h2>Support</h2>
+<p>A question, a problem, an idea? Write to <a href="mailto:{CONTACT}">{CONTACT}</a>.</p>
+
+<h2>Free, for good</h2>
+<p>Siflo is free, with no ads and no account. If it helps your outings, you can leave a tip from the
+app's settings, through Google Play.</p>
+
+<p>Siflo adds to your whistle and radio; it does not replace them. Radio waves do not go through
+rock.</p>
+
+<h2>Documents</h2>
+<ul>
+  <li><a href="privacy/">Privacy policy / Politique de confidentialité</a></li>
+</ul>
+
+<h2 id="francais">Français</h2>
+<p>Siflo transmet les signaux de sifflet et les messages de votre groupe de téléphone à téléphone,
+même sans réseau : canyon, escalade, spéléo. Gratuit, sans publicité ni compte ; pourboires possibles
+depuis les réglages, via Google Play. Assistance : <a href="mailto:{CONTACT}">{CONTACT}</a>.
+<a href="privacy/#francais">Politique de confidentialité</a>.</p>
+"""
+
+REDIRECT = """<!doctype html>
+<meta charset="utf-8">
+<title>Siflo</title>
+<meta http-equiv="refresh" content="0; url=../privacy/#francais">
+<link rel="canonical" href="../privacy/">
+<a href="../privacy/#francais">Politique de confidentialité</a>
+"""
+
+
+def main() -> None:
+    write("index.html", page("Siflo — Whistle signals", INDEX, 0))
+    title, body = from_markdown("privacy-policy.md")
+    write("privacy/index.html", page(title, body, 1))
+    write("confidentialite/index.html", REDIRECT)
+
+
+if __name__ == "__main__":
+    main()
