@@ -85,34 +85,6 @@ def write(path: str, content: str) -> None:
     print("wrote", path)
 
 
-INDEX = f"""
-<h1>Siflo — Whistle signals</h1>
-<p class="lead">Whistle signals and messages for your group, from phone to phone, even without a
-network. For canyoning, climbing, caving and every outing where the whistle does not always get
-through.</p>
-
-<h2>Support</h2>
-<p>A question, a problem, an idea? Write to <a href="mailto:{CONTACT}">{CONTACT}</a>.</p>
-
-<h2>Free, for good</h2>
-<p>Siflo is free, with no ads and no account. If it helps your outings, you can leave a tip from the
-app's settings, through Google Play.</p>
-
-<p>Siflo adds to your whistle and radio; it does not replace them. Radio waves do not go through
-rock.</p>
-
-<h2>Documents</h2>
-<ul>
-  <li><a href="privacy/">Privacy policy / Politique de confidentialité</a></li>
-</ul>
-
-<h2 id="francais">Français</h2>
-<p>Siflo transmet les signaux de sifflet et les messages de votre groupe de téléphone à téléphone,
-même sans réseau : canyon, escalade, spéléo. Gratuit, sans publicité ni compte ; pourboires possibles
-depuis les réglages, via Google Play. Assistance : <a href="mailto:{CONTACT}">{CONTACT}</a>.
-<a href="privacy/#francais">Politique de confidentialité</a>.</p>
-"""
-
 REDIRECT = """<!doctype html>
 <meta charset="utf-8">
 <title>Siflo</title>
@@ -123,7 +95,6 @@ REDIRECT = """<!doctype html>
 
 
 def main() -> None:
-    write("index.html", page("Siflo — Whistle signals", INDEX, 0))
     title, body = from_markdown("privacy-policy.md")
     write("privacy/index.html", page(title, body, 1))
     write("confidentialite/index.html", REDIRECT)
