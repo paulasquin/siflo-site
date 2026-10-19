@@ -124,7 +124,7 @@ export const STRINGS = {
     'ho.2p': 'Behind a canyon bend, at the bottom of a shaft or under water, the signal may not get through. A phone placed halfway then acts as a relay.',
     'ho.3n': 'Top pocket', 'ho.3h': 'rather than the bottom of the pack',
     'ho.3p': 'Carry the phone in a chest pocket or at the top of the pack, never under water. And keep your whistle: it never runs out of battery.',
-    'dl.k': 'Free, for good', 'dl.h': 'Soon ready for<br><em>your next outing.</em>',
+    'dl.k': 'Free forever', 'dl.h': 'Soon ready for<br><em>your next outing.</em>',
     'dl.lead': 'Siflo is currently under review by Google Play. It will be free, with no ads and no account; if it helps you out there, you will be able to leave a tip from its settings.',
     'dl.badge': 'Soon', 'dl.aria': 'Coming soon to Google Play', 'dl.s1': 'Coming soon to', 'dl.s2': 'iPhone', 'dl.s3': 'Coming later',
     'dl.note': 'Android 8 or later. Updates will follow field tests with canyoning, climbing and caving groups.',
