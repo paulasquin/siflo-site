@@ -1,4 +1,4 @@
-# siflo.aidiligence.eu
+# siflo.app
 
 Website of the Siflo Android app (published by Guardia SAS): a scroll-driven presentation page in French and English, the support contact, and the privacy policy given to Google Play.
 
@@ -36,6 +36,8 @@ uv run --with markdown python tools/build.py ../siflo
 | `/` | Presentation, support and FAQ (FR/EN) |
 | `/privacy/` | Privacy policy (EN + FR), the URL given to Google Play |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
+| `/j/`, `/id/` | Landing pages of the app links (group invitation, identity card) when Siflo is not installed; `js/link.js` picks the language and, on iPhone, offers `siflo://`. The payload stays in the fragment, never sent to the server |
+| `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
 
 ## Testing
 
@@ -49,4 +51,8 @@ Custom shaders output linear colours that the final pass tone-maps and converts 
 
 ## Deployment
 
-GitHub Pages, `main` branch, repository root; the domain is declared by `CNAME`. DNS (OVH, zone `aidiligence.eu`): `siflo CNAME paulasquin.github.io.`
+GitHub Pages, `main` branch, repository root; the domain is declared by `CNAME` (`siflo.app`, verified on the GitHub account). DNS (OVH, zone `siflo.app`, owner Guardia SAS): GitHub Pages A/AAAA on the apex, `www CNAME paulasquin.github.io.`, set by `tools/ovh_dns.py`; MX and SPF are OVH's (Zimbra mailbox). `.app` is HSTS-preloaded: the site only works over HTTPS.
+
+The former domain `siflo.aidiligence.eu` (still the privacy policy URL given to Google Play) is served by the `paulasquin/siflo-redirect` repository, which sends every path to the same path on siflo.app.
+
+The OVH order also came with a free web hosting (`sifloai.cluster129.hosting.ovh.net`, 100 MB, one attached domain: siflo.app). It is unused; it could serve `apple-app-site-association` as `application/json` if Apple ever insists on it.

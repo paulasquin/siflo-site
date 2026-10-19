@@ -1,4 +1,4 @@
-"""Builds siflo.aidiligence.eu from the texts kept in the Siflo repository.
+"""Builds siflo.app from the texts kept in the Siflo repository.
 
 The privacy policy is written in `siflo/docs/play/privacy-policy.md`; this script turns it into a
 static page, next to a support page. Run from the repository root:

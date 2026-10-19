@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.siflo",
+      "sha256_cert_fingerprints": [
+        "AD:BF:60:EE:D2:C7:48:A6:AD:6A:75:6F:A1:76:A9:85:C3:9E:AD:19:DF:56:5B:50:9E:CB:BC:35:1E:27:38:E5",
+        "BF:B9:7C:64:14:E7:D6:66:5E:DC:0B:C4:03:6B:3D:BC:EA:22:C0:1B:FF:EB:B4:AA:ED:33:77:BA:04:B3:67:42"
+      ]
+    }
+  }
+]
