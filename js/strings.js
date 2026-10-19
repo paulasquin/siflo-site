@@ -64,7 +64,7 @@ export const STRINGS = {
     },
   },
   static: {
-    'meta.title': 'Siflo — whistle signals, relayed from phone to phone',
+    'meta.title': 'Siflo — group communication for the outdoors',
     'meta.description': 'Stop, OK, release, pull up: Siflo carries your group\'s whistle signals and messages from phone to phone, even with no network. Canyoning, climbing, caving. Free, no account, no ads.',
     loader: 'Looking for your group…',
     'nav.aria': 'Main navigation',
