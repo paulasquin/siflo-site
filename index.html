@@ -1,63 +1,384 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Siflo — Whistle signals</title>
-<link rel="icon" href="assets/icon.png">
-<style>
-:root { color-scheme: light dark; --fg: #1f1b18; --muted: #6a625c; --bg: #fffbf8; --line: #eee4dc; --accent: #d95a00; }
-@media (prefers-color-scheme: dark) { :root { --fg: #efe9e4; --muted: #a99f97; --bg: #17130f; --line: #2f2822; --accent: #ff8a3d; } }
-* { box-sizing: border-box; }
-body { font: 16px/1.6 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); margin: 0; }
-main { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
-header { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-header img { width: 40px; height: 40px; border-radius: 10px; }
-header a { color: inherit; text-decoration: none; font-weight: 600; font-size: 1.15em; }
-nav { margin-left: auto; display: flex; gap: 16px; font-size: .95em; }
-nav a { font-weight: 400; font-size: 1em; color: var(--muted); }
-h1 { font-size: 1.7em; line-height: 1.25; margin: 1.2em 0 .4em; }
-h2 { font-size: 1.2em; margin-top: 2em; }
-a { color: var(--accent); }
-.lead { font-size: 1.15em; color: var(--muted); }
-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85em; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Siflo — la communication de groupe en pleine nature</title>
+  <meta name="description" content="Stop, OK, débraye, remonte : Siflo transmet les signaux du sifflet et les messages de votre groupe de téléphone en téléphone, même sans réseau. Canyon, escalade, spéléo. Gratuite, sans compte ni publicité.">
+  <meta name="theme-color" content="#0e0b09">
+  <meta property="og:title" content="Siflo — la communication de groupe en pleine nature">
+  <meta property="og:description" content="Les signaux du sifflet et les messages de votre groupe, de téléphone en téléphone, même sans réseau.">
+  <meta property="og:image" content="https://siflo.aidiligence.eu/assets/og.jpg">
+  <meta property="og:url" content="https://siflo.aidiligence.eu/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" hreflang="fr" href="https://siflo.aidiligence.eu/?lang=fr">
+  <link rel="alternate" hreflang="en" href="https://siflo.aidiligence.eu/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://siflo.aidiligence.eu/">
+  <script>
+    // Pick the language before first paint: ?lang=, then the visitor's saved choice, then the browser languages.
+    (function () {
+      var ok = ['fr', 'en'], lang = null;
+      try {
+        var q = new URLSearchParams(location.search).get('lang');
+        if (ok.indexOf(q) >= 0) { lang = q; localStorage.setItem('lang', q); }
+        else if (ok.indexOf(localStorage.getItem('lang')) >= 0) lang = localStorage.getItem('lang');
+      } catch (e) {}
+      if (!lang) {
+        var ls = navigator.languages || [navigator.language || ''];
+        for (var i = 0; i < ls.length && !lang; i++) { var b = String(ls[i]).slice(0, 2).toLowerCase(); if (ok.indexOf(b) >= 0) lang = b; }
+      }
+      document.documentElement.lang = lang || 'en';
+    })();
+  </script>
+  <link rel="icon" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-latin.woff2" crossorigin>
+  <link href="css/style.css" rel="stylesheet">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./assets/vendor/three.module.js",
+      "three/addons/": "./assets/vendor/addons/"
+    }
+  }
+  </script>
 </head>
-<body>
-<main>
-<header>
-  <img src="assets/icon.png" alt="">
-  <a href="">Siflo</a>
-  <nav><a href="privacy/">Privacy</a><a href="privacy/#francais">Confidentialité</a></nav>
-</header>
+<body class="is-loading">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="whistle" viewBox="18 19 70 70">
+      <path fill="#fff" d="M23,46h22a12,12 0,1 1,0 24h-6a16,16 0,0 1,-16 -16z"/>
+      <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M61,44a14,14 0,0 1,0 20"/>
+      <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
+      <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
+    </symbol>
+  </svg>
 
-<h1>Siflo — Whistle signals</h1>
-<p class="lead">Whistle signals and messages for your group, from phone to phone, even without a
-network. For canyoning, climbing, caving and every outing where the whistle does not always get
-through.</p>
+  <div id="loader" class="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <svg class="loader-mark" viewBox="18 19 70 70">
+        <path class="lm-body" d="M23,46h22a12,12 0,1 1,0 24h-6a16,16 0,0 1,-16 -16z"/>
+        <path class="lm-arc" d="M61,44a14,14 0,0 1,0 20"/>
+        <path class="lm-arc" d="M67,38a22,22 0,0 1,0 32"/>
+        <path class="lm-arc" d="M73,32a30,30 0,0 1,0 44"/>
+      </svg>
+      <p class="loader-label" data-i18n="loader">Recherche du groupe…</p>
+    </div>
+  </div>
 
-<h2>Support</h2>
-<p>A question, a problem, an idea? Write to <a href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a>.</p>
+  <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+  <div id="stage-labels" class="stage-labels" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-<h2>Free, for good</h2>
-<p>Siflo is free, with no ads and no account. If it helps your outings, you can leave a tip from the
-app's settings, through Google Play.</p>
+  <nav class="topnav" aria-label="Navigation principale" data-i18n-aria="nav.aria">
+    <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
+    <div class="nav-links">
+      <a href="#signaux" data-i18n="nav.signals">Signaux</a>
+      <a href="#reseau" data-i18n="nav.mesh">Sans réseau</a>
+      <a href="#film" data-i18n="nav.film">Film</a>
+      <a href="#confidentialite" data-i18n="nav.privacy">Vie privée</a>
+      <a href="#aide" data-i18n="nav.help">Aide</a>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </nav>
 
-<p>Siflo adds to your whistle and radio; it does not replace them. Radio waves do not go through
-rock.</p>
+  <main>
+    <!-- ACT · canyon (js/acts/canyon.js): dusk flight into a gorge, the whistle drowned by the waterfall, then the phones relay it. -->
+    <section id="top" class="act" data-act="canyon">
+      <div class="panel panel-hero">
+        <div class="hero-content">
+          <p class="eyebrow"><span class="pulse-dot"></span><span data-i18n="hero.eyebrow">Canyon · escalade · spéléo</span></p>
+          <h1 class="hero-title">
+            <span class="ht-line"><span class="ht-word" data-i18n="hero.t1">le sifflet,</span></span>
+            <span class="ht-line"><span class="ht-word ht-glow" data-i18n="hero.t2">relayé.</span></span>
+          </h1>
+          <p class="hero-sub" data-i18n="hero.sub">Stop, OK, débraye, remonte&#8239;: Siflo transmet les signaux du sifflet et les messages de votre groupe, de téléphone en téléphone, même sans réseau.</p>
+          <dl class="hero-kpis">
+            <div><dt data-i18n="hero.k1">signaux en une touche</dt><dd><span data-count="4">4</span></dd></div>
+            <div><dt data-i18n="hero.k2">compte à créer</dt><dd><span data-count="0">0</span></dd></div>
+            <div><dt data-i18n="hero.k3">publicité</dt><dd><span data-count="0">0</span></dd></div>
+          </dl>
+          <div class="hero-cta">
+            <a href="#telecharger" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8L3.6 2.2zm10.8 10.9 2.8 2.8-11.5 6.6 8.7-9.4zm0-2.2L5.7 1.5l11.5 6.6-2.8 2.8zm3.9 4.3-3.1-3.1 3.1-3.1 3.6 2c1 .6 1 1.6 0 2.2l-3.6 2z"/></svg><span data-i18n="hero.cta1">Bientôt sur Google Play</span></a>
+            <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">Voir comment ça marche</a>
+          </div>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Défiler</i></div>
+      </div>
+      <div class="panel panel-right">
+        <div class="card">
+          <p class="kicker" data-i18n="c1.k">Le problème</p>
+          <h2 data-i18n="c1.h">Au fond du canyon, le sifflet se perd.</h2>
+          <p data-i18n="c1.p">La cascade couvre le son, une arête vous cache votre partenaire, la corde file. Un signal mal entendu, et tout le groupe attend sans savoir.</p>
+        </div>
+      </div>
+      <div class="panel panel-left">
+        <div class="card">
+          <p class="kicker" data-i18n="c2.k">La réponse</p>
+          <h2 data-i18n="c2.h">Siflo le fait passer, de téléphone en téléphone.</h2>
+          <p data-i18n="c2.p">Chaque téléphone du groupe relaie le signal aux autres. Là où le son s'éteint dans le vacarme, les ondes radio, elles, ne craignent pas le bruit.</p>
+        </div>
+      </div>
+    </section>
 
-<h2>Documents</h2>
-<ul>
-  <li><a href="privacy/">Privacy policy / Politique de confidentialité</a></li>
-</ul>
+    <!-- ACT · signal (js/acts/signal.js): a phone sends STOP, another one rings, acknowledgements come back. -->
+    <section id="signaux" class="act" data-act="signal">
+      <div class="panel panel-left">
+        <div class="card">
+          <p class="kicker" data-i18n="s1.k">Les signaux · 01</p>
+          <h2 data-i18n="s1.h">Une touche, et tout le groupe sait.</h2>
+          <p data-i18n="s1.p">Quatre grandes touches, faciles à viser même avec des gants fins ou les doigts mouillés. Les points rappellent le nombre de coups de sifflet.</p>
+          <ul class="chips">
+            <li><i>•</i><span data-i18n="sig.stop">STOP</span></li>
+            <li><i>••</i><span data-i18n="sig.ok">OK</span></li>
+            <li><i>•••</i><span data-i18n="sig.release">Débraye la corde</span></li>
+            <li><i>••••</i><span data-i18n="sig.pull">Remonte la corde</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-right">
+        <div class="card">
+          <p class="kicker" data-i18n="s2.k">Les signaux · 02</p>
+          <h2 data-i18n="s2.h">Il arrive, et vous le sentez.</h2>
+          <p data-i18n="s2.p">Chaque signal arrive avec le nom de son expéditeur&#8239;: vibrations au rythme du code, coups de sifflet et alerte plein écran, même si le téléphone est verrouillé.</p>
+        </div>
+      </div>
+      <div class="panel panel-left panel-sticky">
+        <div class="card">
+          <p class="kicker" data-i18n="s3.k">Les signaux · 03</p>
+          <h2 data-i18n="s3.h">Vous voyez qui l'a reçu.</h2>
+          <p data-i18n="s3.p">Les accusés de réception s'affichent membre par membre&#8239;: vous savez qui l'a reçu, et qui ne l'a pas encore.</p>
+          <ul class="chips"><li class="ok"><i>✓</i><span data-i18n="s3.c1">Marc a reçu</span></li><li class="ok"><i>✓</i><span data-i18n="s3.c2">Léa a reçu</span></li><li><i>…</i><span data-i18n="s3.c3">Tom, en attente</span></li></ul>
+        </div>
+      </div>
+    </section>
 
-<h2 id="francais">Français</h2>
-<p>Siflo transmet les signaux de sifflet et les messages de votre groupe de téléphone à téléphone,
-même sans réseau : canyon, escalade, spéléo. Gratuit, sans publicité ni compte ; pourboires possibles
-depuis les réglages, via Google Play. Assistance : <a href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a>.
-<a href="privacy/#francais">Politique de confidentialité</a>.</p>
+    <!-- ACT · mesh (js/acts/mesh.js): map of the gorge, Bluetooth hops, 4G bridge through the blind relay, late arrivals, SOS. -->
+    <section id="reseau" class="act" data-act="mesh">
+      <div class="panel panel-right">
+        <div class="card">
+          <p class="kicker" data-i18n="m1.k">Sans réseau · 01</p>
+          <h2 data-i18n="m1.h">De proche en proche.</h2>
+          <p data-i18n="m1.p">Les messages sautent de téléphone en téléphone par Bluetooth, et passent aussi par le Wi-Fi direct entre téléphones quand ils le permettent. Chaque membre du groupe allonge la chaîne.</p>
+        </div>
+      </div>
+      <div class="panel panel-left">
+        <div class="card">
+          <p class="kicker" data-i18n="m2.k">Sans réseau · 02</p>
+          <h2 data-i18n="m2.h">Un membre capte la 4G&#8239;? Tout le groupe en profite.</h2>
+          <p data-i18n="m2.p">Si chaque sous-groupe a au moins un membre connecté, internet fait le lien entre eux par un relais aveugle&#8239;: il transmet les messages sans pouvoir les lire.</p>
+        </div>
+      </div>
+      <div class="panel panel-right">
+        <div class="card">
+          <p class="kicker" data-i18n="m3.k">Sans réseau · 03</p>
+          <h2 data-i18n="m3.h">Les messages attendent les retardataires.</h2>
+          <p data-i18n="m3.p">Les messages sont gardés et transmis à ceux qui reviennent à portée, même après un long rappel ou un passage isolé.</p>
+        </div>
+      </div>
+      <div class="panel panel-left panel-sticky">
+        <div class="card card-sos">
+          <p class="kicker" data-i18n="m4.k">SOS</p>
+          <h2 data-i18n="m4.h">Maintenez deux secondes.</h2>
+          <p data-i18n="m4.p">Votre SOS, avec votre position si vous l'acceptez, atteint tous les téléphones Siflo à portée, même hors de vos groupes. Il est renvoyé chaque minute.</p>
+        </div>
+      </div>
+    </section>
 
-<footer>Guardia SAS — SIREN 910 991 140 — <a href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a></footer>
-</main>
+    <section id="film" class="section section-film">
+      <div class="wrap split">
+        <div class="reveal">
+          <p class="kicker" data-i18n="film.k">Le film</p>
+          <h2 class="h-xl" data-i18n="film.h">Siflo en<br><em>43 secondes.</em></h2>
+          <p class="lead" data-i18n="film.lead">Une sortie en canyon, un signal que le sifflet ne suffit pas à faire passer, et le même signal qui arrive sur chaque téléphone du groupe.</p>
+          <ul class="film-points">
+            <li><b>0:00</b><span data-i18n="film.p1">Au fond du canyon, le sifflet se perd.</span></li>
+            <li><b>0:08</b><span data-i18n="film.p2">Une touche suffit pour prévenir tout le groupe.</span></li>
+            <li><b>0:17</b><span data-i18n="film.p3">Le signal passe de téléphone en téléphone, puis par internet.</span></li>
+            <li><b>0:27</b><span data-i18n="film.p4">Vous voyez qui l'a reçu.</span></li>
+            <li><b>0:33</b><span data-i18n="film.p5">Un QR code suffit pour rejoindre le groupe.</span></li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <div class="phone-frame film" id="film-player">
+            <video id="film-video" preload="none" playsinline poster="assets/film/poster.jpg" data-src-fr="assets/film/siflo-fr.mp4" data-src-en="assets/film/siflo-fr.mp4"></video>
+            <button class="film-play" aria-label="Lire le film" data-i18n-aria="film.play"><span></span></button>
+          </div>
+          <p class="film-note" data-i18n="film.note">Sans voix off · son conseillé</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fonctions" class="section section-features">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="ft.k">Plus que des signaux</p>
+          <h2 class="h-xl" data-i18n="ft.h">Tout ce qu'il faut<br><em>pour garder le contact.</em></h2>
+        </div>
+        <div class="features">
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></div>
+            <h3 data-i18n="ft.1h">Messages, photos et vocaux</h3>
+            <p data-i18n="ft.1p">Au groupe ou en privé à une personne, chiffrés de bout en bout. Réactions rapides, et vous pouvez modifier ou supprimer vos messages.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.3"/></svg></div>
+            <h3 data-i18n="ft.2h">SOS avec votre position</h3>
+            <p data-i18n="ft.2p">Maintenez la touche deux secondes&#8239;: le SOS atteint tous les téléphones Siflo à portée, même hors de vos groupes, et se répète chaque minute.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 14v6M14 17h6"/></svg></div>
+            <h3 data-i18n="ft.3h">Vos propres signaux</h3>
+            <p data-i18n="ft.3p">Créez des signaux propres à votre activité, «&#8239;Relais&#8239;», «&#8239;Viens&#8239;»… ou servez-vous de Siflo pour rester en contact en festival.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="6" height="6" rx="1"/><rect x="14.5" y="3.5" width="6" height="6" rx="1"/><rect x="3.5" y="14.5" width="6" height="6" rx="1"/><path d="M14.5 14.5h2.5v2.5M20.5 14.5v.01M14.5 20.5h6v-3"/></svg></div>
+            <h3 data-i18n="ft.4h">Un QR code pour rejoindre</h3>
+            <p data-i18n="ft.4p">Pas de compte ni de numéro&#8239;: un QR code suffit, même sans réseau (ou un lien). Le groupe s'efface de lui-même à la fin de la durée choisie.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
+            <h3 data-i18n="ft.5h">Distance et direction</h3>
+            <p data-i18n="ft.5p">Voyez où se trouve chacun, à quelle distance et dans quelle direction, seulement s'il a choisi de partager sa position.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M7 11V6.5a1.5 1.5 0 0 1 3 0V11M10 10V5a1.5 1.5 0 0 1 3 0v5M13 10V6a1.5 1.5 0 0 1 3 0v6"/><path d="M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 15a1.6 1.6 0 0 1 2.6-1.8L7 14.5"/></svg></div>
+            <h3 data-i18n="ft.6h">Conçue pour le terrain</h3>
+            <p data-i18n="ft.6p">Grandes touches, fort contraste en plein soleil, thème sombre, alerte même écran verrouillé, et une radio qui n'augmente sa puissance qu'en cas de besoin.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ecrans" class="section section-screens">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="sc.k">L'application</p>
+          <h2 class="h-lg" data-i18n="sc.h">Simple à prendre en main,<br><em>même dans l'eau jusqu'aux genoux.</em></h2>
+        </div>
+      </div>
+      <div class="screens" id="screens"></div>
+    </section>
+
+    <section id="confidentialite" class="section section-privacy">
+      <div class="wrap split">
+        <div class="reveal">
+          <p class="kicker" data-i18n="pv.k">Vie privée</p>
+          <h2 class="h-xl" data-i18n="pv.h">Confidentielle<br><em>dès la conception.</em></h2>
+          <ul class="privacy-list">
+            <li data-i18n="pv.1"><b>Aucun compte, aucun numéro de téléphone</b>, aucune publicité, aucune donnée que nous puissions lire.</li>
+            <li data-i18n="pv.2"><b>Chiffrement de bout en bout</b>&#8239;: même notre serveur relais ne peut pas lire vos messages.</li>
+            <li data-i18n="pv.3"><b>Votre position n'est jamais partagée</b> sans votre accord explicite.</li>
+          </ul>
+          <p style="margin-top:22px"><a href="privacy/#francais" class="btn btn-ghost" data-i18n="pv.link">Lire la politique de confidentialité</a></p>
+        </div>
+        <div class="cipher reveal" aria-hidden="true">
+          <div class="cipher-row plain"><span data-i18n="pv.r1">Sur le téléphone de Julie</span><output id="cipher-plain"></output></div>
+          <div class="cipher-arrow"></div>
+          <div class="cipher-row relay"><span data-i18n="pv.r2">Ce que voit le relais</span><output id="cipher-noise"></output></div>
+          <div class="cipher-arrow"></div>
+          <div class="cipher-row plain"><span data-i18n="pv.r3">Sur le téléphone de Marc</span><output id="cipher-out"></output></div>
+          <p class="cipher-foot" data-i18n="pv.foot">Seuls les membres du groupe détiennent la clé.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="limites" class="section section-honest">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="ho.k">À savoir avant de partir</p>
+          <h2 class="h-lg" data-i18n="ho.h">Siflo complète le sifflet et la radio,<br><em>elle ne les remplace pas.</em></h2>
+        </div>
+        <div class="honest reveal">
+          <div>
+            <span class="num" data-i18n="ho.1n">10 à 100&nbsp;m</span>
+            <h3 data-i18n="ho.1h">d'un téléphone à l'autre</h3>
+            <p data-i18n="ho.1p">La portée dépend du terrain et de l'endroit où le téléphone est porté&#8239;: quelques dizaines de mètres en poche, davantage en main et à vue. Chaque téléphone du groupe allonge la chaîne.</p>
+          </div>
+          <div>
+            <span class="num" data-i18n="ho.2n">Roche, eau</span>
+            <h3 data-i18n="ho.2h">arrêtent les ondes</h3>
+            <p data-i18n="ho.2p">Derrière un virage de canyon, au fond d'un puits ou sous l'eau, le signal peut ne pas passer. Un téléphone placé à mi-chemin sert alors de relais.</p>
+          </div>
+          <div>
+            <span class="num" data-i18n="ho.3n">Poche haute</span>
+            <h3 data-i18n="ho.3h">plutôt que fond du sac</h3>
+            <p data-i18n="ho.3p">Portez le téléphone dans une poche de poitrine ou en haut du sac, jamais sous l'eau. Et gardez votre sifflet&#8239;: il ne tombe jamais en panne de batterie.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="telecharger" class="section section-download">
+      <div class="wrap">
+        <div class="dl-icon reveal"><svg><use href="#whistle"/></svg></div>
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="dl.k">Gratuite, pour de bon</p>
+          <h2 class="h-xl" data-i18n="dl.h">Bientôt prête pour<br><em>votre prochaine sortie.</em></h2>
+          <p class="lead" data-i18n="dl.lead">Siflo est en cours de validation sur Google Play. Elle sera gratuite, sans publicité ni compte&#8239;; si elle vous aide en sortie, vous pourrez laisser un pourboire depuis ses réglages.</p>
+        </div>
+        <div class="dl-buttons reveal">
+          <span class="store pending" data-badge="Bientôt" data-i18n-badge="dl.badge" role="img" aria-label="Bientôt sur Google Play" data-i18n-aria="dl.aria">
+            <svg viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8z"/><path fill="#ffce00" d="m18.3 15.2-3.9-3.9 3.9-3.9 3.6 2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="m14.4 11.3-10.8 10.9c.4.4 1 .4 1.7.1l12.9-7.3z"/><path fill="#00f076" d="M14.4 11.3 18.2 7.4 5.3.2C4.6-.2 4 0 3.6.4z"/></svg>
+            <span><small data-i18n="dl.s1">Bientôt sur</small><b>Google Play</b></span>
+          </span>
+          <span class="store soon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>
+            <span><small data-i18n="dl.s2">iPhone</small><b data-i18n="dl.s3">Prévue plus tard</b></span>
+          </span>
+        </div>
+        <p class="dl-note reveal" data-i18n="dl.note">Android 8 ou plus récent. Les mises à jour suivront les essais sur le terrain avec des groupes de canyon, d'escalade et de spéléo.</p>
+      </div>
+    </section>
+
+    <section id="aide" class="section section-faq">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="fq.k">Aide</p>
+          <h2 class="h-lg" data-i18n="fq.h">Questions<br><em>fréquentes.</em></h2>
+        </div>
+        <div class="faq reveal">
+          <details><summary data-i18n="fq.1q">Faut-il du réseau pour utiliser Siflo&#8239;?</summary><p data-i18n="fq.1a">Non. Les téléphones se parlent directement par Bluetooth et par Wi-Fi de proximité. Si l'un d'eux capte internet, il en fait profiter le groupe, mais ce n'est pas nécessaire.</p></details>
+          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">Elle dépend surtout de ce qui sépare les téléphones&#8239;: le corps, l'eau et la roche absorbent les ondes. Comptez quelques dizaines de mètres téléphone en poche, davantage en main et à vue. Chaque téléphone du groupe relaie les autres, ce qui allonge la chaîne.</p></details>
+          <details><summary data-i18n="fq.3q">Est-ce que ça vide la batterie&#8239;?</summary><p data-i18n="fq.3a">Siflo vise une journée de 10 heures en n'utilisant pas plus d'un tiers de la batterie. La radio n'augmente sa portée que lorsqu'un message n'est pas reçu, et un mode économie est disponible. Ces valeurs seront confirmées par les essais sur le terrain.</p></details>
+          <details><summary data-i18n="fq.4q">Mes messages sont-ils privés&#8239;?</summary><p data-i18n="fq.4a">Oui. Ils sont chiffrés de bout en bout&#8239;: seuls les membres du groupe peuvent les lire, pas même notre serveur relais. Il n'y a ni compte, ni numéro de téléphone, ni publicité. Détails dans la <a href="privacy/#francais">politique de confidentialité</a>.</p></details>
+          <details><summary data-i18n="fq.5q">Siflo existe-t-elle sur iPhone&#8239;?</summary><p data-i18n="fq.5a">Pas encore. Siflo sortira d'abord sur Android&#8239;; une version iPhone est prévue, et le cœur de l'application a été écrit pour pouvoir y être repris.</p></details>
+          <details><summary data-i18n="fq.6q">Combien coûte Siflo&#8239;?</summary><p data-i18n="fq.6a">Rien, et cela restera ainsi. Si l'application vous rend service, vous pouvez laisser un pourboire depuis ses réglages, par Google Play.</p></details>
+          <details><summary data-i18n="fq.7q">Qui développe Siflo&#8239;?</summary><p data-i18n="fq.7a">Siflo est développée par Guardia SAS, société française, dans le cadre de son activité <a href="https://aidiligence.eu">AI Diligence</a>.</p></details>
+        </div>
+        <div class="support reveal">
+          <p><span data-i18n="sp.1">Une question, un problème, une idée&#8239;?</span><b data-i18n="sp.2">Écrivez-nous, nous répondons à chaque message.</b></p>
+          <a class="btn btn-primary" href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
+      <nav aria-label="Liens" data-i18n-aria="foot.aria">
+        <a href="privacy/" data-i18n="foot.privacy">Confidentialité</a>
+        <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
+        <a href="https://aidiligence.eu">AI Diligence</a>
+      </nav>
+      <p>Guardia SAS · SIREN 910 991 140</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Capture agrandie" data-i18n-aria="lb.aria" hidden>
+    <button class="lb-close" aria-label="Fermer" data-i18n-aria="lb.close">×</button>
+    <button class="lb-nav lb-prev" aria-label="Capture précédente" data-i18n-aria="lb.prev">‹</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button class="lb-nav lb-next" aria-label="Capture suivante" data-i18n-aria="lb.next">›</button>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/vendor/SplitText.min.js"></script>
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
