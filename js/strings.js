@@ -121,7 +121,7 @@ export const STRINGS = {
     'film.p1': 'Deep in the canyon, the whistle is lost in the roar of the water.', 'film.p2': 'The message hops from phone to phone, all the way to those who went ahead.',
     'film.p3': 'STOP in one tap, for one person: received, then seen.', 'film.p4': 'Relayed phone to phone with no signal; the internet takes over if someone has signal.',
     'film.p5': 'The SOS alerts every Siflo phone in range, even those of other groups.', 'film.p6': 'Messages, photos, voice notes, and a QR code to join the group.',
-    'film.play': 'Play the video', 'film.note': 'No voice-over · best with sound on',
+    'film.play': 'Play the video',
     'ft.k': 'More than signals', 'ft.h': 'Everything you need<br><em>to stay in touch.</em>',
     'ft.1h': 'Messages, photos and voice notes', 'ft.1p': 'To the group or privately to one person, end-to-end encrypted. You can react with an emoji, and edit or delete your own messages.',
     'ft.2h': 'SOS with your location', 'ft.2p': 'Hold the button for two seconds: the SOS reaches every Siflo phone in range, even outside your groups, and repeats every minute.',
