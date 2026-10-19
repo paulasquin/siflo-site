@@ -1,7 +1,7 @@
 // Act · mesh — a contour map of the gorge. Signals hop from phone to phone over
 // Bluetooth, a member on the ridge bridges a distant subgroup through the blind
-// relay, a late member gets the stored message back in range, then an SOS reaches
-// every Siflo phone around, even from another group.
+// relay, a member who fell behind upstream gets the stored message back in range,
+// then an SOS reaches every Siflo phone around, even from another group.
 import * as THREE from 'three';
 import { smooth, clamp01, frameOpposite, QUALITY } from '../kit/fx.js';
 import { t as tr } from '../kit/i18n.js';
@@ -89,8 +89,8 @@ export class MeshAct {
       b0: at(rx(-24) - 5.5, -24), b1: at(rx(-30), -30), b2: at(rx(-36) + 0.4, -36),
       s1: at(rx(-31) + 7.5, -32), s2: at(rx(-41) - 6, -42),
     };
-    this.lateFrom = at(rx(10) + 19, 10);
-    this.lateTo = at(rx(6) + 5.5, 7.5);
+    this.lateFrom = at(rx(36) + 0.5, 36);
+    this.lateTo = at(rx(26) - 0.4, 26);
     this.P = P;
     this.nodes = {};
     this.discs = {};
@@ -122,7 +122,7 @@ export class MeshAct {
       b01: arc(P.b0, P.b1), b12: arc(P.b1, P.b2),
       up: arc(P.a3, this.relayPos, { lift: 3, color: OK_GREEN, dashed: true }),
       down: arc(this.relayPos, P.b0, { lift: 3, color: OK_GREEN, dashed: true }),
-      late: arc(P.a2, this.lateTo, { lift: 1.2 }),
+      late: arc(P.a0, this.lateTo, { lift: 1.2 }),
     };
     this.rings = new Rings(10);
     s.add(this.rings);
@@ -140,6 +140,7 @@ export class MeshAct {
       g4: labels.add(tr('label.4g'), P.a3.clone().add(new THREE.Vector3(0, 1.2, 0)), { warm: true }),
       relay: labels.add(tr('label.relaysrv'), this.relayPos.clone().add(new THREE.Vector3(0, 1.6, 0)), { warm: true }),
       far: labels.add(tr('label.far'), P.b1.clone().add(new THREE.Vector3(0, 1.2, 0))),
+      behind: labels.add(tr('label.behind'), this.lateFrom.clone().add(new THREE.Vector3(0, 1.2, 0))),
       late: labels.add(tr('label.late'), this.lateTo.clone().add(new THREE.Vector3(0, 1.2, 0))),
       sos: labels.add(tr('label.sos'), P.b2.clone().add(new THREE.Vector3(0, 1.2, 0)), { side: 'left' }),
       stranger: labels.add(tr('label.stranger'), P.s1.clone().add(new THREE.Vector3(0, 1.2, 0))),
@@ -149,7 +150,7 @@ export class MeshAct {
     this.keys = [
       K(rx(11) + 2, 9, 50, 0.5, 0.95),
       K(4, -6, 88, 0.15, 1.12),
-      K(rx(7) + 5, 7, 44, 0.75, 0.92),
+      K(rx(24) + 1, 22, 44, 0.75, 0.92),
       K(rx(-33) + 2, -33, 50, 0.3, 0.98),
     ];
     this.cam = { t: new THREE.Vector3(), dist: 0, yaw: 0, pitch: 0 };
@@ -227,7 +228,7 @@ export class MeshAct {
       if (s === 2) this.packets.send(A.b01.curve, { dur: 0.6, onArrive: () => N.b1.flash() });
       if (s === 3) this.packets.send(A.b12.curve, { dur: 0.6, onArrive: () => N.b2.flash() });
     });
-    // 3 · Back in range: the stored message reaches the late member.
+    // 3 · Back in range: the stored message reaches the member who fell behind.
     if (lateIn && p < 2.6) this.loopL.tick(() => this.packets.send(A.late.curve, { dur: 0.7, onArrive: () => { N.late.flash('#ffffff'); this.rings.emit(N.late.position, { size: 3.5, dur: 0.9 }); } }));
     // 4 · SOS: red rings from Marc's phone, every phone in range flashes, other group included.
     const sos = w4 > 0.5;
@@ -247,6 +248,7 @@ export class MeshAct {
     lb.show(L.g4, w2 > 0.5 && p < 1.5);
     lb.show(L.relay, w2 > 0.5 && p < 1.5);
     lb.show(L.far, w2 > 0.5 && p < 1.4);
+    lb.show(L.behind, p > 1.2 && lu < 0.5);
     lb.show(L.late, lateIn && p < 2.5);
     lb.show(L.sos, sos);
     lb.show(L.stranger, sos);

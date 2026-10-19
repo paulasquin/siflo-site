@@ -1,5 +1,5 @@
-// Act · signal — Julie's phone sends STOP, Marc's phone rings full screen and
-// vibrates, then the acknowledgements come back member by member. The screens are
+// Act · signal — Julie's phone sends STOP to Marc alone, Marc's phone rings full
+// screen and vibrates, then the two acknowledgements come back (received, then seen). The screens are
 // canvases redrawn from the app's dark theme (Theme.kt) in the page language.
 import * as THREE from 'three';
 import { smooth, clamp01, frameOpposite, studioEnvironment, QUALITY } from '../kit/fx.js';
@@ -41,8 +41,12 @@ function drawSignals(g, { press = 0, sent = false, acks = 0 }) {
   g.fillStyle = C.primary; g.fillRect(0, 270, SW / 2, 6);
   // chip
   g.textAlign = 'left';
-  roundRect(g, 40, 310, 210, 58, 14); g.fillStyle = C.chip; g.fill();
-  g.fillStyle = C.ink; g.font = F(500, 24); g.fillText(tr('phone.all'), 62, 348);
+  g.fillStyle = C.muted; g.font = F(500, 24); g.fillText(tr('phone.to'), 40, 348);
+  const toX = 40 + g.measureText(tr('phone.to')).width + 16;
+  roundRect(g, toX, 310, 150, 58, 14); g.fillStyle = C.chip; g.fill();
+  g.beginPath(); g.arc(toX + 30, 339, 14, 0, Math.PI * 2); g.fillStyle = '#e8d046'; g.fill();
+  g.fillStyle = '#1d0a00'; g.font = F(700, 15); g.textAlign = 'center'; g.fillText('M', toX + 30, 344);
+  g.textAlign = 'left'; g.fillStyle = C.ink; g.font = F(500, 24); g.fillText('Marc', toX + 54, 348);
   // buttons
   const labels = ['phone.stop', 'phone.ok', 'phone.release', 'phone.pull'];
   BTN.forEach(([x, y], i) => {
@@ -70,22 +74,18 @@ function drawSignals(g, { press = 0, sent = false, acks = 0 }) {
     g.textAlign = 'left';
     return;
   }
-  // status card with acknowledgements
-  roundRect(g, 40, 860, SW - 80, 400, 28); g.fillStyle = C.card; g.fill();
+  // status card: the recipient's acknowledgements, received then seen
+  roundRect(g, 40, 860, SW - 80, 230, 28); g.fillStyle = C.card; g.fill();
   g.fillStyle = C.ink; g.font = F(600, 26); g.fillText(`STOP · ${tr('phone.sent')}`, 70, 912);
-  g.fillStyle = C.muted; g.font = F(500, 19); g.fillText(tr('phone.members.h'), 70, 962);
-  const rows = [['J', tr('phone.you'), '#ff8a3d', null], ['M', 'Marc', '#e8d046', acks >= 1], ['L', 'Léa', '#3d8bd4', acks >= 2], ['T', 'Tom', '#c94a6a', false]];
-  rows.forEach(([ini, name, col, ok], i) => {
-    const y = 1010 + i * 62;
-    g.beginPath(); g.arc(92, y - 8, 22, 0, Math.PI * 2); g.fillStyle = col; g.fill();
-    g.fillStyle = '#1d0a00'; g.font = F(700, 20); g.textAlign = 'center'; g.fillText(ini, 92, y);
-    g.textAlign = 'left'; g.fillStyle = C.ink; g.font = F(500, 25); g.fillText(name, 132, y);
-    if (ok === null) return;
-    g.textAlign = 'right';
-    if (ok) { g.fillStyle = C.ok; g.font = F(600, 23); g.fillText(`✓ ${tr('phone.received')}`, SW - 70, y); }
-    else { g.fillStyle = C.muted; g.font = F(400, 22); g.fillText(tr('phone.waiting'), SW - 70, y); }
-    g.textAlign = 'left';
-  });
+  g.fillStyle = C.muted; g.font = F(500, 19); g.fillText(tr('phone.recipient.h'), 70, 962);
+  const y = 1030;
+  g.beginPath(); g.arc(92, y - 8, 22, 0, Math.PI * 2); g.fillStyle = '#e8d046'; g.fill();
+  g.fillStyle = '#1d0a00'; g.font = F(700, 20); g.textAlign = 'center'; g.fillText('M', 92, y);
+  g.textAlign = 'left'; g.fillStyle = C.ink; g.font = F(500, 25); g.fillText('Marc', 132, y);
+  g.textAlign = 'right';
+  if (acks) { g.fillStyle = C.ok; g.font = F(600, 23); g.fillText(tr(acks > 1 ? 'phone.seen' : 'phone.received'), SW - 70, y); }
+  else { g.fillStyle = C.muted; g.font = F(400, 22); g.fillText(tr('phone.waiting'), SW - 70, y); }
+  g.textAlign = 'left';
 }
 
 function drawAlert(g, k) {
@@ -224,7 +224,7 @@ export class SignalAct {
     this.lab = {
       press: labels.add(tr('label.press'), this.stopPt.clone(), { object: this.a, side: 'left' }),
       vibrate: labels.add(tr('label.vibrate'), new THREE.Vector3(0.5, 0.7, 0.05), { object: this.b }),
-      acks: labels.add(tr('label.acks'), screenPoint(SW - 60, 1060, 0.06), { object: this.a, warm: true }),
+      acks: labels.add(tr('label.acks'), screenPoint(SW - 60, 1022, 0.06), { object: this.a, warm: true }),
     };
     this.v = new THREE.Vector3();
     this.w = new THREE.Vector3();
@@ -305,11 +305,10 @@ export class SignalAct {
     }
     this.b.position.x += jitter;
     this.b.rotation.z += jitter * 1.5;
-    // Acknowledgements fly back to A in green.
+    // Acknowledgements fly back from B to A in green.
     if (acks > this.acks) {
-      const aCard = this.a.localToWorld(screenPoint(SW - 110, acks === 1 ? 1072 : 1134, 0.06));
-      const from = acks === 1 ? bScreen : this.v.set(3.5, 1.2, -1);
-      this.packets.send(arcCurve(from, aCard, 0.6), { color: OK_GREEN, size: 0.45, dur: 0.6 });
+      const aCard = this.a.localToWorld(screenPoint(SW - 110, 1022, 0.06));
+      this.packets.send(arcCurve(bScreen, aCard, 0.6), { color: OK_GREEN, size: 0.45, dur: 0.6 });
     }
     this.acks = acks;
     this.rings.update(this.camera);

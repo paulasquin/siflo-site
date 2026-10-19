@@ -12,7 +12,7 @@ registerStrings(STRINGS);
 const SCREENS = {
   fr: [
     ['01-fr-signals', 'Les quatre signaux et le SOS'],
-    ['02-fr-home', "L'accueil : vos groupes et les personnes à proximité"],
+    ['02-fr-home', "L'accueil : vos groupes et les personnes à proximité"],
     ['03-fr-group', 'Le QR code du groupe, à scanner sans réseau'],
   ],
   en: [
@@ -34,7 +34,7 @@ function renderScreens() {
 /** The relay row scrambles: a message, its ciphertext as seen by the relay, the same message decrypted. */
 function setupCipher() {
   const msgs = LANG === 'fr'
-    ? ['STOP · de Julie', 'OK · de Marc', 'Rappel en place', 'On se retrouve au pied du 3e rappel']
+    ? ['STOP · de Julie', 'OK · de Marc', 'Rappel en place', 'On se retrouve au pied du 3ᵉ rappel']
     : ['STOP · from Julie', 'OK · from Marc', 'Rope rigged', 'Meet at the foot of the 3rd rappel'];
   const plain = $('#cipher-plain'), noise = $('#cipher-noise'), out = $('#cipher-out');
   const hex = (n) => Array.from({ length: n }, () => '0123456789abcdef'[(Math.random() * 16) | 0]).join('');

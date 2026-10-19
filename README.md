@@ -12,10 +12,10 @@ python3 -m http.server 8792 --bind 127.0.0.1   # http://127.0.0.1:8792/  (?debug
 
 | Part | File | What it shows |
 | --- | --- | --- |
-| Act `canyon` | `js/acts/canyon.js` | Hero: a procedural gorge at dusk. Julie whistles at the top of a waterfall, the rings tear apart in the roar, then the phones relay the signal down the group. |
-| Act `signal` | `js/acts/signal.js` | Julie's phone sends STOP, Marc's phone rings full screen and vibrates, acknowledgements come back. The screens are canvases drawn from the app's dark theme, in the page language. |
-| Act `mesh` | `js/acts/mesh.js` | Contour map: Bluetooth hops, a ridge member's 4G bridging a far subgroup through the blind relay, a late member back in range, an SOS reaching another group. |
-| Sections | `index.html` | Film, features, screenshots, privacy (the relay's view is scrambled by `main.js`), what to know before going out (range, rock and water), download, FAQ and support. |
+| Act `canyon` | `js/acts/canyon.js` | Hero: a procedural gorge at dusk. Julie whistles at the top of a waterfall, the rings tear apart in the roar, then her message (the rope is stuck) hops from phone to phone down to Léa and Tom, who went ahead, and the acknowledgements come back. |
+| Act `signal` | `js/acts/signal.js` | Julie's phone sends STOP to Marc alone, Marc's phone rings full screen and vibrates, then "received" and "seen" come back. The screens are canvases drawn from the app's dark theme, in the page language. |
+| Act `mesh` | `js/acts/mesh.js` | Contour map: Bluetooth hops, a ridge member's 4G bridging a far subgroup through the blind relay, a member who fell behind upstream getting the stored messages back in range, an SOS reaching another group. |
+| Sections | `index.html` | Field cases (four sourced situations where voice and whistle fail: Petzl, canyon instructor handbook, ULSA, FFME), film, features, screenshots, privacy (the relay's view is scrambled by `main.js`), what to know before going out (range, rock and water), download, FAQ and support. |
 
 - Shared 3D pieces: `js/world/common.js` (noise, dusk sky, beacons, rings, arcs, packets, `panelPos()`: each act is driven by the panel coordinate, 0 when its first card is centred, 1 for the second… computed from the layout in `main.js`).
 - Copy: French in `index.html`, English in `js/strings.js` (`static`), strings drawn by scripts in `js/strings.js` (`ui`). French copy follows the house style (natural French, French typography); proofread both languages after each change.

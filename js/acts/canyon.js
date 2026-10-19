@@ -1,6 +1,7 @@
 // Act · canyon — hero. A procedural gorge at dusk: the camera glides in from above,
 // Julie whistles at the top of a waterfall and the rings tear apart in the roar,
-// then the phones of the group relay the signal from one to the next.
+// then her message (the rope is stuck) hops from phone to phone down to the members
+// who went ahead, and their acknowledgements come back.
 import * as THREE from 'three';
 import { smooth, clamp01, QUALITY } from '../kit/fx.js';
 import { t as tr } from '../kit/i18n.js';
@@ -234,7 +235,7 @@ export class CanyonAct {
     this.mist = buildMist(Math.round(260 * QUALITY.particles + 60));
     s.add(this.mist);
 
-    // The group: Julie at the top of the fall, Marc at the bottom, Léa and Tom further down.
+    // The group: Julie at the top of the fall, Marc at the bottom, Léa and Tom gone ahead downstream.
     const spots = {
       lea: new THREE.Vector3(cx(-21) + 2.6, -0.4, -21),
       julie: new THREE.Vector3(cx(-8.6) - 1.4, floorY(0), -8.6),
@@ -282,8 +283,9 @@ export class CanyonAct {
     this.lab = {
       whistle: labels.add(tr('label.whistle'), c.julie.clone().add(new THREE.Vector3(0, 0.7, 0)), { side: 'left' }),
       fall: labels.add(tr('label.waterfall'), new THREE.Vector3(cx(FALL_Z) + 1.5, 2.4, FALL_Z - 1.4)),
-      julie: labels.add(tr('label.julie'), c.julie.clone().add(new THREE.Vector3(0, 0.5, 0)), { side: 'left' }),
+      julie: labels.add(tr('label.julie'), c.julie.clone().add(new THREE.Vector3(0, 0.5, 0))),
       marc: labels.add(tr('label.relay'), c.marc.clone().add(new THREE.Vector3(0, 0.4, 0))),
+      ahead: labels.add(tr('label.ahead'), c.tom.clone().add(new THREE.Vector3(0, 0.5, 0))),
     };
 
     // Camera keys (position, target), held while their card is on screen.
@@ -347,7 +349,7 @@ export class CanyonAct {
     if (ph1 > 0.5) this.whistle.tick(() => {
       this.rings.emit(this.chest.julie, { color: '#ffd9bf', size: 9, dur: 2.2, alpha: 0.55, brokenFrom: 0.2, width: 0.025 });
     });
-    // Phase 2 (answer): the signal hops Julie → Léa and Marc, then Marc → Tom; acknowledgements come back.
+    // Phase 2 (answer): the message hops Julie → Marc → Léa → Tom; acknowledgements come back.
     const ph2 = smooth(1.4, 1.65, p);
     const A = this.arcs;
     A.jm.show = ph2; A.ml.show = smooth(1.45, 1.7, p); A.lt.show = smooth(1.5, 1.8, p);
@@ -362,8 +364,11 @@ export class CanyonAct {
           this.packets.send(A.ml.curve, { dur: 0.6, onArrive: () => { B.lea.flash(); this.packets.send(A.lt.curve, { dur: 0.6, onArrive: () => B.tom.flash() }); } });
         } });
       } else if (i === 2) {
-        // Acknowledgements travel back to Julie in green.
-        this.packets.send({ getPoint: (k, out) => A.jm.curve.getPoint(1 - k, out) }, { color: OK_GREEN, size: 0.8, dur: 0.8, onArrive: () => B.julie.flash(OK_GREEN) });
+        // Acknowledgements travel back up the chain to Julie in green.
+        const back = (a) => ({ getPoint: (k, out) => a.curve.getPoint(1 - k, out) });
+        const ack = { color: OK_GREEN, size: 0.8 };
+        this.packets.send(back(A.lt), { ...ack, dur: 0.6, onArrive: () => this.packets.send(back(A.ml), { ...ack, dur: 0.6 }) });
+        this.packets.send(back(A.jm), { ...ack, dur: 0.8, onArrive: () => B.julie.flash(OK_GREEN) });
       }
     });
     for (const b of Object.values(B)) b.update(this.camera.quaternion);
@@ -375,6 +380,7 @@ export class CanyonAct {
     lb.show(L.fall, ph1 > 0.5 && p < 1.3);
     lb.show(L.julie, ph2 > 0.6);
     lb.show(L.marc, ph2 > 0.6);
+    lb.show(L.ahead, ph2 > 0.6);
     lb.update(this.camera, innerWidth, innerHeight);
   }
 }
