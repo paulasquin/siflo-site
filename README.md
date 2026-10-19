@@ -21,7 +21,7 @@ python3 -m http.server 8792 --bind 127.0.0.1   # http://127.0.0.1:8792/  (?debug
 - Copy: French in `index.html`, English in `js/strings.js` (`static`), strings drawn by scripts in `js/strings.js` (`ui`). French copy follows the house style (natural French, French typography); proofread both languages after each change.
 - Claims stay within the radio study: range "a few tens of metres", more in hand with line of sight; no "always gets through", nothing about rock or water being crossed, Siflo adds to the whistle and the radio.
 - Google Play: the app is under review, so the store button is a "coming soon" badge (`.store.pending`). Once the listing is live, turn it into a link to `https://play.google.com/store/apps/details?id=app.siflo`, and update `hero.cta1`, `dl.lead` and their English strings.
-- Film: `assets/film/siflo-fr.mp4` is the 43 s Motion film (no voice-over) re-encoded to 720p; `poster.jpg` is its frame at 27 s. An English cut would go in `data-src-en`.
+- Film: `assets/film/siflo-{fr,en}.mp4` and `poster-{fr,en}.jpg` are the 720p cuts of the 48 s film, rendered from the site's own acts by `video/` (see `video/README.md`).
 
 ## Privacy policy
 

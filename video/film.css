@@ -1,0 +1,46 @@
+/* Film overlay, injected over the page in ?capture mode by render.py (viewport 540 × 960, rendered at 2×). */
+.capture .stage-labels { visibility: visible !important; }
+.capture .s-label { font-size: 12.5px; transition: opacity .25s; }
+.capture .s-label .s-line { width: 22px; }
+
+#film { position: fixed; inset: 0; z-index: 50; pointer-events: none; font-family: var(--f-text); color: var(--ink); }
+#film .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 11, 9, 0) 42%, rgba(14, 11, 9, .55) 62%, rgba(14, 11, 9, .82) 86%); }
+#film .dip { position: absolute; inset: 0; background: #0e0b09; opacity: 0; }
+#film .flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 40%, rgba(255, 160, 90, .55), rgba(255, 106, 0, 0) 60%); opacity: 0; mix-blend-mode: screen; }
+#film .vignette { position: absolute; inset: 0; box-shadow: inset 0 0 160px 40px rgba(0, 0, 0, .55); }
+
+#film .scene { position: absolute; left: 34px; right: 34px; top: 57%; opacity: 0; }
+#film .kicker { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font-family: var(--f-mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--orange-2); }
+#film .kicker::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(255, 106, 0, .18), 0 0 18px var(--orange); }
+#film .scene.sos .kicker { color: var(--sos); }
+#film .scene.sos .kicker::before { background: var(--sos); box-shadow: 0 0 0 5px rgba(255, 90, 82, .2), 0 0 18px var(--sos); }
+#film .title { margin: 0; font-family: var(--f-display); font-weight: 300; font-size: 34px; line-height: 1.05; letter-spacing: -.035em; text-shadow: 0 2px 18px rgba(0, 0, 0, .55); }
+#film .title .ln { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.06em; }
+#film .title .w { display: inline-block; will-change: transform; }
+#film .title .ln.glow .w { font-weight: 600; background: linear-gradient(95deg, #fff 0%, var(--peach) 24%, var(--orange-2) 60%, var(--orange) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; filter: drop-shadow(0 2px 14px rgba(0, 0, 0, .5)); }
+#film .scene.sos .title .ln.glow .w { background: linear-gradient(95deg, #fff 0%, #ffd0c8 30%, var(--sos) 100%); -webkit-background-clip: text; background-clip: text; }
+#film .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+#film .chips li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(16, 12, 9, .72); font-size: 14px; opacity: 0; }
+#film .chips li i { font-style: normal; font-family: var(--f-mono); color: var(--orange-2); }
+#film .chips li.ok i { color: var(--ok); }
+
+/* Feature montage: real app screens in phone frames. */
+#film .montage { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse 80% 55% at 50% 30%, #3a1d0c 0%, #160f0b 55%, #0b0806 100%); overflow: hidden; }
+#film .montage .glow { position: absolute; left: 50%; top: 27%; width: 520px; height: 520px; margin: -260px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 0, .35), transparent 65%); }
+#film .montage .dot { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255, 170, 110, .55), transparent 70%); }
+#film .phone { position: absolute; top: 9%; width: 190px; aspect-ratio: 1 / 2; border-radius: 26px; padding: 7px; background: linear-gradient(160deg, #3a302a, #17120f); box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 196, 160, .18); }
+#film .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 20px; }
+
+/* End card. */
+#film .end { position: absolute; inset: 0; opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 30px 150px; }
+#film .end .bg { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 60% at 50% 42%, rgba(14, 11, 9, .55), rgba(14, 11, 9, .9) 75%); }
+#film .end > :not(.bg) { position: relative; }
+#film .mark { width: 112px; height: 112px; border-radius: 30px; display: grid; place-items: center; background: linear-gradient(150deg, #ff8a3d, #ff6a00 60%, #e25400); box-shadow: 0 18px 50px rgba(255, 106, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .35); }
+#film .mark svg { width: 78px; height: 78px; }
+#film .mark .arc { opacity: .15; }
+#film .end h2 { margin: 26px 0 0; font-family: var(--f-display); font-weight: 600; font-size: 58px; letter-spacing: -.04em; line-height: 1; }
+#film .end .tag { margin: 18px 0 0; font-family: var(--f-display); font-weight: 300; font-size: 25px; line-height: 1.18; letter-spacing: -.02em; }
+#film .end .tag b { font-weight: 600; background: linear-gradient(95deg, var(--peach), var(--orange-2) 55%, var(--orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#film .end .facts { margin: 26px 0 0; font-family: var(--f-mono); font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+#film .end .store { margin: 22px 0 0; display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(16, 12, 9, .7); font-size: 15px; }
+#film .end .url { margin: 14px 0 0; font-size: 14px; color: var(--ink-3); letter-spacing: .02em; }

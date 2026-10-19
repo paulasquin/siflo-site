@@ -61,6 +61,7 @@ function setupCipher() {
 /** Self-hosted film (no third-party request): the source is attached on the first click. */
 function setupFilm() {
   const box = $('#film-player'), video = $('#film-video');
+  if (LANG !== 'fr') video.poster = video.dataset.posterEn;
   $('.film-play', box).addEventListener('click', () => {
     if (!video.src) {
       video.src = video.dataset[LANG === 'fr' ? 'srcFr' : 'srcEn'];
