@@ -50,3 +50,7 @@ Custom shaders output linear colours that the final pass tone-maps and converts 
 ## Deployment
 
 GitHub Pages, `main` branch, repository root; the domain is declared by `CNAME`. DNS (OVH, zone `aidiligence.eu`): `siflo CNAME paulasquin.github.io.`
+
+## Relay list
+
+`relays.txt` is the chain of Siflo relays the apps use, signed with Ed25519 (format and rules: `docs/protocol.md`, "Relay chain", in `paulasquin/siflo`). The apps fetch `https://siflo.app/relays.txt` once a day and only take a list that verifies and was issued after theirs: never edit it by hand, regenerate it with `server/sign_relays.py` of the siflo repository. Until siflo.app serves it, the apps keep the chain they were built with.
