@@ -16,6 +16,6 @@ for lang in fr en; do
     -tag:v hvc1 -c:a aac -b:a 128k -movflags +faststart "out/siflo-film-$lang-yt.mp4"
   ffmpeg -hide_banner -loglevel error -y -i "out/siflo-film-$lang.mp4" -vf scale=720:1280:flags=lanczos \
     -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "../assets/film/siflo-$lang.mp4"
-  ffmpeg -hide_banner -loglevel error -y -ss 44.6 -i "out/siflo-film-$lang.mp4" -frames:v 1 -vf scale=720:1280 -q:v 4 "../assets/film/poster-$lang.jpg"
+  ffmpeg -hide_banner -loglevel error -y -ss 46.5 -i "out/siflo-film-$lang.mp4" -frames:v 1 -vf scale=720:1280 -q:v 4 "../assets/film/poster-$lang.jpg"
   ls -lh "out/siflo-film-$lang.mp4" "out/siflo-film-$lang-yt.mp4" "../assets/film/siflo-$lang.mp4" | awk '{print $5, $9}'
 done
