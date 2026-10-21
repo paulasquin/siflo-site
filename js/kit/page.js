@@ -30,6 +30,7 @@ export function setupAnchors() {
     if (id.length < 2 || !$(id)) return;
     e.preventDefault();
     $('.topnav')?.classList.remove('open');
+    $('.nav-toggle')?.setAttribute('aria-expanded', 'false');
     scrollToTarget(id);
   }));
 }
