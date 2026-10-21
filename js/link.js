@@ -1,7 +1,9 @@
 // Landing pages of the app links: page language, and on a phone a button that hands the link to the app (siflo:// on
 // iPhone, an intent on Android: the page shows when a camera or scanner app opens the link in a browser instead of Siflo).
 // The invitation or identity card sits in the fragment, which the browser never sends to the server.
-const en = !/^fr\b/i.test(new URLSearchParams(location.search).get('lang') || navigator.language || '');
+let saved = null;
+try { saved = localStorage.getItem('lang'); } catch (e) {}
+const en = !/^fr\b/i.test(new URLSearchParams(location.search).get('lang') || saved || navigator.language || '');
 document.documentElement.lang = en ? 'en' : 'fr';
 document.querySelectorAll('[lang="fr"]').forEach(e => { e.hidden = en; });
 document.querySelectorAll('[lang="en"]').forEach(e => { e.hidden = !en; });

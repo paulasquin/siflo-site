@@ -1,7 +1,7 @@
 """Builds siflo.app from the texts kept in the Siflo repository.
 
 The privacy policy is written in `siflo/docs/play/privacy-policy.md`; this script turns it into a
-static page, next to a support page. Run from the repository root:
+static page, plus the /confidentialite/ redirect. Run from the repository root:
 
     uv run --with markdown python tools/build.py [path/to/siflo]
 """
@@ -18,6 +18,7 @@ SIFLO = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT.parent / "siflo")
 PLAY = SIFLO / "docs" / "play"
 
 CONTACT = "contact@aidiligence.eu"
+INSTAGRAM = "https://www.instagram.com/siflo.app/"
 PUBLISHER = "Guardia SAS — SIREN 910 991 140"
 
 STYLE = """
@@ -47,6 +48,8 @@ def page(title: str, body: str, depth: int) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
+<meta name="description" content="Siflo privacy policy: no account, end-to-end encryption, what the relays see. Politique de confidentialité de Siflo.">
+<link rel="canonical" href="https://siflo.app/privacy/">
 <link rel="icon" href="{up}assets/icon.png">
 <style>{STYLE}</style>
 </head>
@@ -55,10 +58,10 @@ def page(title: str, body: str, depth: int) -> str:
 <header>
   <img src="{up}assets/icon.png" alt="">
   <a href="{up}">Siflo</a>
-  <nav><a href="{up}privacy/">Privacy</a><a href="{up}privacy/#francais">Confidentialité</a></nav>
+  <nav><a href="{up}privacy/">Privacy</a><a lang="fr" href="{up}privacy/#francais">Confidentialité</a></nav>
 </header>
 {body}
-<footer>{html.escape(PUBLISHER)} — <a href="mailto:{CONTACT}">{CONTACT}</a></footer>
+<footer>{html.escape(PUBLISHER)} — <a href="mailto:{CONTACT}">{CONTACT}</a> — <a href="{INSTAGRAM}">Instagram</a></footer>
 </main>
 </body>
 </html>
@@ -78,6 +81,11 @@ def from_markdown(name: str) -> tuple[str, str]:
     # The data deletion URL given to Google Play.
     body = body.replace("<p><strong>Delete your data.</strong>", '<p id="delete"><strong>Delete your data.</strong>')
     body = body.replace("<p><strong>Supprimer vos données.</strong>", '<p id="supprimer"><strong>Supprimer vos données.</strong>')
+    # The French half: marked as such, with French spacing before : ; ! ? and inside « ».
+    en, fr = body.split('<h2 id="francais">', 1)
+    fr = re.sub(r" ([:;!?»])", "\u202f\\1", '<h2 id="francais">' + fr).replace("« ", "«\u202f")
+    body = f'{en}<section lang="fr">\n{fr}\n</section>'
+    body = re.sub(r"(?<![:>])" + re.escape(CONTACT), f'<a href="mailto:{CONTACT}">{CONTACT}</a>', body)
     return title, body
 
 
@@ -89,10 +97,11 @@ def write(path: str, content: str) -> None:
 
 
 REDIRECT = """<!doctype html>
+<html lang="fr">
 <meta charset="utf-8">
 <title>Siflo</title>
 <meta http-equiv="refresh" content="0; url=../privacy/#francais">
-<link rel="canonical" href="../privacy/">
+<link rel="canonical" href="https://siflo.app/privacy/">
 <a href="../privacy/#francais">Politique de confidentialité</a>
 """
 

@@ -317,7 +317,8 @@ main { position: relative; z-index: 2; }
 .store svg { width: 28px; height: 28px; }
 .store small { display: block; font-size: 11px; letter-spacing: .04em; opacity: .8; }
 .store b { display: block; font-size: 19px; font-weight: 600; line-height: 1.15; }
-.store.pending { position: relative; }
+.store.pending { position: relative; cursor: default; }
+.store.pending:hover { transform: none; border-color: rgba(255, 255, 255, .25); }
 .store.pending::after { content: attr(data-badge); position: absolute; top: -10px; right: -10px; padding: 3px 9px; border-radius: 999px; background: var(--orange); color: #1d0a00; font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .dl-note { max-width: 620px; margin: 0 auto; font-size: 15px; }
 
