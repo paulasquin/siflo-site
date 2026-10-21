@@ -37,7 +37,7 @@ uv run --with markdown python tools/build.py ../siflo
 | `/` | Presentation, support and FAQ (FR/EN) |
 | `/privacy/` | Privacy policy (EN + FR), the URL given to Google Play |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
-| `/j/`, `/id/` | Landing pages of the app links (group invitation, identity card) when Siflo is not installed; `js/link.js` picks the language and, on iPhone, offers `siflo://`. The payload stays in the fragment, never sent to the server |
+| `/j/`, `/id/` | Landing pages of the app links (group invitation, identity card) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
 | `/robots.txt`, `/sitemap.xml` | Crawlers: the home page and the privacy policy (`/j/` and `/id/` are `noindex`) |
 | `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
 
