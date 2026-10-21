@@ -75,6 +75,9 @@ def from_markdown(name: str) -> tuple[str, str]:
     # Stable anchors for the two languages.
     body = body.replace("<h2>English</h2>", '<h2 id="english">English</h2>')
     body = body.replace("<h2>Français</h2>", '<h2 id="francais">Français</h2>')
+    # The data deletion URL given to Google Play.
+    body = body.replace("<p><strong>Delete your data.</strong>", '<p id="delete"><strong>Delete your data.</strong>')
+    body = body.replace("<p><strong>Supprimer vos données.</strong>", '<p id="supprimer"><strong>Supprimer vos données.</strong>')
     return title, body
 
 
