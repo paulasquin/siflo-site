@@ -11,7 +11,7 @@
     s5: { k: 'Sans réseau mobile', l: ['De proche en proche,', 'même en zone blanche.'], chips: [['•', 'Bluetooth'], ['•', 'Internet, si un membre a du réseau'], ['•', 'Messages reçus au retour à portée']] },
     s6: { k: 'SOS', l: ['SOS en deux secondes,', 'reçu par tous à portée.'] },
     s7: { k: 'Et aussi', l: ['Messages, photos, vocaux.', 'Invitation par QR code.'] },
-    end: { tag: ['La communication de groupe', 'dehors, même hors ligne.'], facts: 'Gratuite · sans compte · sans publicité', store: 'Disponible sur Google Play · bientôt sur iPhone' },
+    end: { tag: ['La communication de groupe', 'dehors, même hors ligne.'], facts: 'Gratuite · sans compte · sans publicité', play: ['Disponible sur', 'Google Play'], apple: ['Télécharger dans', 'l’App Store'], soon: 'Bientôt' },
     screens: ['01-fr-signals', '03-fr-group', '02-fr-home'],
   } : {
     s1: { k: 'Outdoor communication', l: ['Stay in touch outdoors,', 'even offline.'] },
@@ -21,7 +21,7 @@
     s5: { k: 'No signal', l: ['Relayed phone to phone,', 'even with no signal.'], chips: [['•', 'Bluetooth'], ['•', 'Internet, if someone has signal'], ['•', 'Catch up when back in range']] },
     s6: { k: 'SOS', l: ['SOS in two seconds,', 'reaching everyone in range.'] },
     s7: { k: 'And more', l: ['Texts, photos, voice notes.', 'Invite with a QR code.'] },
-    end: { tag: ['Group communication', 'outdoors, even offline.'], facts: 'Free · no account · no ads', store: 'Get it on Google Play · coming soon to iPhone' },
+    end: { tag: ['Group communication', 'outdoors, even offline.'], facts: 'Free · no account · no ads', play: ['Get it on', 'Google Play'], apple: ['Download on the', 'App Store'], soon: 'Soon' },
     screens: ['03-chat', '04-invite', '01-signals'],
   };
   // Scene timing on the 96 BPM grid of the score (one bar = 2.5 s). chipsAt: when each chip appears.
@@ -61,7 +61,10 @@
       <h2>Siflo</h2>
       <p class="tag">${T.end.tag[0]}<br><b>${T.end.tag[1]}</b></p>
       <p class="facts">${T.end.facts}</p>
-      <p class="store">${T.end.store}</p>
+      <div class="stores">
+        <span class="store"><svg viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8z"/><path fill="#ffce00" d="m18.3 15.2-3.9-3.9 3.9-3.9 3.6 2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="m14.4 11.3-10.8 10.9c.4.4 1 .4 1.7.1l12.9-7.3z"/><path fill="#00f076" d="M14.4 11.3 18.2 7.4 5.3.2C4.6-.2 4 0 3.6.4z"/></svg><span><small>${T.end.play[0]}</small><b>${T.end.play[1]}</b></span></span>
+        <span class="store pending" data-badge="${T.end.soon}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span><small>${T.end.apple[0]}</small><b>${T.end.apple[1]}</b></span></span>
+      </div>
       <p class="url">siflo.app</p>
     </div>
     <div class="vignette"></div>
@@ -137,7 +140,7 @@
       const pop = outExpo(ramp(lt, 0.1, 1.0));
       $('.mark', end).style.transform = `scale(${0.6 + 0.4 * pop}) rotate(${(1 - pop) * -12}deg)`;
       arcs.forEach((a, i) => { a.style.opacity = 0.15 + 0.85 * clamp((lt - 0.7 - i * 0.22) / 0.2); });
-      [['h2', 1.0], ['.tag', 1.4], ['.facts', 2.0], ['.store', 2.4], ['.url', 2.7]].forEach(([sel, at]) => {
+      [['h2', 1.0], ['.tag', 1.4], ['.facts', 2.0], ['.stores', 2.4], ['.url', 2.7]].forEach(([sel, at]) => {
         const e = outExpo(ramp(lt, at, at + 0.8));
         const el = $(sel, end);
         el.style.opacity = e;
