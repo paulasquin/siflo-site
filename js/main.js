@@ -85,6 +85,7 @@ async function boot() {
       // English page: privacy links go to the top of the policy (English first), badge text.
       $$('a[href="privacy/#francais"]').forEach((a) => a.setAttribute('href', 'privacy/'));
       $$('[data-i18n-badge]').forEach((el) => el.setAttribute('data-badge', STRINGS.static[el.dataset.i18nBadge]));
+      ['title', 'description'].forEach((k) => $(`meta[property="og:${k}"]`).setAttribute('content', STRINGS.static[`meta.og.${k}`]));
     },
   });
   setupAnchors();

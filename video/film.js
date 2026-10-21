@@ -4,24 +4,24 @@
 (() => {
   const FR = document.documentElement.lang === 'fr';
   const T = FR ? {
-    s1: { k: 'Canyon · escalade · spéléo', l: ['Au fond du canyon,', 'la voix ne porte plus.'] },
-    s2: { k: 'Le problème', l: ['Le sifflet se perd', 'dans le bruit de l’eau.'] },
+    s1: { k: 'Communication outdoor', l: ['Restez en contact,', 'même hors ligne.'] },
+    s2: { k: 'Au fond du canyon', l: ['Le sifflet se perd', 'dans le bruit de l’eau.'] },
     s3: { k: 'Avec Siflo', l: ['Le message passe', 'de téléphone en téléphone.'] },
     s4: { k: 'Les signaux', l: ['STOP d’une touche,', 'pour Marc seulement.'], chips: [['✓', 'Marc · reçu', 'ok'], ['✓✓', 'Marc · vu', 'ok']] },
     s5: { k: 'Sans réseau mobile', l: ['De proche en proche,', 'même en zone blanche.'], chips: [['•', 'Bluetooth'], ['•', 'Internet, si un membre a du réseau'], ['•', 'Messages reçus au retour à portée']] },
     s6: { k: 'SOS', l: ['SOS en deux secondes,', 'reçu par tous à portée.'] },
     s7: { k: 'Et aussi', l: ['Messages, photos, vocaux.', 'Invitation par QR code.'] },
-    end: { tag: ['La communication de groupe', 'en pleine nature.'], facts: 'Gratuite · sans compte · sans publicité', store: 'Bientôt sur Google Play' },
+    end: { tag: ['La communication de groupe', 'dehors, même hors ligne.'], facts: 'Gratuite · sans compte · sans publicité', store: 'Disponible sur Google Play · bientôt sur iPhone' },
     screens: ['01-fr-signals', '03-fr-group', '02-fr-home'],
   } : {
-    s1: { k: 'Canyoning · climbing · caving', l: ['Deep in the canyon,', 'voices don’t carry.'] },
-    s2: { k: 'The problem', l: ['The whistle gets lost', 'in the roar of the water.'] },
+    s1: { k: 'Outdoor communication', l: ['Stay in touch outdoors,', 'even offline.'] },
+    s2: { k: 'Deep in the canyon', l: ['The whistle gets lost', 'in the roar of the water.'] },
     s3: { k: 'With Siflo', l: ['The message hops', 'from phone to phone.'] },
     s4: { k: 'Signals', l: ['STOP in one tap,', 'sent to Marc only.'], chips: [['✓', 'Marc · received', 'ok'], ['✓✓', 'Marc · seen', 'ok']] },
     s5: { k: 'No signal', l: ['Relayed phone to phone,', 'even with no signal.'], chips: [['•', 'Bluetooth'], ['•', 'Internet, if someone has signal'], ['•', 'Catch up when back in range']] },
     s6: { k: 'SOS', l: ['SOS in two seconds,', 'reaching everyone in range.'] },
     s7: { k: 'And more', l: ['Texts, photos, voice notes.', 'Invite with a QR code.'] },
-    end: { tag: ['Group communication', 'for the outdoors.'], facts: 'Free · no account · no ads', store: 'Coming soon to Google Play' },
+    end: { tag: ['Group communication', 'outdoors, even offline.'], facts: 'Free · no account · no ads', store: 'Get it on Google Play · coming soon to iPhone' },
     screens: ['03-chat', '04-invite', '01-signals'],
   };
   // Scene timing on the 96 BPM grid of the score (one bar = 2.5 s). chipsAt: when each chip appears.
@@ -62,7 +62,7 @@
       <p class="tag">${T.end.tag[0]}<br><b>${T.end.tag[1]}</b></p>
       <p class="facts">${T.end.facts}</p>
       <p class="store">${T.end.store}</p>
-      <p class="url">siflo.aidiligence.eu</p>
+      <p class="url">siflo.app</p>
     </div>
     <div class="vignette"></div>
     <div class="flash"></div>
