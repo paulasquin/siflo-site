@@ -131,7 +131,7 @@ export const STRINGS = {
     'ft.4h': 'A QR code to join', 'ft.4p': 'No account, no phone number: people join the group with an invitation link or by scanning its QR code, which works even with no network. The group is deleted automatically at the end of the chosen duration. A teammate doesn\'t have Siflo yet? Share the app with them, even with no network.',
     'ft.5h': 'Distance and direction', 'ft.5p': 'Siflo shows how far away and in which direction each member who shares their location is.',
     'ft.6h': 'Built for the field', 'ft.6p': 'Big buttons, high contrast in full sun, dark theme, alerts on a locked screen, and transmit power that only goes up when needed.',
-    'sc.k': 'The app', 'sc.h': 'Easy to pick up,<br><em>even knee-deep in water.</em>',
+    'sc.k': 'The app', 'sc.h': 'Easy to pick up,<br><em>even in the water with gloves on.</em>',
     'pv.k': 'Privacy', 'pv.h': 'Private<br><em>by design.</em>',
     'pv.1': '<b>No account, no phone number</b>, no ads, no content we can read.',
     'pv.2': '<b>End-to-end encryption</b>: not even our relays can read your messages.',
