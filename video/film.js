@@ -4,7 +4,7 @@
 (() => {
   const FR = document.documentElement.lang === 'fr';
   const T = FR ? {
-    s1: { k: 'Communication outdoor', l: ['Restez en contact dehors,', 'même hors ligne.'] },
+    s1: { k: 'Communication outdoor', l: ['Restez en contact,', 'même hors ligne.'] },
     s2: { k: 'Au fond du canyon', l: ['Le sifflet se perd', 'dans le bruit de l’eau.'] },
     s3: { k: 'Avec Siflo', l: ['Le message passe', 'de téléphone en téléphone.'] },
     s4: { k: 'Les signaux', l: ['STOP d’une touche,', 'pour Marc seulement.'], chips: [['✓', 'Marc · reçu', 'ok'], ['✓✓', 'Marc · vu', 'ok']] },
