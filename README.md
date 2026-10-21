@@ -1,6 +1,6 @@
 # siflo.app
 
-Website of the Siflo app for Android and iPhone (published by Guardia SAS): a scroll-driven presentation page in French and English, the support contact, and the privacy policy given to Google Play.
+Website of Siflo (published by Guardia SAS), an outdoor communication app that also works offline: on Google Play since v0.1.0, iPhone coming soon. A scroll-driven presentation page in French and English, the support contact, and the privacy policy given to Google Play.
 
 Built on the template [`paulasquin/showcase-kit`](https://github.com/paulasquin/showcase-kit) (private; act contract, testing routine and pitfalls in its README). Static site, no build step. Unlike the kit, **every resource is self-hosted** (three.js 0.186.1 and its post-processing addons, GSAP 3.15, Lenis, fonts in `assets/`), as on aidiligence.eu: the page makes no third-party request, the film included.
 
@@ -15,12 +15,13 @@ python3 -m http.server 8792 --bind 127.0.0.1   # http://127.0.0.1:8792/  (?debug
 | Act `canyon` | `js/acts/canyon.js` | Hero: a procedural gorge at dusk. Julie whistles at the top of a waterfall, the rings tear apart in the roar, then her message (the rope is stuck) hops from phone to phone down to Léa and Tom, who went ahead, and the acknowledgements come back. |
 | Act `signal` | `js/acts/signal.js` | Julie's phone sends STOP to Marc alone, Marc's phone rings full screen and vibrates, then "received" and "seen" come back. The screens are canvases drawn from the app's dark theme, in the page language. |
 | Act `mesh` | `js/acts/mesh.js` | Contour map: Bluetooth hops, a ridge member's 4G bridging a far subgroup through the blind relay, a member who fell behind upstream getting the stored messages back in range, an SOS reaching another group. |
-| Sections | `index.html` | Field cases (four sourced situations where voice and whistle fail: Petzl, canyon instructor handbook, ULSA, FFME), film, features, screenshots, privacy (the relay's view is scrambled by `main.js`), what to know before going out (range, rock and water), download, FAQ and support. |
+| Sections | `index.html` | Field cases (four sourced situations where voice and whistle fail: Petzl, canyon instructor handbook, ULSA, FFME), film, features, screenshots, privacy (the relays' view is scrambled by `main.js`), what to know before going out (range, rock and water), download, FAQ and support. |
 
 - Shared 3D pieces: `js/world/common.js` (noise, dusk sky, beacons, rings, arcs, packets, `panelPos()`: each act is driven by the panel coordinate, 0 when its first card is centred, 1 for the second… computed from the layout in `main.js`).
 - Copy: French in `index.html`, English in `js/strings.js` (`static`), strings drawn by scripts in `js/strings.js` (`ui`). French copy follows the house style (natural French, French typography); proofread both languages after each change.
 - Claims stay within the radio study: range "a few tens of metres", more in hand with line of sight; no "always gets through", nothing about rock or water being crossed, Siflo adds to the whistle and the radio.
-- Stores: Google Play is reviewing the app and the App Store release is being prepared, so both store buttons are "coming soon" badges (`.store.pending`). Once a listing is live, turn its badge into a link (Google Play: `https://play.google.com/store/apps/details?id=app.siflo`), and update `hero.cta1`, `dl.lead`, `fq.5a` and their English strings.
+- Positioning: "Restez en contact dehors, même hors ligne." / "Stay in touch outdoors, even offline." (the app's onboarding and Play listing); the whistle canyon story is a use case, not the headline. Siflo adds to the whistle and the radio, never replaces them.
+- Stores: Siflo is live on Google Play; the hero button, the download badge and the `/j/`, `/id/` pages link to `https://play.google.com/store/apps/details?id=app.siflo`. The iPhone app is not submitted yet, so its badge is a "coming soon" (`.store.pending`), never "in review". Once it is on the App Store, turn the badge into a link and update `dl.lead`, `dl.s2`, `fq.5a`, `fq.6a`, the `/j/` and `/id/` pages, the film's end card and their English strings.
 - Film: `assets/film/siflo-{fr,en}.mp4` and `poster-{fr,en}.jpg` are the 720p cuts of the 48 s film, rendered from the site's own acts by `video/` (see `video/README.md`).
 
 ## Privacy policy
@@ -37,6 +38,7 @@ uv run --with markdown python tools/build.py ../siflo
 | `/privacy/` | Privacy policy (EN + FR), the URL given to Google Play |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
 | `/j/`, `/id/` | Landing pages of the app links (group invitation, identity card) when Siflo is not installed; `js/link.js` picks the language and, on iPhone, offers `siflo://`. The payload stays in the fragment, never sent to the server |
+| `/robots.txt`, `/sitemap.xml` | Crawlers: the home page and the privacy policy (`/j/` and `/id/` are `noindex`) |
 | `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
 
 ## Testing
