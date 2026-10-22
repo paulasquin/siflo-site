@@ -22,7 +22,7 @@ python3 -m http.server 8792 --bind 127.0.0.1   # http://127.0.0.1:8792/  (?debug
 - Copy: French in `index.html`, English in `js/strings.js` (`static`), strings drawn by scripts in `js/strings.js` (`ui`). French copy follows the house style (natural French, French typography); proofread both languages after each change.
 - Claims stay within the radio study (`/research/`: link-budget estimates, to update once measured in the field; the beacon and satellite are shown as in progress until they ship): range "a few tens of metres", more in hand with line of sight; no "always gets through", nothing about rock or water being crossed, Siflo adds to the whistle and the radio.
 - Positioning: "Restez en contact dehors, même hors ligne." / "Stay in touch outdoors, even offline." (the app's onboarding and Play listing); the whistle canyon story is a use case, not the headline. Siflo adds to the whistle and the radio, never replaces them.
-- Stores: Siflo is live on Google Play; the hero button, the download badge and the `/j/`, `/id/` pages link to `https://play.google.com/store/apps/details?id=app.siflo`. The iPhone app is not submitted yet, so its badge is a "coming soon" (`.store.pending`), never "in review". Once it is on the App Store, turn the badge into a link and update `dl.lead`, `dl.s2`, `fq.5a`, `fq.6a`, the `/j/` and `/id/` pages, the film's end card and their English strings.
+- Stores: Siflo is live on Google Play; the hero button, the download badge and the `/j/`, `/id/`, `/c/` pages link to `https://play.google.com/store/apps/details?id=app.siflo`. The iPhone app is not submitted yet, so its badge is a "coming soon" (`.store.pending`), never "in review". Once it is on the App Store, turn the badge into a link and update `dl.lead`, `dl.s2`, `fq.5a`, `fq.6a`, the `/j/`, `/id/` and `/c/` pages, the film's end card and their English strings.
 - Film: `assets/film/siflo-{fr,en}.mp4` and `poster-{fr,en}.jpg` are the 720p cuts of the 48 s film, rendered from the site's own acts by `video/` (see `video/README.md`).
 
 ## Privacy policy
@@ -40,8 +40,8 @@ uv run --with markdown python tools/build.py ../siflo
 | `/research/` | Radio range research (FR/EN, same language pick as the home page) |
 | `/recherche/` | Redirect to `/research/?lang=fr` |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
-| `/j/`, `/id/` | Landing pages of the app links (group invitation, identity card) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
-| `/robots.txt`, `/sitemap.xml` | Crawlers: the home page, the research page and the privacy policy (`/j/` and `/id/` are `noindex`) |
+| `/j/`, `/id/`, `/c/` | Landing pages of the app links (group invitation, identity card, contact link) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
+| `/robots.txt`, `/sitemap.xml` | Crawlers: the home page, the research page and the privacy policy (`/j/`, `/id/` and `/c/` are `noindex`) |
 | `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
 
 ## Testing
