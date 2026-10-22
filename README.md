@@ -16,10 +16,11 @@ python3 -m http.server 8792 --bind 127.0.0.1   # http://127.0.0.1:8792/  (?debug
 | Act `signal` | `js/acts/signal.js` | Julie's phone sends STOP to Marc alone, Marc's phone rings full screen and vibrates, then "received" and "seen" come back. The screens are canvases drawn from the app's dark theme, in the page language. |
 | Act `mesh` | `js/acts/mesh.js` | Contour map: Bluetooth hops, a ridge member's 4G bridging a far subgroup through the blind relay, a member who fell behind upstream getting the stored messages back in range, an SOS reaching another group. |
 | Sections | `index.html` | Field cases (four sourced situations where voice and whistle fail: Petzl, canyon instructor handbook, ULSA, FFME), film, features, screenshots, privacy (the relays' view is scrambled by `main.js`), what to know before going out (range, rock and water), download, FAQ and support. |
+| Research | `research/index.html`, `js/research.js`, `css/research.css` | The six ways a phone reaches another one (classic and long-range Bluetooth, nearby Wi-Fi, internet relay, then the alert beacon and satellite, both not in the app yet): estimated range on a shared log scale with the value printed next to each bar, the phones that can use it, what gets through. One data table in `js/research.js` (`[fr, en]` pairs), the page's English copy in the same file. Linked from "what to know before going out", the range FAQ answer and the footer. |
 
 - Shared 3D pieces: `js/world/common.js` (noise, dusk sky, beacons, rings, arcs, packets, `panelPos()`: each act is driven by the panel coordinate, 0 when its first card is centred, 1 for the second… computed from the layout in `main.js`).
 - Copy: French in `index.html`, English in `js/strings.js` (`static`), strings drawn by scripts in `js/strings.js` (`ui`). French copy follows the house style (natural French, French typography); proofread both languages after each change.
-- Claims stay within the radio study: range "a few tens of metres", more in hand with line of sight; no "always gets through", nothing about rock or water being crossed, Siflo adds to the whistle and the radio.
+- Claims stay within the radio study (`/research/`: link-budget estimates, to update once measured in the field; the beacon and satellite are shown as in progress until they ship): range "a few tens of metres", more in hand with line of sight; no "always gets through", nothing about rock or water being crossed, Siflo adds to the whistle and the radio.
 - Positioning: "Restez en contact dehors, même hors ligne." / "Stay in touch outdoors, even offline." (the app's onboarding and Play listing); the whistle canyon story is a use case, not the headline. Siflo adds to the whistle and the radio, never replaces them.
 - Stores: Siflo is live on Google Play; the hero button, the download badge and the `/j/`, `/id/` pages link to `https://play.google.com/store/apps/details?id=app.siflo`. The iPhone app is not submitted yet, so its badge is a "coming soon" (`.store.pending`), never "in review". Once it is on the App Store, turn the badge into a link and update `dl.lead`, `dl.s2`, `fq.5a`, `fq.6a`, the `/j/` and `/id/` pages, the film's end card and their English strings.
 - Film: `assets/film/siflo-{fr,en}.mp4` and `poster-{fr,en}.jpg` are the 720p cuts of the 48 s film, rendered from the site's own acts by `video/` (see `video/README.md`).
@@ -36,9 +37,11 @@ uv run --with markdown python tools/build.py ../siflo
 |---|---|
 | `/` | Presentation, support and FAQ (FR/EN) |
 | `/privacy/` | Privacy policy (EN + FR), the URL given to Google Play |
+| `/research/` | Radio range research (FR/EN, same language pick as the home page) |
+| `/recherche/` | Redirect to `/research/?lang=fr` |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
 | `/j/`, `/id/` | Landing pages of the app links (group invitation, identity card) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
-| `/robots.txt`, `/sitemap.xml` | Crawlers: the home page and the privacy policy (`/j/` and `/id/` are `noindex`) |
+| `/robots.txt`, `/sitemap.xml` | Crawlers: the home page, the research page and the privacy policy (`/j/` and `/id/` are `noindex`) |
 | `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
 
 ## Testing

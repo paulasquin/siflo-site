@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portée radio · Comment les téléphones Siflo se joignent</title>
+  <meta name="description" content="Bluetooth standard et longue portée, Wi-Fi de proximité, relais internet, balise d'alerte et satellite&#8239;: la portée estimée de chaque liaison de Siflo, les téléphones qui peuvent l'utiliser et ce qui passe.">
+  <meta name="theme-color" content="#0e0b09">
+  <meta property="og:title" content="Siflo · Six façons de se joindre">
+  <meta property="og:description" content="La portée estimée de chaque liaison de Siflo, du Bluetooth au satellite, les téléphones compatibles et ce qui passe.">
+  <meta property="og:image" content="https://siflo.app/assets/og.jpg">
+  <meta property="og:url" content="https://siflo.app/research/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Siflo">
+  <link rel="canonical" href="https://siflo.app/research/">
+  <link rel="alternate" hreflang="fr" href="https://siflo.app/research/?lang=fr">
+  <link rel="alternate" hreflang="en" href="https://siflo.app/research/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://siflo.app/research/">
+  <script>
+    // Same language pick as the home page: ?lang=, then the visitor's saved choice, then the browser languages.
+    (function () {
+      var ok = ['fr', 'en'], lang = null;
+      try {
+        var q = new URLSearchParams(location.search).get('lang');
+        if (ok.indexOf(q) >= 0) { lang = q; localStorage.setItem('lang', q); }
+        else if (ok.indexOf(localStorage.getItem('lang')) >= 0) lang = localStorage.getItem('lang');
+      } catch (e) {}
+      if (!lang) {
+        var ls = navigator.languages || [navigator.language || ''];
+        for (var i = 0; i < ls.length && !lang; i++) { var b = String(ls[i]).slice(0, 2).toLowerCase(); if (ok.indexOf(b) >= 0) lang = b; }
+      }
+      document.documentElement.lang = lang || 'en';
+    })();
+  </script>
+  <link rel="icon" href="../assets/icon.png">
+  <link rel="apple-touch-icon" href="../assets/icon.png">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/unbounded-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/inter-latin.woff2" crossorigin>
+  <link href="../css/style.css" rel="stylesheet">
+  <link href="../css/research.css" rel="stylesheet">
+</head>
+<body class="research">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="whistle" viewBox="18 19 70 70">
+      <path fill="#fff" d="M23,46h22a12,12 0,1 1,0 24h-6a16,16 0,0 1,-16 -16z"/>
+      <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M61,44a14,14 0,0 1,0 20"/>
+      <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
+      <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
+    </symbol>
+  </svg>
+
+  <nav class="topnav scrolled" aria-label="Navigation principale" data-i18n-aria="nav.aria">
+    <a href="../" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
+    <a href="../" class="nav-back" data-i18n="nav.back">Présentation de Siflo</a>
+    <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
+  </nav>
+
+  <main>
+    <section class="section rs-intro">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="rs.k">Recherche · portée radio</p>
+          <h1 class="h-xl" data-i18n="rs.h">Six façons<br><em>de se joindre.</em></h1>
+          <p class="lead" data-i18n="rs.lead">Comment un téléphone Siflo en joint un autre&#8239;: par Bluetooth, par Wi-Fi, par internet et, plus tard, par satellite. Pour chaque liaison, la portée estimée, les téléphones qui peuvent l'utiliser et ce qui passe.</p>
+          <p data-i18n="rs.p1">Les portées sont estimées par le calcul, pas encore mesurées sur le terrain. L'échelle est logarithmique&#8239;: d'une graduation à la suivante, la distance est multipliée par dix. Les quatre premières liaisons sont dans l'application&#8239;; la balise d'alerte est un prototype en test et le satellite est en préparation.</p>
+        </div>
+
+        <div class="rs-legend" aria-hidden="true">
+          <span><i class="sw body"></i><span data-i18n="rs.lg.body">Sur soi&#8239;: en poche ou dans le sac</span></span>
+          <span><i class="sw hand"></i><span data-i18n="rs.lg.hand">En main, à vue, terrain dégagé</span></span>
+          <span><i class="dot y"></i><span data-i18n="rs.lg.y">Oui</span></span>
+          <span><i class="dot p"></i><span data-i18n="rs.lg.p">Limité</span></span>
+          <span><i class="dot n"></i><span data-i18n="rs.lg.n">Non</span></span>
+        </div>
+        <dl class="rs-phone-legend" id="phone-legend"></dl>
+
+        <div class="rs-table" id="links"></div>
+      </div>
+    </section>
+
+    <section class="section section-honest rs-notes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="rs.n.k">Pour lire ces chiffres</p>
+          <h2 class="h-lg" data-i18n="rs.n.h">Une portée n'est pas une promesse&#8239;:<br><em>le terrain décide.</em></h2>
+        </div>
+        <div class="honest">
+          <div>
+            <h3 data-i18n="rs.n1h">Un saut, puis le suivant</h3>
+            <p data-i18n="rs.n1p">Chaque portée vaut pour un seul saut, d'un téléphone au suivant. Chaque téléphone du groupe relaie les messages des autres, jusqu'à 12&nbsp;sauts&#8239;: la chaîne porte bien plus loin qu'un seul saut.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n2h">La longue portée se joue à deux</h3>
+            <p data-i18n="rs.n2p">Elle ne fonctionne qu'entre deux téléphones compatibles. Sur iPhone, Siflo restera au Bluetooth standard, mais un Android voisin pourra relayer pour lui en longue portée.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n3h">Le terrain compte plus que la liaison</h3>
+            <p data-i18n="rs.n3p">La roche arrête tout&#8239;: en grotte, le message passe de proche en proche, à vue. Le feuillage mouillé divise la portée par deux ou trois, selon nos estimations. Sous l'eau, rien ne passe.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n4h">Des estimations, pas encore des mesures</h3>
+            <p data-i18n="rs.n4p">Elles sont calculées à partir de la puissance d'émission, de la sensibilité des récepteurs et des pertes dues au corps et au terrain. Nous les mesurerons sur le terrain et mettrons cette page à jour.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n5h">La balise d'alerte, à sens unique</h3>
+            <p data-i18n="rs.n5p">Le téléphone éloigné reçoit l'alerte mais ne peut pas répondre par ce chemin&#8239;: pas d'accusé de réception, l'alerte est répétée toutes les deux secondes. C'est un prototype en test, pas encore dans l'application.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n6h">Le satellite, en préparation</h3>
+            <p data-i18n="rs.n6p">Certains Android récents envoient de courts messages par satellite, selon l'opérateur&#8239;; sur iPhone, Apple réserve le satellite à ses propres fonctions. Nous travaillons à faire passer le SOS et les signaux de Siflo par satellite&#8239;; rien n'est encore disponible.</p>
+          </div>
+        </div>
+        <div class="support">
+          <p><span data-i18n="rs.sp1">Vous avez mesuré une portée sur le terrain&#8239;?</span><b data-i18n="rs.sp2">Écrivez-nous&#8239;: vos mesures nous aident à corriger ces estimations.</b></p>
+          <a class="btn btn-primary" href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a href="../" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
+      <nav aria-label="Liens" data-i18n-aria="foot.aria">
+        <a href="../" data-i18n="foot.home">Présentation</a>
+        <a href="./" data-i18n="foot.research">Portée radio</a>
+        <a href="../privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
+        <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
+        <a href="https://www.instagram.com/siflo.app/">Instagram</a>
+        <a href="https://aidiligence.eu">AI Diligence</a>
+      </nav>
+      <p>Guardia SAS · SIREN 910 991 140</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/research.js"></script>
+</body>
+</html>
