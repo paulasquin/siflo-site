@@ -43,6 +43,7 @@ uv run --with markdown python tools/build.py ../siflo
 | `/j/`, `/id/`, `/c/` | Landing pages of the app links (group invitation, identity card, contact link) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
 | `/robots.txt`, `/sitemap.xml` | Crawlers: the home page, the research page and the privacy policy (`/j/`, `/id/` and `/c/` are `noindex`) |
 | `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
+| `/.well-known/apple-app-site-association` | iOS universal links for `285X8VFA49.app.siflo` (`/j`, `/id`, `/c`): a copy of `ios/apple-app-site-association` in the app repo, keep both identical |
 
 ## Testing
 

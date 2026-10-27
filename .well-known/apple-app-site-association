@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["285X8VFA49.app.siflo"],
+        "components": [
+          { "/": "/j", "#": "*", "comment": "group invitation" },
+          { "/": "/id", "#": "*", "comment": "identity card" },
+          { "/": "/c", "#": "*", "comment": "contact link" }
+        ]
+      }
+    ]
+  }
+}
