@@ -115,17 +115,10 @@
 .fv-models b { font-family: var(--f-display); font-weight: 500; font-size: 15.5px; color: var(--ink); }
 .fv-tool { margin-left: 10px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--orange-2); white-space: nowrap; }
 .fv-models p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
-.fv-run { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: center; margin-top: clamp(40px, 6vh, 60px); padding: 24px 30px; border-radius: 22px; border: 1px solid var(--line-2); background: linear-gradient(120deg, rgba(255, 106, 0, .12), rgba(255, 106, 0, .02)); }
-.fv-run p { margin: 0; font-size: 14.5px; line-height: 1.6; }
-.fv code { font-family: var(--f-mono); font-size: .92em; color: var(--peach); }
-.fv-run pre { margin: 0; padding: 14px 18px; border-radius: 14px; background: rgba(0, 0, 0, .35); border: 1px solid var(--line); overflow-x: auto; }
-.fv-run pre code { font-size: 13px; color: var(--ink); white-space: pre; }
 
 @media (max-width: 1100px) {
-  .fv-run { grid-template-columns: 1fr; }
-}
+  }
 @media (max-width: 700px) {
   .hub-tiles, .fv-models { grid-template-columns: 1fr; }
   .hub-tile { padding: 22px 20px; }
-  .fv-run { padding: 22px 18px; }
-}
+  }

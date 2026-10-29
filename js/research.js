@@ -128,7 +128,6 @@ registerStrings({
     'fv.m.p': 'The protocol is described in models that proof tools (Tamarin, ProVerif) and an exhaustive explorer (TLA+) examine against an attacker who controls the whole network, can steal a key at a given moment, or is a former member or admin. Cryptography is assumed perfect: what is checked is the design of the protocol, not the primitives.',
     'fv.v.h': 'What these models cover',
     'fv.v.p': "These seven models cover Siflo's security protocol: the contact exchange, private conversations and groups (keys, admins, members). For groups, tests also replay the models on the application's real code. They do not cover the whole application: packet routing, the radio, media and packet parsing stay outside the models, and the Double Ratchet, after the first exchange, relies on its published proofs. Group rules are explored for small groups (3 to 4&nbsp;phones).",
-    'fv.r.p': "Models, expected results and checking script: the <code>formal/</code> folder of Siflo's repository. The script replays every check and reports any difference.",
     'foot.aria': 'Links', 'foot.home': 'About', 'foot.research': 'Research', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
   },
 });
