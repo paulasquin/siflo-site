@@ -69,7 +69,9 @@
 
 .rs-intro { padding-bottom: clamp(60px, 9vh, 110px); }
 .rs-notes { padding-top: clamp(60px, 9vh, 110px); }
-.rs-notes .support { margin-top: clamp(40px, 6vh, 60px); }
+.rs-contact { padding-top: 0; padding-bottom: clamp(60px, 9vh, 110px); }
+.rs-contact::before { display: none; }
+.rs-contact .support { margin-top: 0; }
 
 /* narrower screens: the head row goes, each cell gets its own label and the scale repeats per row */
 @media (max-width: 1100px) {
