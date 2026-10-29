@@ -61,7 +61,7 @@
         <div class="section-head">
           <p class="kicker" data-i18n="hub.k">Recherche</p>
           <h1 class="h-xl" data-i18n="hub.h">La recherche<br><em>derrière Siflo.</em></h1>
-          <p class="lead" data-i18n="hub.lead">Ce que nous avons calculé et vérifié pour que Siflo tienne ses promesses.</p>
+          <p class="lead" data-i18n="hub.lead">Ce que nous avons calculé et ce que nous avons vérifié.</p>
         </div>
         <div class="hub-tiles">
           <a class="hub-tile" href="#portee">
@@ -71,8 +71,8 @@
           </a>
           <a class="hub-tile" href="#verification">
             <span class="kicker" data-i18n="hub.t2k">Chiffrement</span>
-            <h2 data-i18n="hub.t2h">Un chiffrement vérifié</h2>
-            <p data-i18n="hub.t2p">Comment les messages sont protégés, et ce que sept modèles du protocole permettent de prouver.</p>
+            <h2 data-i18n="hub.t2h">Un chiffrement mis à l'épreuve</h2>
+            <p data-i18n="hub.t2p">Comment vos messages sont protégés, et ce que des outils de preuve en ont vérifié.</p>
           </a>
         </div>
       </div>
@@ -143,34 +143,34 @@
       <div class="wrap">
         <div class="section-head">
           <p class="kicker" data-i18n="fv.k">Recherche · chiffrement</p>
-          <h2 class="h-xl" data-i18n="fv.h">Le chiffrement,<br><em>vérifié par machine.</em></h2>
-          <p class="lead" data-i18n="fv.lead">Comment Siflo protège vos messages, et comment nous avons vérifié que le protocole tient.</p>
+          <h2 class="h-xl" data-i18n="fv.h">Le chiffrement,<br><em>mis à l'épreuve.</em></h2>
+          <p class="lead" data-i18n="fv.lead">Comment Siflo protège vos messages, ce que nous avons vérifié, et jusqu'où.</p>
         </div>
 
         <div class="honest">
           <div>
             <h3 data-i18n="fv.a1h">De bout en bout</h3>
-            <p data-i18n="fv.a1p">Chaque message est chiffré (ChaCha20-Poly1305) et signé (Ed25519) sur le téléphone de l'expéditeur. Seuls les destinataires peuvent le lire&#8239;; le relais internet transmet des paquets qu'il ne peut pas déchiffrer.</p>
+            <p data-i18n="fv.a1p">Les messages de groupe et les messages privés sont chiffrés (ChaCha20-Poly1305) et signés (Ed25519) sur le téléphone qui les envoie, et seuls leurs destinataires peuvent les ouvrir. Le relais internet transmet des paquets qu'il ne peut pas lire&#8239;; il n'en voit que des métadonnées, comme l'heure et l'adresse IP. Le SOS envoyé à tous les téléphones proches (position comprise) et les messages publics sont faits pour être lus par tous&#8239;: ils sont signés, pas chiffrés.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a2h">Des clés qui changent</h3>
-            <p data-i18n="fv.a2p">En conversation privée, chaque message a sa propre clé dès la première réponse (Double Ratchet). Dans un groupe, la clé change chaque jour, et à chaque retrait d'un membre.</p>
+            <p data-i18n="fv.a2p">En conversation privée, dès la première réponse, chaque message a sa propre clé, effacée après usage (le Double Ratchet, mécanisme de Signal)&#8239;: une clé volée plus tard ne relit pas les messages passés. Dans un groupe, la clé change chaque jour et à chaque retrait d'un membre&#8239;: une clé volée n'ouvre rien de plus de deux jours, mais lit le groupe jusqu'au prochain retrait.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a3h">Des identités vérifiables</h3>
-            <p data-i18n="fv.a3p">Chaque téléphone génère ses propres clés. On compare une empreinte en personne pour s'assurer de parler à la bonne personne.</p>
+            <p data-i18n="fv.a3p">Chaque téléphone crée ses propres clés&#8239;: pas de compte. Pour être sûr de parler à la bonne personne, on scanne son code en face à face, ou l'on compare un code de sécurité au cours d'un appel.</p>
           </div>
         </div>
 
         <div class="fv-method">
           <h3 data-i18n="fv.m.h">Comment nous l'avons vérifié</h3>
-          <p data-i18n="fv.m.p">Le protocole est décrit sous forme de modèles, que des outils de preuve (Tamarin, ProVerif) et un explorateur exhaustif (TLA+) mettent à l'épreuve face à un attaquant qui contrôle tout le réseau, qui peut voler une clé à un moment donné, ou qui est un ancien membre ou administrateur. La cryptographie y est supposée parfaite&#8239;: on vérifie la conception du protocole, pas les primitives.</p>
+          <p data-i18n="fv.m.p">Nous avons décrit le protocole dans des modèles mathématiques. Deux outils de preuve (Tamarin, ProVerif) et un outil qui explore les déroulements possibles d'un petit groupe (TLA+, 3 ou 4&nbsp;téléphones) les confrontent à un attaquant qui contrôle tout le réseau, relais compris, peut voler une clé à tout moment, ou a été membre ou administrateur du groupe. Un administrateur en poste est, lui, supposé de bonne foi. La cryptographie est supposée parfaite&#8239;: on vérifie la conception du protocole, pas les algorithmes de chiffrement.</p>
           <ul class="fv-models" id="models"></ul>
         </div>
 
         <div class="fv-method">
-          <h3 data-i18n="fv.v.h">Ce que couvrent ces modèles</h3>
-          <p data-i18n="fv.v.p">Ces sept modèles couvrent le protocole de sécurité de Siflo&#8239;: l'échange de contacts, les conversations privées et les groupes (clés, administrateurs, membres). Pour les groupes, des tests rejouent aussi les modèles sur le vrai code de l'application. Ils ne couvrent pas toute l'application&#8239;: l'acheminement des paquets, la radio, les médias et le décodage des paquets restent hors modèle, et le Double Ratchet, après le premier échange, s'appuie sur ses preuves publiées. Les règles des groupes sont explorées pour de petits groupes (3 à 4&nbsp;téléphones).</p>
+          <h3 data-i18n="fv.v.h">Jusqu'où vont ces vérifications</h3>
+          <p data-i18n="fv.v.p">Les modèles portent sur l'échange de contacts, le début des conversations privées et les groupes (clés, administrateurs, membres)&#8239;; pour les administrateurs et les membres, des tests vérifient aussi ces règles sur le code de l'application. Restent hors modèle l'acheminement et le décodage des paquets, la radio, les médias, l'analyse du trafic, et la suite des conversations privées, qui s'appuie sur les preuves publiées du Double Ratchet. Ces résultats valent pour la version 0.20 et les suivantes.</p>
         </div>
       </div>
     </section>
