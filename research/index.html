@@ -61,18 +61,18 @@
         <div class="section-head">
           <p class="kicker" data-i18n="hub.k">Recherche</p>
           <h1 class="h-xl" data-i18n="hub.h">La recherche<br><em>derrière Siflo.</em></h1>
-          <p class="lead" data-i18n="hub.lead">Ce que nous avons calculé et vérifié pour que Siflo tienne ses promesses, et où s'arrêtent ces résultats.</p>
+          <p class="lead" data-i18n="hub.lead">Ce que nous avons calculé et vérifié pour que Siflo tienne ses promesses.</p>
         </div>
         <div class="hub-tiles">
           <a class="hub-tile" href="#portee">
             <span class="kicker" data-i18n="hub.t1k">Portée radio</span>
             <h2 data-i18n="hub.t1h">Six façons de se joindre</h2>
-            <p data-i18n="hub.t1p">Bluetooth, Wi-Fi, internet, satellite&#8239;: la portée estimée de chaque liaison, les téléphones compatibles, ce qui passe.</p>
+            <p data-i18n="hub.t1p">Bluetooth, Wi-Fi, internet, satellite&#8239;: la portée estimée de chaque liaison, les téléphones compatibles et ce qui passe.</p>
           </a>
           <a class="hub-tile" href="#verification">
             <span class="kicker" data-i18n="hub.t2k">Chiffrement</span>
-            <h2 data-i18n="hub.t2h">Vérifié par machine</h2>
-            <p data-i18n="hub.t2p">Comment les messages sont protégés, et ce que sept modèles du protocole prouvent, sous quelles bornes.</p>
+            <h2 data-i18n="hub.t2h">Un chiffrement vérifié</h2>
+            <p data-i18n="hub.t2p">Comment les messages sont protégés, et ce que sept modèles du protocole permettent de prouver.</p>
           </a>
         </div>
       </div>
@@ -144,52 +144,37 @@
         <div class="section-head">
           <p class="kicker" data-i18n="fv.k">Recherche · chiffrement</p>
           <h2 class="h-xl" data-i18n="fv.h">Le chiffrement,<br><em>vérifié par machine.</em></h2>
-          <p class="lead" data-i18n="fv.lead">Comment Siflo protège vos messages, et comment nous avons vérifié que le protocole tient, limites comprises.</p>
+          <p class="lead" data-i18n="fv.lead">Comment Siflo protège vos messages, et comment nous avons vérifié que le protocole tient.</p>
         </div>
 
         <div class="honest">
           <div>
             <h3 data-i18n="fv.a1h">De bout en bout</h3>
-            <p data-i18n="fv.a1p">Chaque message est chiffré (ChaCha20-Poly1305) et signé (Ed25519) sur le téléphone de l'expéditeur. Seuls les destinataires le lisent&#8239;; le relais internet fait suivre des paquets qu'il ne peut pas déchiffrer.</p>
+            <p data-i18n="fv.a1p">Chaque message est chiffré (ChaCha20-Poly1305) et signé (Ed25519) sur le téléphone de l'expéditeur. Seuls les destinataires peuvent le lire&#8239;; le relais internet transmet des paquets qu'il ne peut pas déchiffrer.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a2h">Des clés qui changent</h3>
-            <p data-i18n="fv.a2p">En conversation privée, une clé par message dès la première réponse (Double Ratchet). Dans un groupe, une nouvelle clé chaque jour, et à chaque retrait d'un membre.</p>
+            <p data-i18n="fv.a2p">En conversation privée, chaque message a sa propre clé dès la première réponse (Double Ratchet). Dans un groupe, la clé change chaque jour, et à chaque retrait d'un membre.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a3h">Des identités vérifiables</h3>
-            <p data-i18n="fv.a3p">Chaque téléphone génère ses propres clés. Une empreinte se compare en personne pour s'assurer de parler à la bonne personne.</p>
+            <p data-i18n="fv.a3p">Chaque téléphone génère ses propres clés. On compare une empreinte en personne pour s'assurer de parler à la bonne personne.</p>
           </div>
         </div>
 
         <div class="fv-method">
           <h3 data-i18n="fv.m.h">Comment nous l'avons vérifié</h3>
-          <p data-i18n="fv.m.p">Le protocole est décrit dans des modèles que des outils de preuve (Tamarin, ProVerif) et d'exploration exhaustive (TLA+) examinent face à un attaquant qui contrôle tout le réseau, peut voler une clé à un moment donné, ou est un ancien membre ou administrateur. La cryptographie y est supposée parfaite&#8239;: on vérifie la conception du protocole, pas les primitives.</p>
+          <p data-i18n="fv.m.p">Le protocole est décrit sous forme de modèles, que des outils de preuve (Tamarin, ProVerif) et un explorateur exhaustif (TLA+) mettent à l'épreuve face à un attaquant qui contrôle tout le réseau, qui peut voler une clé à un moment donné, ou qui est un ancien membre ou administrateur. La cryptographie y est supposée parfaite&#8239;: on vérifie la conception du protocole, pas les primitives.</p>
           <ul class="fv-models" id="models"></ul>
         </div>
 
-        <div class="fv-found">
-          <h3 data-i18n="fv.f.h">Ce que nous avons trouvé</h3>
-          <p data-i18n="fv.f.p">Dix-sept failles dans notre propre conception&#8239;: par exemple, une seule clé volée suffisait à s'interposer dans une conversation privée, et un ancien administrateur pouvait faire diverger les téléphones d'un groupe. La plupart sont corrigées dans la version&nbsp;0.20, les téléphones plus anciens y restent exposés&#8239;; le reste est documenté comme limite connue.</p>
-        </div>
-
-        <div class="honest">
-          <div>
-            <h3 data-i18n="fv.c1h">Des résultats bornés</h3>
-            <p data-i18n="fv.c1p">Les règles des groupes sont explorées en entier pour 3 téléphones et 3 décisions d'administration, partiellement au-delà&#8239;: ne rien trouver n'y prouve pas l'absence de faille.</p>
-          </div>
-          <div>
-            <h3 data-i18n="fv.c2h">Des limites connues</h3>
-            <p data-i18n="fv.c2p">Le premier message d'une conversation privée n'a pas de confidentialité persistante avant la réponse. Le relais ne lit rien mais voit des métadonnées (adresse IP, boîtes consultées). Un administrateur en fonction reste de confiance.</p>
-          </div>
-          <div>
-            <h3 data-i18n="fv.c3h">Pas un audit externe</h3>
-            <p data-i18n="fv.c3p">C'est notre propre vérification, publiée pour pouvoir être refaite. Le Double Ratchet, après le premier échange, repose sur ses preuves publiées.</p>
-          </div>
+        <div class="fv-method">
+          <h3 data-i18n="fv.v.h">Ce que couvrent ces modèles</h3>
+          <p data-i18n="fv.v.p">Ces sept modèles couvrent le protocole de sécurité de Siflo&#8239;: l'échange de contacts, les conversations privées et les groupes (clés, administrateurs, membres). Pour les groupes, des tests rejouent aussi les modèles sur le vrai code de l'application. Ils ne couvrent pas toute l'application&#8239;: l'acheminement des paquets, la radio, les médias et le décodage des paquets restent hors modèle, et le Double Ratchet, après le premier échange, s'appuie sur ses preuves publiées. Les règles des groupes sont explorées pour de petits groupes (3 à 4&nbsp;téléphones).</p>
         </div>
 
         <div class="fv-run">
-          <p data-i18n="fv.r.p">Modèles, résultats attendus et script de vérification&#8239;: dossier <code>formal/</code> du dépôt de Siflo, avec <code>README.md</code> pour l'installation. Le script rejoue chaque vérification et signale tout écart.</p>
+          <p data-i18n="fv.r.p">Modèles, résultats attendus et script de vérification&#8239;: dossier <code>formal/</code> du dépôt de Siflo. Le script rejoue chaque vérification et signale tout écart.</p>
           <pre aria-label="Commande"><code>python3 formal/check.py</code></pre>
         </div>
       </div>

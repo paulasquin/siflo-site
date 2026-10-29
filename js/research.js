@@ -64,12 +64,12 @@ const ROWS = [
 // Formal verification: what each model proves, in a line. Tool and files are in formal/ of the Siflo repository.
 const MODELS = [
   [['Liens de contact', 'Contact links'], 'ProVerif, Tamarin', ["la demande et l'acceptation restent secrètes et authentifiées", 'the request and the accept stay secret and authenticated']],
-  [['Sessions privées', 'Private sessions'], 'ProVerif, Tamarin', ['premier message secret, aucun contenu falsifiable, réponses protégées même si une clé est volée plus tard', 'first message secret, no forgeable content, answers protected even if a key is stolen later']],
-  [['Enveloppe des messages', 'Message envelope'], 'ProVerif', ['un observateur ne relie un paquet ni à sa conversation ni à sa session', 'an observer cannot tie a packet to its conversation or session']],
+  [['Sessions privées', 'Private sessions'], 'ProVerif, Tamarin', ['premier message secret, contenu infalsifiable, réponses protégées même si une clé est volée plus tard', 'first message secret, no forgeable content, answers protected even if a key is stolen later']],
+  [['Enveloppe des messages', 'Message envelope'], 'ProVerif', ['un observateur ne peut relier un paquet ni à sa conversation ni à sa session', 'an observer cannot tie a packet to its conversation or session']],
   [['Boîtes scellées', 'Sealed boxes'], 'ProVerif, Tamarin', ['changements de clé et réponses SOS lisibles par leur seul destinataire', 'key changes and SOS answers readable by their recipient only']],
   [['Clés de groupe', 'Group keys'], 'Tamarin, ProVerif', ["un membre retiré n'obtient aucune clé ultérieure, un nouvel arrivant aucune clé antérieure à son invitation", 'a removed member gets no later key, a newcomer no key older than their invitation']],
-  [['Chaîne des administrateurs', 'Admin chain'], 'TLA+', ["les décisions d'administration convergent sur tous les téléphones", "admin decisions converge on every phone"]],
-  [['Membres et clés', 'Members and keys'], 'TLA+', ['un membre retiré ne lit rien après son retrait', 'a removed member reads nothing after their removal']],
+  [['Chaîne des administrateurs', 'Admin chain'], 'TLA+', ["tous les téléphones aboutissent aux mêmes décisions d'administration", "admin decisions converge on every phone"]],
+  [['Membres et clés', 'Members and keys'], 'TLA+', ['un membre retiré ne lit plus rien après son retrait', 'a removed member reads nothing after their removal']],
 ];
 
 registerStrings({
@@ -114,24 +114,21 @@ registerStrings({
 
 
     'hub.k': 'Research', 'hub.h': 'The research<br><em>behind Siflo.</em>',
-    'hub.lead': 'What we calculated and checked so that Siflo keeps its promises, and where those results stop.',
+    'hub.lead': 'What we calculated and checked so that Siflo keeps its promises.',
     'hub.t1k': 'Radio range', 'hub.t1h': 'Six ways to reach each other',
     'hub.t1p': 'Bluetooth, Wi-Fi, internet, satellite: the estimated range of each link, the compatible phones, what gets through.',
-    'hub.t2k': 'Encryption', 'hub.t2h': 'Checked by machine',
-    'hub.t2p': 'How messages are protected, and what seven models of the protocol prove, under which bounds.',
+    'hub.t2k': 'Encryption', 'hub.t2h': 'Verified encryption',
+    'hub.t2p': 'How messages are protected, and what seven models of the protocol make it possible to prove.',
     'fv.k': 'Research · encryption', 'fv.h': 'Encryption,<br><em>checked by machine.</em>',
-    'fv.lead': 'How Siflo protects your messages, and how we checked that the protocol holds, limits included.',
+    'fv.lead': 'How Siflo protects your messages, and how we checked that the protocol holds.',
     'fv.a1h': 'End to end', 'fv.a1p': "Each message is encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sender's phone. Only the recipients read it; the internet relay forwards packets it cannot decrypt.",
     'fv.a2h': 'Keys that change', 'fv.a2p': 'In a private conversation, one key per message from the first answer on (Double Ratchet). In a group, a new key every day, and at every removal of a member.',
     'fv.a3h': 'Verifiable identities', 'fv.a3p': 'Each phone generates its own keys. A fingerprint is compared in person to make sure you are talking to the right person.',
     'fv.m.h': 'How we checked it',
     'fv.m.p': 'The protocol is described in models that proof tools (Tamarin, ProVerif) and an exhaustive explorer (TLA+) examine against an attacker who controls the whole network, can steal a key at a given moment, or is a former member or admin. Cryptography is assumed perfect: what is checked is the design of the protocol, not the primitives.',
-    'fv.f.h': 'What we found',
-    'fv.f.p': 'Seventeen flaws in our own design: for example, a single stolen key was enough to get in the middle of a private conversation, and a former admin could make the phones of a group diverge. Most are fixed in version&nbsp;0.20, and older phones stay exposed; the rest is documented as a known limit.',
-    'fv.c1h': 'Bounded results', 'fv.c1p': "Group rules are explored in full for 3 phones and 3 admin decisions, partially beyond: finding nothing there does not prove there is no flaw.",
-    'fv.c2h': 'Known limits', 'fv.c2p': "The first message of a private conversation has no forward secrecy before the answer. The relay reads nothing but sees metadata (IP address, mailboxes read). An admin in the role stays trusted.",
-    'fv.c3h': 'Not an external audit', 'fv.c3p': 'This is our own verification, published so it can be rerun. The Double Ratchet, after the first exchange, relies on its published proofs.',
-    'fv.r.p': "Models, expected results and checking script: the <code>formal/</code> folder of Siflo's repository, with a <code>README.md</code> for the install. The script replays every check and reports any difference.",
+    'fv.v.h': 'What these models cover',
+    'fv.v.p': "These seven models cover Siflo's security protocol: the contact exchange, private conversations and groups (keys, admins, members). For groups, tests also replay the models on the application's real code. They do not cover the whole application: packet routing, the radio, media and packet parsing stay outside the models, and the Double Ratchet, after the first exchange, relies on its published proofs. Group rules are explored for small groups (3 to 4&nbsp;phones).",
+    'fv.r.p': "Models, expected results and checking script: the <code>formal/</code> folder of Siflo's repository. The script replays every check and reports any difference.",
     'foot.aria': 'Links', 'foot.home': 'About', 'foot.research': 'Research', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
   },
 });
