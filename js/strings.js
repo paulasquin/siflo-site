@@ -70,7 +70,7 @@ export const STRINGS = {
     'meta.og.description': 'Messages, photos, voice notes, signals and SOS for your group on an outing, with or without a network. Free, encrypted, no account.',
     loader: 'Looking for your group…',
     'nav.aria': 'Main navigation',
-    'nav.signals': 'Signals', 'nav.mesh': 'No network', 'nav.field': 'In the field', 'nav.film': 'Video', 'nav.privacy': 'Privacy', 'nav.help': 'Help',
+    'nav.signals': 'Signals', 'nav.mesh': 'No network', 'nav.field': 'In the field', 'nav.film': 'Video', 'nav.privacy': 'Privacy', 'nav.help': 'Help', 'nav.research': 'Research',
     'hero.eyebrow': 'Outdoor group communication',
     'hero.t1': 'Stay in touch',
     'hero.t2': 'outdoors,',
@@ -163,7 +163,7 @@ export const STRINGS = {
     'fq.6q': 'How much does Siflo cost?', 'fq.6a': 'Nothing, and it will stay that way. If the app helps you, you can leave a tip from its settings, through Google Play.',
     'fq.7q': 'Who develops Siflo?', 'fq.7a': 'Siflo is developed by Guardia SAS, a French company, under its <a href="https://aidiligence.eu">AI Diligence</a> brand.',
     'sp.1': 'A question, a problem, an idea?', 'sp.2': 'Write to us: we answer every message.',
-    'foot.aria': 'Links', 'foot.research': 'Radio range', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
+    'foot.aria': 'Links', 'foot.research': 'Research', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
     'lb.aria': 'Enlarged screenshot', 'lb.close': 'Close', 'lb.prev': 'Previous screenshot', 'lb.next': 'Next screenshot',
   },
 };

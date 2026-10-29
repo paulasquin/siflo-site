@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portée radio · Comment les téléphones Siflo se joignent</title>
-  <meta name="description" content="Bluetooth standard et longue portée, Wi-Fi de proximité, relais internet, balise d'alerte et satellite&#8239;: la portée estimée de chaque liaison de Siflo, les téléphones qui peuvent l'utiliser et ce qui passe.">
+  <title>Recherche · Portée radio et chiffrement de Siflo</title>
+  <meta name="description" content="La recherche derrière Siflo&#8239;: la portée estimée de chaque liaison radio, le chiffrement des messages et sa vérification formelle, avec leurs limites.">
   <meta name="theme-color" content="#0e0b09">
-  <meta property="og:title" content="Siflo · Six façons de se joindre">
-  <meta property="og:description" content="La portée estimée de chaque liaison de Siflo, du Bluetooth au satellite, les téléphones compatibles et ce qui passe.">
+  <meta property="og:title" content="Siflo · La recherche derrière l'application">
+  <meta property="og:description" content="Portée radio estimée, chiffrement des messages et vérification formelle du protocole, avec leurs limites.">
   <meta property="og:image" content="https://siflo.app/assets/og.jpg">
   <meta property="og:url" content="https://siflo.app/research/">
   <meta property="og:type" content="article">
@@ -56,11 +56,33 @@
   </nav>
 
   <main>
-    <section class="section rs-intro">
+    <section class="section rs-hub">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker" data-i18n="rs.k">Recherche · portée radio</p>
-          <h1 class="h-xl" data-i18n="rs.h">Six façons<br><em>de se joindre.</em></h1>
+          <p class="kicker" data-i18n="hub.k">Recherche</p>
+          <h1 class="h-xl" data-i18n="hub.h">La recherche<br><em>derrière Siflo.</em></h1>
+          <p class="lead" data-i18n="hub.lead">Ce que nous avons calculé et ce que nous avons vérifié.</p>
+        </div>
+        <div class="hub-tiles">
+          <a class="hub-tile" href="#portee">
+            <span class="kicker" data-i18n="hub.t1k">Portée radio</span>
+            <h2 data-i18n="hub.t1h">Six façons de se joindre</h2>
+            <p data-i18n="hub.t1p">Bluetooth, Wi-Fi, internet, satellite&#8239;: la portée estimée de chaque liaison, les téléphones compatibles et ce qui passe.</p>
+          </a>
+          <a class="hub-tile" href="#verification">
+            <span class="kicker" data-i18n="hub.t2k">Chiffrement</span>
+            <h2 data-i18n="hub.t2h">Un chiffrement mis à l'épreuve</h2>
+            <p data-i18n="hub.t2p">Comment vos messages sont protégés, et ce que des outils de preuve en ont vérifié.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rs-intro" id="portee">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="rs.k">Portée radio</p>
+          <h2 class="h-lg" data-i18n="rs.h">Six façons<br><em>de se joindre.</em></h2>
           <p class="lead" data-i18n="rs.lead">Comment un téléphone Siflo en joint un autre&#8239;: par Bluetooth, par Wi-Fi, par internet et, plus tard, par satellite. Pour chaque liaison, la portée estimée, les téléphones qui peuvent l'utiliser et ce qui passe.</p>
           <p data-i18n="rs.p1">Les portées sont estimées par le calcul, pas encore mesurées sur le terrain. L'échelle est logarithmique&#8239;: d'une graduation à la suivante, la distance est multipliée par dix. Les cinq premières liaisons sont dans l'application, dont la balise d'alerte (Android seulement)&#8239;; le satellite est en préparation.</p>
         </div>
@@ -110,8 +132,49 @@
             <p data-i18n="rs.n6p">Certains Android récents envoient de courts messages par satellite, selon l'opérateur&#8239;; sur iPhone, Apple réserve le satellite à ses propres fonctions. Nous travaillons à faire passer le SOS et les signaux de Siflo par satellite&#8239;; rien n'est encore disponible.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section fv" id="verification">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="fv.k">Chiffrement</p>
+          <h2 class="h-lg" data-i18n="fv.h">Le chiffrement,<br><em>mis à l'épreuve.</em></h2>
+          <p class="lead" data-i18n="fv.lead">Comment Siflo protège vos messages, ce que nous avons vérifié, et jusqu'où.</p>
+        </div>
+
+        <div class="honest">
+          <div>
+            <h3 data-i18n="fv.a1h">De bout en bout</h3>
+            <p data-i18n="fv.a1p">Les messages de groupe et les messages privés sont chiffrés (ChaCha20-Poly1305) et signés (Ed25519) sur le téléphone qui les envoie, et seuls leurs destinataires peuvent les ouvrir. Le relais internet transmet des paquets qu'il ne peut pas lire&#8239;; il n'en voit que des métadonnées, comme l'heure et l'adresse IP. Le SOS envoyé à tous les téléphones proches (position comprise) et les messages publics sont faits pour être lus par tous&#8239;: ils sont signés, pas chiffrés.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.a2h">Des clés qui changent</h3>
+            <p data-i18n="fv.a2p">En conversation privée, dès la première réponse, chaque message a sa propre clé, effacée après usage (le Double Ratchet, mécanisme de Signal)&#8239;: une clé volée plus tard ne relit pas les messages passés. Dans un groupe, la clé change chaque jour et à chaque retrait d'un membre&#8239;: une clé volée n'ouvre rien de plus de deux jours, mais lit le groupe jusqu'au prochain retrait.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.a3h">Des identités vérifiables</h3>
+            <p data-i18n="fv.a3p">Chaque téléphone crée ses propres clés&#8239;: pas de compte. Pour être sûr de parler à la bonne personne, on scanne son code en face à face, ou l'on compare un code de sécurité au cours d'un appel.</p>
+          </div>
+        </div>
+
+        <div class="fv-method">
+          <h3 data-i18n="fv.m.h">Comment nous l'avons vérifié</h3>
+          <p data-i18n="fv.m.p">Nous avons décrit le protocole dans des modèles mathématiques. Deux outils de preuve (Tamarin, ProVerif) et un outil qui explore les déroulements possibles d'un petit groupe (TLA+, 3 ou 4&nbsp;téléphones) les confrontent à un attaquant qui contrôle tout le réseau, relais compris, peut voler une clé à tout moment, ou a été membre ou administrateur du groupe. Un administrateur en poste est, lui, supposé de bonne foi.</p>
+          <ul class="fv-models" id="models"></ul>
+        </div>
+
+        <div class="fv-method">
+          <h3 data-i18n="fv.v.h">Jusqu'où vont ces vérifications</h3>
+          <p data-i18n="fv.v.p">Les modèles portent sur l'échange de contacts, le début des conversations privées et les groupes (clés, administrateurs, membres)&#8239;; pour les administrateurs et les membres, des tests vérifient aussi ces règles sur le code de l'application. Restent hors modèle l'acheminement et le décodage des paquets, la radio, les médias, l'analyse du trafic, et la suite des conversations privées, qui s'appuie sur les preuves publiées du Double Ratchet. Ces résultats valent pour la version 0.20 et les suivantes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rs-contact">
+      <div class="wrap">
         <div class="support">
-          <p><span data-i18n="rs.sp1">Vous avez mesuré une portée sur le terrain&#8239;?</span><b data-i18n="rs.sp2">Écrivez-nous&#8239;: vos mesures nous aident à corriger ces estimations.</b></p>
+          <p><span data-i18n="rs.sp1">Une question, une remarque, une mesure faite sur le terrain&#8239;?</span><b data-i18n="rs.sp2">Écrivez-nous&#8239;: vos retours nous aident à améliorer Siflo.</b></p>
           <a class="btn btn-primary" href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a>
         </div>
       </div>
@@ -123,7 +186,7 @@
       <a href="../" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
       <nav aria-label="Liens" data-i18n-aria="foot.aria">
         <a href="../" data-i18n="foot.home">Présentation</a>
-        <a href="./" data-i18n="foot.research">Portée radio</a>
+        <a href="./" data-i18n="foot.research">Recherche</a>
         <a href="../privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
         <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
         <a href="https://www.instagram.com/siflo.app/">Instagram</a>

@@ -61,6 +61,17 @@ const ROWS = [
   },
 ];
 
+// Formal verification: what each model proves, in a line. Tool and files are in formal/ of the Siflo repository.
+const MODELS = [
+  [['Liens de contact', 'Contact links'], 'ProVerif, Tamarin', ["la demande et l'acceptation restent secrètes, et personne ne peut s'interposer entre les deux personnes", 'the request and the accept stay secret, and nobody can step in between the two people']],
+  [['Début des conversations privées', 'Start of private conversations'], 'ProVerif, Tamarin', ["premier message secret, contenu infalsifiable, réponses à l'abri même d'une clé volée plus tard", 'first message secret, content that cannot be forged, answers safe even from a key stolen later']],
+  [['Enveloppe des messages privés', 'Private message envelope'], 'ProVerif', ["pour qui observe le réseau, rien dans l'enveloppe ne trahit la conversation&#8239;: seule l'adresse du destinataire est visible", "to someone watching the network, nothing in the envelope gives the conversation away: only the recipient's address shows"]],
+  [['Nouvelles clés et réponses SOS', 'New keys and SOS answers'], 'ProVerif, Tamarin', ["chacune ne peut être ouverte que par la personne à qui elle est adressée", 'each can only be opened by the person it is addressed to']],
+  [['Clés de groupe', 'Group keys'], 'Tamarin, ProVerif', ["un membre retiré n'obtient aucune clé suivante, un nouvel arrivant aucune clé de plus de deux jours avant son invitation", 'a removed member gets no later key, a newcomer no key from more than two days before their invitation']],
+  [['Administrateurs', 'Admins'], 'TLA+', ["une fois tous les messages reçus, tous les téléphones s'accordent sur les administrateurs et les retraits, même face à un ancien administrateur", 'once every message is in, all phones agree on admins and removals, even against a former admin']],
+  [['Membres et clés', 'Members and keys'], 'TLA+', ["dès qu'un membre a reçu la nouvelle clé, la personne retirée ne lit plus ce qu'il écrit", 'once a member has the new key, the removed person can no longer read what they write']],
+];
+
 registerStrings({
   ui: {
     fr: {
@@ -68,19 +79,19 @@ registerStrings({
       'rs.body': 'sur soi', 'rs.hand': 'en main', 'rs.nolimit': 'sans limite', 'rs.speed': 'Débit', 'rs.battery': 'Consommation',
       'rs.y': 'oui', 'rs.p': 'limité', 'rs.n': 'non',
       'rs.app': "Dans l'application", 'rs.next': "Pas encore dans l'application",
-    },
+          },
     en: {
       'rs.method': 'Link', 'rs.range': 'Range', 'rs.phones': 'Phones', 'rs.carries': 'What gets through',
       'rs.body': 'on body', 'rs.hand': 'in hand', 'rs.nolimit': 'no limit', 'rs.speed': 'Throughput', 'rs.battery': 'Battery use',
       'rs.y': 'yes', 'rs.p': 'limited', 'rs.n': 'no',
       'rs.app': 'In the app', 'rs.next': 'Not in the app yet',
-    },
+          },
   },
   static: {
-    'meta.title': 'Radio range · How Siflo phones reach each other',
-    'meta.description': 'Standard and long-range Bluetooth, nearby Wi-Fi, internet relay, alert beacon and satellite: the estimated range of each Siflo link, the phones that can use it and what gets through.',
+    'meta.title': 'Research · Siflo radio range and encryption',
+    'meta.description': 'The research behind Siflo: the estimated range of each radio link, message encryption and its formal verification, with their limits.',
     'nav.aria': 'Main navigation', 'nav.back': 'About Siflo',
-    'rs.k': 'Research · radio range',
+    'rs.k': 'Radio range',
     'rs.h': 'Six ways<br><em>to reach each other.</em>',
     'rs.lead': 'How a Siflo phone reaches another one: over Bluetooth, Wi-Fi, the internet and, later, satellite. For each link, the estimated range, the phones that can use it and what gets through.',
     'rs.p1': 'The ranges are estimated by calculation, not yet measured in the field. The scale is logarithmic: from one mark to the next, the distance is multiplied by ten. The first five links are in the app, including the alert beacon (Android only); satellite is in preparation.',
@@ -99,8 +110,25 @@ registerStrings({
     'rs.n5p': 'The distant phone receives the alert but cannot answer along this path: there is no acknowledgement, and the alert is repeated every two seconds. The alert beacon has been in the Android app since version 0.5; its range is yet to be measured in the field.',
     'rs.n6h': 'Satellite, in preparation',
     'rs.n6p': 'Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo\'s SOS and signals by satellite; nothing is available yet.',
-    'rs.sp1': 'Measured a range in the field?', 'rs.sp2': 'Write to us: your measurements help us correct these estimates.',
-    'foot.aria': 'Links', 'foot.home': 'About', 'foot.research': 'Radio range', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
+    'rs.sp1': 'A question, a remark, a field measurement?', 'rs.sp2': 'Write to us: your feedback helps us improve Siflo.',
+
+
+    'hub.k': 'Research', 'hub.h': 'The research<br><em>behind Siflo.</em>',
+    'hub.lead': "What we calculated and what we checked.",
+    'hub.t1k': 'Radio range', 'hub.t1h': 'Six ways to reach each other',
+    'hub.t1p': 'Bluetooth, Wi-Fi, internet, satellite: the estimated range of each link, the compatible phones, what gets through.',
+    'hub.t2k': 'Encryption', 'hub.t2h': "Encryption put to the test",
+    'hub.t2p': "How your messages are protected, and what proof tools have checked.",
+    'fv.k': 'Encryption', 'fv.h': "Encryption,<br><em>put to the test.</em>",
+    'fv.lead': "How Siflo protects your messages, what we checked, and where those checks stop.",
+    'fv.a1h': 'End to end', 'fv.a1p': "Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone, and only their recipients can open them. The internet relay forwards packets it cannot read; it only sees metadata, such as the time and the IP address. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.",
+    'fv.a2h': 'Keys that change', 'fv.a2p': "In a private conversation, from the first answer on, each message has its own key, erased once used (the Double Ratchet, Signal's mechanism): a key stolen later cannot read past messages. In a group, the key changes every day and whenever a member is removed: a stolen key opens nothing more than two days old, but reads the group until the next removal.",
+    'fv.a3h': 'Verifiable identities', 'fv.a3p': "Each phone makes its own keys: no account. To be sure you are talking to the right person, scan their code face to face, or compare a safety code during a call.",
+    'fv.m.h': 'How we checked it',
+    'fv.m.p': "We described the protocol in mathematical models. Two proof tools (Tamarin, ProVerif) and a tool that explores the possible courses of events in a small group (TLA+, 3 or 4&nbsp;phones) pit them against an attacker who controls the whole network, relay included, can steal a key at any moment, or used to be a member or an admin of the group. An admin still in the role is assumed to act in good faith.",
+    'fv.v.h': "How far these checks go",
+    'fv.v.p': "The models cover the contact exchange, the start of private conversations and groups (keys, admins, members); for admins and members, tests also check these rules on the app's own code. Outside the models: packet routing and parsing, the radio, media, traffic analysis, and the rest of a private conversation, which relies on the Double Ratchet's published proofs. These results hold for version 0.20 and later.",
+    'foot.aria': 'Links', 'foot.home': 'About', 'foot.research': 'Research', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
   },
 });
 
@@ -151,7 +179,12 @@ function render() {
   }).join('');
 }
 
+function renderVerification() {
+  $('#models').innerHTML = MODELS.map(([name, tool, what]) => `<li><b>${L(name)}</b><span class="fv-tool">${tool}</span><p>${L(what)}</p></li>`).join('');
+}
+
 applyStatic({
   onApplied: () => document.querySelectorAll('a[href="../privacy/#francais"]').forEach((a) => a.setAttribute('href', '../privacy/')),
 });
 render();
+renderVerification();
