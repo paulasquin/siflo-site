@@ -63,6 +63,7 @@
           <h1 class="h-xl" data-i18n="rs.h">Six façons<br><em>de se joindre.</em></h1>
           <p class="lead" data-i18n="rs.lead">Comment un téléphone Siflo en joint un autre&#8239;: par Bluetooth, par Wi-Fi, par internet et, plus tard, par satellite. Pour chaque liaison, la portée estimée, les téléphones qui peuvent l'utiliser et ce qui passe.</p>
           <p data-i18n="rs.p1">Les portées sont estimées par le calcul, pas encore mesurées sur le terrain. L'échelle est logarithmique&#8239;: d'une graduation à la suivante, la distance est multipliée par dix. Les cinq premières liaisons sont dans l'application, dont la balise d'alerte (Android seulement)&#8239;; le satellite est en préparation.</p>
+          <p><a class="fv-jump" href="#verification" data-i18n="rs.jump">Vérification formelle du protocole</a></p>
         </div>
 
         <div class="rs-legend" aria-hidden="true">
@@ -116,6 +117,51 @@
         </div>
       </div>
     </section>
+
+    <section class="section fv" id="verification">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="fv.k">Recherche · vérification formelle</p>
+          <h2 class="h-lg" data-i18n="fv.h">Le protocole,<br><em>vérifié par machine.</em></h2>
+          <p class="lead" data-i18n="fv.lead">Sept modèles du protocole de Siflo, vérifiés avec Tamarin, ProVerif et TLA+. Ce qui est prouvé, sous quelles bornes, ce que la vérification a trouvé et fait corriger, ce qui reste une limite.</p>
+          <p data-i18n="fv.p1">Chaque modèle fait face à un attaquant qui contrôle tout le réseau&#8239;: les paquets du maillage et du relais, qu'il lit, bloque, rejoue et modifie, avec en plus la fuite d'une clé à long terme à un moment donné, ou un ancien administrateur ou membre retiré. La cryptographie y est supposée parfaite&#8239;: la vérification porte sur la conception du protocole, pas sur les primitives, la radio ou l'analyse de trafic.</p>
+          <p data-i18n="fv.p2">Ce n'est pas un audit indépendant&#8239;: c'est notre propre vérification, publiée pour pouvoir être refaite. Les résultats sont ceux du 28&nbsp;octobre 2026 ; sur 47 propriétés, 22 sont prouvées, 5 sont vraies par construction (dites ainsi, jamais présentées comme des preuves), 5 sont des limites documentées et 2 ne sont pas modélisées&#8239;; les autres ont été attaquées avec succès, ce sont les failles ci-dessous.</p>
+        </div>
+
+        <div class="fv-table" id="models"></div>
+
+        <div class="fv-found">
+          <h3 data-i18n="fv.f.h">Ce que la vérification a trouvé</h3>
+          <p data-i18n="fv.f.p">Dix-sept failles ont été ouvertes comme tickets contre le code, chacune montrée par un modèle, sous forme d'une trace d'attaque ou d'un contre-exemple.</p>
+          <ul id="findings"></ul>
+        </div>
+
+        <div class="honest">
+          <div>
+            <h3 data-i18n="fv.c1h">Un résultat borné reste borné</h3>
+            <p data-i18n="fv.c1p">Les modèles TLA+ sont explorés pour 3 téléphones et 3 commits (exhaustif pour la chaîne des admins), parfois 4 commits ou 4 téléphones jusqu'à la profondeur&nbsp;11. Quand l'exploration s'arrête à la limite de temps sans trouver de violation, ce n'est pas une preuve. Quelques exécutions n'ont pas abouti dans leur limite (deux propriétés du lien de contact dans Tamarin, une équivalence dans ProVerif)&#8239;: elles sont signalées comme telles.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.c2h">Une limite documentée est une limite</h3>
+            <p data-i18n="fv.c2p">Pas de confidentialité persistante pour le premier message d'une conversation privée, avant la réponse&#8239;; une clé de groupe par jour, pas par message&#8239;; un membre lit son groupe par construction&#8239;; un administrateur en fonction reste hors du modèle. Le relais ne lit rien, mais ses métadonnées (qui lit quelle boîte, adresse IP) ne sont pas couvertes.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.c3h">Ce qui n'est pas modélisé</h3>
+            <p data-i18n="fv.c3p">Le Double Ratchet après le premier échange, repris des preuves publiées (Cohn-Gordon et al. 2016, Alwen-Coretti-Dodis 2019). Les attaques sur les primitives, la couche radio, l'analyse de trafic, les erreurs des analyseurs de paquets. Les groupes sans administrateurs pour les clés de groupe.</p>
+          </div>
+        </div>
+
+        <div class="fv-run">
+          <div>
+            <h3 data-i18n="fv.r.h">Le refaire soi-même</h3>
+            <p data-i18n="fv.r.p">Les modèles, les résultats attendus et le script de vérification sont dans le dossier <code>formal/</code> du dépôt de Siflo. <code>formal/README.md</code> explique l'installation (Tamarin 1.12.0, ProVerif 2.05, TLC 1.8.0 avec Java 17) ; <code>formal/RESULTS.md</code> donne chaque exécution, sa variante et son temps&#8239;; <code>formal/THREAT_MODEL.md</code> l'attaquant et les propriétés. Le script rejoue chaque exécution et sort en erreur si un résultat diffère de celui attendu.</p>
+          </div>
+          <pre aria-label="Commandes"><code data-i18n="fv.r.code">python3 formal/check.py              # tout
+python3 formal/check.py --fast 30    # sous 30 s
+python3 formal/check.py sealed_box   # par mot-clé</code></pre>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -124,6 +170,7 @@
       <nav aria-label="Liens" data-i18n-aria="foot.aria">
         <a href="../" data-i18n="foot.home">Présentation</a>
         <a href="./" data-i18n="foot.research">Portée radio</a>
+        <a href="#verification" data-i18n="foot.verif">Vérification formelle</a>
         <a href="../privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
         <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
         <a href="https://www.instagram.com/siflo.app/">Instagram</a>

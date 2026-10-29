@@ -61,6 +61,67 @@ const ROWS = [
   },
 ];
 
+// Formal verification (formal/RESULTS.md and THREAT_MODEL.md in the Siflo repository, results of 2026-10-28).
+// Fields: name, tool, covers, proved, found, bound (a caveat that stays attached to the result).
+const MODELS = [
+  {
+    name: ['Lien de contact', 'Contact link'], tool: 'ProVerif, Tamarin',
+    covers: ["La demande de contact, l'acceptation, puis le REVEAL qui envoie la carte d'identité.", 'The contact request, the accept, then the REVEAL that sends the identity card.'],
+    proved: ["Secret de la demande (tant que le secret du lien ne fuit pas) et de l'acceptation, authentification des deux côtés, REVEAL lié à sa conversation. Deux demandes ne se relient pas entre elles : vrai par construction.", "Secrecy of the request (until the link secret leaks) and of the accept, authentication on both sides, REVEAL bound to its conversation. Two requests cannot be linked to each other: true by construction."],
+    found: ["Avant #129, un détenteur du secret du lien pouvait relire une demande et la resceller. Corrigé : la demande signe la clé du ratchet.", 'Before #129, a holder of the link secret could read a request and seal it again. Fixed: the request now signs the ratchet key.'],
+    bound: ["L'échange complet en un seul modèle ne termine pas : il est coupé en trois parties. Deux propriétés ne sont prouvées que dans ProVerif, leur version Tamarin n'a pas abouti.", 'The whole exchange in one model does not terminate: it is cut in three parts. Two properties are proved in ProVerif only; their Tamarin version did not finish.'],
+  },
+  {
+    name: ['Sessions privées', 'Private sessions'], tool: 'ProVerif, Tamarin',
+    covers: ["Le début d'une conversation privée : premier message, réponse, jusqu'à 5 sessions par personne.", 'The start of a private conversation: first message, answer, up to 5 sessions per person.'],
+    proved: ["Un premier message n'est lisible que si la clé statique ou de signature du destinataire fuit. Aucun contenu ne peut être falsifié. À partir de la première réponse, le secret résiste à une fuite ultérieure de toutes les clés à long terme.", "A first message is readable only if the recipient's static or signing key leaks. No content can be forged. From the first answer on, secrecy survives a later leak of every long-term key."],
+    found: ["#144 : une seule clé statique volée suffit à un attaquant actif pour s'interposer entre deux téléphones, lire et relayer leurs sessions (sans rien falsifier). Corrigé en 0.20 par un en-tête signé, pour deux téléphones à jour. #146 : une annonce rejouée lève la règle des 48 h, encore ouvert.", '#144: one stolen static key lets an active attacker sit in the middle of two phones, reading and relaying their sessions (without forging anything). Fixed in 0.20 by a signed header, for two up-to-date phones. #146: a replayed announcement lifts the 48 h rule, still open.'],
+    bound: ["Pas de confidentialité persistante pour le premier message, avant la réponse : limite documentée. La compromission de l'état d'une session n'est pas modélisée.", 'No forward secrecy for the first message, before the answer: a documented limit. Compromise of a session state is not modelled.'],
+  },
+  {
+    name: ['Enveloppe des messages', 'Message envelope'], tool: 'ProVerif',
+    covers: ["L'étiquette et l'enveloppe d'un paquet de message privé.", 'The tag and the envelope of a private message packet.'],
+    proved: ["Un observateur passif ne relie un paquet ni à sa conversation ni à sa session. Seuls les deux téléphones de la paire fabriquent une étiquette valide.", 'A passive observer cannot tie a packet to its conversation or its session. Only the two phones of a pair can make a valid tag.'],
+    found: ["#145 : la copie radio et la copie relais d'un même message portent le même horodatage, qui permet de les relier. Encore ouvert.", '#145: the radio copy and the relay copy of one message carry the same timestamp, which lets an observer tie them. Still open.'],
+    bound: ["Observateur passif seulement. Le minutage des paquets est hors modèle.", 'Passive observer only. Packet timing is out of the model.'],
+  },
+  {
+    name: ['Boîtes scellées', 'Sealed boxes'], tool: 'ProVerif, Tamarin',
+    covers: ["Les corps de REKEY et de SOS_ANSWER, scellés pour la clé statique d'un téléphone.", "The bodies of REKEY and SOS_ANSWER, sealed to a phone's static key."],
+    proved: ["Secrets pour tous sauf le détenteur de la clé visée. La signature intérieure authentifie l'expéditeur, le destinataire, le groupe et l'époque. Une boîte n'est prise que par son destinataire.", 'Secret to everyone but the holder of the addressed key. The inner signature authenticates the sender, the recipient, the group and the epoch. A box is taken only by its recipient.'],
+    found: ["#161 : une boîte n'était pas liée au message qui la porte, un membre pouvait la glisser dans un message de lui. Corrigé en 0.20 pour un expéditeur à jour.", '#161: a box was not bound to the message that carries it; a member could slip it into a message of their own. Fixed in 0.20 for an up-to-date sender.'],
+    bound: ["Pas de confidentialité persistante, documenté : une clé statique prise plus tard ouvre une boîte captée avant.", 'No forward secrecy, documented: a static key taken later opens a box captured earlier.'],
+  },
+  {
+    name: ['Clés de groupe', 'Group keys'], tool: 'Tamarin, ProVerif',
+    covers: ["La distribution des clés dans les groupes avec administrateurs : retrait, arrivée tardive, commit de clé.", 'Key distribution in groups with admins: removal, late joining, the key commit.'],
+    proved: ["Un membre retiré n'obtient aucune clé d'une époque ultérieure. Un nouvel arrivant n'obtient aucune clé antérieure au jour de son invitation. Personne ne peut faire prendre une autre clé que celle désignée par le commit de l'administrateur.", "A removed member never gets a key of a later epoch. A newcomer gets no key older than the day of their invitation. Nobody can make a member take a key other than the one the admin's commit names."],
+    found: ["Aucune attaque sur le code dans ce modèle.", 'No attack on the code in this model.'],
+    bound: ["Limites reproduites : un lien donne les clés de tous les jours suivants, le nouvel arrivant lit le jour de son arrivée et les deux précédents, un membre pas encore à jour écrit sous l'ancienne clé, que le membre retiré lit. Groupes sans administrateurs hors modèle.", 'Limits reproduced: a link gives the keys of every later day, a newcomer reads the day they join and the two before, a member not yet up to date writes under the old key, which the removed member reads. Groups without admins are out of the model.'],
+  },
+  {
+    name: ['Chaîne des administrateurs', 'Admin chain'], tool: 'TLA+ (TLC)',
+    covers: ["Les commits des administrateurs : qui peut signer, forks, passation, points de contrôle.", 'The admins\' commits: who may sign, forks, handover, checkpoints.'],
+    proved: ["Un commit n'est valide que signé par un administrateur de son état parent. Le groupe garde un administrateur, le créateur n'est pas retiré tant qu'il est premier en rang. Les téléphones partis de la même base convergent, une fois les règles corrigées.", "A commit is valid only if an admin of its parent's state signed it. The group keeps one admin; the creator is not removed while first in rank. Phones that start from the same base converge, once the rules were fixed."],
+    found: ["Sept failles (#154 à #159, #164) : un ancien administrateur qui gagne un fork ou une égalité, qui annule son propre retrait, dont le point de contrôle prend au piège un téléphone en retard. Corrigées en 0.20 ; les téléphones 0.15 à 0.19 y restent exposés.", 'Seven findings (#154 to #159, #164): a former admin who wins a fork or a tie, who voids their own removal, whose checkpoint catches a phone that is behind. Fixed in 0.20; phones on 0.15 to 0.19 stay exposed.'],
+    bound: ["Borné : 3 téléphones et 3 commits, exhaustif ; 4 commits ou 4 téléphones jusqu'à la profondeur 11. Quelques configurations ont atteint leur limite de temps (900 s) sans violation : ce n'est pas une preuve.", 'Bounded: 3 phones and 3 commits, exhaustive; 4 commits or 4 phones to depth 11. A few configurations reached their time limit (900 s) without a violation: that is not a proof.'],
+  },
+  {
+    name: ['Membres et époques de clé', 'Membership and key epochs'], tool: 'TLA+ (TLC)',
+    covers: ["Qui est membre, quelle clé à quelle époque : retrait, arrivée tardive, départ d'un administrateur, groupes sans administrateurs.", 'Who is a member and which key at which epoch: removal, late joining, an admin leaving, groups without admins.'],
+    proved: ["Avec administrateurs, un membre retiré ne lit rien après l'époque perdue (scénarios exhaustifs). Sans administrateurs, un changement de clé n'est accepté que selon la règle de l'époque suivante.", 'With admins, a removed member reads nothing after the epoch they lost (exhaustive scenarios). Without admins, a key change is accepted only under the next-epoch rule.'],
+    found: ["Six failles (#148 à #153), par exemple : un nouvel arrivant dont le code précède un retrait ne reçoit jamais la nouvelle clé (#152) ; un membre réadmis se retire lui-même au changement de clé suivant (#153). Certaines sont corrigées, d'autres encore ouvertes.", 'Six findings (#148 to #153), for example: a newcomer whose code predates a removal never gets the new key (#152); a readmitted member removes themselves at the next key change (#153). Some are fixed, others still open.'],
+    bound: ["Les scénarios sont exhaustifs, les grandes configurations ne le sont pas. Le partage documenté des groupes sans administrateurs (deux retraits simultanés) est reproduit, pas corrigé.", 'The scenarios are exhaustive, the large configurations are not. The documented split of groups without admins (two removals at once) is reproduced, not fixed.'],
+  },
+];
+
+const FINDINGS = [
+  ['#144, #161', ["Sessions privées et boîtes scellées : un attaquant actif avec une seule clé statique s'interpose, une boîte est transférable. Corrigés en 0.20 (versions 2) ; une paire dont un téléphone est antérieur à la 0.20 reste en version 1, donc ouverte.", 'Private sessions and sealed boxes: an active attacker with one static key sits in the middle, a box can be moved. Fixed in 0.20 (v2 forms); a pair with a phone older than 0.20 stays in v1, so open.']],
+  ['#145, #146', ["Enveloppe et annonces : horodatage identique entre copie radio et copie relais, annonce rejouée qui lève la règle des 48 h. Ouverts.", 'Envelope and announcements: one timestamp on the radio and relay copies, a replayed announcement that lifts the 48 h rule. Open.']],
+  ['#154 – #159, #164', ["Chaîne des administrateurs : sept failles où un ancien administrateur, ou la copie d'un ancien téléphone, fait diverger les téléphones ou capture un téléphone en retard. Corrigées en 0.20.", 'Admin chain: seven findings where a former admin, or a copy of an old phone, splits phones or captures one that is behind. Fixed in 0.20.']],
+  ['#148 – #153', ["Membres et clés : un retrait raté, une clé jamais reçue, un administrateur sortant qui le reste. Mélange de corrigés (#148, #149) et d'ouverts (#150 à #153).", 'Membership and keys: a removal that does not stick, a key never received, a leaving admin who stays admin. A mix of fixed (#148, #149) and open (#150 to #153).']],
+];
+
 registerStrings({
   ui: {
     fr: {
@@ -68,12 +129,14 @@ registerStrings({
       'rs.body': 'sur soi', 'rs.hand': 'en main', 'rs.nolimit': 'sans limite', 'rs.speed': 'Débit', 'rs.battery': 'Consommation',
       'rs.y': 'oui', 'rs.p': 'limité', 'rs.n': 'non',
       'rs.app': "Dans l'application", 'rs.next': "Pas encore dans l'application",
+      'fv.model': 'Modèle', 'fv.proved': 'Prouvé', 'fv.found': 'Trouvé', 'fv.bound': 'Bornes et limites',
     },
     en: {
       'rs.method': 'Link', 'rs.range': 'Range', 'rs.phones': 'Phones', 'rs.carries': 'What gets through',
       'rs.body': 'on body', 'rs.hand': 'in hand', 'rs.nolimit': 'no limit', 'rs.speed': 'Throughput', 'rs.battery': 'Battery use',
       'rs.y': 'yes', 'rs.p': 'limited', 'rs.n': 'no',
       'rs.app': 'In the app', 'rs.next': 'Not in the app yet',
+      'fv.model': 'Model', 'fv.proved': 'Proved', 'fv.found': 'Found', 'fv.bound': 'Bounds and limits',
     },
   },
   static: {
@@ -100,6 +163,25 @@ registerStrings({
     'rs.n6h': 'Satellite, in preparation',
     'rs.n6p': 'Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo\'s SOS and signals by satellite; nothing is available yet.',
     'rs.sp1': 'Measured a range in the field?', 'rs.sp2': 'Write to us: your measurements help us correct these estimates.',
+
+    'rs.jump': 'Formal verification of the protocol',
+    'fv.k': 'Research · formal verification',
+    'fv.h': 'The protocol,<br><em>checked by machine.</em>',
+    'fv.lead': "Seven models of Siflo's protocol, checked with Tamarin, ProVerif and TLA+. What is proved, under which bounds, what the verification found and got fixed, and what stays a limit.",
+    'fv.p1': "Each model faces an attacker who controls the whole network: the packets of the mesh and of the relay, which it reads, drops, replays and modifies, plus the leak of a long-term key at a given moment, or a former admin or removed member. Cryptography is assumed perfect: what is checked is the design of the protocol, not the primitives, the radio or traffic analysis.",
+    'fv.p2': "This is not an independent audit: it is our own verification, published so that it can be rerun. The results are those of 28&nbsp;October 2026. Of 47 properties, 22 are proved, 5 are true by construction (said so, never presented as proofs), 5 are documented limits and 2 are not modelled; the others were successfully attacked, and those attacks are the findings below.",
+    'fv.f.h': 'What the verification found',
+    'fv.f.p': 'Seventeen findings were filed as issues against the code, each one shown by a model as an attack trace or a counterexample.',
+    'fv.c1h': 'A bounded result stays bounded',
+    'fv.c1p': 'The TLA+ models are explored for 3 phones and 3 commits (exhaustive for the admin chain), sometimes 4 commits or 4 phones to depth&nbsp;11. When the exploration stops at its time limit without finding a violation, that is not a proof. A few runs did not finish within their limit (two properties of the contact link in Tamarin, one equivalence in ProVerif): they are reported as such.',
+    'fv.c2h': 'A documented limit is a limit',
+    'fv.c2p': "No forward secrecy for the first message of a private conversation, before the answer; one group key per day, not per message; a member reads their group by construction; an admin in the role stays out of the model. The relay reads nothing, but its metadata (who reads which mailbox, IP addresses) is not covered.",
+    'fv.c3h': 'What is not modelled',
+    'fv.c3p': "The Double Ratchet after the first exchange, taken from its published proofs (Cohn-Gordon et al. 2016, Alwen-Coretti-Dodis 2019). Attacks on primitives, the radio layer, traffic analysis, packet parser bugs. Groups without admins, for group keys.",
+    'fv.r.h': 'Rerun it yourself',
+    'fv.r.p': "The models, the expected results and the checking script are in the <code>formal/</code> folder of Siflo's repository. <code>formal/README.md</code> explains the install (Tamarin 1.12.0, ProVerif 2.05, TLC 1.8.0 with Java 17); <code>formal/RESULTS.md</code> gives every run, its variant and its time; <code>formal/THREAT_MODEL.md</code> the attacker and the properties. The script replays every run and exits with an error if a result differs from the expected one.",
+    'fv.r.code': 'python3 formal/check.py              # all runs\npython3 formal/check.py --fast 30    # under 30 s\npython3 formal/check.py sealed_box   # by keyword',
+    'foot.verif': 'Formal verification',
     'foot.aria': 'Links', 'foot.home': 'About', 'foot.research': 'Radio range', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
   },
 });
@@ -151,7 +233,19 @@ function render() {
   }).join('');
 }
 
+function renderVerification() {
+  $('#models').innerHTML = `<div class="fv-row fv-head" aria-hidden="true"><span>${t('fv.model')}</span><span>${t('fv.proved')}</span><span>${t('fv.found')}</span><span>${t('fv.bound')}</span></div>`
+    + MODELS.map((m, i) => `<article class="fv-row">
+      <div class="fv-model"><span class="fv-n">${i + 1}</span><h3>${L(m.name)}</h3><span class="fv-tool">${m.tool}</span><p>${L(m.covers)}</p></div>
+      <div data-label="${t('fv.proved')}"><p>${L(m.proved)}</p></div>
+      <div data-label="${t('fv.found')}"><p>${L(m.found)}</p></div>
+      <div data-label="${t('fv.bound')}"><p>${L(m.bound)}</p></div>
+    </article>`).join('');
+  $('#findings').innerHTML = FINDINGS.map(([ids, txt]) => `<li><b>${ids}</b><span>${L(txt)}</span></li>`).join('');
+}
+
 applyStatic({
   onApplied: () => document.querySelectorAll('a[href="../privacy/#francais"]').forEach((a) => a.setAttribute('href', '../privacy/')),
 });
 render();
+renderVerification();
