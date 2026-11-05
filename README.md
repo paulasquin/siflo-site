@@ -67,3 +67,5 @@ The OVH order also came with a free web hosting (`sifloai.cluster129.hosting.ovh
 ## Relay list
 
 `relays.txt` is the chain of Siflo relays the apps use, signed with Ed25519 (format and rules: `docs/protocol.md`, "Relay chain", in `paulasquin/siflo`). The apps fetch `https://siflo.app/relays.txt` once a day and only take a list that verifies and was issued after theirs: never edit it by hand, regenerate it with `server/sign_relays.py` of the siflo repository. Until siflo.app serves it, the apps keep the chain they were built with.
+
+`trusted.txt` is the trusted book (certified phones of rescue teams and guides), signed with Ed25519 (`docs/protocol.md`, "Trusted book", in `paulasquin/siflo`). The apps and relays fetch `https://siflo.app/trusted.txt` and only take a book that verifies and was issued after theirs: never edit it by hand, regenerate it with `server/sign_trusted.py` of the siflo repository. GitHub Pages serves `.txt` as `text/plain`, like `relays.txt`.
