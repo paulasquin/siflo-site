@@ -6,7 +6,8 @@
         "components": [
           { "/": "/j", "#": "*", "comment": "group invitation" },
           { "/": "/id", "#": "*", "comment": "identity card" },
-          { "/": "/c", "#": "*", "comment": "contact link" }
+          { "/": "/c", "#": "*", "comment": "contact link" },
+          { "/": "/groupe", "#": "*", "comment": "partner group link" }
         ]
       }
     ]
