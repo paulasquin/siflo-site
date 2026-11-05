@@ -7,7 +7,8 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   document.querySelectorAll('section[lang]').forEach(e => { e.hidden = e.lang !== lang; });
   document.querySelectorAll('.lang-switch button').forEach(b => { b.setAttribute('aria-pressed', b.dataset.lang === lang); });
-  document.title = document.querySelector(`section[lang="${lang}"] h1`).textContent + ' · Siflo';
+  const h1 = document.querySelector(`section[lang="${lang}"] h1`);
+  document.title = (h1.dataset.title || h1.textContent) + ' · Siflo';
 }
 setLang(/^fr\b/i.test(new URLSearchParams(location.search).get('lang') || saved || navigator.language || '') ? 'fr' : 'en');
 // The same choice as the main site's switch: saved for every page, and kept in the address for a shared link.
