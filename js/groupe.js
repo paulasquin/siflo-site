@@ -1,5 +1,6 @@
 // /groupe: the link of a partner site (siflo.app/groupe#v=1&n=...&j=1) when Siflo is not installed. Reads the fragment in the
-// browser only, shows the place's name, and builds the Google Play link that carries the whole link as install referrer.
+// browser only, shows the place's name, and copies the link to the clipboard before opening a store:
+// nothing about the outing reaches siflo.app or the stores; the app offers to paste it on first launch.
 const raw = location.hash.slice(1);
 const params = new Map();
 if (raw.length <= 2048) {
@@ -25,10 +26,7 @@ document.querySelectorAll('h1').forEach(h => {
   const own = h.querySelector(join ? '.only-join' : '.only-create');
   h.dataset.title = own.textContent;
 });
-document.querySelectorAll('a.play').forEach(a => {
-  if (link.includes('#')) a.href += '&referrer=' + encodeURIComponent(link);
-});
 document.querySelectorAll('button.copy').forEach(b => b.addEventListener('click', () => {
-  const open = () => { location.href = 'https://apps.apple.com/app/id6827630745'; };
+  const open = () => { location.href = b.dataset.store; };
   Promise.resolve().then(() => navigator.clipboard.writeText(link)).then(open, open);
 }));
