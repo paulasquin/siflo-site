@@ -1,4 +1,4 @@
-// Page wiring: strings, plain sections (screens, cipher, film), the stage and its
+// Page wiring: strings, plain sections (screens, film, encryption), the stage and its
 // three acts (canyon, signal, mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
 import { STRINGS } from './strings.js';
@@ -29,33 +29,6 @@ const SCREENS = {
 function renderScreens() {
   $('#screens').innerHTML = SCREENS[LANG].map(([f, cap]) => `
     <figure data-lightbox="screens"><div class="shot"><img src="assets/screens/${f}.webp" data-full="assets/screens/${f}.webp" alt="${cap}" loading="lazy" width="540" height="1080"></div><figcaption>${cap}</figcaption></figure>`).join('');
-}
-
-/** The relay row scrambles: a message, its ciphertext as seen by the relay, the same message decrypted. */
-function setupCipher() {
-  const msgs = LANG === 'fr'
-    ? ['STOP · de Julie', 'OK · de Marc', 'Rappel en place', 'On se retrouve au pied du 3ᵉ rappel']
-    : ['STOP · from Julie', 'OK · from Marc', 'Rope rigged', 'Meet at the foot of the 3rd rappel'];
-  const plain = $('#cipher-plain'), noise = $('#cipher-noise'), out = $('#cipher-out');
-  const hex = (n) => Array.from({ length: n }, () => '0123456789abcdef'[(Math.random() * 16) | 0]).join('');
-  let i = 0, timer = null;
-  const step = () => {
-    const m = msgs[i++ % msgs.length];
-    plain.textContent = m;
-    out.textContent = '';
-    let k = 0;
-    clearInterval(timer);
-    timer = setInterval(() => {
-      noise.textContent = hex(24 + m.length) .replace(/(.{8})/g, '$1 ');
-      if (++k === 14) { clearInterval(timer); out.textContent = m; }
-    }, 70);
-  };
-  step();
-  let loop = null;
-  ScrollTrigger.create({
-    trigger: '#confidentialite', start: 'top 80%', end: 'bottom 20%',
-    onToggle: (s) => { clearInterval(loop); if (s.isActive) loop = setInterval(step, 3200); },
-  });
 }
 
 /** Self-hosted film (no third-party request): the source is attached on the first click. */
@@ -117,7 +90,6 @@ async function boot() {
   onProgress(1);
   setupPanels();
   setupReveals();
-  setupCipher();
   if (bundle) {
     bindActs(bundle);
     // Each act learns at which progress its cards are centred (layout differs on phones).
@@ -130,6 +102,7 @@ async function boot() {
   }
   if (debug || capture) window.__kit = { ...bundle, lenis };
   await finishBoot();
+  import('./cipher.js').then(({ mountCipher }) => mountCipher($('#cipher'), { cut: 'short' }));
 }
 
 boot();
