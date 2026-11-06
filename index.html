@@ -87,7 +87,7 @@
       <a href="#aide" data-i18n="nav.help">Aide</a>
     </div>
     <div class="nav-right">
-      <a href="research/" class="nav-research" data-i18n="nav.research">Recherche</a>
+      <a href="labs/" class="nav-labs" data-i18n="nav.labs">Labs</a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
     </div>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
@@ -171,7 +171,7 @@
         <div class="card">
           <p class="kicker" data-i18n="m1.k">Sans réseau · 01</p>
           <h2 data-i18n="m1.h">De proche en proche.</h2>
-          <p data-i18n="m1.p">Les messages passent de téléphone en téléphone par Bluetooth, en longue portée sur les téléphones compatibles, puis par Wi-Fi de proximité quand quelqu'un s'éloigne. Chaque membre du groupe allonge la chaîne&#8239;: pas besoin d'antenne de réseau mobile.</p>
+          <p data-i18n="m1.p">Les messages passent de téléphone en téléphone par Bluetooth, en longue portée sur les téléphones compatibles, puis par Wi-Fi de proximité quand quelqu'un s'éloigne. Chaque membre du groupe allonge la chaîne&#8239;: pas besoin d'antenne de réseau mobile. Bientôt, une radio LoRa en option portera les messages courts à plusieurs kilomètres.</p>
         </div>
       </div>
       <div class="panel panel-left">
@@ -268,7 +268,7 @@
           <p class="kicker" data-i18n="ft.k">Plus que des signaux</p>
           <h2 class="h-xl" data-i18n="ft.h">Tout ce qu'il faut<br><em>pour garder le contact.</em></h2>
         </div>
-        <div class="features">
+        <div class="features four">
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></div>
             <h3 data-i18n="ft.1h">Messages, photos et vocaux</h3>
@@ -299,6 +299,16 @@
             <h3 data-i18n="ft.6h">Conçue pour le terrain</h3>
             <p data-i18n="ft.6p">Grandes touches, fort contraste en plein soleil, thème sombre, alerte visible même écran verrouillé, et une puissance d'émission qui n'augmente qu'en cas de besoin.</p>
           </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="6.5" y="6" width="11" height="12" rx="3"/><path d="M9 6 9.6 2.5h4.8L15 6M9 18l.6 3.5h4.8L15 18M12 9.5V12l1.6 1"/></svg></div>
+            <h3 data-i18n="ft.7h">Sur votre montre</h3>
+            <p data-i18n="ft.7p">Envoyez un signal ou un SOS et recevez les alertes au poignet, sans sortir le téléphone&#8239;: Garmin dès maintenant, Apple Watch, Wear OS et Amazfit très bientôt. La montre ne garde aucune clé&#8239;: tout passe par votre téléphone.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="7" y="9" width="10" height="12" rx="2"/><path d="M14.5 9V3M10 13h4M10 16.5h4"/><path d="M18 3.5a6 6 0 0 1 2 4M17 6a3 3 0 0 1 .9 2"/></svg></div>
+            <h3 data-i18n="ft.8h">Une radio LoRa en option</h3>
+            <p data-i18n="ft.8p">Reliez un boîtier radio LoRa (Meshtastic) à votre téléphone&#8239;: textes courts, signaux et SOS portent à plusieurs kilomètres à vue, et une radio posée en hauteur prolonge la chaîne. Arrive avec la prochaine version de Siflo.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -325,13 +335,9 @@
           </ul>
           <p style="margin-top:22px"><a href="privacy/#francais" class="btn btn-ghost" data-i18n="pv.link">Lire la politique de confidentialité</a></p>
         </div>
-        <div class="cipher reveal" aria-hidden="true">
-          <div class="cipher-row plain"><span data-i18n="pv.r1">Sur le téléphone de Julie</span><output id="cipher-plain"></output></div>
-          <div class="cipher-arrow"></div>
-          <div class="cipher-row relay"><span data-i18n="pv.r2">Ce que voient nos relais</span><output id="cipher-noise"></output></div>
-          <div class="cipher-arrow"></div>
-          <div class="cipher-row plain"><span data-i18n="pv.r3">Sur le téléphone de Marc</span><output id="cipher-out"></output></div>
-          <p class="cipher-foot" data-i18n="pv.foot">Seuls les membres du groupe détiennent la clé.</p>
+        <div class="reveal">
+          <div id="cipher"></div>
+          <p class="cx-more"><a href="labs/#verification" data-i18n="pv.more">Le chiffrement en détail, octet par octet</a></p>
         </div>
       </div>
     </section>
@@ -351,7 +357,7 @@
               <div><dt data-i18n="ho.1t2">≈&nbsp;100&nbsp;m</dt><dd data-i18n="ho.1d2">en main et à vue</dd></div>
               <div><dt data-i18n="ho.1t3">300&nbsp;m</dt><dd data-i18n="ho.1d3">au mieux&#8239;: en main, à vue, entre deux téléphones Android compatibles avec le Bluetooth longue portée</dd></div>
             </dl>
-            <p data-i18n="ho.1p">Ce sont des estimations&#8239;: le terrain décide. Un SOS, émis à pleine puissance sur Android, porte plus loin que ces valeurs, et chaque téléphone du groupe allonge la chaîne.</p>
+            <p data-i18n="ho.1p">Ce sont des estimations&#8239;: le terrain décide. Un SOS, émis à pleine puissance sur Android, porte plus loin que ces valeurs, et chaque téléphone du groupe allonge la chaîne. Avec la prochaine version, une radio LoRa en option portera les messages courts à plusieurs kilomètres.</p>
           </div>
           <div>
             <span class="num" data-i18n="ho.2n">Roche, eau</span>
@@ -364,7 +370,7 @@
             <p data-i18n="ho.3p">Portez le téléphone dans une poche de poitrine ou en haut du sac, et le moins possible sous l'eau. Et gardez votre sifflet&#8239;: il ne tombe jamais en panne de batterie.</p>
           </div>
         </div>
-        <p class="reveal" style="margin-top:28px"><a href="research/" class="btn btn-ghost" data-i18n="ho.more">La portée en détail, liaison par liaison</a></p>
+        <p class="reveal" style="margin-top:28px"><a href="labs/" class="btn btn-ghost" data-i18n="ho.more">La portée en détail, liaison par liaison</a></p>
       </div>
     </section>
 
@@ -374,7 +380,7 @@
         <div class="section-head reveal">
           <p class="kicker" data-i18n="dl.k">Gratuite pour toujours</p>
           <h2 class="h-xl" data-i18n="dl.h">Prête pour<br><em>votre prochaine sortie.</em></h2>
-          <p class="lead" data-i18n="dl.lead">Siflo est disponible sur Google Play&#8239;: gratuite, sans publicité ni compte. Si elle vous aide en sortie, vous pouvez laisser un pourboire depuis ses réglages. La version iPhone arrive bientôt.</p>
+          <p class="lead" data-i18n="dl.lead">Siflo est disponible sur Google Play&#8239;: gratuite, sans publicité ni compte. Si elle vous aide en sortie, vous pouvez laisser un pourboire depuis ses réglages. La version iPhone, avec son application Apple Watch, est en cours de validation chez Apple et arrive très bientôt.</p>
         </div>
         <div class="dl-buttons reveal">
           <a class="store" href="https://play.google.com/store/apps/details?id=app.siflo">
@@ -386,7 +392,7 @@
             <span><small data-i18n="dl.s2">Bientôt sur</small><b>iPhone</b></span>
           </span>
         </div>
-        <p class="dl-note reveal" data-i18n="dl.note">Android 8 ou plus récent.</p>
+        <p class="dl-note reveal" data-i18n="dl.note">Android 8 ou plus récent. Sur la montre&#8239;: <a href="https://apps.garmin.com/apps/a159262b-0e43-4e1b-90c6-43c4bfa8421a">Garmin</a> dès maintenant&#8239;; Wear OS, Apple Watch et Amazfit très bientôt.</p>
       </div>
     </section>
 
@@ -397,11 +403,13 @@
           <h2 class="h-lg" data-i18n="fq.h">Questions<br><em>fréquentes.</em></h2>
         </div>
         <div class="faq reveal">
-          <details><summary data-i18n="fq.1q">Faut-il du réseau pour utiliser Siflo&#8239;?</summary><p data-i18n="fq.1a">Non. Les téléphones se parlent directement par Bluetooth, en longue portée sur les téléphones compatibles, et par Wi-Fi de proximité. Si le groupe est séparé en deux et qu'un téléphone de chaque côté capte internet, les messages passent par nos relais&#8239;: indépendants les uns des autres, ils prennent automatiquement la suite si l'un ne répond plus. Mais rien de tout cela n'est nécessaire.</p></details>
-          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">Elle dépend surtout de ce qui sépare les téléphones&#8239;: le corps, l'eau et la roche absorbent les ondes. Comptez environ 25&nbsp;m avec le téléphone en poche, 100&nbsp;m en main et à vue, et 300&nbsp;m au mieux, à vue entre deux téléphones Android compatibles avec le Bluetooth longue portée. Ce sont des estimations. Sur Android, un SOS part aussi en balise d'alerte, à pleine puissance, pour porter plus loin. Chaque téléphone du groupe relaie les autres, ce qui allonge la chaîne. Le détail, liaison par liaison, est sur la page <a href="research/">Portée radio</a>.</p></details>
+          <details><summary data-i18n="fq.1q">Faut-il du réseau pour utiliser Siflo&#8239;?</summary><p data-i18n="fq.1a">Non. Les téléphones se parlent directement par Bluetooth, en longue portée sur les téléphones compatibles, et par Wi-Fi de proximité. Si le groupe est séparé en deux et qu'un téléphone de chaque côté capte internet, les messages passent par nos relais&#8239;: indépendants les uns des autres, ils prennent automatiquement la suite si l'un ne répond plus. Avec la prochaine version, une radio LoRa en option portera les messages courts à plusieurs kilomètres. Mais rien de tout cela n'est nécessaire.</p></details>
+          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">Elle dépend surtout de ce qui sépare les téléphones&#8239;: le corps, l'eau et la roche absorbent les ondes. Comptez environ 25&nbsp;m avec le téléphone en poche, 100&nbsp;m en main et à vue, et 300&nbsp;m au mieux, à vue entre deux téléphones Android compatibles avec le Bluetooth longue portée. Ce sont des estimations. Sur Android, un SOS part aussi en balise d'alerte, à pleine puissance, pour porter plus loin. Chaque téléphone du groupe relaie les autres, ce qui allonge la chaîne. Avec la prochaine version, une radio LoRa en option portera les messages courts à plusieurs kilomètres. Le détail, liaison par liaison, est sur la page <a href="labs/">Labs</a>.</p></details>
           <details><summary data-i18n="fq.3q">Est-ce que ça vide la batterie&#8239;?</summary><p data-i18n="fq.3a">L'objectif&#8239;: tenir une journée de 10 heures avec au plus un tiers de la batterie. La puissance d'émission n'augmente que lorsqu'un message n'est pas reçu, et un mode économie est disponible. Ces chiffres restent à confirmer lors des essais sur le terrain.</p></details>
           <details><summary data-i18n="fq.4q">Mes messages sont-ils privés&#8239;?</summary><p data-i18n="fq.4a">Oui. Ils sont chiffrés de bout en bout&#8239;: seuls les membres du groupe peuvent les lire, nos relais en sont incapables. Il n'y a ni compte, ni numéro de téléphone, ni publicité. Détails dans la <a href="privacy/#francais">politique de confidentialité</a>.</p></details>
-          <details><summary data-i18n="fq.5q">Siflo existe-t-elle sur iPhone&#8239;?</summary><p data-i18n="fq.5a">Pas encore. La version iPhone est en préparation et arrivera bientôt&#8239;; iPhone et téléphones Android pourront alors se parler dans un même groupe. En attendant, Siflo est disponible sur Android, par Google Play.</p></details>
+          <details><summary data-i18n="fq.5q">Siflo existe-t-elle sur iPhone&#8239;?</summary><p data-i18n="fq.5a">Très bientôt&#8239;: la version iPhone, avec son application Apple Watch, est en cours de validation chez Apple. iPhone et téléphones Android pourront alors se parler dans un même groupe. En attendant, Siflo est disponible sur Android, par Google Play.</p></details>
+          <details><summary data-i18n="fq.8q">Siflo fonctionne-t-elle sur ma montre&#8239;?</summary><p data-i18n="fq.8a">Oui, avec le téléphone à proximité&#8239;: Garmin dès maintenant&#8239;; Wear OS, Apple Watch et Amazfit (Zepp OS) très bientôt. Depuis la montre, vous envoyez un signal ou un SOS, et les alertes arrivent au poignet&#8239;; selon la montre, vous pouvez aussi dicter une réponse. La montre ne garde aucune clé&#8239;: tout passe par votre téléphone.</p></details>
+          <details><summary data-i18n="fq.9q">À quoi sert une radio LoRa&#8239;?</summary><p data-i18n="fq.9a">À porter plus loin que le Bluetooth. C'est un petit boîtier radio du commerce, compatible Meshtastic (par exemple Heltec Mesh Node T1 ou RAK WisMesh Tag), relié au téléphone en Bluetooth&#8239;: il porte les textes courts, les signaux et le SOS à plusieurs kilomètres à vue, pas les photos ni les vocaux. Une radio laissée sur un point haut prolonge la chaîne. Elle est facultative, et sa prise en charge arrive avec la prochaine version de Siflo. Détails sur la page <a href="labs/">Labs</a>.</p></details>
           <details><summary data-i18n="fq.6q">Combien coûte Siflo&#8239;?</summary><p data-i18n="fq.6a">Rien, et cela restera ainsi. Si l'application vous rend service, vous pouvez laisser un pourboire depuis ses réglages, par Google Play.</p></details>
           <details><summary data-i18n="fq.7q">Qui développe Siflo&#8239;?</summary><p data-i18n="fq.7a">Siflo est développée par Guardia SAS, société française, dans le cadre de son activité <a href="https://aidiligence.eu">AI Diligence</a>.</p></details>
         </div>
@@ -417,7 +425,7 @@
     <div class="wrap footer-inner">
       <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
       <nav aria-label="Liens" data-i18n-aria="foot.aria">
-        <a href="research/" data-i18n="foot.research">Recherche</a>
+        <a href="labs/" data-i18n="foot.labs">Labs</a>
         <a href="privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
         <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
         <a href="https://www.instagram.com/siflo.app/">Instagram</a>

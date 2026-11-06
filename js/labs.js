@@ -1,6 +1,7 @@
-// Research page: the ways a Siflo phone reaches another one, drawn from one table of data in both
-// languages ([fr, en] pairs). French static copy lives in research/index.html, its English below.
-import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
+// Labs page: the ways a Siflo phone reaches another one, drawn from one table of data in both
+// languages ([fr, en] pairs), and the encryption animation (cipher.js). French static copy lives in labs/index.html, its English below.
+import { registerStrings, applyStatic, LANG, t, nf } from './kit/i18n.js';
+import { mountCipher } from './cipher.js';
 
 const L = (v) => (Array.isArray(v) ? v[LANG === 'fr' ? 0 : 1] : v);
 
@@ -51,6 +52,15 @@ const ROWS = [
     speed: ['1 alerte toutes les 2 s, sans réponse', '1 alert every 2 s, no reply'], battery: ["2 à 11 % du temps radio, pendant l'alerte seulement", '2–11% of radio time, during an alert only'],
   },
   {
+    group: 'lora', name: ['Radio LoRa', 'LoRa radio'], sub: ['un boîtier Meshtastic relié au téléphone en Bluetooth : longue portée, bas débit', 'a Meshtastic device paired with the phone over Bluetooth: long range, low rate'],
+    tag: ['Prochaine version', 'Next version'],
+    range: [500, 2000, 2000, 5000], rangeNote: ['sur soi, radio à la ceinture ou sur le sac ; en main, radio tenue à vue ; posée sur un point haut dégagé, plus de 10 km', 'on body, radio on the belt or pack; in hand, held up in line of sight; on a clear high point, over 10 km'],
+    phones: { ios: 'y', old: 'y', a16: 'y', a17: 'y' },
+    feats: ['y', 'y', 'p', 'n'], featNotes: { 2: ['courts', 'short'] },
+    speed: ['quelques centaines de trames de 233 octets par heure', 'a few hundred 233-byte frames an hour'], battery: ['faible pour le téléphone : la radio a sa propre batterie', 'low for the phone: the radio has its own battery'],
+    note: ["En Europe, une radio ne peut émettre que 10 % du temps : Siflo la réserve aux messages que le Bluetooth et internet ne portent plus.", 'In Europe a radio may only transmit 10% of the time: Siflo reserves it for messages that Bluetooth and the internet no longer carry.'],
+  },
+  {
     group: 'next', name: ['Satellite', 'Satellite'], sub: ['réseaux satellite des opérateurs', "carriers' satellite networks"],
     tag: ['En préparation', 'In preparation'],
     range: null, reach: ['ciel ouvert', 'open sky'], rangeNote: ['partout à ciel ouvert, jamais en grotte', 'anywhere under open sky, never in caves'],
@@ -78,23 +88,23 @@ registerStrings({
       'rs.method': 'Liaison', 'rs.range': 'Portée', 'rs.phones': 'Téléphones', 'rs.carries': 'Ce qui passe',
       'rs.body': 'sur soi', 'rs.hand': 'en main', 'rs.nolimit': 'sans limite', 'rs.speed': 'Débit', 'rs.battery': 'Consommation',
       'rs.y': 'oui', 'rs.p': 'limité', 'rs.n': 'non',
-      'rs.app': "Dans l'application", 'rs.next': "Pas encore dans l'application",
+      'rs.app': "Dans l'application", 'rs.lora': 'Avec une radio LoRa', 'rs.next': "Pas encore dans l'application",
           },
     en: {
       'rs.method': 'Link', 'rs.range': 'Range', 'rs.phones': 'Phones', 'rs.carries': 'What gets through',
       'rs.body': 'on body', 'rs.hand': 'in hand', 'rs.nolimit': 'no limit', 'rs.speed': 'Throughput', 'rs.battery': 'Battery use',
       'rs.y': 'yes', 'rs.p': 'limited', 'rs.n': 'no',
-      'rs.app': 'In the app', 'rs.next': 'Not in the app yet',
+      'rs.app': 'In the app', 'rs.lora': 'With a LoRa radio', 'rs.next': 'Not in the app yet',
           },
   },
   static: {
-    'meta.title': 'Research · Siflo radio range and encryption',
-    'meta.description': 'The research behind Siflo: the estimated range of each radio link, message encryption and its formal verification, with their limits.',
+    'meta.title': 'Labs · Siflo radio range and encryption',
+    'meta.description': 'The research behind Siflo: the estimated range of each radio link, from Bluetooth to LoRa radio, message encryption byte by byte and its formal verification, with their limits.',
     'nav.aria': 'Main navigation', 'nav.back': 'About Siflo',
     'rs.k': 'Radio range',
-    'rs.h': 'Six ways<br><em>to reach each other.</em>',
-    'rs.lead': 'How a Siflo phone reaches another one: over Bluetooth, Wi-Fi, the internet and, later, satellite. For each link, the estimated range, the phones that can use it and what gets through.',
-    'rs.p1': 'The ranges are estimated by calculation, not yet measured in the field. The scale is logarithmic: from one mark to the next, the distance is multiplied by ten. The first five links are in the app, including the alert beacon (Android only); satellite is in preparation.',
+    'rs.h': 'Seven ways<br><em>to reach each other.</em>',
+    'rs.lead': 'How a Siflo phone reaches another one: over Bluetooth, Wi-Fi, the internet, a LoRa radio and, later, satellite. For each link, the estimated range, the phones that can use it and what gets through.',
+    'rs.p1': 'The ranges are estimated by calculation, not yet measured in the field. The scale is logarithmic: from one mark to the next, the distance is multiplied by ten. The first five links are in the app, including the alert beacon (Android only); LoRa radio comes with the next version, and satellite is in preparation.',
     'rs.lg.body': 'On body: in a pocket or the pack', 'rs.lg.hand': 'In hand, line of sight, open ground',
     'rs.lg.y': 'Yes', 'rs.lg.p': 'Limited', 'rs.lg.n': 'No',
     'rs.n.k': 'Reading these figures', 'rs.n.h': 'A range is not a promise:<br><em>the terrain decides.</em>',
@@ -110,35 +120,49 @@ registerStrings({
     'rs.n5p': 'The distant phone receives the alert but cannot answer along this path: there is no acknowledgement, and the alert is repeated every two seconds. The alert beacon has been in the Android app since version 0.5; its range is yet to be measured in the field.',
     'rs.n6h': 'Satellite, in preparation',
     'rs.n6p': 'Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo\'s SOS and signals by satellite; nothing is available yet.',
+    'rs.n7h': 'LoRa radio, an add-on',
+    'rs.n7p': "A small off-the-shelf radio, Meshtastic-compatible (Heltec Mesh Node T1, RAK WisMesh Tag), paired with the phone over Bluetooth. It carries short texts, signals and SOS, not photos or voice messages, and only towards members that Bluetooth and the internet no longer reach.",
+    'rs.n8h': 'LoRa radios as relays',
+    'rs.n8p': "A radio left on a high point or at a cave entrance relays the group's messages with no phone attached; you set it up from Siflo's settings. Radios relay up to 7 hops; beyond that, a phone with a radio carries the chain on.",
     'rs.sp1': 'A question, a remark, a field measurement?', 'rs.sp2': 'Write to us: your feedback helps us improve Siflo.',
 
 
-    'hub.k': 'Research', 'hub.h': 'The research<br><em>behind Siflo.</em>',
+    'hub.k': 'Labs', 'hub.h': 'The research<br><em>behind Siflo.</em>',
     'hub.lead': "What we calculated and what we checked.",
-    'hub.t1k': 'Radio range', 'hub.t1h': 'Six ways to reach each other',
-    'hub.t1p': 'Bluetooth, Wi-Fi, internet, satellite: the estimated range of each link, the compatible phones, what gets through.',
-    'hub.t2k': 'Encryption', 'hub.t2h': "Encryption put to the test",
-    'hub.t2p': "How your messages are protected, and what proof tools have checked.",
-    'fv.k': 'Encryption', 'fv.h': "Encryption,<br><em>put to the test.</em>",
-    'fv.lead': "How Siflo protects your messages, what we checked, and where those checks stop.",
-    'fv.a1h': 'End to end', 'fv.a1p': "Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone, and only their recipients can open them. The internet relay forwards packets it cannot read; it only sees metadata, such as the time and the IP address. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.",
+    'hub.t1k': 'Radio range', 'hub.t1h': 'Seven ways to reach each other',
+    'hub.t1p': 'Bluetooth, Wi-Fi, internet, LoRa radio, satellite: the estimated range of each link, the compatible phones, what gets through.',
+    'hub.t2k': 'Encryption', 'hub.t2h': 'Encryption, byte by byte',
+    'hub.t2p': 'How a message is encrypted, byte by byte, what each party sees on the way, and what proof tools have checked.',
+    'fv.k': 'Encryption', 'fv.h': 'Encryption,<br><em>byte by byte.</em>',
+    'fv.lead': "A group message's journey, from Julie's phone to Marc's: each square stands for one byte of the packet sent.",
+    'fv.a1h': 'End to end', 'fv.a1p': "Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone, and only their recipients can open them. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.",
     'fv.a2h': 'Keys that change', 'fv.a2p': "In a private conversation, from the first answer on, each message has its own key, erased once used (the Double Ratchet, Signal's mechanism): a key stolen later cannot read past messages. In a group, the key changes every day and whenever a member is removed: a stolen key opens nothing more than two days old, but reads the group until the next removal.",
     'fv.a3h': 'Verifiable identities', 'fv.a3p': "Each phone makes its own keys: no account. To be sure you are talking to the right person, scan their code face to face, or compare a safety code during a call.",
+    'fv.a4h': 'Over LoRa radio',
+    'fv.a4p': "A LoRa frame carries 233 bytes at most: an 8-byte tag, the message id, the time, then the text, encrypted the same way. The tag is computed afresh for each frame, so that frames of one group cannot be linked. A phone that relays over the radio a message it got over Bluetooth adds its author's signature: it cannot write in their place.",
+    'fv.w.h': 'Who sees what',
+    'fv.w1t': 'A member of the group', 'fv.w1d': 'The whole message, and its author, checked by their signature.',
+    'fv.w2t': "A stranger's phone that relays it", 'fv.w2d': 'Only the header: the time, the size, and a tag that changes every day and reveals neither the group nor the author.',
+    'fv.w3t': 'Our internet relays', 'fv.w3d': 'The same, plus the IP address of the phone that drops off or picks up the packet. They keep it for 48 hours without being able to open it.',
+    'fv.w4t': 'Someone listening in on LoRa traffic', 'fv.w4d': 'The number of the radio that transmits, the time and size of each frame: enough to recognise a radio from one day to the next, but not the text, the author or the group.',
+    'fv.w5t': 'Guardia, which publishes Siflo', 'fv.w5d': 'Nothing more than our relays: no account, no address book, no content.',
+    'fv.w.note': "Two exceptions, both about LoRa radios: the backup channel, which you turn on yourself, shows a conversation's messages in plain text on the screens of the group's radios, to read them without a phone (the app shows an open padlock); an SOS also appears there in plain text, unless you opt out when sending it.",
     'fv.m.h': 'How we checked it',
     'fv.m.p': "We described the protocol in mathematical models. Two proof tools (Tamarin, ProVerif) and a tool that explores the possible courses of events in a small group (TLA+, 3 or 4&nbsp;phones) pit them against an attacker who controls the whole network, relay included, can steal a key at any moment, or used to be a member or an admin of the group. An admin still in the role is assumed to act in good faith.",
     'fv.v.h': "How far these checks go",
     'fv.v.p': "The models cover the contact exchange, the start of private conversations and groups (keys, admins, members); for admins and members, tests also check these rules on the app's own code. Outside the models: packet routing and parsing, the radio, media, traffic analysis, and the rest of a private conversation, which relies on the Double Ratchet's published proofs. These results hold from version&nbsp;0.20.0 on.",
-    'foot.aria': 'Links', 'foot.home': 'About', 'foot.research': 'Research', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
+    'foot.aria': 'Links', 'foot.home': 'About', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
   },
 });
 
 const $ = (s) => document.querySelector(s);
-const pos = (m) => Math.log10(m) / 3 * 100; // 1 m → 1 km
-const TICKS = [[1, '1 m'], [10, '10 m'], [100, '100 m'], [1000, '1 km']];
+const pos = (m) => Math.log10(m) / 4 * 100; // 1 m → 10 km
+const TICKS = [[1, '1 m'], [10, '10 m'], [100, '100 m'], [1000, '1 km'], [10000, '10 km']];
+const dist = (a, b) => (b >= 1000 ? `~${nf(a / 1000, a % 1000 ? 1 : 0)}–${nf(b / 1000)} km` : `~${a}–${b} m`);
 const STATE = { y: 'rs.y', p: 'rs.p', n: 'rs.n' };
 const dot = (s) => `<i class="dot ${s}"></i><span class="sr">${t(STATE[s])} : </span>`;
 
-const scale = `<div class="rs-trk rs-scale" aria-hidden="true"><span></span><div>${TICKS.map(([m, txt]) => `<span style="left:${pos(m)}%">${txt}</span>`).join('')}</div><span></span></div>`;
+const scale = `<div class="rs-trk rs-scale" aria-hidden="true"><span></span><div>${TICKS.map(([m, txt], i) => `<span${i % 2 ? ' class="minor"' : ''} style="left:${pos(m)}%">${txt}</span>`).join('')}</div><span></span></div>`;
 
 function rangeCell(r) {
   const trk = (who, bar, val) => `<div class="rs-trk"><span class="who">${who}</span><div class="rs-bar" aria-hidden="true">${bar}</div><span class="val">${val}</span></div>`;
@@ -147,8 +171,8 @@ function rangeCell(r) {
   const [a, b, c, d] = r.range;
   const bar = (cls, lo, hi) => `<i class="${cls}" style="left:${pos(lo)}%;width:${pos(hi) - pos(lo)}%"></i>`;
   return scale
-    + trk(t('rs.body'), bar('body', a, b), `~${a}–${b} m`)
-    + trk(t('rs.hand'), bar('hand', c, d), `~${c}–${d} m`) + note;
+    + trk(t('rs.body'), bar('body', a, b), dist(a, b))
+    + trk(t('rs.hand'), bar('hand', c, d), dist(c, d)) + note;
 }
 
 const phonesCell = (r) => `<ul class="rs-chips">${PHONES.map(([k, name]) => {
@@ -188,3 +212,4 @@ applyStatic({
 });
 render();
 renderVerification();
+mountCipher(document.getElementById('cipher'), { cut: 'full' });
