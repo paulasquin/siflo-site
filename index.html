@@ -79,6 +79,7 @@
   <nav class="topnav" aria-label="Navigation principale" data-i18n-aria="nav.aria">
     <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
     <div class="nav-links">
+      <a href="#messagerie" data-i18n="nav.chat">Messagerie</a>
       <a href="#signaux" data-i18n="nav.signals">Signaux</a>
       <a href="#reseau" data-i18n="nav.mesh">Sans réseau</a>
       <a href="#terrain" data-i18n="nav.field">Sur le terrain</a>
@@ -104,7 +105,7 @@
             <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">dehors,</span></span>
             <span class="ht-line"><span class="ht-word ht-glow" data-i18n="hero.t3">même hors ligne.</span></span>
           </h1>
-          <p class="hero-sub" data-i18n="hero.sub">Messages, photos, vocaux, signaux et SOS pour votre groupe en sortie. Par internet quand quelqu'un capte, de téléphone en téléphone sinon, jusqu'aux équipiers hors de vue. Gratuite, chiffrée, sans compte.</p>
+          <p class="hero-sub" data-i18n="hero.sub">La messagerie de votre groupe&#8239;: messages, photos, vocaux, sondages, signaux et SOS. Par internet quand quelqu'un capte, de téléphone en téléphone sinon, jusqu'aux équipiers hors de vue. Gratuite, chiffrée, sans compte.</p>
           <dl class="hero-kpis">
             <div><dt data-i18n="hero.k1">prix</dt><dd data-i18n="hero.v1">Gratuit</dd></div>
             <div><dt data-i18n="hero.k2">publicité</dt><dd data-i18n="hero.v2">Aucune</dd></div>
@@ -129,6 +130,62 @@
           <p class="kicker" data-i18n="c2.k">Avec Siflo</p>
           <h2 data-i18n="c2.h">Le message fait le tour du groupe.</h2>
           <p data-i18n="c2.p">Julie écrit «&#8239;Corde coincée, attendez-moi&#8239;». Le téléphone de Marc, au pied de la cascade, relaie le message jusqu'à Léa et Tom, partis devant. Tout le monde s'arrête, et Julie voit qui l'a reçu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the four worlds it joins, who it is for. -->
+    <section id="messagerie" class="section section-chat">
+      <div class="wrap">
+        <div class="split chat-split">
+          <div class="reveal">
+            <p class="kicker" data-i18n="ms.k">Messagerie</p>
+            <h2 class="h-xl" data-i18n="ms.h">Une vraie messagerie,<br><em>même sans réseau.</em></h2>
+            <p class="lead" data-i18n="ms.lead">Groupes, messages privés, photos, vocaux, réactions, sondages&#8239;: Siflo s'utilise comme les messageries que vous connaissez, avec le chiffrement de bout en bout et sans dépendre d'une antenne.</p>
+            <div class="ms-groups">
+              <div><h3 data-i18n="ms.g1h">Écrire</h3><p data-i18n="ms.g1p">Réponses qui citent le message, réactions, mentions @, messages modifiés ou supprimés, transfert, messages épinglés pour le groupe ou marqués comme importants.</p></div>
+              <div><h3 data-i18n="ms.g2h">Partager</h3><p data-i18n="ms.g2p">Jusqu'à 10&nbsp;photos d'un coup, messages vocaux, photos et vocaux à usage unique, et un lieu de rendez-vous&#8239;: votre position ou des coordonnées.</p></div>
+              <div><h3 data-i18n="ms.g3h">S'organiser</h3><p data-i18n="ms.g3p">Sondages, description et photo du groupe, administrateurs, groupes où seuls les administrateurs écrivent, et une durée de vie du groupe au choix&#8239;: 24&nbsp;h, 48&nbsp;h, 7&nbsp;jours ou sans limite.</p></div>
+              <div><h3 data-i18n="ms.g4h">Se retrouver</h3><p data-i18n="ms.g4p">Un lien ou un QR code pour rejoindre un groupe, sans numéro de téléphone&#8239;; «&#8239;reçu&#8239;» et «&#8239;vu&#8239;» sous chaque message&#8239;; et un canal de proximité pour écrire à tous les utilisateurs de Siflo à proximité.</p></div>
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="phone-frame chat" data-in aria-hidden="true">
+              <div class="chat-screen">
+                <div class="chat-top"><i class="chat-back"></i><span class="chat-av">CF</span><span><b data-i18n="ch.group">Canyon du Furon</b><small data-i18n="ch.members">6 membres · fin dans 2 jours</small></span></div>
+                <div class="chat-list">
+                  <div class="bub" style="--i:0"><span class="who">Léa</span><span data-i18n="ch.m1">Départ du parking à 8&nbsp;h, ça vous va&#8239;?</span><span class="reac">👍 4</span></div>
+                  <div class="bub poll" style="--i:1"><span class="who">Léa</span><b data-i18n="ch.pq">Covoiturage depuis Grenoble</b><span class="opt" style="--v:.4"><span data-i18n="ch.p1">Je conduis, 3 places</span><i>2</i></span><span class="opt" style="--v:.6"><span data-i18n="ch.p2">Je cherche une place</span><i>3</i></span><small data-i18n="ch.pv">Sondage · 5 votes</small></div>
+                  <div class="bub place" style="--i:2"><span class="who">Marc</span><span class="pin"></span><span><b data-i18n="ch.place">Parking du canyon</b><small>45.1871, 5.6493</small></span></div>
+                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Parking du canyon</span></span><span data-i18n="ch.m2">Parfait, j'apporte la deuxième corde.</span><span class="meta" data-i18n="ch.seen">✓✓ Vu par 5</span></div>
+                  <div class="bub photos" style="--i:4"><span class="who">Tom</span><span class="ph"></span><span class="ph"></span><span class="ph more">+2</span></div>
+                </div>
+                <div class="chat-bar"><i>+</i><span data-i18n="ch.input">Message</span><i class="mic"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-head reveal worlds-head">
+          <p class="kicker" data-i18n="wd.k">Le meilleur de quatre mondes</p>
+          <h2 class="h-lg" data-i18n="wd.h">Ce que vous aimez dans vos applications,<br><em>réuni dans une seule.</em></h2>
+        </div>
+        <div class="worlds">
+          <article class="reveal"><p class="case-tag" data-i18n="wd.1t">Comme WhatsApp</p><h3 data-i18n="wd.1h">Simple à utiliser</h3><p data-i18n="wd.1p">Groupes, réactions, sondages, vocaux, réponses&#8239;: les gestes que tout le monde connaît déjà.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.2t">Comme Signal</p><h3 data-i18n="wd.2h">Chiffrée de bout en bout</h3><p data-i18n="wd.2p">Le même mécanisme que Signal pour les messages privés, une clé de groupe qui change chaque jour, et un protocole vérifié par des outils de vérification formelle.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.3t">Comme BitChat</p><h3 data-i18n="wd.3h">Sans réseau</h3><p data-i18n="wd.3p">Sans antenne ni internet, les téléphones se passent les messages de proche en proche par Bluetooth. Siflo y ajoute le Wi-Fi de proximité et des groupes privés.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.4t">Comme Meshtastic</p><h3 data-i18n="wd.4h">À plusieurs kilomètres</h3><p data-i18n="wd.4p">Avec une radio compatible Meshtastic en option, les messages courts porteront à plusieurs kilomètres à vue, relayés par des radios posées en hauteur. Prise en charge prévue dans la prochaine version de Siflo.</p></article>
+        </div>
+        <p class="worlds-foot reveal" data-i18n="wd.foot">Et aucune grande plateforme derrière&#8239;: ni compte, ni numéro de téléphone, ni publicité.</p>
+
+        <div class="section-head reveal uses-head">
+          <p class="kicker" data-i18n="us.k">Pour qui&#8239;?</p>
+          <h2 class="h-lg" data-i18n="us.h">Partout où le réseau<br><em>vous lâche.</em></h2>
+        </div>
+        <div class="features uses">
+          <article class="feature reveal"><h3 data-i18n="us.1h">Sports de plein air</h3><p data-i18n="us.1p">Canyon, spéléo, escalade, alpinisme, ski de randonnée&#8239;: là où le réseau s'arrête, les messages continuent de téléphone en téléphone, avec les signaux et le SOS en plus.</p></article>
+          <article class="feature reveal"><h3 data-i18n="us.2h">Festivals et rassemblements</h3><p data-i18n="us.2p">Quand des milliers de téléphones saturent le réseau mobile, les messages passent par Bluetooth entre les téléphones Siflo à proximité, puis par internet dès qu'un membre du groupe capte.</p></article>
+          <article class="feature reveal"><h3 data-i18n="us.3h">Sorties et voyages</h3><p data-i18n="us.3p">Préparez la sortie&#8239;: un sondage pour l'horaire, le point de rendez-vous, les photos partagées au retour. Sur place, le groupe garde le contact, même hors ligne.</p></article>
         </div>
       </div>
     </section>
@@ -410,6 +467,8 @@
           <details><summary data-i18n="fq.5q">Siflo existe-t-elle sur iPhone&#8239;?</summary><p data-i18n="fq.5a">Très bientôt&#8239;: la version iPhone, avec son application Apple Watch, est en cours de validation chez Apple. iPhone et téléphones Android pourront alors se parler dans un même groupe. En attendant, Siflo est disponible sur Android, par Google Play.</p></details>
           <details><summary data-i18n="fq.8q">Siflo fonctionne-t-elle sur ma montre&#8239;?</summary><p data-i18n="fq.8a">Oui, avec le téléphone à proximité&#8239;: Garmin dès maintenant&#8239;; Wear OS, Apple Watch et Amazfit (Zepp OS) très bientôt. Depuis la montre, vous envoyez un signal ou un SOS, et les alertes arrivent au poignet&#8239;; selon la montre, vous pouvez aussi dicter une réponse. La montre ne garde aucune clé&#8239;: tout passe par votre téléphone.</p></details>
           <details><summary data-i18n="fq.9q">À quoi sert une radio LoRa&#8239;?</summary><p data-i18n="fq.9a">À porter plus loin que le Bluetooth. C'est un petit boîtier radio du commerce, compatible Meshtastic (par exemple Heltec Mesh Node T1 ou RAK WisMesh Tag), relié au téléphone en Bluetooth&#8239;: il porte les textes courts, les signaux et le SOS à plusieurs kilomètres à vue, pas les photos ni les vocaux. Une radio laissée sur un point haut prolonge la chaîne. Elle est facultative, et sa prise en charge arrive avec la prochaine version de Siflo. Détails sur la page <a href="labs/">Labs</a>.</p></details>
+          <details><summary data-i18n="fq.10q">Pourquoi pas WhatsApp ou Signal&#8239;?</summary><p data-i18n="fq.10a">Siflo en reprend le meilleur&#8239;: les gestes de WhatsApp (groupes, réactions, sondages, vocaux) et le chiffrement de Signal (le même mécanisme pour les messages privés). Mais tous deux ont besoin d'internet et d'un numéro de téléphone, et WhatsApp appartient à Meta, qui peut changer ses règles&#8239;: le 8&nbsp;mai 2026, Meta a supprimé le chiffrement de bout en bout des messages privés d'Instagram, jusque-là proposé en option (<a href="https://www.macrumors.com/2026/05/08/instagram-end-to-end-encryption/">source, en anglais</a>). Siflo fonctionne aussi sans réseau, sans compte ni numéro, et ne dépend d'aucune grande plateforme.</p></details>
+          <details><summary data-i18n="fq.11q">C'est comme BitChat&#8239;?</summary><p data-i18n="fq.11a">Même principe pour le réseau de proximité&#8239;: les téléphones se transmettent les messages de proche en proche, sans internet. Siflo y ajoute ce qui sert en sortie&#8239;: des groupes privés gérés par des administrateurs, les signaux et le SOS, le Bluetooth longue portée sur les téléphones compatibles et, bientôt, les radios LoRa. Côté chiffrement, chaque message privé a sa propre clé, comme dans Signal, là où BitChat garde une clé par session.</p></details>
           <details><summary data-i18n="fq.6q">Combien coûte Siflo&#8239;?</summary><p data-i18n="fq.6a">Rien, et cela restera ainsi. Si l'application vous rend service, vous pouvez laisser un pourboire depuis ses réglages, par Google Play.</p></details>
           <details><summary data-i18n="fq.7q">Qui développe Siflo&#8239;?</summary><p data-i18n="fq.7a">Siflo est développée par Guardia SAS, société française, dans le cadre de son activité <a href="https://aidiligence.eu">AI Diligence</a>.</p></details>
         </div>
