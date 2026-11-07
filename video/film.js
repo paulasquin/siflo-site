@@ -11,7 +11,7 @@
     s5: { k: 'Sans réseau mobile', l: ['De proche en proche,', 'même en zone blanche.'], chips: [['•', 'Bluetooth'], ['•', 'Internet, si un membre a du réseau'], ['•', 'Messages reçus au retour à portée']] },
     s6: { k: 'SOS', l: ['SOS en deux secondes,', 'reçu par tous à portée.'] },
     s7: { k: 'Et aussi', l: ['Messages, photos, vocaux.', 'Invitation par QR code.'] },
-    end: { tag: ['La communication de groupe', 'dehors, même hors ligne.'], facts: 'Gratuite · sans compte · sans publicité', play: ['Disponible sur', 'Google Play'], apple: ['Télécharger dans', 'l’App Store'], soon: 'Bientôt' },
+    end: { tag: ['La communication de groupe', 'dehors, même hors ligne.'], facts: 'Gratuite · sans compte · sans annonces', play: ['Disponible sur', 'Google Play'], apple: ['Télécharger dans', 'l’App Store'], soon: 'Bientôt' },
     screens: ['01-fr-signals', '03-fr-group', '02-fr-home'],
   } : {
     s1: { k: 'Outdoor communication', l: ['Stay in touch outdoors,', 'even offline.'] },
