@@ -134,7 +134,7 @@ export const STRINGS = {
     'ms.g1h': 'Write', 'ms.g1p': 'Reply, react, mention, fix your typo, delete what you regret, forward, pin the departure time, star what matters.',
     'ms.g2h': 'Share', 'ms.g2p': 'Ten photos at once, voice notes, the meeting point. And single-use photos and voice notes, for the incriminating evidence.',
     'ms.g3h': 'Organise', 'ms.g3p': 'Polls, a group description and photo, groups where only admins get a say. The group deletes itself after 24 h, 48 h, 7 days… or never.',
-    'ms.g4h': 'Get together', 'ms.g4p': 'A QR code to scan to join, even with no network, or an invitation link. “Received” and “seen” under every message: so much for “I never got your message”. And a nearby channel to talk to every Siflo user around.',
+    'ms.g4h': 'Get together', 'ms.g4p': 'A QR code to scan to join, even with no network, or an invitation link. “Received” and “seen” under every message. And a nearby channel to talk to every Siflo user around: handy for asking the party next door whether the rest of the route is dry.',
     'ch.group': 'Furon canyon', 'ch.members': '6 members · ends in 2 days',
     'ch.m1': 'Leaving the car park at 8. 8 sharp, Tom.', 'ch.pq': 'Lift-sharing from Grenoble',
     'ch.p1': 'I\'m driving, 3 seats', 'ch.p2': 'I need a lift', 'ch.pv': 'Poll · 5 votes',
