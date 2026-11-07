@@ -308,6 +308,7 @@ main { position: relative; z-index: 2; }
 .feature::after { content: ''; position: absolute; right: -40%; bottom: -60%; width: 80%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 0, .14), transparent 70%); pointer-events: none; transition: opacity .35s; opacity: .6; }
 .feature:hover::after { opacity: 1; }
 .feature-ico { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 20px; background: rgba(255, 106, 0, .14); border: 1px solid rgba(255, 138, 61, .3); }
+.feature-watch { display: block; width: 120px; height: 120px; margin: 20px auto 0; border-radius: 50%; box-shadow: 0 0 0 5px #1b1612, 0 0 0 6px var(--line-2); }
 .feature-ico svg { width: 24px; height: 24px; stroke: var(--orange-2); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .feature h3 { font-family: var(--f-display); font-weight: 500; font-size: 18px; line-height: 1.25; margin-bottom: 10px; }
 .feature p { font-size: 15px; margin: 0; }

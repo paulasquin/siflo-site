@@ -6,7 +6,7 @@ import { mountCipher } from './cipher.js';
 const L = (v) => (Array.isArray(v) ? v[LANG === 'fr' ? 0 : 1] : v);
 
 const PHONES = [
-  ['ios', ['iPhone', 'iPhone'], ['iPhone 15 à 18, version de Siflo en préparation', 'iPhone 15 to 18, Siflo app on its way']],
+  ['ios', ['iPhone', 'iPhone'], ['iPhone 15 à 18, en cours de validation chez Apple', 'iPhone 15 to 18, being reviewed by Apple']],
   ['old', ['Android milieu de gamme ou ancien', 'Mid-range or older Android'], ['Galaxy A, Redmi, téléphones de 2017 à 2020', 'Galaxy A, Redmi, phones from 2017 to 2020']],
   ['a16', ['Android récent, 15 ou 16', 'Recent Android, 15 or 16'], ['Pixel 8 et 9, Galaxy S24 et S25', 'Pixel 8 and 9, Galaxy S24 and S25']],
   ['a17', ['Android 17', 'Android 17'], ['Pixel 10 Pro XL, Galaxy S26 Ultra', 'Pixel 10 Pro XL, Galaxy S26 Ultra']],
