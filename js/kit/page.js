@@ -140,7 +140,7 @@ export function setupNav() {
   links.forEach((a) => {
     const sec = $(a.getAttribute('href'));
     if (!sec) return;
-    ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: (s) => { if (s.isActive) links.forEach((l) => l.classList.toggle('active', l === a)); } });
+    ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: (s) => a.classList.toggle('active', s.isActive) });
   });
 }
 

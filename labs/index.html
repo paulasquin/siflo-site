@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Labs · Portée radio et chiffrement de Siflo</title>
+  <title>Labo · Portée radio et chiffrement de Siflo</title>
   <meta name="description" content="La recherche derrière Siflo&#8239;: la portée estimée de chaque liaison radio, du Bluetooth à la radio LoRa, le chiffrement des messages octet par octet et sa vérification formelle, avec leurs limites.">
   <meta name="theme-color" content="#0e0b09">
   <meta property="og:title" content="Siflo · La recherche derrière l'application">
@@ -67,7 +67,7 @@
     <section class="section rs-hub">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker" data-i18n="hub.k">Labs</p>
+          <p class="kicker" data-i18n="hub.k">Labo</p>
           <h1 class="h-xl" data-i18n="hub.h">La recherche<br><em>derrière Siflo.</em></h1>
           <p class="lead" data-i18n="hub.lead">Ce que nous avons calculé et ce que nous avons vérifié.</p>
         </div>
@@ -80,7 +80,7 @@
           <a class="hub-tile" href="#verification">
             <span class="kicker" data-i18n="hub.t2k">Chiffrement</span>
             <h2 data-i18n="hub.t2h">Le chiffrement, octet par octet</h2>
-            <p data-i18n="hub.t2p">Comment un message est chiffré, octet par octet, ce que voit chacun en chemin, et ce que des outils de preuve en ont vérifié.</p>
+            <p data-i18n="hub.t2p">Ce que voit chacun en chemin, et ce que des outils de preuve en ont vérifié.</p>
           </a>
         </div>
       </div>
@@ -168,7 +168,7 @@
           </div>
           <div>
             <h3 data-i18n="fv.a2h">Des clés qui changent</h3>
-            <p data-i18n="fv.a2p">En conversation privée, dès la première réponse, chaque message a sa propre clé, effacée après usage (le Double Ratchet, mécanisme de Signal)&#8239;: une clé volée plus tard ne relit pas les messages passés. Dans un groupe, la clé change chaque jour et à chaque retrait d'un membre&#8239;: une clé volée n'ouvre rien de plus de deux jours, mais lit le groupe jusqu'au prochain retrait.</p>
+            <p data-i18n="fv.a2p">En conversation privée, dès la première réponse, chaque message a sa propre clé, effacée après usage (le Double Ratchet, mécanisme de Signal)&#8239;: une clé volée plus tard ne relit pas les messages passés. Dans un groupe, la clé change chaque jour et à chaque retrait d'un membre. Une clé volée ne lit pas les messages de plus de deux jours, mais lit les suivants jusqu'au prochain retrait d'un membre.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a3h">Des identités vérifiables</h3>
@@ -187,7 +187,7 @@
             <div><dt data-i18n="fv.w2t">Le téléphone d'un inconnu qui relaie</dt><dd data-i18n="fv.w2d">L'en-tête seulement&#8239;: l'heure, la taille, et une étiquette qui change chaque jour et ne révèle ni le groupe ni l'auteur.</dd></div>
             <div><dt data-i18n="fv.w3t">Nos relais internet</dt><dd data-i18n="fv.w3d">La même chose, plus l'adresse IP du téléphone qui dépose ou relève le paquet. Ils le gardent 48&nbsp;heures sans pouvoir l'ouvrir.</dd></div>
             <div><dt data-i18n="fv.w4t">Quelqu'un qui capte les émissions LoRa</dt><dd data-i18n="fv.w4d">Le numéro de la radio qui émet, l'heure et la taille de chaque trame&#8239;: de quoi reconnaître une radio d'un jour à l'autre, mais pas le texte, ni l'auteur, ni le groupe.</dd></div>
-            <div><dt data-i18n="fv.w5t">Guardia, qui édite Siflo</dt><dd data-i18n="fv.w5d">Rien de plus que nos relais&#8239;: pas de compte, pas de carnet d'adresses, aucun contenu.</dd></div>
+            <div><dt data-i18n="fv.w5t">Guardia, qui édite Siflo</dt><dd data-i18n="fv.w5d">Rien de plus que nos serveurs relais&#8239;: pas de compte, pas de carnet d'adresses, aucun contenu.</dd></div>
           </dl>
           <p class="fv-note" data-i18n="fv.w.note">Deux exceptions, liées aux radios LoRa&#8239;: le canal de secours, que vous activez vous-même, affiche les messages d'une conversation en clair sur l'écran des radios du groupe, pour les lire sans téléphone (l'application le signale par un cadenas ouvert)&#8239;; un SOS s'y affiche aussi en clair, sauf si vous refusez cet affichage au moment de l'envoyer.</p>
         </div>
@@ -220,7 +220,7 @@
       <a href="../" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
       <nav aria-label="Liens" data-i18n-aria="foot.aria">
         <a href="../" data-i18n="foot.home">Présentation</a>
-        <a href="./" data-i18n="foot.labs">Labs</a>
+        <a href="./" data-i18n="foot.labs">Labo</a>
         <a href="../privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
         <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
         <a href="https://www.instagram.com/siflo.app/">Instagram</a>
