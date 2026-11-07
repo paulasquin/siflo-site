@@ -1,5 +1,5 @@
 siflo-trusted 1
-issued 1793910953
+issued 1794064374
 key 942a644a19ab2a7514bc27ec5fbfd89093d08a261eaa08b28448ee860776f365
 zone gp
 zone-name gp en Guadeloupe
@@ -13,4 +13,4 @@ role-title gp guide en Guides
 role-title gp guide fr Guides
 team gp caserne-de-bouillante rescue * Caserne de Bouillante
 team gp moncanyon guide * Moncanyon
-sig 00d2a6c786b1fffa758595da57e7cdc7c6c05d629f2494a34077d1edbef48588d416c2f545f1ee5f5c8b720db4a75187101188951ae3468201501506314f2801
+sig 9937069fed0daa79eeea20b664f2d0de3a95cf5ec420e2519363c360b59806ad1beafd09b5a30e2beb39adfbcf10c5bfa99a743cf22aa5dedbc63e3dddca6405
