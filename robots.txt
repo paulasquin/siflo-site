@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /trusted.txt
+Disallow: /trusted.bin
+Disallow: /sos/
 
 Sitemap: https://siflo.app/sitemap.xml
