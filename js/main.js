@@ -61,7 +61,6 @@ async function boot() {
       ['title', 'description'].forEach((k) => $(`meta[property="og:${k}"]`).setAttribute('content', STRINGS.static[`meta.og.${k}`]));
     },
   });
-  if (LANG !== 'fr') $$('img[data-src-en]').forEach((im) => { im.src = im.dataset.srcEn; });
   setupAnchors();
   renderScreens();
   setupLightbox();

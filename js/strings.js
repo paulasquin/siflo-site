@@ -130,7 +130,6 @@ export const STRINGS = {
     'ft.5h': 'Distance and direction', 'ft.5p': 'Siflo shows how far away and in which direction each member who shares their location is.',
     'ft.7h': 'On your watch', 'ft.7p': 'Send a signal or an SOS and get alerts on your wrist, without taking out your phone: Garmin and Amazfit now; Apple Watch and Wear OS very soon. The watch holds no key: everything goes through your phone.',
     'ft.9h': 'Verified rescuers, with our partners', 'ft.9p': 'On a partner\'s page, a canyoning site for example, a button creates a Siflo group and offers to add rescuers whose phones are verified. You decide: you choose whom to add, each of them accepts the invitation, and nobody joins without your agreement. Messages stay encrypted.',
-    'ft.7alt': 'Siflo on a Wear OS watch: the signals around the centre button',
     'ft.8h': 'An optional LoRa radio', 'ft.8p': 'Pair a LoRa radio (Meshtastic) with your phone: messages, signals and SOS carry several kilometres from one radio to the next, and relay radios extend the chain.',
     'ms.k': 'Messaging', 'ms.h': 'A real messaging app,<br><em>even with no network.</em>',
     'ms.lead': 'Groups, private messages, photos, voice notes, reactions, polls: Siflo works like the messaging apps you know, end-to-end encrypted and with no need for a cell tower.',
