@@ -4,41 +4,132 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Télécharger Siflo</title>
-<meta name="description" content="Siflo, la communication de groupe en pleine nature : messages, signaux et SOS, même sans réseau. Gratuite, sans compte, sans annonces.">
+<meta name="description" content="Messages, signaux et SOS pour votre groupe, de téléphone en téléphone quand il n'y a plus de réseau. Gratuite, sans compte, sans annonces.">
 <meta property="og:title" content="Télécharger Siflo">
-<meta property="og:description" content="La communication de groupe en pleine nature, même sans réseau. Gratuite, sans compte, sans annonces.">
+<meta property="og:description" content="Messages, signaux et SOS pour votre groupe, de téléphone en téléphone quand il n'y a plus de réseau. Gratuite, sans compte, sans annonces.">
 <meta property="og:image" content="https://siflo.app/assets/og.jpg">
 <meta property="og:url" content="https://siflo.app/get/">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#0e0b09">
 <link rel="canonical" href="https://siflo.app/get/">
 <link rel="icon" href="../assets/icon.png">
-<link rel="stylesheet" href="../css/link.css">
+<link rel="stylesheet" href="../css/get.css">
+<script>
+  // The store block shown (css/get.css): Android, iPhone and iPad (iPadOS says Macintosh, with a touch screen), else desktop.
+  (function (ua) {
+    document.documentElement.dataset.os = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'ios' : /Android/.test(ua) ? 'android' : 'desktop';
+  })(navigator.userAgent);
+</script>
 </head>
-<body class="get">
-<nav class="lang-switch" aria-label="Langue · Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></nav>
+<body>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8z"/><path fill="#ffce00" d="m18.3 15.2-3.9-3.9 3.9-3.9 3.6 2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="m14.4 11.3-10.8 10.9c.4.4 1 .4 1.7.1l12.9-7.3z"/><path fill="#00f076" d="M14.4 11.3 18.2 7.4 5.3.2C4.6-.2 4 0 3.6.4z"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></symbol>
+  <symbol id="i-garmin" viewBox="0 8.75 24 6.51"><path fill="currentColor" d="M6.265 12.024a.289.289 0 0 0-.236-.146h-.182a.289.289 0 0 0-.234.146l-1.449 3.025c-.041.079.004.138.094.138h.335c.132 0 .193-.061.228-.134.037-.073.116-.234.13-.266.02-.045.083-.071.175-.071h1.559c.089 0 .148.016.175.071.018.035.098.179.136.256a.24.24 0 0 0 .234.142h.486c.089 0 .13-.069.098-.132-.034-.061-1.549-3.029-1.549-3.029zm-.914 2.224c-.089 0-.132-.067-.094-.148l.571-1.222c.039-.081.1-.081.136 0l.555 1.222c.037.081-.006.148-.096.148H5.351zm12.105-2.201v3.001c0 .083.073.138.163.138h.396c.089 0 .163-.057.163-.146v-2.998c0-.089-.059-.163-.148-.163h-.411c-.09-.001-.163.054-.163.168zm-6.631 1.88c-.051-.073-.022-.154.063-.181 0 0 .342-.102.506-.25.165-.146.246-.36.246-.636a1 1 0 0 0-.096-.457.787.787 0 0 0-.27-.303 1.276 1.276 0 0 0-.423-.171c-.165-.035-.386-.047-.386-.047a8.81 8.81 0 0 0-.325-.008H8.495a.164.164 0 0 0-.163.163v2.998c0 .089.073.146.163.146h.388c.089 0 .163-.057.163-.146v-1.193s.002 0 .002-.002l.738-.002c.089 0 .205.061.258.134l.766 1.077c.071.096.138.132.228.132h.508c.089 0 .104-.085.073-.128-.032-.038-.794-1.126-.794-1.126zm-.311-.61a1.57 1.57 0 0 1-.213.028 8.807 8.807 0 0 1-.325.006h-.763a.164.164 0 0 1-.163-.163v-.608c0-.089.073-.163.163-.163h.762c.089 0 .236.004.325.006 0 0 .114.004.213.028a.629.629 0 0 1 .24.098.358.358 0 0 1 .126.148.473.473 0 0 1 0 .374.352.352 0 0 1-.126.148.617.617 0 0 1-.239.098zm11.803-1.439c-.089 0-.163.059-.163.146v1.919c0 .089-.051.11-.114.047l-1.921-1.992a.376.376 0 0 0-.276-.118h-.362c-.114 0-.163.061-.163.122v3.068c0 .061.059.12.148.12h.362c.089 0 .152-.049.152-.132l.002-2.021c0-.089.051-.11.114-.045l2.004 2.082a.36.36 0 0 0 .279.116h.272a.164.164 0 0 0 .163-.163v-2.986a.164.164 0 0 0-.163-.163h-.334zm-7.835 1.87c-.043.079-.116.077-.159 0l-.939-1.724a.262.262 0 0 0-.236-.146h-.51a.164.164 0 0 0-.163.163v2.996c0 .089.059.15.163.15h.317c.089 0 .154-.057.154-.142 0-.041.002-2.179.004-2.179.004 0 1.173 2.177 1.173 2.177a.105.105 0 0 0 .189 0s1.179-2.173 1.181-2.173c.004 0 .002 2.11.002 2.173 0 .087.069.142.159.142h.364c.089 0 .163-.045.163-.163V12.04a.164.164 0 0 0-.163-.163h-.488a.265.265 0 0 0-.244.142l-.967 1.729zM0 13.529c0 1.616 1.653 1.697 1.984 1.697 1.098 0 1.561-.297 1.58-.309a.29.29 0 0 0 .152-.264v-1.116a.186.186 0 0 0-.187-.187H2.151c-.104 0-.171.083-.171.187v.116c0 .104.067.187.171.187h.797a.14.14 0 0 1 .14.14v.52c-.157.065-.874.274-1.451.136-.836-.199-.901-.89-.901-1.096 0-.173.053-1.043 1.079-1.13.831-.071 1.378.264 1.384.268.098.051.199.014.254-.089l.104-.209c.043-.085.028-.175-.077-.246-.006-.004-.59-.319-1.494-.319C.055 11.813 0 13.354 0 13.529zm22.134-2.478h-2.165c-.079 0-.148-.039-.187-.108s-.039-.146 0-.215l1.084-1.874a.21.21 0 0 1 .187-.108.21.21 0 0 1 .187.108l1.084 1.874a.203.203 0 0 1 0 .215.22.22 0 0 1-.19.108zm1.488 3.447c.207 0 .378.169.378.378a.379.379 0 0 1-.378.378.379.379 0 0 1-.378-.378.38.38 0 0 1 .378-.378zm.002.7c.173 0 .305-.14.305-.321s-.13-.321-.305-.321-.307.14-.307.321c0 .18.13.321.307.321zm-.146-.543h.169c.102 0 .152.041.152.124 0 .071-.045.122-.114.122l.126.195h-.077l-.124-.195h-.061v.195h-.073v-.441h.002zm.073.189h.085c.055 0 .091-.012.091-.069 0-.051-.045-.065-.091-.065h-.085v.134z"/></symbol>
+  <symbol id="i-wear" viewBox="0 2.83 24 18.34"><path fill="currentColor" d="M8.416 21.1346c-.9687 0-1.8938-.56-2.3135-1.5015L.2193 6.4198C-.3488 5.1432.2248 3.6472 1.5014 3.079c1.2767-.5681 2.7727.0055 3.3408 1.2821l5.8832 13.2133c.5681 1.2767-.0055 2.7727-1.2821 3.3408a2.5254 2.5254 0 01-1.0273.2194zm7.1952.0368c-.891 0-1.7412-.515-2.1268-1.3816L7.39 6.1024C6.867 4.9279 7.3955 3.5532 8.5686 3.03c1.173-.5218 2.5492.0054 3.0724 1.1785l6.0943 13.6888c.5232 1.1745-.0054 2.5492-1.1785 3.0724a2.3111 2.3111 0 01-.9456.2017zM24 5.195a2.3271 2.3271 0 01-2.3271 2.327 2.3271 2.3271 0 01-2.3271-2.327 2.3271 2.3271 0 012.327-2.3271A2.3271 2.3271 0 0124 5.1949zm-2.6119 5.116a2.4892 2.4892 0 01-2.4892 2.4893 2.4892 2.4892 0 01-2.4893-2.4892 2.4892 2.4892 0 012.4893-2.4893 2.4892 2.4892 0 012.4892 2.4893Z"/></symbol>
+  <symbol id="i-watch" viewBox="2.22 0 19.55 24"><path fill="currentColor" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 25 25"><path fill="currentColor" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM14 0h1v1h-1zM16 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM10 1h1v1h-1zM11 1h1v1h-1zM12 1h1v1h-1zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM12 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM15 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM13 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM16 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM17 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM23 8h1v1h-1zM24 8h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM11 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM15 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM19 10h1v1h-1zM21 10h1v1h-1zM24 10h1v1h-1zM1 11h1v1h-1zM3 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM11 11h1v1h-1zM14 11h1v1h-1zM16 11h1v1h-1zM18 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM11 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM24 12h1v1h-1zM0 13h1v1h-1zM1 13h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM7 13h1v1h-1zM8 13h1v1h-1zM10 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM20 13h1v1h-1zM23 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM14 14h1v1h-1zM15 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM18 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM24 14h1v1h-1zM0 15h1v1h-1zM3 15h1v1h-1zM7 15h1v1h-1zM12 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM0 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM5 16h1v1h-1zM6 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM14 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM22 17h1v1h-1zM23 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM12 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM24 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM8 19h1v1h-1zM9 19h1v1h-1zM11 19h1v1h-1zM13 19h1v1h-1zM16 19h1v1h-1zM20 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM11 20h1v1h-1zM13 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM8 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM14 21h1v1h-1zM15 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM13 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM20 22h1v1h-1zM21 22h1v1h-1zM22 22h1v1h-1zM23 22h1v1h-1zM24 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM10 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM13 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM22 23h1v1h-1zM23 23h1v1h-1zM24 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM24 24h1v1h-1z"/></symbol>
+</svg>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="wrap">
+<div class="top">
+  <a class="brand" href="../"><img src="../assets/icon.png" alt="">Siflo</a>
+  <nav class="lang-switch" aria-label="Langue · Language"><button type="button" data-lang="fr" lang="fr" aria-pressed="true">FR</button><button type="button" data-lang="en" lang="en">EN</button></nav>
+</div>
 <main>
-<section lang="fr">
-  <img class="icon" src="../assets/icon.png" alt="">
-  <h1>Télécharger Siflo</h1>
-  <p class="lead">La communication de groupe en pleine nature&nbsp;: messages, signaux et SOS, même sans réseau. Gratuite, sans compte, sans annonces.</p>
-  <div class="stores">
-    <a class="store" href="https://play.google.com/store/apps/details?id=app.siflo&amp;referrer=utm_source%3Dsiflo.app%26utm_medium%3Dget"><svg viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8z"/><path fill="#ffce00" d="m18.3 15.2-3.9-3.9 3.9-3.9 3.6 2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="m14.4 11.3-10.8 10.9c.4.4 1 .4 1.7.1l12.9-7.3z"/><path fill="#00f076" d="M14.4 11.3 18.2 7.4 5.3.2C4.6-.2 4 0 3.6.4z"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
-    <span class="store pending" data-badge="Bientôt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span><small>Bientôt sur</small><b>iPhone</b></span></span>
+<section lang="fr" data-title="Télécharger Siflo">
+  <div class="hero">
+    <div class="mark"><img src="../assets/icon.png" alt="" width="84" height="84"></div>
+    <p class="eyebrow">Gratuite · sans compte · sans annonces</p>
+    <h1>Restez en contact dehors, <em>même hors ligne.</em></h1>
+    <p class="lead">Messages, signaux et SOS pour votre groupe, de téléphone en téléphone quand il n'y a plus de réseau.</p>
+    <div class="cta">
+      <div class="android on-android on-nojs">
+        <a class="store primary" href="https://play.google.com/store/apps/details?id=app.siflo&amp;referrer=utm_source%3Dsiflo.app%26utm_medium%3Dget"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
+        <p class="fine">Android 8 ou plus récent · gratuite, sans compte</p>
+      </div>
+      <div class="ios-card on-ios">
+        <h2>Siflo arrive sur iPhone</h2>
+        <p>L'application et sa version Apple Watch sont en cours de validation chez Apple. Le bouton App Store apparaîtra ici dès sa sortie.</p>
+        <div class="row"><button class="btn fill copy" type="button" data-done="Lien copié">Copier le lien</button><a class="btn" href="../?lang=fr#film">Voir Siflo en vidéo</a></div>
+      </div>
+      <div class="qr on-desktop">
+        <svg aria-hidden="true"><use href="#i-qr"/></svg>
+        <p><strong>Scannez avec votre téléphone</strong>Vous arrivez sur cette page, qui vous mène à la bonne boutique.</p>
+      </div>
+      <div class="pair on-ios on-desktop">
+        <a class="store small" href="https://play.google.com/store/apps/details?id=app.siflo&amp;referrer=utm_source%3Dsiflo.app%26utm_medium%3Dget"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
+        <span class="store small off"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small>Bientôt sur</small><b>iPhone</b></span></span>
+      </div>
+      <span class="store off on-nojs"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small>Bientôt sur</small><b>iPhone</b></span></span>
+    </div>
   </div>
-  <p class="note">Android 8 ou plus récent. La version iPhone arrive bientôt. <a href="../">Découvrir Siflo</a></p>
+  <div class="more">
+    <div class="watches">
+      <h2>Et sur votre montre</h2>
+      <ul class="wl">
+        <li><a href="https://apps.garmin.com/apps/a159262b-0e43-4e1b-90c6-43c4bfa8421a"><span class="logo"><svg viewBox="0 0 24 6.51" aria-hidden="true"><use href="#i-garmin"/></svg><span class="sr">Garmin</span></span><small>Disponible</small></a></li>
+        <li><span><span class="logo az"><span aria-hidden="true">AMAZFIT</span><span class="sr">Amazfit</span></span><small><span class="no-ios">Dans l'app Zepp</span><span class="only-ios">Avec Android</span></small></span></li>
+        <li class="soon"><span><span class="logo"><svg viewBox="0 0 24 18.34" aria-hidden="true"><use href="#i-wear"/></svg>Wear OS</span><small>Bientôt</small></span></li>
+        <li class="soon"><span><span class="logo"><svg viewBox="0 0 19.55 24" aria-hidden="true"><use href="#i-watch"/></svg><span class="sr">Apple&nbsp;</span>Watch</span><small>Avec l'iPhone</small></span></li>
+      </ul>
+    </div>
+    <ul class="pts">
+      <li><i aria-hidden="true">BT</i><div><b>Sans réseau</b><span>De téléphone en téléphone par Bluetooth, et à plusieurs kilomètres avec une radio LoRa en option.</span></div></li>
+      <li><i aria-hidden="true">SOS</i><div><b>Signaux et SOS</b><span>Stop, OK, Remonte la corde&#8239;: un geste, et tout le groupe est prévenu.</span></div></li>
+      <li><i aria-hidden="true">E2E</i><div><b>Chiffré de bout en bout</b><span>Personne d'autre ne lit vos messages, pas même nous.</span></div></li>
+    </ul>
+  </div>
+  <footer class="foot"><a href="../?lang=fr">Découvrir Siflo&nbsp;→</a><a href="../labs/?lang=fr">Labo</a></footer>
 </section>
 
-<section lang="en" hidden>
-  <img class="icon" src="../assets/icon.png" alt="">
-  <h1>Get Siflo</h1>
-  <p class="lead">Group communication for the outdoors: messages, signals and SOS, even with no signal. Free, with no ads and no account.</p>
-  <div class="stores">
-    <a class="store" href="https://play.google.com/store/apps/details?id=app.siflo&amp;referrer=utm_source%3Dsiflo.app%26utm_medium%3Dget"><svg viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8z"/><path fill="#ffce00" d="m18.3 15.2-3.9-3.9 3.9-3.9 3.6 2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="m14.4 11.3-10.8 10.9c.4.4 1 .4 1.7.1l12.9-7.3z"/><path fill="#00f076" d="M14.4 11.3 18.2 7.4 5.3.2C4.6-.2 4 0 3.6.4z"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
-    <span class="store pending" data-badge="Soon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span><small>Coming soon to</small><b>iPhone</b></span></span>
+<section lang="en" data-title="Get Siflo" hidden>
+  <div class="hero">
+    <div class="mark"><img src="../assets/icon.png" alt="" width="84" height="84"></div>
+    <p class="eyebrow">Free · no account · no ads</p>
+    <h1>Stay in touch outdoors, <em>even offline.</em></h1>
+    <p class="lead">Messages, signals and SOS for your group, phone to phone when there is no network.</p>
+    <div class="cta">
+      <div class="android on-android on-nojs">
+        <a class="store primary" href="https://play.google.com/store/apps/details?id=app.siflo&amp;referrer=utm_source%3Dsiflo.app%26utm_medium%3Dget"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
+        <p class="fine">Android 8 or later · free, no account</p>
+      </div>
+      <div class="ios-card on-ios">
+        <h2>Siflo is coming to iPhone</h2>
+        <p>The app and its Apple Watch version are being reviewed by Apple. The App Store button will appear here as soon as it is out.</p>
+        <div class="row"><button class="btn fill copy" type="button" data-done="Link copied">Copy the link</button><a class="btn" href="../?lang=en#film">Watch the Siflo film</a></div>
+      </div>
+      <div class="qr on-desktop">
+        <svg aria-hidden="true"><use href="#i-qr"/></svg>
+        <p><strong>Scan with your phone</strong>You land on this page, which takes you to the right store.</p>
+      </div>
+      <div class="pair on-ios on-desktop">
+        <a class="store small" href="https://play.google.com/store/apps/details?id=app.siflo&amp;referrer=utm_source%3Dsiflo.app%26utm_medium%3Dget"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
+        <span class="store small off"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small>Coming soon to</small><b>iPhone</b></span></span>
+      </div>
+      <span class="store off on-nojs"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small>Coming soon to</small><b>iPhone</b></span></span>
+    </div>
   </div>
-  <p class="note">Android 8 or later. The iPhone version is coming soon. <a href="../">About Siflo</a></p>
+  <div class="more">
+    <div class="watches">
+      <h2>And on your watch</h2>
+      <ul class="wl">
+        <li><a href="https://apps.garmin.com/apps/a159262b-0e43-4e1b-90c6-43c4bfa8421a"><span class="logo"><svg viewBox="0 0 24 6.51" aria-hidden="true"><use href="#i-garmin"/></svg><span class="sr">Garmin</span></span><small>Available</small></a></li>
+        <li><span><span class="logo az"><span aria-hidden="true">AMAZFIT</span><span class="sr">Amazfit</span></span><small><span class="no-ios">In the Zepp app</span><span class="only-ios">With Android</span></small></span></li>
+        <li class="soon"><span><span class="logo"><svg viewBox="0 0 24 18.34" aria-hidden="true"><use href="#i-wear"/></svg>Wear OS</span><small>Soon</small></span></li>
+        <li class="soon"><span><span class="logo"><svg viewBox="0 0 19.55 24" aria-hidden="true"><use href="#i-watch"/></svg><span class="sr">Apple&nbsp;</span>Watch</span><small>With the iPhone</small></span></li>
+      </ul>
+    </div>
+    <ul class="pts">
+      <li><i aria-hidden="true">BT</i><div><b>No network</b><span>Phone to phone over Bluetooth, and several kilometres away with an optional LoRa radio.</span></div></li>
+      <li><i aria-hidden="true">SOS</i><div><b>Signals and SOS</b><span>Stop, OK, Pull up the rope: one gesture and the whole group knows.</span></div></li>
+      <li><i aria-hidden="true">E2E</i><div><b>End-to-end encrypted</b><span>Nobody else reads your messages, not even us.</span></div></li>
+    </ul>
+  </div>
+  <footer class="foot"><a href="../?lang=en">About Siflo&nbsp;→</a><a href="../labs/?lang=en">Labs</a></footer>
 </section>
 </main>
-<script src="../js/link.js"></script>
+</div>
+<script src="../js/get.js"></script>
 </body>
 </html>

@@ -39,6 +39,7 @@ uv run --with markdown python tools/build.py ../siflo
 | `/` | Presentation, support and FAQ (FR/EN) |
 | `/privacy/` | Privacy policy (EN + FR), the URL given to Google Play |
 | `/labs/` | Labs: radio range and encryption (FR/EN, same language pick as the home page) |
+| `/get/` | Download page (FR/EN, `css/get.css`, `js/get.js`): the store block follows the device, picked from the user agent in the page's head (Google Play on Android, the "coming to iPhone" card with copy-link and film buttons on iPhone, a QR code of this page and both badges on a computer, the Android block without JavaScript), then the watches and three points, over a drifting contour map with the whistle's rings leaving the icon (paused in a hidden tab, one still frame with reduced motion) |
 | `/research/`, `/recherche/` | Redirects to `/labs/` (the page's former address; `/recherche/` adds `?lang=fr`), keeping the anchor |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
 | `/j/`, `/id/`, `/c/` | Landing pages of the app links (group invitation, identity card, contact link) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
