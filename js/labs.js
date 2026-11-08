@@ -134,6 +134,9 @@ registerStrings({
     'hub.t2p': 'What each party sees on the way, and what proof tools have checked.',
     'fv.k': 'Encryption', 'fv.h': 'Encryption,<br><em>byte by byte.</em>',
     'fv.lead': "A group message's journey, from Julie's phone to Marc's: each square stands for one byte of the packet sent.",
+    'fv.f.k': 'The film', 'fv.f.h': 'Encryption without jargon, in 2&nbsp;min&nbsp;45',
+    'fv.f.p': "The seal, the box, the daily key, the safe, the label and the daily code: the six steps a message goes through on Julie's phone, then its journey to Marc and what everyone sees along the way.",
+    'fv.f.play': 'Play the film',
     'fv.a1h': 'End to end', 'fv.a1p': "Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone, and only their recipients can open them. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.",
     'fv.a2h': 'Keys that change', 'fv.a2p': "In a private conversation, from the first answer on, each message has its own key, erased once used (the Double Ratchet, Signal's mechanism): a key stolen later cannot read past messages. In a group, the key changes every day and whenever a member is removed. A stolen key cannot read messages more than two days old, but it can read the following ones until the next time a member is removed.",
     'fv.a3h': 'Verifiable identities', 'fv.a3p': "Each phone makes its own keys: no account. To be sure you are talking to the right person, scan their code face to face, or compare a safety code during a call.",
@@ -202,6 +205,18 @@ function render() {
   }).join('');
 }
 
+/** Self-hosted film (no third-party request): the source is attached on the first click. */
+function setupFilm() {
+  const box = document.getElementById('fv-film'), video = box.querySelector('video');
+  if (LANG !== 'fr') video.poster = video.dataset.posterEn;
+  box.querySelector('.film-play').addEventListener('click', () => {
+    if (!video.src) video.src = video.dataset[LANG === 'fr' ? 'srcFr' : 'srcEn'];
+    video.controls = true;
+    video.play();
+    box.classList.add('playing');
+  });
+}
+
 function renderVerification() {
   $('#models').innerHTML = MODELS.map(([name, tool, what]) => `<li><b>${L(name)}</b><span class="fv-tool">${tool}</span><p>${L(what)}</p></li>`).join('');
 }
@@ -211,4 +226,5 @@ applyStatic({
 });
 render();
 renderVerification();
+setupFilm();
 mountCipher(document.getElementById('cipher'), { cut: 'full' });

@@ -120,6 +120,10 @@
 .fv-tool { margin-left: 10px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--orange-2); white-space: nowrap; }
 .fv-models p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
 
+.fv-film { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(24px, 4vw, 56px); align-items: center; margin-bottom: clamp(40px, 6vh, 64px); }
+.fv-film-text > p:last-child { margin: 0; color: var(--ink-2); }
+.fv-film-player { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 100px -50px rgba(255, 106, 0, .55); }
+.fv-film-player video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0e0b09; }
 .fv-anim { margin-bottom: clamp(28px, 4vh, 44px); }
 .honest.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (min-width: 1100px) { .honest.four { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -130,7 +134,9 @@
 .fv-note { margin: 14px 0 0 !important; font-size: 14px; color: var(--ink-3); }
 
 @media (max-width: 700px) {
-  .hub-tiles, .fv-models, .honest.two { grid-template-columns: 1fr; }
+  .hub-tiles, .fv-models, .honest.two, .fv-film { grid-template-columns: 1fr; }
+  .fv-film-player .film-play { width: 56px; height: 56px; box-shadow: 0 0 0 7px rgba(255, 106, 0, .22), 0 10px 30px -8px rgba(255, 106, 0, .9); }
+  .fv-film-player .film-play span { border-width: 10px 0 10px 16px; margin-left: 4px; }
   .hub-tile { padding: 22px 20px; }
   .fv-who > div { grid-template-columns: 1fr; }
   .fv-anim { margin-left: -6px; margin-right: -6px; }
