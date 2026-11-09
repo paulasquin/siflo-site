@@ -6,12 +6,12 @@ import { mountCipher } from './cipher.js';
 const L = (v) => (Array.isArray(v) ? v[LANG === 'fr' ? 0 : 1] : v);
 
 const PHONES = [
-  ['ios', ['iPhone', 'iPhone'], ['iOS 17 ou plus récent, sur l’App Store', 'iOS 17 or later, on the App Store']],
+  ['ios', ['iPhone', 'iPhone'], ['iOS 17 ou plus récent, sur l\'App Store', 'iOS 17 or later, on the App Store']],
   ['old', ['Android milieu de gamme ou ancien', 'Mid-range or older Android'], ['Galaxy A, Redmi, téléphones de 2017 à 2020', 'Galaxy A, Redmi, phones from 2017 to 2020']],
   ['a16', ['Android récent, 15 ou 16', 'Recent Android, 15 or 16'], ['Pixel 8 et 9, Galaxy S24 et S25', 'Pixel 8 and 9, Galaxy S24 and S25']],
   ['a17', ['Android 17', 'Android 17'], ['Pixel 10 Pro XL, Galaxy S26 Ultra', 'Pixel 10 Pro XL, Galaxy S26 Ultra']],
 ];
-const FEATS = [['Signaux', 'Signals'], ['SOS', 'SOS'], ['Messages', 'Messages'], ['Photos, vocaux', 'Photos, voice']];
+const FEATS = [['Signaux', 'Signals'], ['SOS', 'SOS'], ['Messages', 'Messages'], ['Photos, vocaux', 'Photos, voice notes']];
 
 // range: [on body min, max, in hand min, max] in metres (link-budget estimates), or null for no distance limit.
 // phones: y / p (limited) / n per PHONES key; feats: y / p / n per FEATS entry.
@@ -45,7 +45,7 @@ const ROWS = [
   },
   {
     group: 'app', name: ["Balise d'alerte", 'Alert beacon'], sub: ['signal Bluetooth émis à pleine puissance, à sens unique', 'Bluetooth signal sent at full power, one-way'],
-    range: [25, 80, 250, 500], rangeNote: ['depuis Android 17 ; moins loin depuis Android 16 ou plus ancien', 'sent from Android 17; shorter from Android 16 or older'],
+    range: [25, 80, 250, 500], rangeNote: ['émis sous Android 17 ; moins loin sous Android 16 ou antérieur', 'sent from Android 17; shorter on Android 16 or older'],
     phones: { ios: 'n', old: 'p', a16: 'p', a17: 'y' },
     phoneNotes: { old: ['si la puce le permet, à puissance réduite (1 dBm)', 'if the chip allows, at reduced power (1 dBm)'], a16: ['émet à puissance réduite (1 dBm)', 'sends at reduced power (1 dBm)'], a17: ['émet environ 8 fois plus fort (10 dBm)', 'sends at about 8 times the power (10 dBm)'] },
     feats: ['y', 'y', 'p', 'n'], featNotes: { 2: ['courts', 'short'] },
@@ -72,13 +72,13 @@ const ROWS = [
 
 // Formal verification: what each model proves, in a line. Tool and files are in formal/ of the Siflo repository.
 const MODELS = [
-  [['Liens de contact', 'Contact links'], 'ProVerif, Tamarin', ["la demande et l'acceptation restent secrètes, et personne ne peut s'interposer entre les deux personnes", 'the request and the accept stay secret, and nobody can step in between the two people']],
+  [['Liens de contact', 'Contact links'], 'ProVerif, Tamarin', ["la demande et l'acceptation restent secrètes, et personne ne peut s'interposer entre les deux personnes", 'the request and the acceptance stay secret, and nobody can step in between the two people']],
   [['Début des conversations privées', 'Start of private conversations'], 'ProVerif, Tamarin', ["premier message secret, contenu infalsifiable, réponses à l'abri même d'une clé volée plus tard", 'first message secret, content that cannot be forged, answers safe even from a key stolen later']],
   [['Enveloppe des messages privés', 'Private message envelope'], 'ProVerif', ["pour qui observe le réseau, rien dans l'enveloppe ne trahit la conversation&#8239;: seule l'adresse du destinataire est visible", "to someone watching the network, nothing in the envelope gives the conversation away: only the recipient's address shows"]],
   [['Nouvelles clés et réponses SOS', 'New keys and SOS answers'], 'ProVerif, Tamarin', ["chacune ne peut être ouverte que par la personne à qui elle est adressée", 'each can only be opened by the person it is addressed to']],
   [['Clés de groupe', 'Group keys'], 'Tamarin, ProVerif', ["un membre retiré n'obtient aucune clé suivante, un nouvel arrivant aucune clé de plus de deux jours avant son invitation", 'a removed member gets no later key, a newcomer no key from more than two days before their invitation']],
   [['Administrateurs', 'Admins'], 'TLA+', ["une fois tous les messages reçus, tous les téléphones s'accordent sur les administrateurs et les retraits, même face à un ancien administrateur", 'once every message is in, all phones agree on admins and removals, even against a former admin']],
-  [['Membres et clés', 'Members and keys'], 'TLA+', ["dès qu'un membre a reçu la nouvelle clé, la personne retirée ne lit plus ce qu'il écrit", 'once a member has the new key, the removed person can no longer read what they write']],
+  [['Membres et clés', 'Members and keys'], 'TLA+', ["dès qu'un membre a reçu la nouvelle clé, la personne retirée ne lit plus ce qu'il écrit", 'once a member has the new key, the removed person can no longer read what that member writes']],
 ];
 
 registerStrings({
@@ -120,7 +120,7 @@ registerStrings({
     'rs.n6h': 'Satellite, in preparation',
     'rs.n6p': 'Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo\'s SOS and signals by satellite; nothing is available yet.',
     'rs.n7h': 'LoRa radio, an add-on',
-    'rs.n7p': "A small off-the-shelf radio, Meshtastic-compatible (Heltec Mesh Node T1, RAK WisMesh Tag), paired with the phone over Bluetooth. It carries messages, signals and SOS, not photos or voice messages, and only towards members that Bluetooth and the internet no longer reach.",
+    'rs.n7p': "A small off-the-shelf radio, Meshtastic-compatible (Heltec Mesh Node T1, RAK WisMesh Tag), paired with the phone over Bluetooth. It carries messages, signals and SOS, not photos or voice notes. It only steps in for members that Bluetooth and the internet no longer reach.",
     'rs.n8h': 'LoRa radios as relays',
     'rs.n8p': "A radio left on a high point or at a cave entrance relays the group's messages with no phone attached; you set it up from Siflo's settings. Radios relay up to 7 hops; beyond that, a phone with a radio carries the chain on.",
     'rs.sp1': 'A question, a remark, a field measurement?', 'rs.sp2': 'Write to us: your feedback helps us improve Siflo.',
@@ -150,7 +150,7 @@ registerStrings({
     'fv.w5t': 'Guardia, which publishes Siflo', 'fv.w5d': 'Nothing more than our relay servers: no account, no address book, no content.',
     'fv.w.note': "Two exceptions, both about LoRa radios: the backup channel, which you turn on yourself, shows a conversation's messages in plain text on the screens of the group's radios, to read them without a phone (the app shows an open padlock); an SOS also appears there in plain text, unless you opt out when sending it.",
     'fv.m.h': 'How we checked it',
-    'fv.m.p': "We described the protocol in mathematical models. Two proof tools (Tamarin, ProVerif) and a tool that explores the possible courses of events in a small group (TLA+, 3 or 4&nbsp;phones) pit them against an attacker who controls the whole network, relay included, can steal a key at any moment, or used to be a member or an admin of the group. An admin still in the role is assumed to act in good faith.",
+    'fv.m.p': "We described the protocol in mathematical models. Two proof tools (Tamarin, ProVerif) and a tool that explores the possible courses of events in a small group (TLA+, 3 or 4&nbsp;phones) pit them against an attacker who controls the whole network, relays included, can steal a key at any moment, or used to be a member or an admin of the group. An admin still in the role is assumed to act in good faith.",
     'fv.v.h': "How far these checks go",
     'fv.v.p': "The models cover the contact exchange, the start of private conversations and groups (keys, admins, members); for admins and members, tests also check these rules on the app's own code. Outside the models: packet routing and parsing, the radio, media, traffic analysis, and the rest of a private conversation, which relies on the Double Ratchet's published proofs. These results hold from version&nbsp;0.20.0 on.",
     'foot.aria': 'Links', 'foot.home': 'About', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
