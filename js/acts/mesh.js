@@ -210,6 +210,10 @@ export class MeshAct {
     for (const k of ['b0', 'b1', 'b2']) this.discs[k].material.uniforms.uA.value = 0.3 * w2;
     this.discs.late.material.uniforms.uA.value = 0.3 * smooth(1.2, 1.6, p);
     for (const k of ['s1', 's2']) this.discs[k].material.uniforms.uA.value = 0.22 * w4;
+    // Film only (video/render.py sets it): a clean SOS, without the range discs and the group arcs.
+    const film = window.__filmSOS ? w4 : 0;
+    if (film) { for (const d of Object.values(this.discs)) d.material.uniforms.uA.value *= 1 - film; A.b01.show *= 1 - film; A.b12.show *= 1 - film;
+      for (const r of this.rings.pool) { r.mesh.material.depthTest = false; r.mesh.renderOrder = 5; } }
     this.relay.visible = bridge > 0.02;
     this.relay.scale.setScalar(Math.max(0.001, bridge));
     this.relayOct.rotation.y = t * 0.6;
@@ -233,7 +237,7 @@ export class MeshAct {
     // 4 · SOS: red rings from Marc's phone, every phone in range flashes, other group included.
     const sos = w4 > 0.5;
     if (sos) this.loopS.tick(() => {
-      this.rings.emit(P.b2, { color: SOS_RED, size: 2.4 * R, dur: 1.5, width: 0.025 });
+      this.rings.emit(P.b2, film ? { color: SOS_RED, size: 3.4 * R, dur: 2.0, width: 0.03 } : { color: SOS_RED, size: 2.4 * R, dur: 1.5, width: 0.025 });
       N.b2.flash(SOS_RED);
       for (const k of ['b0', 'b1', 's1', 's2']) setTimeout(() => N[k].flash(SOS_RED), 250 + N[k].position.distanceTo(P.b2) * 40);
     });

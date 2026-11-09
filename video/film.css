@@ -24,12 +24,19 @@
 #film .chips li i { font-style: normal; font-family: var(--f-mono); color: var(--orange-2); }
 #film .chips li.ok i { color: var(--ok); }
 
-/* Feature montage: real app screens in phone frames. */
-#film .montage { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse 80% 55% at 50% 30%, #3a1d0c 0%, #160f0b 55%, #0b0806 100%); overflow: hidden; }
-#film .montage .glow { position: absolute; left: 50%; top: 27%; width: 520px; height: 520px; margin: -260px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 0, .35), transparent 65%); }
-#film .montage .dot { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255, 170, 110, .55), transparent 70%); }
-#film .phone { position: absolute; top: 9%; width: 190px; aspect-ratio: 1 / 2; border-radius: 26px; padding: 7px; background: linear-gradient(160deg, #3a302a, #17120f); box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 196, 160, .18); }
-#film .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 20px; }
+/* Boards: real app screens in phone frames, over the darkened 3D. */
+#film .board { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse 80% 55% at 50% 28%, rgba(58, 29, 12, .82) 0%, rgba(22, 15, 11, .9) 55%, rgba(11, 8, 6, .94) 100%); overflow: hidden; }
+#film .phone { position: absolute; aspect-ratio: 1080 / 2400; border-radius: 26px; padding: 6px; background: linear-gradient(160deg, #3a302a, #17120f); box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 196, 160, .18); }
+#film .phone.win { aspect-ratio: auto; border-radius: 30px 30px 0 0; padding-bottom: 0; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+#film .phone.iphone { aspect-ratio: 1080 / 2348; border-radius: 32px; }
+#film .phone .glass { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 20px; }
+#film .phone.win .glass { border-radius: 24px 24px 0 0; }
+#film .phone.iphone .glass { border-radius: 26px; }
+#film .phone img { display: block; width: 100%; height: auto; }
+#film .labs-card { position: absolute; left: 50%; top: 50px; width: 260px; margin-left: -130px; padding: 14px 14px 12px; border-radius: 22px; background: rgba(16, 12, 9, .85); box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 196, 160, .22); }
+#film .labs-frames { position: relative; width: 100%; aspect-ratio: 325 / 440; border-radius: 12px; overflow: hidden; background: #0e0b09; }
+#film .labs-frames img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+#film .labs-cap { margin: 10px 2px 0; font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; line-height: 1.35; color: var(--ink-2); }
 
 /* End card. */
 #film .end { position: absolute; inset: 0; opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 30px 150px; }
@@ -47,5 +54,9 @@
 #film .end .store svg { width: 24px; height: 24px; }
 #film .end .store small { font-size: 9.5px; }
 #film .end .store b { font-size: 16px; }
-#film .end .store.pending::after { top: -9px; right: -9px; font-size: 9px; padding: 2px 8px; }
+#film .end .watch { margin: 16px 0 0; font-size: 13.5px; line-height: 1.35; color: var(--ink-2); max-width: 420px; }
 #film .end .url { margin: 14px 0 0; font-size: 14px; color: var(--ink-3); letter-spacing: .02em; }
+#film .end .store { display: inline-flex; align-items: center; background: #000; border: 1px solid rgba(255, 255, 255, .28); color: #fff; }
+#film .end .store svg { flex: none; }
+#film .end .store span { display: flex; flex-direction: column; text-align: left; line-height: 1.15; }
+#film .end .store small { color: rgba(255, 255, 255, .72); }

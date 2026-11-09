@@ -12,21 +12,23 @@ import asyncio, json, pathlib, shutil, subprocess, sys
 from playwright.async_api import async_playwright
 
 HERE = pathlib.Path(__file__).parent
-FPS, W, H, DUR = 30, 540, 960, 48.0
+FPS, W, H, DUR = 30, 540, 960, 60.0
 
 # Shots: start s, end s, act, keys (film time s, panel coordinate), options.
 # The panel coordinate is the site's: 0 = first card of the act centred, 1 = second card…
 # Between keys the coordinate eases (smoothstep), so a key is held where the action needs time.
 # zoom tightens the site's portrait framing for the video.
 SHOTS = [
-    (0.0, 5.0, 'canyon', [(0, -1.0), (5, 0.5)], {'restart': True}),            # fly into the gorge at dusk
-    (5.0, 10.0, 'canyon', [(5, 0.55), (6.2, 0.95), (10, 1.25)], {}),            # Julie whistles, the rings tear apart
-    (10.0, 17.5, 'canyon', [(10, 1.35), (12, 1.62), (17.5, 2.05)], {}),         # her message hops down to Léa and Tom
-    (17.5, 25.0, 'signal', [(17.5, -0.5), (19.5, 0.3), (21.5, 1.2), (22.5, 1.7), (24, 2.0), (25, 2.1)], {'zoom': 1.45}),
-    (25.0, 32.5, 'mesh', [(25, -0.3), (27, 0.3), (29, 1.2), (31.5, 2.2), (32.5, 2.35)], {'zoom': 1.15}),
-    (32.5, 37.5, 'mesh', [(32.5, 2.6), (37.5, 3.1)], {'zoom': 1.3}),            # SOS
-    (37.5, 42.5, 'signal', [(37.5, 2.1), (42.5, 2.1)], {'zoom': 1.45}),                     # under the feature montage
-    (42.5, DUR, 'canyon', [(42.5, -1.0), (DUR, -0.75)], {}),                    # aerial view behind the end card
+    (0.0, 5.18, 'canyon', [(0, -1.0), (5.18, 0.5)], {'restart': True}),               # fly into the gorge at dusk
+    (5.18, 10.24, 'canyon', [(5.18, 0.55), (6.4, 0.95), (10.24, 1.25)], {}),          # Julie whistles, the rings tear apart
+    (10.24, 17.81, 'canyon', [(10.24, 1.35), (12.3, 1.62), (17.81, 2.05)], {}),       # her message hops down to Léa and Tom
+    (17.81, 22.85, 'signal', [(17.81, -0.2), (18.9, 0.4), (20.2, 1.2), (21.0, 1.7), (22.0, 2.0), (22.85, 2.1)], {'zoom': 1.45}),
+    (22.85, 30.42, 'canyon', [(22.85, 1.1), (30.42, 1.3)], {}),                       # under the messaging screens
+    (30.42, 35.48, 'mesh', [(30.42, 0.05), (32.6, 0.6), (35.48, 1.15)], {'zoom': 1.15}),   # mesh hops and the relay server only
+    (35.48, 40.54, 'mesh', [(35.48, 2.9), (40.54, 2.9)], {'zoom': 1.2}),               # SOS, camera held
+    (40.54, 45.56, 'mesh', [(40.54, 3.1), (45.56, 3.1)], {'zoom': 1.3}),               # under the Lab card
+    (45.56, 50.62, 'signal', [(45.56, 2.1), (50.62, 2.1)], {'zoom': 1.45}),            # under « and more »
+    (50.62, DUR, 'canyon', [(50.62, -1.0), (DUR, -0.7)], {}),                         # aerial view behind the end card
 ]
 
 CLOCK = """(() => {
@@ -109,7 +111,10 @@ async def main():
             await pg.wait_for_timeout(15)
         await pg.add_style_tag(path=str(HERE / 'film.css'))
         await pg.add_script_tag(path=str(HERE / 'film.js'))
+        if 'clean' in flags:  # the 3D alone, for the Motion review film (titles drawn there)
+            await pg.add_style_tag(content='#film { display: none !important; }')
         await pg.evaluate(HOOK)
+        await pg.evaluate('window.__filmSOS = true')
         await pg.evaluate("Promise.all([...document.querySelectorAll('#film img')].map((i) => i.decode().catch(() => {})))")
         await pg.wait_for_timeout(800)
         n_total = round(DUR * FPS)
@@ -136,6 +141,7 @@ async def main():
         print('stills in', out)
         return
     name = f'clean-{lang}' if (t_from, t_to) == (0, DUR) else f'part-{lang}-{t_from:g}-{t_to:g}'
+    if 'clean' in flags: name = name.replace('clean-', '3d-')
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', str(frames / 'f%05d.png'),
                     '-c:v', 'libx264', '-preset', 'slow', '-crf', '14', '-pix_fmt', 'yuv420p', str(out / f'{name}.mp4')], check=True)
     if name.startswith('clean'):
