@@ -334,7 +334,7 @@ main { position: relative; z-index: 2; }
 .screens { display: flex; justify-content: safe center; gap: 22px; padding: 10px var(--pad) 30px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
 .screens figure { margin: 0; flex: 0 0 auto; width: clamp(200px, 22vw, 260px); scroll-snap-align: center; }
 .screens .shot { border-radius: 28px; overflow: hidden; padding: 8px; background: linear-gradient(150deg, #3a302a, #120e0b 40%, #2a221d); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9), 0 0 0 1px rgba(255, 255, 255, .07); cursor: zoom-in; }
-.screens img { width: 100%; height: auto; aspect-ratio: 1 / 2; object-fit: cover; object-position: top; border-radius: 21px; background: #fffbf8; }
+.screens img { width: 100%; height: auto; aspect-ratio: 9 / 20; object-fit: cover; object-position: top; border-radius: 21px; background: #fffbf8; }
 .screens figcaption { margin-top: 12px; font-size: 13px; color: var(--ink-3); text-align: center; }
 
 /* privacy */
