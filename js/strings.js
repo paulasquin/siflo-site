@@ -69,7 +69,7 @@ export const STRINGS = {
     'meta.og.alt': 'Siflo, for group communication outdoors, even with no signal',
     'meta.og.title': 'Siflo — Stay in touch outdoors, even offline.',
     'meta.og.description': 'Messages, photos, voice notes, signals and SOS for your group on an outing, with or without a network. Free, encrypted, no account.',
-    loader: 'Waiting for the last one…',
+    loader: 'Checking the knots…',
     'nav.aria': 'Main navigation',
     'nav.chat': 'Messaging', 'nav.signals': 'Signals', 'nav.mesh': 'No network', 'nav.field': 'In the field', 'nav.film': 'Video', 'nav.privacy': 'Privacy', 'nav.help': 'Help', 'nav.labs': 'Labs',
     'hero.eyebrow': 'Outdoor group communication',
