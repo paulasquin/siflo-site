@@ -1,0 +1,237 @@
+<!doctype html>
+<!-- Built by tools/en.py from labs/index.html and js/labs-strings.js: edit those, then run it again. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Labs · Siflo radio range and encryption</title>
+  <meta name="description" content="Estimated range of each radio link, from Bluetooth to LoRa. Siflo’s encryption explained byte by byte, checked with formal proof tools.">
+  <meta name="theme-color" content="#0e0b09">
+  <meta property="og:title" content="Siflo · Labs: radio range and encryption">
+  <meta property="og:description" content="Estimated radio range, message encryption byte by byte and the formal verification of the protocol, with their limits.">
+  <meta property="og:image" content="https://siflo.app/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Siflo, for group communication outdoors, even with no signal">
+  <meta property="og:url" content="https://siflo.app/en/labs/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Siflo">
+  <link rel="canonical" href="https://siflo.app/en/labs/">
+  <link rel="alternate" hreflang="fr" href="https://siflo.app/labs/">
+  <link rel="alternate" hreflang="en" href="https://siflo.app/en/labs/">
+  <link rel="alternate" hreflang="x-default" href="https://siflo.app/labs/">
+  <link rel="icon" href="../../assets/icon.png">
+  <link rel="apple-touch-icon" href="../../assets/icon.png">
+  <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/unbounded-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/inter-latin.woff2" crossorigin>
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/labs.css" rel="stylesheet">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../../assets/vendor/three.module.js",
+      "three/addons/": "../../assets/vendor/addons/"
+    }
+  }
+  </script>
+</head>
+<body class="labs">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="whistle" viewBox="18 19 70 70">
+      <path fill="#fff" d="M23,46h22a12,12 0,1 1,0 24h-6a16,16 0,0 1,-16 -16z"/>
+      <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M61,44a14,14 0,0 1,0 20"/>
+      <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
+      <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
+    </symbol>
+  </svg>
+
+  <nav class="topnav scrolled" aria-label="Main navigation" data-i18n-aria="nav.aria">
+    <a href="../" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
+    <a href="../" class="nav-back" data-i18n="nav.back">About Siflo</a>
+    <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
+  </nav>
+
+  <main>
+    <section class="section rs-hub">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="hub.k">Labs</p>
+          <h1 class="h-xl" data-i18n="hub.h">The research<br><em>behind Siflo.</em></h1>
+          <p class="lead" data-i18n="hub.lead">What we calculated and what we checked.</p>
+        </div>
+        <div class="hub-tiles">
+          <a class="hub-tile" href="#portee">
+            <span class="kicker" data-i18n="hub.t1k">Radio range</span>
+            <h2 data-i18n="hub.t1h">Seven ways to reach each other</h2>
+            <p data-i18n="hub.t1p">Bluetooth, Wi-Fi, internet, LoRa radio, satellite: the estimated range of each link, the compatible phones, what gets through.</p>
+          </a>
+          <a class="hub-tile" href="#verification">
+            <span class="kicker" data-i18n="hub.t2k">Encryption</span>
+            <h2 data-i18n="hub.t2h">Encryption, byte by byte</h2>
+            <p data-i18n="hub.t2p">What each party sees on the way, and what proof tools have checked.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rs-intro" id="portee">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="rs.k">Radio range</p>
+          <h2 class="h-lg" data-i18n="rs.h">Seven ways<br><em>to reach each other.</em></h2>
+          <p class="lead" data-i18n="rs.lead">How a Siflo phone reaches another one: over Bluetooth, Wi-Fi, the internet, a LoRa radio and, later, satellite. For each link, the estimated range, the phones that can use it and what gets through.</p>
+          <p data-i18n="rs.p1">The ranges are estimated by calculation, not yet measured in the field. The scale is logarithmic: from one mark to the next, the distance is multiplied by ten. The first six links are in the app, including the alert beacon (Android only) and the LoRa radio (an add-on); satellite is in preparation.</p>
+        </div>
+
+        <div class="rs-legend" aria-hidden="true">
+          <span><i class="sw body"></i><span data-i18n="rs.lg.body">On body: in a pocket or the pack</span></span>
+          <span><i class="sw hand"></i><span data-i18n="rs.lg.hand">In hand, line of sight, open ground</span></span>
+          <span><i class="dot y"></i><span data-i18n="rs.lg.y">Yes</span></span>
+          <span><i class="dot p"></i><span data-i18n="rs.lg.p">Limited</span></span>
+          <span><i class="dot n"></i><span data-i18n="rs.lg.n">No</span></span>
+        </div>
+        <dl class="rs-phone-legend" id="phone-legend"></dl>
+
+        <div class="rs-table" id="links"></div>
+      </div>
+    </section>
+
+    <section class="section section-honest rs-notes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="rs.n.k">Reading these figures</p>
+          <h2 class="h-lg" data-i18n="rs.n.h">A range is not a promise:<br><em>the terrain decides.</em></h2>
+        </div>
+        <div class="honest four">
+          <div>
+            <h3 data-i18n="rs.n1h">One hop, then the next</h3>
+            <p data-i18n="rs.n1p">Each range covers a single hop, from one phone to the next. Every phone in the group relays the others' messages, up to 12&nbsp;hops: the chain reaches much further than a single hop.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n2h">Long range takes two</h3>
+            <p data-i18n="rs.n2p">It only works between two compatible phones. On iPhone, Siflo stays on standard Bluetooth, but a nearby Android can relay for it over long range.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n3h">Terrain matters more than the link</h3>
+            <p data-i18n="rs.n3p">Rock blocks everything: in a cave, messages go from phone to phone, in line of sight. Wet foliage divides the range by two or three, by our estimates. Nothing gets through under water.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n4h">Estimates, not yet measurements</h3>
+            <p data-i18n="rs.n4p">They are calculated from the transmit power, the receivers' sensitivity and the losses due to the body and the terrain. We will measure them in the field and update this page.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n5h">The alert beacon is one-way</h3>
+            <p data-i18n="rs.n5p">The distant phone receives the alert but cannot answer along this path: there is no acknowledgement, and the alert is repeated every two seconds. The alert beacon has been in the Android app since version 0.5; its range is yet to be measured in the field.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n6h">Satellite, in preparation</h3>
+            <p data-i18n="rs.n6p">Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo’s SOS and signals by satellite; nothing is available yet.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n7h">LoRa radio, an add-on</h3>
+            <p data-i18n="rs.n7p">A small off-the-shelf radio, Meshtastic-compatible (Heltec Mesh Node T1, RAK WisMesh Tag), paired with the phone over Bluetooth. It carries messages, signals and SOS, not photos or voice notes. It only steps in for members that Bluetooth and the internet no longer reach.</p>
+          </div>
+          <div>
+            <h3 data-i18n="rs.n8h">LoRa radios as relays</h3>
+            <p data-i18n="rs.n8p">A radio left on a high point or at a cave entrance relays the group’s messages with no phone attached; you set it up from Siflo’s settings. Radios relay up to 7 hops; beyond that, a phone with a radio carries the chain on.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fv" id="verification">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker" data-i18n="fv.k">Encryption</p>
+          <h2 class="h-lg" data-i18n="fv.h">Encryption,<br><em>byte by byte.</em></h2>
+          <p class="lead" data-i18n="fv.lead">A group message’s journey, from Julie’s phone to Marc’s: each square stands for one byte of the packet sent.</p>
+        </div>
+
+        <div id="cipher" class="fv-anim"></div>
+
+        <div class="fv-film">
+          <div class="fv-film-text">
+            <p class="kicker" data-i18n="fv.f.k">The film</p>
+            <h3 data-i18n="fv.f.h">Encryption without jargon, in 2&nbsp;min&nbsp;45</h3>
+            <p data-i18n="fv.f.p">The seal, the box, the daily key, the safe, the label and the daily code: the six steps a message goes through on Julie’s phone, then its journey to Marc and what everyone sees along the way.</p>
+          </div>
+          <div class="fv-film-player film" id="fv-film">
+            <video preload="none" playsinline poster="../../assets/film/chiffrement-poster-en.jpg" data-poster-en="../../assets/film/chiffrement-poster-en.jpg" data-src-fr="../../assets/film/chiffrement-fr.mp4" data-src-en="../../assets/film/chiffrement-en.mp4"></video>
+            <button class="film-play" aria-label="Play the film" data-i18n-aria="fv.f.play"><span></span></button>
+          </div>
+        </div>
+
+        <div class="honest two fv-cards">
+          <div>
+            <h3 data-i18n="fv.a1h">End to end</h3>
+            <p data-i18n="fv.a1p">Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone, and only their recipients can open them. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.a2h">Keys that change</h3>
+            <p data-i18n="fv.a2p">In a private conversation, from the first answer on, each message has its own key, erased once used (the Double Ratchet, Signal’s mechanism): a key stolen later cannot read past messages. In a group, the key changes every day and whenever a member is removed. A stolen key cannot read messages more than two days old, but it can read the following ones until the next time a member is removed.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.a3h">Verifiable identities</h3>
+            <p data-i18n="fv.a3p">Each phone makes its own keys: no account. To be sure you are talking to the right person, scan their code face to face, or compare a safety code during a call.</p>
+          </div>
+          <div>
+            <h3 data-i18n="fv.a4h">Over LoRa radio</h3>
+            <p data-i18n="fv.a4p">A LoRa frame carries 233 bytes at most: an 8-byte tag, the message id, the time, then the text, encrypted the same way; a long message spans several frames. The tag is computed afresh for each frame, so that frames of one group cannot be linked. A phone that relays over the radio a message it got over Bluetooth adds its author’s signature: it cannot write in their place.</p>
+          </div>
+        </div>
+
+        <div class="fv-method">
+          <h3 data-i18n="fv.w.h">Who sees what</h3>
+          <dl class="fv-who">
+            <div><dt data-i18n="fv.w1t">A member of the group</dt><dd data-i18n="fv.w1d">The whole message, and its author, checked by their signature.</dd></div>
+            <div><dt data-i18n="fv.w2t">A stranger’s phone that relays it</dt><dd data-i18n="fv.w2d">Only the header: the time, the size, and a tag that changes every day and reveals neither the group nor the author.</dd></div>
+            <div><dt data-i18n="fv.w3t">Our internet relays</dt><dd data-i18n="fv.w3d">The same, plus the IP address of the phone that drops off or picks up the packet. They keep it for 48 hours without being able to open it.</dd></div>
+            <div><dt data-i18n="fv.w4t">Someone listening in on LoRa traffic</dt><dd data-i18n="fv.w4d">The number of the radio that transmits, the time and size of each frame: enough to recognise a radio from one day to the next, but not the text, the author or the group.</dd></div>
+            <div><dt data-i18n="fv.w5t">Guardia, which publishes Siflo</dt><dd data-i18n="fv.w5d">Nothing more than our relay servers: no account, no address book, no content.</dd></div>
+          </dl>
+          <p class="fv-note" data-i18n="fv.w.note">Two exceptions, both about LoRa radios: the backup channel, which you turn on yourself, shows a conversation’s messages in plain text on the screens of the group’s radios, to read them without a phone (the app shows an open padlock); an SOS also appears there in plain text, unless you opt out when sending it.</p>
+        </div>
+
+        <div class="fv-method">
+          <h3 data-i18n="fv.m.h">How we checked it</h3>
+          <p data-i18n="fv.m.p">We described the protocol in mathematical models. Two proof tools (Tamarin, ProVerif) and a tool that explores the possible courses of events in a small group (TLA+, 3 or 4&nbsp;phones) pit them against an attacker who controls the whole network, relays included, can steal a key at any moment, or used to be a member or an admin of the group. An admin still in the role is assumed to act in good faith.</p>
+          <ul class="fv-models" id="models"></ul>
+        </div>
+
+        <div class="fv-method">
+          <h3 data-i18n="fv.v.h">How far these checks go</h3>
+          <p data-i18n="fv.v.p">The models cover the contact exchange, the start of private conversations and groups (keys, admins, members); for admins and members, tests also check these rules on the app’s own code. Outside the models: packet routing and parsing, the radio, media, traffic analysis, and the rest of a private conversation, which relies on the Double Ratchet’s published proofs. These results hold from version&nbsp;0.20.0 on.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rs-contact">
+      <div class="wrap">
+        <div class="support">
+          <p><span data-i18n="rs.sp1">A question, a remark, a field measurement?</span><b data-i18n="rs.sp2">Write to us: your feedback helps us improve Siflo.</b></p>
+          <a class="btn btn-primary" href="mailto:contact@aidiligence.eu">contact@aidiligence.eu</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a href="../" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
+      <nav aria-label="Links" data-i18n-aria="foot.aria">
+        <a href="../" data-i18n="foot.home">About</a>
+        <a href="./" data-i18n="foot.labs">Labs</a>
+        <a href="../../privacy/" data-i18n="foot.privacy">Privacy</a>
+        <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
+        <a href="https://aidiligence.eu">AI Diligence</a>
+      </nav>
+      <p>Guardia SAS · SIREN 910 991 140</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../../js/labs.js"></script>
+</body>
+</html>

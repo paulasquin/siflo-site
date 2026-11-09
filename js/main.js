@@ -11,24 +11,33 @@ registerStrings(STRINGS);
 
 const SCREENS = {
   fr: [
-    ['01-fr-signals', 'Les quatre signaux et le SOS'],
-    ['02-fr-home', "L'accueil : vos groupes et les personnes à proximité"],
-    ['03-fr-group', 'Le QR code du groupe, à scanner sans réseau'],
+    ['01-home', 'L’accueil : vos groupes et vos conversations privées'],
+    ['02-group-chat', 'La discussion du groupe : photos, vocaux, réponses, réactions'],
+    ['03-signals', 'Un signal à tout le groupe : reçu, puis vu'],
+    ['04-topo', 'Le topo du groupe, gardé sur chaque téléphone'],
+    ['05-before-you-go', 'Avant de partir : la liste à cocher du canyon'],
+    ['06-sos-countdown', 'Le SOS : le compte à rebours et les destinataires'],
+    ['07-invite-qr', 'Le QR code du groupe, à scanner sans réseau'],
+    ['08-member-distances', 'La distance et la direction de chaque membre'],
   ],
   en: [
-    ['01-signals', 'The four signals and the SOS'],
-    ['02-sent', 'A signal sent, with its acknowledgements'],
-    ['03-chat', 'The group chat, encrypted'],
-    ['04-invite', "The group's QR code, to scan, no network needed"],
-    ['05-create', 'Creating a group: activity, duration, quick signals'],
-    ['06-identity', 'Your identity, verified in person'],
-    ['07-dark', 'Settings, in the dark theme'],
+    ['01-home', 'Home: your groups and private chats'],
+    ['02-group-chat', 'The group chat: photos, voice notes, replies, reactions'],
+    ['03-signals', 'A signal to the whole group: received, then seen'],
+    ['04-topo', 'The group’s topo, kept on every phone'],
+    ['05-before-you-go', 'Before you go: the canyoning checklist'],
+    ['06-sos-countdown', 'The SOS: the countdown and who gets it'],
+    ['07-invite-qr', 'The group’s QR code, to scan with no signal'],
+    ['08-member-distances', 'How far away each member is, and in which direction'],
   ],
 };
 
+// Relative to this script, so that /en/ finds them too.
+const SHOTS = new URL('../assets/screens/', import.meta.url).href;
+
 function renderScreens() {
   $('#screens').innerHTML = SCREENS[LANG].map(([f, cap]) => `
-    <figure data-lightbox="screens"><div class="shot"><img src="assets/screens/${f}.webp" data-full="assets/screens/${f}.webp" alt="${cap}" loading="lazy" width="540" height="1080"></div><figcaption>${cap}</figcaption></figure>`).join('');
+    <figure data-lightbox="screens"><div class="shot"><img src="${SHOTS}${f}-${LANG}.webp" data-full="${SHOTS}${f}-${LANG}.webp" alt="${cap}" loading="lazy" width="720" height="1600"></div><figcaption>${cap}</figcaption></figure>`).join('');
 }
 
 /** Self-hosted film (no third-party request): the source is attached on the first click. */

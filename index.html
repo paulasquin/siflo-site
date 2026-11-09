@@ -4,20 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Siflo — communication outdoor de groupe, même hors ligne</title>
-  <meta name="description" content="Siflo garde votre groupe en contact dehors, même hors ligne : messages, photos, vocaux, signaux et SOS, par internet quand quelqu'un capte, de téléphone en téléphone sinon. Canyon, escalade, spéléo, alpinisme. Gratuite, chiffrée, sans compte. Sur Google Play.">
+  <meta name="description" content="Messages, photos, signaux et SOS pour votre groupe en sortie, même sans réseau. Canyon, escalade, spéléo, alpinisme. Application gratuite, chiffrée, sans compte.">
   <meta name="theme-color" content="#0e0b09">
   <meta property="og:title" content="Siflo — Restez en contact dehors, même hors ligne.">
   <meta property="og:description" content="Messages, photos, vocaux, signaux et SOS pour votre groupe en sortie, avec ou sans réseau. Gratuite, chiffrée, sans compte.">
   <meta property="og:image" content="https://siflo.app/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Siflo, pour communiquer en groupe dehors, même sans réseau">
   <meta property="og:url" content="https://siflo.app/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Siflo">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "MobileApplication", "name": "Siflo", "url": "https://siflo.app/", "inLanguage": "fr", "description": "Messages, photos, signaux et SOS pour votre groupe en sortie, même sans réseau. Application gratuite, chiffrée, sans compte.", "applicationCategory": "CommunicationApplication", "operatingSystem": "Android 8+, iOS 17+", "image": "https://siflo.app/assets/icon.png", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "installUrl": ["https://play.google.com/store/apps/details?id=app.siflo", "https://apps.apple.com/app/id6827630745"], "publisher": {"@type": "Organization", "name": "Guardia SAS", "url": "https://aidiligence.eu"}}</script>
   <link rel="canonical" href="https://siflo.app/">
-  <link rel="alternate" hreflang="fr" href="https://siflo.app/?lang=fr">
-  <link rel="alternate" hreflang="en" href="https://siflo.app/?lang=en">
+  <link rel="alternate" hreflang="fr" href="https://siflo.app/">
+  <link rel="alternate" hreflang="en" href="https://siflo.app/en/">
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/">
   <script>
     // Pick the language before first paint: ?lang=, then the visitor's saved choice, then the browser languages.
@@ -28,12 +32,22 @@
         if (ok.indexOf(q) >= 0) { lang = q; localStorage.setItem('lang', q); }
         else if (ok.indexOf(localStorage.getItem('lang')) >= 0) lang = localStorage.getItem('lang');
       } catch (e) {}
+      // English has its own page (built by tools/en.py). Crawlers and test browsers stay here, in French unless ?lang=en.
+      var bot = navigator.webdriver || /bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent);
+      if (!lang && bot) lang = 'fr';
       if (!lang) {
         var ls = navigator.languages || [navigator.language || ''];
         for (var i = 0; i < ls.length && !lang; i++) { var b = String(ls[i]).slice(0, 2).toLowerCase(); if (ok.indexOf(b) >= 0) lang = b; }
       }
+      if ((lang || 'en') === 'en' && !bot) location.replace('en/' + location.search + location.hash);
       document.documentElement.lang = lang || 'en';
     })();
+  </script>
+  <script>
+    // Hero download button for the device (css .os-*): iPhone and iPad (iPadOS says Macintosh, with a touch screen), Android, else the download section.
+    (function (ua) {
+      document.documentElement.dataset.os = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'ios' : /Android/.test(ua) ? 'android' : 'desktop';
+    })(navigator.userAgent);
   </script>
   <link rel="icon" href="assets/icon.png">
   <link rel="apple-touch-icon" href="assets/icon.png">
@@ -105,14 +119,16 @@
             <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">dehors,</span></span>
             <span class="ht-line"><span class="ht-word ht-glow" data-i18n="hero.t3">même hors ligne.</span></span>
           </h1>
-          <p class="hero-sub" data-i18n="hero.sub">Messages, photos, signaux et SOS pour le groupe. Par internet quand quelqu'un capte, de téléphone en téléphone sinon, jusqu'à celui qui part toujours devant. Gratuite, chiffrée, sans compte.</p>
+          <p class="hero-sub" data-i18n="hero.sub">Messages, photos, signaux et SOS pour le groupe. Par internet quand quelqu’un capte, de téléphone en téléphone sinon, jusqu’à celui qui part toujours devant. Gratuite, chiffrée, sans compte.</p>
           <dl class="hero-kpis">
             <div><dt data-i18n="hero.k1">prix</dt><dd data-i18n="hero.v1">Gratuit</dd></div>
             <div><dt data-i18n="hero.k2">annonces</dt><dd data-i18n="hero.v2">Aucune</dd></div>
             <div><dt data-i18n="hero.k3">réseau mobile</dt><dd data-i18n="hero.v3">Facultatif</dd></div>
           </dl>
           <div class="hero-cta">
-            <a href="https://play.google.com/store/apps/details?id=app.siflo" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8L3.6 2.2zm10.8 10.9 2.8 2.8-11.5 6.6 8.7-9.4zm0-2.2L5.7 1.5l11.5 6.6-2.8 2.8zm3.9 4.3-3.1-3.1 3.1-3.1 3.6 2c1 .6 1 1.6 0 2.2l-3.6 2z"/></svg><span data-i18n="hero.cta1">Disponible sur Google Play</span></a>
+            <a href="https://play.google.com/store/apps/details?id=app.siflo" class="btn btn-primary os-android"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8L3.6 2.2zm10.8 10.9 2.8 2.8-11.5 6.6 8.7-9.4zm0-2.2L5.7 1.5l11.5 6.6-2.8 2.8zm3.9 4.3-3.1-3.1 3.1-3.1 3.6 2c1 .6 1 1.6 0 2.2l-3.6 2z"/></svg><span data-i18n="hero.cta1">Disponible sur Google Play</span></a>
+            <a href="https://apps.apple.com/app/id6827630745" class="btn btn-primary os-ios"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span data-i18n="hero.cta1i">Télécharger dans l’App Store</span></a>
+            <a href="#telecharger" class="btn btn-primary os-other"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14"/></svg><span data-i18n="hero.cta1d">Télécharger Siflo</span></a>
             <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">Voir comment ça marche</a>
           </div>
         </div>
@@ -121,8 +137,8 @@
       <div class="panel panel-right">
         <div class="card">
           <p class="kicker" data-i18n="c1.k">Le problème</p>
-          <h2 data-i18n="c1.h">Le sifflet, c'est bien. Quand on l'entend.</h2>
-          <p data-i18n="c1.p">Quatre codes seulement, qui changent d'un club à l'autre. Le bruit d'une cascade suffit à les couvrir. Quand la corde se coince en haut du rappel, ceux d'en bas n'en savent rien. Ceux partis devant, encore moins.</p>
+          <h2 data-i18n="c1.h">Le sifflet, c’est bien. Quand on l’entend.</h2>
+          <p data-i18n="c1.p">Quatre codes seulement, qui changent d’un club à l’autre. Le bruit d’une cascade suffit à les couvrir. Quand la corde se coince en haut du rappel, ceux d’en bas n’en savent rien. Ceux partis devant, encore moins.</p>
         </div>
       </div>
       <div class="panel panel-left">
@@ -143,10 +159,10 @@
             <h2 class="h-xl" data-i18n="ms.h">Une vraie messagerie,<br><em>même sans réseau.</em></h2>
             <p class="lead" data-i18n="ms.lead">Tout ce que vous faites déjà sur votre messagerie habituelle, sans grimper sur un rocher pour chercher une barre de réseau.</p>
             <div class="ms-groups">
-              <div><h3 data-i18n="ms.g1h">Écrire</h3><p data-i18n="ms.g1p">Répondre, réagir, mentionner, corriger sa faute de frappe, effacer ce qu'on regrette, transférer, épingler l'heure du départ, marquer ce qui compte.</p></div>
-              <div><h3 data-i18n="ms.g2h">Partager</h3><p data-i18n="ms.g2p">Dix photos d'un coup, des vocaux, le point de rendez-vous. Et des photos et vocaux à usage unique, pour les preuves compromettantes.</p></div>
-              <div><h3 data-i18n="ms.g3h">S'organiser</h3><p data-i18n="ms.g3p">Sondages, description et photo du groupe, groupes où seuls les administrateurs ont la parole. Le groupe s'efface tout seul après 24&nbsp;h, 48&nbsp;h, 7&nbsp;jours… ou jamais.</p></div>
-              <div><h3 data-i18n="ms.g4h">Se retrouver</h3><p data-i18n="ms.g4p">Un QR code à scanner pour rejoindre, même sans réseau, ou un lien d'invitation. «&#8239;Reçu&#8239;» et «&#8239;vu&#8239;» sous chaque message. Et un canal de proximité pour parler à tous les utilisateurs de Siflo du coin&#8239;: pratique pour demander à la cordée d'à côté si la suite de la voie est sèche.</p></div>
+              <div><h3 data-i18n="ms.g1h">Écrire</h3><p data-i18n="ms.g1p">Répondre, réagir, mentionner, corriger sa faute de frappe, effacer ce qu’on regrette, transférer, épingler l’heure du départ, marquer ce qui compte.</p></div>
+              <div><h3 data-i18n="ms.g2h">Partager</h3><p data-i18n="ms.g2p">Dix photos d’un coup, des vocaux, le point de rendez-vous. Et des photos et vocaux à usage unique, pour les preuves compromettantes.</p></div>
+              <div><h3 data-i18n="ms.g3h">S’organiser</h3><p data-i18n="ms.g3p">Sondages, description et photo du groupe, groupes où seuls les administrateurs ont la parole. Le groupe s’efface tout seul après 24&nbsp;h, 48&nbsp;h, 7&nbsp;jours… ou jamais.</p></div>
+              <div><h3 data-i18n="ms.g4h">Se retrouver</h3><p data-i18n="ms.g4p">Un QR code à scanner pour rejoindre, même sans réseau, ou un lien d’invitation. «&#8239;Reçu&#8239;» et «&#8239;vu&#8239;» sous chaque message. Et un canal de proximité pour parler à tous les utilisateurs de Siflo du coin&#8239;: pratique pour demander à la cordée d’à côté si la suite de la voie est sèche.</p></div>
             </div>
           </div>
           <div class="reveal">
@@ -157,7 +173,7 @@
                   <div class="bub" style="--i:0"><span class="who">Léa</span><span data-i18n="ch.m1">Départ du parking à 8&nbsp;h. À 8&nbsp;h pile, Tom.</span><span class="reac">👍 4</span></div>
                   <div class="bub poll" style="--i:1"><span class="who">Léa</span><b data-i18n="ch.pq">Covoiturage depuis Grenoble</b><span class="opt" style="--v:.4"><span data-i18n="ch.p1">Je conduis, 3 places</span><i>2</i></span><span class="opt" style="--v:.6"><span data-i18n="ch.p2">Je cherche une place</span><i>3</i></span><small data-i18n="ch.pv">Sondage · 5 votes</small></div>
                   <div class="bub place" style="--i:2"><span class="who">Marc</span><span class="pin"></span><span><b data-i18n="ch.place">Parking du canyon</b><small>45.1871, 5.6493</small></span></div>
-                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Parking du canyon</span></span><span data-i18n="ch.m2">J'apporte la deuxième corde. Et les croissants.</span><span class="meta" data-i18n="ch.seen">✓✓ Vu par 5</span></div>
+                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Parking du canyon</span></span><span data-i18n="ch.m2">J’apporte la deuxième corde. Et les croissants.</span><span class="meta" data-i18n="ch.seen">✓✓ Vu par 5</span></div>
                   <div class="bub photos" style="--i:4"><span class="who">Tom</span><span class="ph"></span><span class="ph"></span><span class="ph more">+2</span></div>
                 </div>
                 <div class="chat-bar"><i>+</i><span data-i18n="ch.input">Message</span><i class="mic"></i></div>
@@ -171,10 +187,10 @@
           <h2 class="h-lg" data-i18n="wd.h">Quatre applications en une.<br><em>Votre poche respire.</em></h2>
         </div>
         <div class="worlds">
-          <article class="reveal"><p class="case-tag" data-i18n="wd.1t">Comme WhatsApp</p><h3 data-i18n="wd.1h">Simple à utiliser</h3><p data-i18n="wd.1p">Groupes, réactions, sondages, vocaux&#8239;: même votre oncle saura s'en servir.</p></article>
-          <article class="reveal"><p class="case-tag" data-i18n="wd.2t">Comme Signal</p><h3 data-i18n="wd.2h">Chiffrée de bout en bout</h3><p data-i18n="wd.2p">Le mécanisme de Signal pour les messages privés, une clé qui change chaque jour pour les groupes. Le protocole a été vérifié par des outils de preuve mathématique. Oui, des maths.</p></article>
-          <article class="reveal"><p class="case-tag" data-i18n="wd.3t">Comme BitChat</p><h3 data-i18n="wd.3h">Sans réseau</h3><p data-i18n="wd.3p">Sans antenne ni internet, les messages sautent de téléphone en téléphone par Bluetooth. Siflo y ajoute le Wi-Fi de proximité et des groupes privés.</p></article>
-          <article class="reveal"><p class="case-tag" data-i18n="wd.4t">Comme Meshtastic</p><h3 data-i18n="wd.4h">À plusieurs kilomètres</h3><p data-i18n="wd.4p">Avec une petite radio LoRa en option, les messages portent jusqu'à plusieurs kilomètres.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.1t">Comme WhatsApp</p><h3 data-i18n="wd.1h">Simple à utiliser</h3><p data-i18n="wd.1p">Groupes, réactions, sondages, vocaux&#8239;: même votre oncle saura s’en servir.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.2t">Comme Signal</p><h3 data-i18n="wd.2h">Chiffrée de bout en bout</h3><p data-i18n="wd.2p">Le mécanisme de Signal pour les messages privés, une clé qui change chaque jour pour les groupes. Ses mécanismes clés ont été vérifiés par des outils de preuve mathématique. Oui, des maths.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.3t">Comme BitChat</p><h3 data-i18n="wd.3h">Sans réseau</h3><p data-i18n="wd.3p">Sans antenne ni internet, les messages sautent de téléphone en téléphone par Bluetooth. Siflo y ajoute des groupes privés, la radio LoRa et, sur Android, le Wi-Fi de proximité.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.4t">Comme Meshtastic</p><h3 data-i18n="wd.4h">À plusieurs kilomètres</h3><p data-i18n="wd.4p">Avec une petite radio LoRa en option, les messages portent jusqu’à plusieurs kilomètres.</p></article>
         </div>
         <p class="worlds-foot reveal" data-i18n="wd.foot">Et aucune grande plateforme derrière. Nous ne lisons pas vos conversations de bivouac.</p>
 
@@ -184,11 +200,11 @@
         </div>
         <div class="features uses">
           <article class="feature reveal"><h3 data-i18n="us.1h">Sports de plein air</h3><p data-i18n="us.1p">Canyon, spéléo, escalade, alpinisme, ski de randonnée&#8239;: là où la dernière barre de réseau est restée au parking.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.2h">Festivals et rassemblements</h3><p data-i18n="us.2p">Des milliers de téléphones sur la même antenne&#8239;: plus rien ne passe. Vos messages, si&#8239;: de téléphone en téléphone, puis par internet dès qu'un membre du groupe capte.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.3h">Sorties et voyages</h3><p data-i18n="us.3p">Le sondage pour l'heure du départ (non, pas 4&nbsp;h), le point de rendez-vous, le covoiturage. Sur place, le groupe se parle, même hors ligne.</p></article>
+          <article class="feature reveal"><h3 data-i18n="us.2h">Festivals et rassemblements</h3><p data-i18n="us.2p">Des milliers de téléphones sur la même antenne&#8239;: plus rien ne passe. Vos messages, si&#8239;: de téléphone en téléphone, puis par internet dès qu’un membre du groupe capte.</p></article>
+          <article class="feature reveal"><h3 data-i18n="us.3h">Sorties et voyages</h3><p data-i18n="us.3p">Le sondage pour l’heure du départ (non, pas 4&nbsp;h), le point de rendez-vous, le covoiturage. Sur place, le groupe se parle, même hors ligne.</p></article>
           <article class="feature reveal"><h3 data-i18n="us.4h">Coupures de réseau</h3><p data-i18n="us.4p">Tempête, panne de courant, antenne à terre&#8239;: les téléphones Siflo proches continuent de se parler.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.5h">Encadrer un groupe</h3><p data-i18n="us.5p">Club, école, colo&#8239;: un signal «&#8239;Regroupement&#8239;» à tout le monde. Vous voyez qui l'a reçu, qui l'a vu. Et qui fait semblant.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.6h">Travailler en zone blanche</h3><p data-i18n="us.6p">Refuges, chantiers, exploitations agricoles&#8239;: l'équipe garde le contact sur place, sans antenne ni abonnement. Le SOS reste à portée de main.</p></article>
+          <article class="feature reveal"><h3 data-i18n="us.5h">Encadrer un groupe</h3><p data-i18n="us.5p">Club, école, colo&#8239;: un signal «&#8239;Regroupement&#8239;» à tout le monde. Vous voyez qui l’a reçu, qui l’a vu. Et qui fait semblant.</p></article>
+          <article class="feature reveal"><h3 data-i18n="us.6h">Travailler en zone blanche</h3><p data-i18n="us.6p">Refuges, chantiers, exploitations agricoles&#8239;: l’équipe garde le contact sur place, sans antenne ni abonnement. Le SOS reste à portée de main.</p></article>
         </div>
       </div>
     </section>
@@ -212,14 +228,14 @@
         <div class="card">
           <p class="kicker" data-i18n="s2.k">Les signaux · 02</p>
           <h2 data-i18n="s2.h">À tout le groupe, ou à Marc seulement.</h2>
-          <p data-i18n="s2.p">Julie, au relais, envoie STOP à Marc, en pleine descente dans la cascade. Son téléphone vibre au rythme du code, siffle et affiche l'alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.</p>
+          <p data-i18n="s2.p">Julie, au relais, envoie STOP à Marc, en pleine descente dans la cascade. Son téléphone vibre au rythme du code, siffle et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.</p>
         </div>
       </div>
       <div class="panel panel-left panel-sticky">
         <div class="card">
           <p class="kicker" data-i18n="s3.k">Les signaux · 03</p>
-          <h2 data-i18n="s3.h">Vous savez qu'il l'a reçu.</h2>
-          <p data-i18n="s3.p">«&#8239;Reçu&#8239;» dès que le signal arrive, «&#8239;vu&#8239;» quand Marc le confirme d'un geste. Tant qu'il n'est pas reçu, Siflo le renvoie, avec une patience que le groupe n'a pas toujours.</p>
+          <h2 data-i18n="s3.h">Vous savez qu’il l’a reçu.</h2>
+          <p data-i18n="s3.p">«&#8239;Reçu&#8239;» dès que le signal arrive, «&#8239;vu&#8239;» quand Marc le confirme d’un geste. Tant qu’il n’est pas reçu, Siflo le renvoie, avec une patience que le groupe n’a pas toujours.</p>
           <ul class="chips"><li class="ok"><i>✓</i><span data-i18n="s3.c1">Marc · reçu</span></li><li class="ok"><i>✓✓</i><span data-i18n="s3.c2">Marc · vu</span></li></ul>
         </div>
       </div>
@@ -231,28 +247,28 @@
         <div class="card">
           <p class="kicker" data-i18n="m1.k">Sans réseau · 01</p>
           <h2 data-i18n="m1.h">Chaque téléphone fait passer le mot.</h2>
-          <p data-i18n="m1.p">Par Bluetooth, chaque téléphone Siflo transmet les messages au suivant&#8239;: quelques dizaines de mètres en poche, une centaine en main et à vue, jusqu'à 12 sauts. Le Wi-Fi de proximité se charge des photos et des vocaux. Pas besoin d'antenne&#8239;: chaque téléphone du groupe en devient une.</p>
+          <p data-i18n="m1.p">Par Bluetooth, chaque téléphone Siflo transmet les messages au suivant&#8239;: une vingtaine de mètres en poche, une centaine en main et à vue, jusqu’à 12 sauts. Sur Android, le Wi-Fi de proximité accélère les photos et les vocaux. Pas besoin d’antenne&#8239;: chaque téléphone du groupe en devient une.</p>
         </div>
       </div>
       <div class="panel panel-left">
         <div class="card">
           <p class="kicker" data-i18n="m2.k">Sans réseau · 02</p>
           <h2 data-i18n="m2.h">Deux sous-groupes trop loin&#8239;? Internet fait le lien.</h2>
-          <p data-i18n="m2.p">Si un téléphone de chaque côté capte, les messages passent par nos serveurs relais, qui les gardent 48&nbsp;h sans pouvoir les lire. Ils sont indépendants&#8239;: si l'un tombe, un autre prend la suite.</p>
+          <p data-i18n="m2.p">Si un téléphone de chaque côté capte, les messages passent par nos serveurs relais, qui les gardent 48&nbsp;h sans pouvoir les lire. Ces serveurs sont indépendants&#8239;: si l’un tombe, un autre prend la suite.</p>
         </div>
       </div>
       <div class="panel panel-right">
         <div class="card">
           <p class="kicker" data-i18n="m3.k">Sans réseau · 03</p>
           <h2 data-i18n="m3.h">Les messages attendent ceux qui traînent.</h2>
-          <p data-i18n="m3.p">L'équipier resté derrière pour une photo reçoit tout dès qu'il revient près d'un autre téléphone. Un signal arrivé avec plusieurs minutes de retard s'affiche sans sonner&#8239;: pas la peine de s'arrêter pour un STOP périmé.</p>
+          <p data-i18n="m3.p">L’équipier resté derrière pour une photo reçoit tout dès qu’il revient près d’un autre téléphone. Un signal arrivé avec plusieurs minutes de retard s’affiche sans sonner&#8239;: pas la peine de s’arrêter pour un STOP périmé.</p>
         </div>
       </div>
       <div class="panel panel-left panel-sticky">
         <div class="card card-sos">
           <p class="kicker" data-i18n="m4.k">SOS</p>
           <h2 data-i18n="m4.h">Maintenez le bouton SOS deux secondes.</h2>
-          <p data-i18n="m4.p">Votre SOS, avec votre position si vous l'avez autorisé, atteint tous les téléphones Siflo à portée, même ceux d'autres groupes. Il part aussi vers le groupe de votre choix, par internet si quelqu'un capte. Il repart chaque minute, comme les six coups de sifflet du signal de détresse en montagne. Il n'appelle pas les secours&#8239;: si vous captez, composez le 112. C'est le seul bouton de Siflo qu'on vous souhaite de ne jamais essayer.</p>
+          <p data-i18n="m4.p">Un compte à rebours de cinq secondes vous laisse annuler, puis votre SOS, avec votre position si vous l’avez autorisé, atteint tous les téléphones Siflo à portée, même ceux d’autres groupes. Il part aussi vers le groupe de votre choix, par internet si quelqu’un capte. Il repart chaque minute, comme les six coups de sifflet du signal de détresse en montagne. Siflo peut aussi vous préparer un SMS aux numéros enregistrés dans le groupe. Le SOS n’appelle pas les secours&#8239;: si vous captez, composez le 112. C’est le seul bouton de Siflo qu’on vous souhaite de ne jamais essayer.</p>
         </div>
       </div>
     </section>
@@ -268,29 +284,29 @@
           <article class="feature case reveal">
             <p class="case-tag" data-i18n="fd.1t">Canyon · rappel débrayable</p>
             <h3 data-i18n="fd.1h">Faire débrayer depuis la cascade</h3>
-            <p data-i18n="fd.1p">Le premier descend sur une corde volontairement trop courte. Il doit demander du mou à celui resté au relais. Sous la cascade, la voix ne porte pas&#8239;: le code sifflet a intérêt à avoir été convenu avant.</p>
-            <p class="case-siflo" data-i18n="fd.1s"><b>Avec Siflo</b>&#8239;: «&#8239;Débraye la corde&#8239;» arrive sur le seul téléphone de l'équipier au relais, avec le nom de celui qui le demande.</p>
+            <p data-i18n="fd.1p">Le premier descend sur une corde volontairement trop courte. Il doit demander du mou à celui resté au relais. Sous la cascade, la voix ne porte pas&#8239;: le code au sifflet a intérêt à avoir été convenu avant.</p>
+            <p class="case-siflo" data-i18n="fd.1s"><b>Avec Siflo</b>&#8239;: «&#8239;Débraye la corde&#8239;» arrive sur le seul téléphone de l’équipier au relais, avec le nom de celui qui le demande.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source&#8239;: Petzl, «&#8239;Sécuriser le premier en rappel&#8239;»</a>
           </article>
           <article class="feature case reveal">
             <p class="case-tag" data-i18n="fd.2t">Canyon · équipier en difficulté</p>
-            <h3 data-i18n="fd.2h">Prévenir le relais d'un problème qu'il ne voit pas</h3>
-            <p data-i18n="fd.2p">Bombés, dévers, rappels arrosés&#8239;: un équipier bloqué peut être invisible d'en haut. Les gestes et le sifflet ne marchent que si tout le monde a appris les mêmes codes. Et s'en souvient.</p>
-            <p class="case-siflo" data-i18n="fd.2s"><b>Avec Siflo</b>&#8239;: on l'écrit en toutes lettres à tout le groupe, «&#8239;Léa coincée sous la cascade, débraye&#8239;». Rien à retenir.</p>
-            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source&#8239;: mémento de l'initiateur canyon</a>
+            <h3 data-i18n="fd.2h">Prévenir celui qui est au relais d’un problème qu’il ne voit pas</h3>
+            <p data-i18n="fd.2p">Bombés, dévers, rappels arrosés&#8239;: un équipier bloqué peut être invisible d’en haut. Les gestes et le sifflet ne marchent que si tout le monde a appris les mêmes codes. Et s’en souvient.</p>
+            <p class="case-siflo" data-i18n="fd.2s"><b>Avec Siflo</b>&#8239;: on l’écrit en toutes lettres à tout le groupe, «&#8239;Léa coincée sous la cascade, débraye&#8239;». Rien à retenir.</p>
+            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source&#8239;: mémento de l’initiateur canyon</a>
           </article>
           <article class="feature case reveal">
             <p class="case-tag" data-i18n="fd.3t">Spéléo · puits arrosé</p>
             <h3 data-i18n="fd.3h">Se faire comprendre de ceux qui sont en haut du puits</h3>
-            <p data-i18n="fd.3p">Au bas d'un puits arrosé, un spéléo croit la corde abîmée. Répété de bouche en bouche, le message se déforme et finit par déclencher les secours, pour une feuille coincée dans la corde. Le bouche-à-oreille a ses limites, surtout sous terre.</p>
-            <p class="case-siflo" data-i18n="fd.3s"><b>Avec Siflo</b>&#8239;: avec un équipier à mi-puits pour faire le lien, «&#8239;STOP, ne descends pas&#8239;» puis l'explication arrivent mot pour mot, avec le nom de l'expéditeur.</p>
-            <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source&#8239;: rapport d'incident de l'ULSA, Yorkshire, 2025 (en anglais)</a>
+            <p data-i18n="fd.3p">Au bas d’un puits arrosé, un spéléo croit la corde abîmée. Répété de bouche en bouche, le message se déforme et finit par déclencher les secours, pour une feuille coincée dans la corde. Le bouche-à-oreille a ses limites, surtout sous terre.</p>
+            <p class="case-siflo" data-i18n="fd.3s"><b>Avec Siflo</b>&#8239;: avec un équipier à mi-puits pour faire le lien, «&#8239;STOP, ne descends pas&#8239;» puis l’explication arrivent mot pour mot, avec le nom de l’expéditeur.</p>
+            <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source&#8239;: rapport d’incident de l’ULSA, Yorkshire, 2025 (en anglais)</a>
           </article>
           <article class="feature case reveal">
             <p class="case-tag" data-i18n="fd.4t">Escalade · en falaise</p>
             <h3 data-i18n="fd.4h">Ne pas confondre les annonces</h3>
-            <p data-i18n="fd.4p">Hors de vue, le grimpeur annonce qu'il est vaché, ou qu'il veut être descendu. Une annonce mal comprise, ou criée par la cordée d'à côté, suffit pour une chute au sol.</p>
-            <p class="case-siflo" data-i18n="fd.4s"><b>Avec Siflo</b>&#8239;: créez les signaux «&#8239;Vaché&#8239;» et «&#8239;Descends-moi&#8239;». Ils n'arrivent que sur le téléphone de votre assureur, jamais sur ceux de la cordée voisine.</p>
+            <p data-i18n="fd.4p">Hors de vue, le grimpeur annonce qu’il est vaché, ou qu’il veut être descendu. Une annonce mal comprise, ou criée par la cordée d’à côté, suffit à provoquer un retour au sol.</p>
+            <p class="case-siflo" data-i18n="fd.4s"><b>Avec Siflo</b>&#8239;: créez les signaux «&#8239;Vaché&#8239;» et «&#8239;Descends-moi&#8239;». Ils n’arrivent que sur le téléphone de votre assureur, jamais sur ceux de la cordée voisine.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source&#8239;: FFME, Lettre sécurité prévention n<sup>o</sup>&nbsp;8</a>
           </article>
         </div>
@@ -302,11 +318,11 @@
         <div class="reveal">
           <p class="kicker" data-i18n="film.k">Le film</p>
           <h2 class="h-xl" data-i18n="film.h">Siflo en<br><em>48 secondes.</em></h2>
-          <p class="lead" data-i18n="film.lead">Une sortie en canyon, du sifflet couvert par la cascade jusqu'au SOS.</p>
+          <p class="lead" data-i18n="film.lead">Une sortie en canyon, du sifflet couvert par la cascade jusqu’au SOS.</p>
           <ul class="film-points">
-            <li><b>0:00</b><span data-i18n="film.p1">Au fond du canyon, le sifflet se perd dans le bruit de l'eau.</span></li>
-            <li><b>0:10</b><span data-i18n="film.p2">Le message passe de téléphone en téléphone, jusqu'à ceux partis devant.</span></li>
-            <li><b>0:18</b><span data-i18n="film.p3">STOP d'une touche, pour une seule personne&#8239;: reçu, puis vu.</span></li>
+            <li><b>0:00</b><span data-i18n="film.p1">Au fond du canyon, le sifflet se perd dans le bruit de l’eau.</span></li>
+            <li><b>0:10</b><span data-i18n="film.p2">Le message passe de téléphone en téléphone, jusqu’à ceux partis devant.</span></li>
+            <li><b>0:18</b><span data-i18n="film.p3">STOP d’une touche, pour une seule personne&#8239;: reçu, puis vu.</span></li>
             <li><b>0:25</b><span data-i18n="film.p4">De proche en proche sans réseau mobile&#8239;; internet prend le relais si un membre a du réseau.</span></li>
             <li><b>0:33</b><span data-i18n="film.p5">Le SOS alerte tous les téléphones Siflo à portée, même ceux des autres groupes.</span></li>
             <li><b>0:38</b><span data-i18n="film.p6">Messages, photos, vocaux et un QR code pour rejoindre le groupe.</span></li>
@@ -325,33 +341,38 @@
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker" data-i18n="ft.k">Et aussi</p>
-          <h2 class="h-xl" data-i18n="ft.h">Tout ce qu'il faut<br><em>pour garder le contact.</em></h2>
+          <h2 class="h-xl" data-i18n="ft.h">Tout ce qu’il faut<br><em>pour garder le contact.</em></h2>
         </div>
         <div class="features">
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 14v6M14 17h6"/></svg></div>
             <h3 data-i18n="ft.3h">Vos propres signaux</h3>
-            <p data-i18n="ft.3p">«&#8239;Vaché&#8239;», «&#8239;Relais&#8239;», «&#8239;Viens&#8239;»… jusqu'à huit signaux par groupe, à la sauce de votre club.</p>
+            <p data-i18n="ft.3p">«&#8239;Vaché&#8239;», «&#8239;Relais&#8239;», «&#8239;Viens&#8239;»… jusqu’à huit signaux par groupe, à la sauce de votre club.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></div>
+            <h3 data-i18n="ft.10h">Le topo dans la poche</h3>
+            <p data-i18n="ft.10p">Le topo de la course, les photos de l’approche, l’horaire du dernier bus&#8239;: jusqu’à douze pages, enregistrées sur chaque téléphone du groupe et lisibles même sans réseau. Et «&#8239;Avant de partir&#8239;», une liste à cocher par activité, avec sa fiche sécurité. Fini la frontale oubliée au parking.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
             <h3 data-i18n="ft.5h">Distance et direction</h3>
-            <p data-i18n="ft.5p">Siflo indique à quelle distance et dans quelle direction se trouve chaque membre qui partage sa position. Plus fiable que «&#8239;c'est à dix minutes, juste après la crête&#8239;».</p>
+            <p data-i18n="ft.5p">Siflo indique à quelle distance et dans quelle direction se trouve chaque membre qui partage sa position. Plus fiable que «&#8239;c’est à dix minutes, juste après la crête&#8239;».</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="6.5" y="6" width="11" height="12" rx="3"/><path d="M9 6 9.6 2.5h4.8L15 6M9 18l.6 3.5h4.8L15 18M12 9.5V12l1.6 1"/></svg></div>
             <h3 data-i18n="ft.7h">Sur votre montre</h3>
-            <p data-i18n="ft.7p">Pour ceux qui regardent déjà leur montre plus souvent que le paysage&#8239;: enfin une notification utile, entre le dénivelé et la fréquence cardiaque. Signal ou SOS depuis le poignet, alertes au même endroit&#8239;: Garmin et Amazfit dès maintenant, Apple Watch et Wear OS très bientôt. La montre ne garde aucune clé&#8239;: tout passe par votre téléphone.</p>
+            <p data-i18n="ft.7p">Pour ceux qui regardent déjà leur montre plus souvent que le paysage&#8239;: enfin une notification utile, entre le dénivelé et la fréquence cardiaque. Signal ou SOS depuis le poignet, alertes au même endroit&#8239;: Apple Watch avec l’iPhone, Garmin et Amazfit avec Android, dès maintenant. Wear OS arrive très bientôt. La montre ne garde aucune clé&#8239;: tout passe par votre téléphone.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="7" y="9" width="10" height="12" rx="2"/><path d="M14.5 9V3M10 13h4M10 16.5h4"/><path d="M18 3.5a6 6 0 0 1 2 4M17 6a3 3 0 0 1 .9 2"/></svg></div>
             <h3 data-i18n="ft.8h">Une radio LoRa en option</h3>
-            <p data-i18n="ft.8p">Un petit boîtier radio LoRa du commerce (compatible Meshtastic), relié au téléphone en Bluetooth. Messages, signaux et SOS portent de 500&nbsp;m à 2&nbsp;km avec la radio à la ceinture, jusqu'à 5&nbsp;km tenue en main et à vue (estimations). Une radio relais posée en hauteur allonge la chaîne.</p>
+            <p data-i18n="ft.8p">Un petit boîtier radio LoRa du commerce (compatible Meshtastic), relié au téléphone en Bluetooth. Messages, signaux et SOS portent de 500&nbsp;m à 2&nbsp;km avec la radio à la ceinture, jusqu’à 5&nbsp;km tenue en main et à vue (estimations). Une radio relais posée en hauteur allonge la chaîne.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6z"/><path d="m8.8 12.2 2.3 2.3 4.2-4.6"/></svg></div>
             <h3 data-i18n="ft.9h">Secouristes vérifiés, avec nos partenaires</h3>
-            <p data-i18n="ft.9p">Sur la page d'un partenaire, un site de canyons par exemple, un bouton crée un groupe Siflo et vous propose d'y inviter des secouristes au téléphone vérifié. Vous choisissez qui, chacun accepte l'invitation, personne n'entre sans votre accord. Tout reste chiffré.</p>
+            <p data-i18n="ft.9p">Sur la page d’un partenaire, un site de canyons par exemple, un bouton crée un groupe Siflo et vous propose d’y inviter des secouristes dont le téléphone est vérifié. Vous choisissez qui, chacun accepte l’invitation, personne n’entre sans votre accord. Tout reste chiffré.</p>
           </article>
         </div>
       </div>
@@ -360,7 +381,7 @@
     <section id="ecrans" class="section section-screens">
       <div class="wrap">
         <div class="section-head reveal">
-          <p class="kicker" data-i18n="sc.k">L'application</p>
+          <p class="kicker" data-i18n="sc.k">L’application</p>
           <h2 class="h-lg" data-i18n="sc.h">Cotation&#8239;: facile.<br><em>Vraiment facile, pas le soi-disant 5b+ de Cham.</em></h2>
         </div>
       </div>
@@ -395,23 +416,23 @@
         <div class="honest reveal">
           <div>
             <span class="num" data-i18n="ho.1n">25 à 300&nbsp;m</span>
-            <h3 data-i18n="ho.1h">d'un téléphone à l'autre</h3>
+            <h3 data-i18n="ho.1h">d’un téléphone à l’autre</h3>
             <dl class="tiers">
               <div><dt data-i18n="ho.1t1">≈&nbsp;25&nbsp;m</dt><dd data-i18n="ho.1d1">téléphone en poche</dd></div>
               <div><dt data-i18n="ho.1t2">≈&nbsp;100&nbsp;m</dt><dd data-i18n="ho.1d2">en main et à vue</dd></div>
               <div><dt data-i18n="ho.1t3">300&nbsp;m</dt><dd data-i18n="ho.1d3">au mieux&#8239;: en main, à vue, entre deux téléphones Android compatibles avec le Bluetooth longue portée</dd></div>
             </dl>
-            <p data-i18n="ho.1p">Ce sont des estimations&#8239;: comme toujours, c'est la montagne qui décide. Sur Android 17 et suivants, le SOS, émis à pleine puissance, porte plus loin&#8239;: quelques centaines de mètres en main et à vue. Chaque téléphone du groupe allonge la chaîne.</p>
+            <p data-i18n="ho.1p">Ce sont des estimations&#8239;: comme toujours, c’est la montagne qui décide. Sur Android 17 et suivants, le SOS, émis à pleine puissance, porte plus loin&#8239;: quelques centaines de mètres en main et à vue. Chaque téléphone du groupe allonge la chaîne.</p>
           </div>
           <div>
             <span class="num" data-i18n="ho.2n">Roche, eau</span>
             <h3 data-i18n="ho.2h">arrêtent les ondes</h3>
-            <p data-i18n="ho.2p">L'eau et la roche bloquent le signal&#8239;: derrière un virage de canyon, au fond d'un puits ou sous l'eau, il ne passe plus. Un équipier à mi-chemin, téléphone en poche, fait alors le lien.</p>
+            <p data-i18n="ho.2p">L’eau et la roche bloquent le signal&#8239;: derrière un virage de canyon, au fond d’un puits ou sous l’eau, il ne passe plus. Un équipier à mi-chemin, téléphone en poche, fait alors le lien.</p>
           </div>
           <div>
             <span class="num" data-i18n="ho.3n">Poche haute</span>
-            <h3 data-i18n="ho.3h">plutôt qu'au fond du sac</h3>
-            <p data-i18n="ho.3p">Poche de poitrine ou haut du sac, le moins possible sous l'eau. Et gardez votre sifflet&#8239;: lui n'a jamais eu besoin d'être rechargé.</p>
+            <h3 data-i18n="ho.3h">plutôt qu’au fond du sac</h3>
+            <p data-i18n="ho.3p">Poche de poitrine ou haut du sac, le moins possible sous l’eau. Et gardez votre sifflet&#8239;: lui n’a jamais eu besoin d’être rechargé.</p>
           </div>
         </div>
         <p class="reveal" style="margin-top:28px"><a href="labs/" class="btn btn-ghost" data-i18n="ho.more">La portée en détail, liaison par liaison</a></p>
@@ -423,29 +444,29 @@
         <div class="dl-icon reveal"><svg><use href="#whistle"/></svg></div>
         <div class="section-head reveal">
           <p class="kicker" data-i18n="dl.k">Gratuite pour toujours</p>
-          <h2 class="h-xl" data-i18n="dl.h">Zéro gramme.<br><em>Pas besoin de scier la brosse à dents.</em></h2>
-          <p class="lead" data-i18n="dl.lead">Sur Google Play&#8239;: gratuite, sans compte, sans annonces. La version iPhone arrive très bientôt.</p>
+          <h2 class="h-xl" data-i18n="dl.h">Zéro gramme de plus dans le sac.<br><em>Pas besoin de scier la brosse à dents.</em></h2>
+          <p class="lead" data-i18n="dl.lead">Sur Google Play et l’App Store&#8239;: gratuite, sans compte, sans annonces.</p>
         </div>
         <div class="dl-buttons reveal">
           <a class="store" href="https://play.google.com/store/apps/details?id=app.siflo">
             <svg viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8z"/><path fill="#ffce00" d="m18.3 15.2-3.9-3.9 3.9-3.9 3.6 2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="m14.4 11.3-10.8 10.9c.4.4 1 .4 1.7.1l12.9-7.3z"/><path fill="#00f076" d="M14.4 11.3 18.2 7.4 5.3.2C4.6-.2 4 0 3.6.4z"/></svg>
             <span><small data-i18n="dl.s1">Disponible sur</small><b>Google Play</b></span>
           </a>
-          <span class="store pending" data-badge="Bientôt" data-i18n-badge="dl.badge" role="img" aria-label="Bientôt sur iPhone" data-i18n-aria="dl.aria">
+          <a class="store" href="https://apps.apple.com/app/id6827630745">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>
-            <span><small data-i18n="dl.s2">Bientôt sur</small><b>iPhone</b></span>
-          </span>
+            <span><small data-i18n="dl.s2">Télécharger dans</small><b data-i18n="dl.s3">l’App Store</b></span>
+          </a>
         </div>
         <div class="dl-watches reveal">
           <p class="dl-w-label" data-i18n="dl.w">Et sur votre montre</p>
           <ul>
             <li><a class="w-item" href="https://apps.garmin.com/apps/a159262b-0e43-4e1b-90c6-43c4bfa8421a"><span class="w-logo" role="img" aria-label="Garmin"><svg class="w-garmin" viewBox="0 8.75 24 6.51" fill="currentColor" aria-hidden="true"><path d="M6.265 12.024a.289.289 0 0 0-.236-.146h-.182a.289.289 0 0 0-.234.146l-1.449 3.025c-.041.079.004.138.094.138h.335c.132 0 .193-.061.228-.134.037-.073.116-.234.13-.266.02-.045.083-.071.175-.071h1.559c.089 0 .148.016.175.071.018.035.098.179.136.256a.24.24 0 0 0 .234.142h.486c.089 0 .13-.069.098-.132-.034-.061-1.549-3.029-1.549-3.029zm-.914 2.224c-.089 0-.132-.067-.094-.148l.571-1.222c.039-.081.1-.081.136 0l.555 1.222c.037.081-.006.148-.096.148H5.351zm12.105-2.201v3.001c0 .083.073.138.163.138h.396c.089 0 .163-.057.163-.146v-2.998c0-.089-.059-.163-.148-.163h-.411c-.09-.001-.163.054-.163.168zm-6.631 1.88c-.051-.073-.022-.154.063-.181 0 0 .342-.102.506-.25.165-.146.246-.36.246-.636a1 1 0 0 0-.096-.457.787.787 0 0 0-.27-.303 1.276 1.276 0 0 0-.423-.171c-.165-.035-.386-.047-.386-.047a8.81 8.81 0 0 0-.325-.008H8.495a.164.164 0 0 0-.163.163v2.998c0 .089.073.146.163.146h.388c.089 0 .163-.057.163-.146v-1.193s.002 0 .002-.002l.738-.002c.089 0 .205.061.258.134l.766 1.077c.071.096.138.132.228.132h.508c.089 0 .104-.085.073-.128-.032-.038-.794-1.126-.794-1.126zm-.311-.61a1.57 1.57 0 0 1-.213.028 8.807 8.807 0 0 1-.325.006h-.763a.164.164 0 0 1-.163-.163v-.608c0-.089.073-.163.163-.163h.762c.089 0 .236.004.325.006 0 0 .114.004.213.028a.629.629 0 0 1 .24.098.358.358 0 0 1 .126.148.473.473 0 0 1 0 .374.352.352 0 0 1-.126.148.617.617 0 0 1-.239.098zm11.803-1.439c-.089 0-.163.059-.163.146v1.919c0 .089-.051.11-.114.047l-1.921-1.992a.376.376 0 0 0-.276-.118h-.362c-.114 0-.163.061-.163.122v3.068c0 .061.059.12.148.12h.362c.089 0 .152-.049.152-.132l.002-2.021c0-.089.051-.11.114-.045l2.004 2.082a.36.36 0 0 0 .279.116h.272a.164.164 0 0 0 .163-.163v-2.986a.164.164 0 0 0-.163-.163h-.334zm-7.835 1.87c-.043.079-.116.077-.159 0l-.939-1.724a.262.262 0 0 0-.236-.146h-.51a.164.164 0 0 0-.163.163v2.996c0 .089.059.15.163.15h.317c.089 0 .154-.057.154-.142 0-.041.002-2.179.004-2.179.004 0 1.173 2.177 1.173 2.177a.105.105 0 0 0 .189 0s1.179-2.173 1.181-2.173c.004 0 .002 2.11.002 2.173 0 .087.069.142.159.142h.364c.089 0 .163-.045.163-.163V12.04a.164.164 0 0 0-.163-.163h-.488a.265.265 0 0 0-.244.142l-.967 1.729zM0 13.529c0 1.616 1.653 1.697 1.984 1.697 1.098 0 1.561-.297 1.58-.309a.29.29 0 0 0 .152-.264v-1.116a.186.186 0 0 0-.187-.187H2.151c-.104 0-.171.083-.171.187v.116c0 .104.067.187.171.187h.797a.14.14 0 0 1 .14.14v.52c-.157.065-.874.274-1.451.136-.836-.199-.901-.89-.901-1.096 0-.173.053-1.043 1.079-1.13.831-.071 1.378.264 1.384.268.098.051.199.014.254-.089l.104-.209c.043-.085.028-.175-.077-.246-.006-.004-.59-.319-1.494-.319C.055 11.813 0 13.354 0 13.529zm22.134-2.478h-2.165c-.079 0-.148-.039-.187-.108s-.039-.146 0-.215l1.084-1.874a.21.21 0 0 1 .187-.108.21.21 0 0 1 .187.108l1.084 1.874a.203.203 0 0 1 0 .215.22.22 0 0 1-.19.108zm1.488 3.447c.207 0 .378.169.378.378a.379.379 0 0 1-.378.378.379.379 0 0 1-.378-.378.38.38 0 0 1 .378-.378zm.002.7c.173 0 .305-.14.305-.321s-.13-.321-.305-.321-.307.14-.307.321c0 .18.13.321.307.321zm-.146-.543h.169c.102 0 .152.041.152.124 0 .071-.045.122-.114.122l.126.195h-.077l-.124-.195h-.061v.195h-.073v-.441h.002zm.073.189h.085c.055 0 .091-.012.091-.069 0-.051-.045-.065-.091-.065h-.085v.134z"/></svg></span><small data-i18n="dl.now">Disponible</small></a></li>
+            <li><a class="w-item" href="https://apps.apple.com/app/id6827630745"><span class="w-logo" role="img" aria-label="Apple Watch"><svg viewBox="2.22 0 19.55 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Watch</span><small data-i18n="dl.now">Disponible</small></a></li>
+            <li><span class="w-item"><span class="w-logo w-amazfit">AMAZFIT</span><small data-i18n="dl.zepp">Dans l’app Zepp</small></span></li>
             <li class="soon"><span class="w-item"><span class="w-logo"><svg viewBox="0 2.83 24 18.34" fill="currentColor" aria-hidden="true"><path d="M8.416 21.1346c-.9687 0-1.8938-.56-2.3135-1.5015L.2193 6.4198C-.3488 5.1432.2248 3.6472 1.5014 3.079c1.2767-.5681 2.7727.0055 3.3408 1.2821l5.8832 13.2133c.5681 1.2767-.0055 2.7727-1.2821 3.3408a2.5254 2.5254 0 01-1.0273.2194zm7.1952.0368c-.891 0-1.7412-.515-2.1268-1.3816L7.39 6.1024C6.867 4.9279 7.3955 3.5532 8.5686 3.03c1.173-.5218 2.5492.0054 3.0724 1.1785l6.0943 13.6888c.5232 1.1745-.0054 2.5492-1.1785 3.0724a2.3111 2.3111 0 01-.9456.2017zM24 5.195a2.3271 2.3271 0 01-2.3271 2.327 2.3271 2.3271 0 01-2.3271-2.327 2.3271 2.3271 0 012.327-2.3271A2.3271 2.3271 0 0124 5.1949zm-2.6119 5.116a2.4892 2.4892 0 01-2.4892 2.4893 2.4892 2.4892 0 01-2.4893-2.4892 2.4892 2.4892 0 012.4893-2.4893 2.4892 2.4892 0 012.4892 2.4893Z"/></svg>Wear OS</span><small data-i18n="dl.soon">Bientôt</small></span></li>
-            <li class="soon"><span class="w-item"><span class="w-logo" role="img" aria-label="Apple Watch"><svg viewBox="2.22 0 19.55 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Watch</span><small data-i18n="dl.soon">Bientôt</small></span></li>
-            <li><span class="w-item"><span class="w-logo w-amazfit">AMAZFIT</span><small data-i18n="dl.zepp">Dans l'app Zepp</small></span></li>
           </ul>
         </div>
-        <p class="dl-note reveal" data-i18n="dl.note">Android 8 ou plus récent. Les montres fonctionnent avec le téléphone à proximité.</p>
+        <p class="dl-note reveal" data-i18n="dl.note">Android 8 ou plus récent, iPhone sous iOS 17 ou plus récent. Apple Watch avec l’iPhone, Garmin et Amazfit avec Android, toujours avec le téléphone à proximité.</p>
       </div>
     </section>
 
@@ -453,20 +474,20 @@
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker" data-i18n="fq.k">Aide</p>
-          <h2 class="h-lg" data-i18n="fq.h">Les questions<br><em>qu'on nous pose au parking.</em></h2>
+          <h2 class="h-lg" data-i18n="fq.h">Les questions<br><em>qu’on nous pose au parking.</em></h2>
         </div>
         <div class="faq reveal">
-          <details><summary data-i18n="fq.1q">Faut-il du réseau pour utiliser Siflo&#8239;?</summary><p data-i18n="fq.1a">Non. Les téléphones se parlent directement, par Bluetooth et par Wi-Fi de proximité. Internet ne sert qu'à recoller un groupe éparpillé&#8239;: si un téléphone de chaque côté capte, les messages passent par nos serveurs relais.</p></details>
-          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">De 25 à 300&nbsp;m d'un téléphone à l'autre, selon qu'il est en poche ou en main, puis de téléphone en téléphone. Le détail, liaison par liaison, est au <a href="labs/">Labo</a>.</p></details>
-          <details><summary data-i18n="fq.3q">Est-ce que ça vide la batterie&#8239;?</summary><p data-i18n="fq.3a">Très peu&#8239;: en moyenne 2&#8239;% de la batterie par jour, mesuré sur un Google Pixel 10 où Siflo reste actif toute la journée. La puissance d'émission n'augmente que si un message n'est pas reçu. Un mode économie existe aussi.</p></details>
-          <details><summary data-i18n="fq.4q">Mes messages sont-ils privés&#8239;?</summary><p data-i18n="fq.4a">Oui, ils sont chiffrés de bout en bout&#8239;: seuls les membres du groupe peuvent les lire. Tout est dans la <a href="privacy/#francais">politique de confidentialité</a>.</p></details>
-          <details><summary data-i18n="fq.5q">Siflo existe-t-elle sur iPhone&#8239;?</summary><p data-i18n="fq.5a">Très bientôt&#8239;: la version iPhone, avec son application Apple Watch, est en cours de validation chez Apple. iPhone et Android pourront alors se parler dans un même groupe, enfin réconciliés. En attendant, Siflo est sur Google Play.</p></details>
-          <details><summary data-i18n="fq.8q">Siflo fonctionne-t-elle sur ma montre&#8239;?</summary><p data-i18n="fq.8a">Oui, avec le téléphone à proximité. Garmin dès maintenant, dans la boutique Connect IQ&#8239;; Amazfit aussi, avec un téléphone Android, dans la boutique de l'app Zepp (cherchez Siflo). Wear OS et Apple Watch arrivent très bientôt. Selon la montre, vous pouvez aussi dicter une réponse.</p></details>
+          <details><summary data-i18n="fq.1q">Faut-il du réseau pour utiliser Siflo&#8239;?</summary><p data-i18n="fq.1a">Non. Les téléphones se parlent directement, par Bluetooth et, sur Android, par Wi-Fi de proximité. Internet ne sert qu’à recoller un groupe éparpillé&#8239;: si un téléphone de chaque côté capte, les messages passent par nos serveurs relais.</p></details>
+          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">De 25 à 300&nbsp;m d’un téléphone à l’autre, selon qu’il est en poche ou en main, puis de téléphone en téléphone. Le détail, liaison par liaison, est au <a href="labs/">Labo</a>.</p></details>
+          <details><summary data-i18n="fq.3q">Est-ce que ça vide la batterie&#8239;?</summary><p data-i18n="fq.3a">Très peu&#8239;: en moyenne 2&#8239;% de la batterie par jour, mesuré sur un Google Pixel 10, Siflo actif toute la journée. La puissance d’émission n’augmente que si un message n’est pas reçu. Un mode économie existe aussi.</p></details>
+          <details><summary data-i18n="fq.4q">Mes messages sont-ils privés&#8239;?</summary><p data-i18n="fq.4a">Oui, ils sont chiffrés de bout en bout&#8239;: seuls les membres du groupe ou la personne à qui vous écrivez peuvent les lire. Deux exceptions, faites pour être lues par tous&#8239;: le canal de proximité et le SOS envoyé à tous les téléphones à portée. Ils sont signés, mais pas chiffrés. Tout est dans la <a href="privacy/#francais">politique de confidentialité</a>.</p></details>
+          <details><summary data-i18n="fq.5q">iPhone et Android peuvent-ils être dans le même groupe&#8239;?</summary><p data-i18n="fq.5a">Oui, ils se parlent enfin, sans réseau comme avec. Deux différences&#8239;: le Bluetooth longue portée et le Wi-Fi de proximité n’existent que sur Android. Un Android voisin en fait profiter tout le groupe, iPhone compris.</p></details>
+          <details><summary data-i18n="fq.8q">Siflo fonctionne-t-elle sur ma montre&#8239;?</summary><p data-i18n="fq.8a">Oui, avec le téléphone à proximité. Apple Watch avec l’iPhone, depuis l’App Store&#8239;; Garmin avec un téléphone Android, dans la boutique Connect IQ&#8239;; Amazfit avec un téléphone Android, dans la boutique de l’app Zepp (cherchez Siflo). Wear OS arrive très bientôt. Selon la montre, vous pouvez aussi dicter une réponse.</p></details>
           <details><summary data-i18n="fq.9q">À quoi sert une radio LoRa&#8239;?</summary><p data-i18n="fq.9a">À porter plus loin que le Bluetooth. Il vous faut un boîtier du commerce compatible Meshtastic (Heltec Mesh Node T1, RAK WisMesh Tag…). Il transporte les messages, les signaux et le SOS, mais ni photos ni vocaux. Deux membres équipés suffisent. Détails au <a href="labs/">Labo</a>.</p></details>
-          <details><summary data-i18n="fq.12q">Que sont les secouristes vérifiés&#8239;?</summary><p data-i18n="fq.12a">Ce sont des secouristes et des guides dont le téléphone figure dans un carnet signé par l'éditeur de Siflo. L'application le vérifie elle-même&#8239;: personne, pas même nos serveurs relais, ne peut y glisser un nom. On ne vous les propose que chez nos partenaires, quand vous créez un groupe depuis leur page. Vous gardez la main&#8239;: vous retirez qui vous voulez, chacun doit accepter l'invitation, les messages restent chiffrés de bout en bout.</p></details>
-          <details><summary data-i18n="fq.10q">Pourquoi pas WhatsApp ou Signal&#8239;?</summary><p data-i18n="fq.10a">Siflo leur emprunte le meilleur&#8239;: les gestes de WhatsApp, le chiffrement de Signal pour les messages privés. Mais tous deux ont besoin d'internet et d'un numéro de téléphone. WhatsApp appartient à Meta, qui peut changer ses règles. Le 8&nbsp;mai 2026, Meta a retiré le chiffrement de bout en bout des messages privés d'Instagram, où il n'était proposé qu'en option (<a href="https://www.bbc.com/news/articles/clypzxl3lvqo">source&#8239;: BBC, en anglais</a>). Siflo, elle, se passe des deux.</p></details>
-          <details><summary data-i18n="fq.11q">C'est comme BitChat&#8239;?</summary><p data-i18n="fq.11a">Même principe pour le réseau de proximité&#8239;: les messages sautent de téléphone en téléphone, sans internet. Siflo y ajoute des groupes privés gérés par des administrateurs, les signaux et le SOS, le Bluetooth longue portée, les radios LoRa. Et, comme dans Signal, une clé neuve pour chaque message privé.</p></details>
-          <details><summary data-i18n="fq.6q">Combien coûte Siflo&#8239;?</summary><p data-i18n="fq.6a">Rien. Et ça restera comme ça. Si Siflo vous rend service, vous pouvez laisser un pourboire depuis ses réglages, par Google Play.</p></details>
+          <details><summary data-i18n="fq.12q">Que sont les secouristes vérifiés&#8239;?</summary><p data-i18n="fq.12a">Ce sont des secouristes et des guides dont le téléphone figure dans un carnet signé par l’éditeur de Siflo. L’application le vérifie elle-même&#8239;: personne, pas même nos serveurs relais, ne peut y glisser un nom. On ne vous les propose que chez nos partenaires, quand vous créez un groupe depuis leur page. Vous gardez la main&#8239;: vous retirez qui vous voulez, chacun doit accepter l’invitation, les messages restent chiffrés de bout en bout.</p></details>
+          <details><summary data-i18n="fq.10q">Pourquoi pas WhatsApp ou Signal&#8239;?</summary><p data-i18n="fq.10a">Siflo leur emprunte le meilleur&#8239;: la simplicité de WhatsApp, le chiffrement de Signal pour les messages privés. Mais tous deux ont besoin d’internet et d’un numéro de téléphone. WhatsApp appartient à Meta, qui peut changer ses règles. Le 8&nbsp;mai 2026, Meta a retiré le chiffrement de bout en bout des messages privés d’Instagram, où il n’était proposé qu’en option (<a href="https://www.bbc.com/news/articles/clypzxl3lvqo">source&#8239;: BBC, en anglais</a>). Siflo se passe d’internet comme de numéro.</p></details>
+          <details><summary data-i18n="fq.11q">C’est comme BitChat&#8239;?</summary><p data-i18n="fq.11a">Même principe pour le réseau de proximité&#8239;: les messages sautent de téléphone en téléphone, sans internet. Siflo y ajoute des groupes privés gérés par des administrateurs, les signaux et le SOS, le Bluetooth longue portée, les radios LoRa. Et, comme dans Signal, une clé neuve pour chaque message privé.</p></details>
+          <details><summary data-i18n="fq.6q">Combien coûte Siflo&#8239;?</summary><p data-i18n="fq.6a">Rien. Et ça restera comme ça. Si Siflo vous rend service, vous pouvez laisser un pourboire depuis ses réglages, sur Android pour l’instant.</p></details>
           <details><summary data-i18n="fq.7q">Qui développe Siflo&#8239;?</summary><p data-i18n="fq.7a">Siflo est développée par Guardia SAS, société française, dans le cadre de son activité <a href="https://aidiligence.eu">AI Diligence</a>.</p></details>
         </div>
         <div class="support reveal">
@@ -484,7 +505,6 @@
         <a href="labs/" data-i18n="foot.labs">Labo</a>
         <a href="privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
         <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
-        <a href="https://www.instagram.com/siflo.app/">Instagram</a>
         <a href="https://aidiligence.eu">AI Diligence</a>
       </nav>
       <p>Guardia SAS · SIREN 910 991 140</p>

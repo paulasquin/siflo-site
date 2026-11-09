@@ -33,7 +33,7 @@ const CHAPTERS = {
     name: ['Signature', 'Signature'],
     h: ['Signé par Julie', 'Signed by Julie'],
     p: [`Le téléphone de Julie signe le message avec sa clé privée (Ed25519), qui ne quitte jamais l'appareil${N}: personne ne pourra le modifier ni écrire en son nom.`,
-      "Julie's phone signs the message with her private key (Ed25519), which never leaves the device: nobody can change the message or write in her name."],
+      "Julie’s phone signs the message with her private key (Ed25519), which never leaves the device: nobody can change the message or write in her name."],
   },
   pad: {
     name: ['Taille fixe', 'Fixed size'],
@@ -45,7 +45,7 @@ const CHAPTERS = {
     name: ['Clé du jour', 'Key of the day'],
     h: ['Une clé par jour, une clé par message', 'A key per day, a key per message'],
     p: [`La clé du groupe change chaque jour par une fonction à sens unique${N}: la clé d'aujourd'hui ne permet pas de retrouver celle d'hier, et les clés de plus de deux jours sont effacées. Chaque message en tire sa propre clé.`,
-      "The group key changes every day through a one-way function: today's key cannot bring back yesterday's, and keys more than two days old are erased. Each message derives its own key from it."],
+      "The group key changes every day through a one-way function: today’s key cannot bring back yesterday’s, and keys more than two days old are erased. Each message derives its own key from it."],
   },
   enc: {
     name: ['Chiffrement', 'Encryption'],
@@ -57,7 +57,7 @@ const CHAPTERS = {
   },
   hdr: {
     name: ['En-tête', 'Header'],
-    h: ["L'enveloppe", 'The envelope'],
+    h: ["L’enveloppe", 'The envelope'],
     p: [`Seul l'en-tête reste lisible${N}: l'heure, un identifiant d'expéditeur tiré au hasard et une étiquette qui change chaque jour, que seuls les membres du groupe reconnaissent. Rien n'y indique qui écrit, ni à quel groupe.`,
       'Only the header can be read: the time, a sender id drawn at random and a tag that changes every day, which only the members of the group recognise. Nothing in it shows who is writing, or to which group.'],
   },
@@ -65,13 +65,13 @@ const CHAPTERS = {
     name: ['Le trajet', 'The journey'],
     h: ['De proche en proche', 'From phone to phone'],
     p: [`Le message passe par Bluetooth de téléphone en téléphone, puis par internet dès qu'un membre capte le réseau. Le téléphone d'un inconnu et nos relais le transmettent sans pouvoir l'ouvrir.`,
-      "The message goes over Bluetooth from phone to phone, then over the internet as soon as a member has signal. A stranger's phone and our relays pass it on without being able to open it."],
+      "The message goes over Bluetooth from phone to phone, then over the internet as soon as a member has signal. A stranger’s phone and our relays pass it on without being able to open it."],
   },
   open: {
     name: ['Lecture', 'Reading'],
     h: ['Ouvert par Marc', 'Opened by Marc'],
     p: [`Le téléphone de Marc reconnaît l'étiquette du jour, retrouve la clé, déchiffre et vérifie la signature${N}: le message vient bien de Julie et n'a pas été modifié.`,
-      "Marc's phone recognises the tag of the day, finds the key, decrypts and checks the signature: the message is indeed from Julie, and unchanged."],
+      "Marc’s phone recognises the tag of the day, finds the key, decrypts and checks the signature: the message is indeed from Julie, and unchanged."],
   },
 };
 
@@ -82,13 +82,13 @@ const CUTS = {
 };
 
 const LABELS = {
-  julie: ['Sur le téléphone de Julie', "On Julie's phone"],
-  marc: ['Sur le téléphone de Marc', "On Marc's phone"],
+  julie: ['Sur le téléphone de Julie', "On Julie’s phone"],
+  marc: ['Sur le téléphone de Marc', "On Marc’s phone"],
   text: ['Texte', 'Text'],
   sig: ['Signature · 64 octets', 'Signature · 64 bytes'],
-  jkey: ['Clé privée de Julie', "Julie's private key"],
+  jkey: ['Clé privée de Julie', "Julie’s private key"],
   pad: ['Remplissage', 'Padding'],
-  kprev: ["Clé d'hier", "Yesterday's key"],
+  kprev: ["Clé d’hier", "Yesterday’s key"],
   kday: ['Clé du jour', 'Key of the day'],
   kdf: ['à sens unique', 'one-way'],
   erased: ['effacée après deux jours', 'erased after two days'],
@@ -98,20 +98,20 @@ const LABELS = {
   mac: ['Sceau · 16 octets', 'Auth tag · 16 bytes'],
   h0: ['Type · sauts restants · heure', 'Type · hops left · time'],
   h1: ['Identifiant du message', 'Message id'],
-  h2: ["Identifiant d'expéditeur aléatoire", 'Random sender id'],
+  h2: ["Identifiant d’expéditeur aléatoire", 'Random sender id'],
   h3: ['Étiquette du jour', 'Tag of the day'],
   clear: ['Lisible par tous', 'Readable by anyone'],
   sealed: ['Illisible sans la clé du groupe', 'Unreadable without the group key'],
   n0: ['Julie · sans réseau', 'Julie · no network'],
-  n1: ["Téléphone d'un inconnu · relaie sans pouvoir lire", "A stranger's phone · relays, cannot read"],
+  n1: ["Téléphone d’un inconnu · relaie sans pouvoir lire", "A stranger’s phone · relays, cannot read"],
   n2: ['Léa · du groupe, capte la 4G', 'Léa · in the group, has 4G'],
-  n3: ["Relais internet · ne voit que l'en-tête", 'Internet relay · sees only the header'],
+  n3: ["Relais internet · ne voit que l’en-tête", 'Internet relay · sees only the header'],
   n4: ['Marc · plus loin, avec du réseau', 'Marc · further away, with signal'],
   bt: ['Bluetooth', 'Bluetooth'],
   net: ['Internet', 'Internet'],
   ttl: ['Sauts restants 12 → 11', 'Hops left 12 → 11'],
   otag: ['Étiquette reconnue', 'Tag recognised'],
-  osig: ['Signature de Julie vérifiée ✓', "Julie's signature verified ✓"],
+  osig: ['Signature de Julie vérifiée ✓', "Julie’s signature verified ✓"],
   omac: ['Sceau intact ✓', 'Auth tag intact ✓'],
 };
 

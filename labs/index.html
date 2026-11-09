@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Labo · Portée radio et chiffrement de Siflo</title>
-  <meta name="description" content="La recherche derrière Siflo&#8239;: la portée estimée de chaque liaison radio, du Bluetooth à la radio LoRa, le chiffrement des messages octet par octet et sa vérification formelle, avec leurs limites.">
+  <meta name="description" content="Portée estimée de chaque liaison radio, du Bluetooth à la LoRa. Le chiffrement de Siflo détaillé octet par octet, vérifié avec des outils de preuve formelle.">
   <meta name="theme-color" content="#0e0b09">
-  <meta property="og:title" content="Siflo · La recherche derrière l'application">
+  <meta property="og:title" content="Siflo · Le labo&#8239;: portée radio et chiffrement">
   <meta property="og:description" content="Portée radio estimée, chiffrement des messages octet par octet et vérification formelle du protocole, avec leurs limites.">
   <meta property="og:image" content="https://siflo.app/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Siflo, pour communiquer en groupe dehors, même sans réseau">
   <meta property="og:url" content="https://siflo.app/labs/">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Siflo">
   <link rel="canonical" href="https://siflo.app/labs/">
-  <link rel="alternate" hreflang="fr" href="https://siflo.app/labs/?lang=fr">
-  <link rel="alternate" hreflang="en" href="https://siflo.app/labs/?lang=en">
+  <link rel="alternate" hreflang="fr" href="https://siflo.app/labs/">
+  <link rel="alternate" hreflang="en" href="https://siflo.app/en/labs/">
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/labs/">
   <script>
     // Same language pick as the home page: ?lang=, then the visitor's saved choice, then the browser languages.
@@ -25,10 +31,14 @@
         if (ok.indexOf(q) >= 0) { lang = q; localStorage.setItem('lang', q); }
         else if (ok.indexOf(localStorage.getItem('lang')) >= 0) lang = localStorage.getItem('lang');
       } catch (e) {}
+      // English has its own page (built by tools/en.py). Crawlers and test browsers stay here, in French unless ?lang=en.
+      var bot = navigator.webdriver || /bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent);
+      if (!lang && bot) lang = 'fr';
       if (!lang) {
         var ls = navigator.languages || [navigator.language || ''];
         for (var i = 0; i < ls.length && !lang; i++) { var b = String(ls[i]).slice(0, 2).toLowerCase(); if (ok.indexOf(b) >= 0) lang = b; }
       }
+      if ((lang || 'en') === 'en' && !bot) location.replace('../en/labs/' + location.search + location.hash);
       document.documentElement.lang = lang || 'en';
     })();
   </script>
@@ -80,7 +90,7 @@
           <a class="hub-tile" href="#verification">
             <span class="kicker" data-i18n="hub.t2k">Chiffrement</span>
             <h2 data-i18n="hub.t2h">Le chiffrement, octet par octet</h2>
-            <p data-i18n="hub.t2p">Ce que voit chacun en chemin, et ce que des outils de preuve en ont vérifié.</p>
+            <p data-i18n="hub.t2p">Ce que voit chacun en chemin, ce que des outils de preuve en ont vérifié.</p>
           </a>
         </div>
       </div>
@@ -91,8 +101,8 @@
         <div class="section-head">
           <p class="kicker" data-i18n="rs.k">Portée radio</p>
           <h2 class="h-lg" data-i18n="rs.h">Sept façons<br><em>de se joindre.</em></h2>
-          <p class="lead" data-i18n="rs.lead">Comment un téléphone Siflo en joint un autre&#8239;: par Bluetooth, par Wi-Fi, par internet, par une radio LoRa et, plus tard, par satellite. Pour chaque liaison, la portée estimée, les téléphones qui peuvent l'utiliser et ce qui passe.</p>
-          <p data-i18n="rs.p1">Les portées sont estimées par le calcul, pas encore mesurées sur le terrain. L'échelle est logarithmique&#8239;: d'une graduation à la suivante, la distance est multipliée par dix. Les six premières liaisons sont dans l'application, dont la balise d'alerte (Android seulement) et la radio LoRa (un accessoire)&#8239;; le satellite est en préparation.</p>
+          <p class="lead" data-i18n="rs.lead">Comment un téléphone Siflo en joint un autre&#8239;: par Bluetooth, par Wi-Fi, par internet, par une radio LoRa et, plus tard, par satellite. Pour chaque liaison, la portée estimée, les téléphones qui peuvent l’utiliser et ce qui passe.</p>
+          <p data-i18n="rs.p1">Les portées sont estimées par le calcul, pas encore mesurées sur le terrain. L’échelle est logarithmique&#8239;: d’une graduation à la suivante, la distance est multipliée par dix. Les six premières liaisons sont dans l’application, dont la balise d’alerte (Android seulement) et la radio LoRa (un accessoire)&#8239;; le satellite est en préparation.</p>
         </div>
 
         <div class="rs-legend" aria-hidden="true">
@@ -112,40 +122,40 @@
       <div class="wrap">
         <div class="section-head">
           <p class="kicker" data-i18n="rs.n.k">Pour lire ces chiffres</p>
-          <h2 class="h-lg" data-i18n="rs.n.h">Une portée n'est pas une promesse&#8239;:<br><em>le terrain décide.</em></h2>
+          <h2 class="h-lg" data-i18n="rs.n.h">Une portée n’est pas une promesse&#8239;:<br><em>le terrain décide.</em></h2>
         </div>
         <div class="honest four">
           <div>
             <h3 data-i18n="rs.n1h">Un saut, puis le suivant</h3>
-            <p data-i18n="rs.n1p">Chaque portée vaut pour un seul saut, d'un téléphone au suivant. Chaque téléphone du groupe relaie les messages des autres, jusqu'à 12&nbsp;sauts&#8239;: la chaîne porte bien plus loin qu'un seul saut.</p>
+            <p data-i18n="rs.n1p">Chaque portée vaut pour un seul saut, d’un téléphone au suivant. Chaque téléphone du groupe relaie les messages des autres, jusqu’à 12&nbsp;sauts&#8239;: la chaîne porte bien plus loin qu’un seul saut.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n2h">La longue portée se joue à deux</h3>
-            <p data-i18n="rs.n2p">Elle ne fonctionne qu'entre deux téléphones compatibles. Sur iPhone, Siflo restera au Bluetooth standard, mais un Android voisin pourra relayer pour lui en longue portée.</p>
+            <p data-i18n="rs.n2p">Elle ne fonctionne qu’entre deux téléphones compatibles. Sur iPhone, Siflo reste au Bluetooth standard, mais un Android voisin peut relayer pour lui en longue portée.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n3h">Le terrain compte plus que la liaison</h3>
-            <p data-i18n="rs.n3p">La roche arrête tout&#8239;: en grotte, le message passe de proche en proche, à vue. Le feuillage mouillé divise la portée par deux ou trois, selon nos estimations. Sous l'eau, rien ne passe.</p>
+            <p data-i18n="rs.n3p">La roche arrête tout&#8239;: en grotte, le message passe de proche en proche, à vue. Le feuillage mouillé divise la portée par deux ou trois, selon nos estimations. Sous l’eau, rien ne passe.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n4h">Des estimations, pas encore des mesures</h3>
-            <p data-i18n="rs.n4p">Elles sont calculées à partir de la puissance d'émission, de la sensibilité des récepteurs et des pertes dues au corps et au terrain. Nous les mesurerons sur le terrain et mettrons cette page à jour.</p>
+            <p data-i18n="rs.n4p">Elles sont calculées à partir de la puissance d’émission, de la sensibilité des récepteurs et des pertes dues au corps et au terrain. Nous les mesurerons sur le terrain et mettrons cette page à jour.</p>
           </div>
           <div>
-            <h3 data-i18n="rs.n5h">La balise d'alerte, à sens unique</h3>
-            <p data-i18n="rs.n5p">Le téléphone éloigné reçoit l'alerte mais ne peut pas répondre par ce chemin&#8239;: pas d'accusé de réception, l'alerte est répétée toutes les deux secondes. La balise d'alerte est dans l'application Android depuis la version 0.5&#8239;; sa portée reste à mesurer sur le terrain.</p>
+            <h3 data-i18n="rs.n5h">La balise d’alerte, à sens unique</h3>
+            <p data-i18n="rs.n5p">Le téléphone éloigné reçoit l’alerte mais ne peut pas répondre par ce chemin&#8239;: pas d’accusé de réception, l’alerte est répétée toutes les deux secondes. La balise d’alerte est dans l’application Android depuis la version 0.5&#8239;; sa portée reste à mesurer sur le terrain.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n6h">Le satellite, en préparation</h3>
-            <p data-i18n="rs.n6p">Certains Android récents envoient de courts messages par satellite, selon l'opérateur&#8239;; sur iPhone, Apple réserve le satellite à ses propres fonctions. Nous travaillons à faire passer le SOS et les signaux de Siflo par satellite&#8239;; rien n'est encore disponible.</p>
+            <p data-i18n="rs.n6p">Certains Android récents envoient de courts messages par satellite, selon l’opérateur&#8239;; sur iPhone, Apple réserve le satellite à ses propres fonctions. Nous travaillons à faire passer le SOS et les signaux de Siflo par satellite&#8239;; rien n’est encore disponible.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n7h">La radio LoRa, un accessoire</h3>
-            <p data-i18n="rs.n7p">Un petit boîtier radio du commerce, compatible Meshtastic (Heltec Mesh Node T1, RAK WisMesh Tag), relié au téléphone en Bluetooth. Il porte les messages, les signaux et le SOS, pas les photos ni les vocaux, et seulement vers les membres que le Bluetooth et internet n'atteignent plus.</p>
+            <p data-i18n="rs.n7p">Un petit boîtier radio du commerce, compatible Meshtastic (Heltec Mesh Node T1, RAK WisMesh Tag), relié au téléphone en Bluetooth. Il porte les messages, les signaux et le SOS, pas les photos ni les vocaux. Il ne sert qu’à joindre les membres que le Bluetooth et internet n’atteignent plus.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n8h">Des radios LoRa en relais</h3>
-            <p data-i18n="rs.n8p">Une radio posée sur un point haut ou à l'entrée d'une grotte relaie les messages du groupe sans téléphone relié&#8239;; on la configure depuis les réglages de Siflo. Les radios relaient jusqu'à 7&nbsp;sauts&#8239;; au-delà, un téléphone muni d'une radio reprend la chaîne.</p>
+            <p data-i18n="rs.n8p">Une radio posée sur un point haut ou à l’entrée d’une grotte relaie les messages du groupe sans téléphone relié&#8239;; on la configure depuis les réglages de Siflo. Les radios relaient jusqu’à 7&nbsp;sauts&#8239;; au-delà, un téléphone muni d’une radio reprend la chaîne.</p>
           </div>
         </div>
       </div>
@@ -156,7 +166,7 @@
         <div class="section-head">
           <p class="kicker" data-i18n="fv.k">Chiffrement</p>
           <h2 class="h-lg" data-i18n="fv.h">Le chiffrement,<br><em>octet par octet.</em></h2>
-          <p class="lead" data-i18n="fv.lead">Le trajet d'un message de groupe, du téléphone de Julie à celui de Marc&#8239;: chaque carré représente un octet du paquet envoyé.</p>
+          <p class="lead" data-i18n="fv.lead">Le trajet d’un message de groupe, du téléphone de Julie à celui de Marc&#8239;: chaque carré représente un octet du paquet envoyé.</p>
         </div>
 
         <div id="cipher" class="fv-anim"></div>
@@ -165,7 +175,7 @@
           <div class="fv-film-text">
             <p class="kicker" data-i18n="fv.f.k">Le film</p>
             <h3 data-i18n="fv.f.h">Le chiffrement sans jargon, en 2&nbsp;min&nbsp;45</h3>
-            <p data-i18n="fv.f.p">Le sceau, le carton, la clé du jour, le coffre, l'étiquette et le code du jour&#8239;: les six étapes que suit un message dans le téléphone de Julie, puis son trajet jusqu'à Marc et ce que chacun voit en chemin.</p>
+            <p data-i18n="fv.f.p">Le sceau, le carton, la clé du jour, le coffre, l’étiquette et le code du jour&#8239;: les six étapes que suit un message dans le téléphone de Julie, puis son trajet jusqu’à Marc et ce que chacun voit en chemin.</p>
           </div>
           <div class="fv-film-player film" id="fv-film">
             <video preload="none" playsinline poster="../assets/film/chiffrement-poster-fr.jpg" data-poster-en="../assets/film/chiffrement-poster-en.jpg" data-src-fr="../assets/film/chiffrement-fr.mp4" data-src-en="../assets/film/chiffrement-en.mp4"></video>
@@ -180,15 +190,15 @@
           </div>
           <div>
             <h3 data-i18n="fv.a2h">Des clés qui changent</h3>
-            <p data-i18n="fv.a2p">En conversation privée, dès la première réponse, chaque message a sa propre clé, effacée après usage (le Double Ratchet, mécanisme de Signal)&#8239;: une clé volée plus tard ne relit pas les messages passés. Dans un groupe, la clé change chaque jour et à chaque retrait d'un membre. Une clé volée ne lit pas les messages de plus de deux jours, mais lit les suivants jusqu'au prochain retrait d'un membre.</p>
+            <p data-i18n="fv.a2p">En conversation privée, dès la première réponse, chaque message a sa propre clé, effacée après usage (le Double Ratchet, mécanisme de Signal)&#8239;: une clé volée plus tard ne permet pas de relire les messages passés. Dans un groupe, la clé change chaque jour et à chaque retrait d’un membre. Une clé volée ne permet pas de lire les messages de plus de deux jours, mais donne accès aux suivants jusqu’au prochain retrait d’un membre.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a3h">Des identités vérifiables</h3>
-            <p data-i18n="fv.a3p">Chaque téléphone crée ses propres clés&#8239;: pas de compte. Pour être sûr de parler à la bonne personne, on scanne son code en face à face, ou l'on compare un code de sécurité au cours d'un appel.</p>
+            <p data-i18n="fv.a3p">Chaque téléphone crée ses propres clés&#8239;: pas de compte. Pour être sûr de parler à la bonne personne, on scanne son code en face à face, ou l’on compare un code de sécurité au cours d’un appel.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a4h">Sur la radio LoRa</h3>
-            <p data-i18n="fv.a4p">Une trame LoRa porte 233&nbsp;octets au plus&#8239;: une étiquette de 8&nbsp;octets, l'identifiant du message, l'heure, puis le texte, chiffré de la même façon&#8239;; un message long tient en plusieurs trames. L'étiquette est recalculée à chaque trame, pour qu'on ne puisse pas relier entre elles les trames d'un même groupe. Un téléphone qui relaie sur la radio un message reçu par Bluetooth y joint la signature de son auteur&#8239;: il ne peut pas écrire à sa place.</p>
+            <p data-i18n="fv.a4p">Une trame LoRa porte 233&nbsp;octets au plus&#8239;: une étiquette de 8&nbsp;octets, l’identifiant du message, l’heure, puis le texte, chiffré de la même façon&#8239;; un message long tient en plusieurs trames. L’étiquette est recalculée à chaque trame, pour qu’on ne puisse pas relier entre elles les trames d’un même groupe. Un téléphone qui relaie sur la radio un message reçu par Bluetooth y joint la signature de son auteur&#8239;: il ne peut pas écrire à sa place.</p>
           </div>
         </div>
 
@@ -196,23 +206,23 @@
           <h3 data-i18n="fv.w.h">Qui voit quoi</h3>
           <dl class="fv-who">
             <div><dt data-i18n="fv.w1t">Un membre du groupe</dt><dd data-i18n="fv.w1d">Tout le message, et son auteur, vérifié par sa signature.</dd></div>
-            <div><dt data-i18n="fv.w2t">Le téléphone d'un inconnu qui relaie</dt><dd data-i18n="fv.w2d">L'en-tête seulement&#8239;: l'heure, la taille, et une étiquette qui change chaque jour et ne révèle ni le groupe ni l'auteur.</dd></div>
-            <div><dt data-i18n="fv.w3t">Nos relais internet</dt><dd data-i18n="fv.w3d">La même chose, plus l'adresse IP du téléphone qui dépose ou relève le paquet. Ils le gardent 48&nbsp;heures sans pouvoir l'ouvrir.</dd></div>
-            <div><dt data-i18n="fv.w4t">Quelqu'un qui capte les émissions LoRa</dt><dd data-i18n="fv.w4d">Le numéro de la radio qui émet, l'heure et la taille de chaque trame&#8239;: de quoi reconnaître une radio d'un jour à l'autre, mais pas le texte, ni l'auteur, ni le groupe.</dd></div>
-            <div><dt data-i18n="fv.w5t">Guardia, qui édite Siflo</dt><dd data-i18n="fv.w5d">Rien de plus que nos serveurs relais&#8239;: pas de compte, pas de carnet d'adresses, aucun contenu.</dd></div>
+            <div><dt data-i18n="fv.w2t">Le téléphone d’un inconnu qui relaie</dt><dd data-i18n="fv.w2d">L’en-tête seulement&#8239;: l’heure, la taille, et une étiquette qui change chaque jour et ne révèle ni le groupe ni l’auteur.</dd></div>
+            <div><dt data-i18n="fv.w3t">Nos relais internet</dt><dd data-i18n="fv.w3d">La même chose, plus l’adresse IP du téléphone qui dépose ou relève le paquet. Ils le gardent 48&nbsp;heures sans pouvoir l’ouvrir.</dd></div>
+            <div><dt data-i18n="fv.w4t">Quelqu’un qui capte les émissions LoRa</dt><dd data-i18n="fv.w4d">Le numéro de la radio qui émet, l’heure et la taille de chaque trame&#8239;: de quoi reconnaître une radio d’un jour à l’autre, mais pas le texte, ni l’auteur, ni le groupe.</dd></div>
+            <div><dt data-i18n="fv.w5t">Guardia, qui édite Siflo</dt><dd data-i18n="fv.w5d">Rien de plus que nos serveurs relais&#8239;: pas de compte, pas de carnet d’adresses, aucun contenu.</dd></div>
           </dl>
-          <p class="fv-note" data-i18n="fv.w.note">Deux exceptions, liées aux radios LoRa&#8239;: le canal de secours, que vous activez vous-même, affiche les messages d'une conversation en clair sur l'écran des radios du groupe, pour les lire sans téléphone (l'application le signale par un cadenas ouvert)&#8239;; un SOS s'y affiche aussi en clair, sauf si vous refusez cet affichage au moment de l'envoyer.</p>
+          <p class="fv-note" data-i18n="fv.w.note">Deux exceptions, liées aux radios LoRa&#8239;: le canal de secours, que vous activez vous-même, affiche les messages d’une conversation en clair sur l’écran des radios du groupe, pour les lire sans téléphone (l’application le signale par un cadenas ouvert)&#8239;; un SOS s’y affiche aussi en clair, sauf si vous refusez cet affichage au moment de l’envoyer.</p>
         </div>
 
         <div class="fv-method">
-          <h3 data-i18n="fv.m.h">Comment nous l'avons vérifié</h3>
-          <p data-i18n="fv.m.p">Nous avons décrit le protocole dans des modèles mathématiques. Deux outils de preuve (Tamarin, ProVerif) et un outil qui explore les déroulements possibles d'un petit groupe (TLA+, 3 ou 4&nbsp;téléphones) les confrontent à un attaquant qui contrôle tout le réseau, relais compris, peut voler une clé à tout moment, ou a été membre ou administrateur du groupe. Un administrateur en poste est, lui, supposé de bonne foi.</p>
+          <h3 data-i18n="fv.m.h">Comment nous l’avons vérifié</h3>
+          <p data-i18n="fv.m.p">Nous avons décrit le protocole dans des modèles mathématiques. Deux outils de preuve (Tamarin, ProVerif) et un outil qui explore les déroulements possibles d’un petit groupe (TLA+, 3 ou 4&nbsp;téléphones) les confrontent à un attaquant qui contrôle tout le réseau, relais compris, peut voler une clé à tout moment, ou a été membre ou administrateur du groupe. Un administrateur en poste est, lui, supposé de bonne foi.</p>
           <ul class="fv-models" id="models"></ul>
         </div>
 
         <div class="fv-method">
-          <h3 data-i18n="fv.v.h">Jusqu'où vont ces vérifications</h3>
-          <p data-i18n="fv.v.p">Les modèles portent sur l'échange de contacts, le début des conversations privées et les groupes (clés, administrateurs, membres)&#8239;; pour les administrateurs et les membres, des tests vérifient aussi ces règles sur le code de l'application. Restent hors modèle l'acheminement et le décodage des paquets, la radio, les médias, l'analyse du trafic, et la suite des conversations privées, qui s'appuie sur les preuves publiées du Double Ratchet. Ces résultats valent à partir de la version&nbsp;0.20.0.</p>
+          <h3 data-i18n="fv.v.h">Jusqu’où vont ces vérifications</h3>
+          <p data-i18n="fv.v.p">Les modèles portent sur l’échange de contacts, le début des conversations privées et les groupes (clés, administrateurs, membres)&#8239;; pour les administrateurs et les membres, des tests vérifient aussi ces règles sur le code de l’application. Restent hors modèle l’acheminement et le décodage des paquets, la radio, les médias, l’analyse du trafic ainsi que la suite des conversations privées, qui s’appuie sur les preuves publiées du Double Ratchet. Ces résultats valent à partir de la version&nbsp;0.20.0.</p>
         </div>
       </div>
     </section>
@@ -235,7 +245,6 @@
         <a href="./" data-i18n="foot.labs">Labo</a>
         <a href="../privacy/#francais" data-i18n="foot.privacy">Confidentialité</a>
         <a href="mailto:contact@aidiligence.eu" data-i18n="foot.contact">Contact</a>
-        <a href="https://www.instagram.com/siflo.app/">Instagram</a>
         <a href="https://aidiligence.eu">AI Diligence</a>
       </nav>
       <p>Guardia SAS · SIREN 910 991 140</p>
