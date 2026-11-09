@@ -176,6 +176,7 @@ export const STRINGS = {
     'dl.lead': 'On Google Play and the App Store: free, no account, no ads.',
     'dl.s1': 'Get it on', 'dl.s2': 'Download on the', 'dl.s3': 'App Store',
     'dl.note': 'Android 8 or later, iPhone on iOS 17 or later. Apple Watch with an iPhone, Garmin and Amazfit with Android, always with the phone nearby.',
+    'dl.tag': 'Be the relay.',
     'dl.w': 'And on your watch', 'dl.now': 'Available', 'dl.zepp': 'In the Zepp app', 'dl.soon': 'Soon',
     'fq.k': 'Help', 'fq.h': 'The questions<br><em>we get in the car park.</em>',
     'fq.1q': 'Do I need a network to use Siflo?', 'fq.1a': 'No. Phones talk to each other directly, over Bluetooth and, on Android, nearby Wi-Fi. The internet only helps stitch a scattered group back together: if one phone on each side has signal, messages go through our relay servers.',
@@ -191,7 +192,7 @@ export const STRINGS = {
     'fq.6q': 'How much does Siflo cost?', 'fq.6a': 'Nothing, and it will stay that way. If it helps you out, you can leave a tip from its settings, on Android for now.',
     'fq.7q': 'Who develops Siflo?', 'fq.7a': 'Siflo is developed by Guardia SAS, a French company, under its <a href="https://aidiligence.eu">AI Diligence</a> brand.',
     'sp.1': 'A question, a problem, an idea?', 'sp.2': 'Write to us: we answer every message, as soon as we have signal.',
-    'foot.aria': 'Links', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
+    'foot.aria': 'Links', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact', 'foot.tag': 'Be the relay.',
     'lb.aria': 'Enlarged screenshot', 'lb.close': 'Close', 'lb.prev': 'Previous screenshot', 'lb.next': 'Next screenshot',
   },
 };

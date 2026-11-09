@@ -75,6 +75,6 @@ export const LABS_STRINGS = {
     'fv.m.p': "We described the protocol in mathematical models. Two proof tools (Tamarin, ProVerif) and a tool that explores the possible courses of events in a small group (TLA+, 3 or 4&nbsp;phones) pit them against an attacker who controls the whole network, relays included, can steal a key at any moment, or used to be a member or an admin of the group. An admin still in the role is assumed to act in good faith.",
     'fv.v.h': "How far these checks go",
     'fv.v.p': "The models cover the contact exchange, the start of private conversations and groups (keys, admins, members); for admins and members, tests also check these rules on the app’s own code. Outside the models: packet routing and parsing, the radio, media, traffic analysis, and the rest of a private conversation, which relies on the Double Ratchet’s published proofs. These results hold from version&nbsp;0.20.0 on.",
-    'foot.aria': 'Links', 'foot.home': 'About', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact',
+    'foot.aria': 'Links', 'foot.home': 'About', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact', 'foot.tag': 'Be the relay.',
   },
 };

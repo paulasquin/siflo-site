@@ -419,6 +419,8 @@ main { position: relative; z-index: 2; }
 .store.pending { position: relative; cursor: default; }
 .store.pending:hover { transform: none; border-color: rgba(255, 255, 255, .25); }
 .store.pending::after { content: attr(data-badge); position: absolute; top: -10px; right: -10px; padding: 3px 9px; border-radius: 999px; background: var(--orange); color: #1d0a00; font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.dl-tag { margin: 34px 0 0; font-family: var(--f-display); font-weight: 500; font-size: clamp(20px, 3vw, 26px); letter-spacing: -.01em; color: var(--orange-2); }
+.dl-tag + .dl-buttons { margin-top: 20px; }
 .dl-note { max-width: 620px; margin: 22px auto 0; font-size: 15px; }
 .dl-watches { margin: 0 auto; }
 .dl-w-label { margin: 0 0 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
@@ -454,6 +456,8 @@ main { position: relative; z-index: 2; }
 .footer { position: relative; z-index: 2; background: var(--bg); border-top: 1px solid var(--line); padding: 34px 0 44px; }
 .footer-inner { display: flex; justify-content: space-between; gap: 20px 40px; flex-wrap: wrap; align-items: center; }
 .footer p { margin: 0; font-size: 13px; color: var(--ink-3); }
+.foot-brand { display: flex; flex-direction: column; gap: 6px; }
+.footer .foot-tag { font-family: var(--f-display); font-size: 13px; color: var(--peach); }
 .footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; }
 .footer nav a { color: var(--ink-2); text-decoration: none; }
 .footer nav a:hover { color: var(--orange-2); }
