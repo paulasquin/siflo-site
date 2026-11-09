@@ -1,4 +1,4 @@
-// /get: page language (the same pick as the other pages), the iPhone card's copy button, and the background: a contour
+// /get: page language (the same pick as the other pages) and the background: a contour
 // map drifting slowly, the whistle's rings leaving the app icon. The store block for the device is picked in the head.
 let saved = null;
 try { saved = localStorage.getItem('lang'); } catch (e) {}
@@ -19,22 +19,6 @@ document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener
   draw(t);
 }));
 
-// iPhone: no store to open yet, so the visitor keeps the link for later.
-document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(location.href);
-  } catch (e) {
-    const area = document.createElement('textarea');
-    area.value = location.href;
-    area.setAttribute('readonly', '');
-    area.style.cssText = 'position:fixed;top:0;opacity:0';
-    document.body.append(area);
-    area.select();
-    document.execCommand('copy');
-    area.remove();
-  }
-  b.textContent = b.dataset.done;
-}));
 
 // Small value noise, and its contour lines (marching squares) drawn once into an offscreen canvas.
 function noise2(seed) {

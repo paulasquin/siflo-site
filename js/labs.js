@@ -6,7 +6,7 @@ import { mountCipher } from './cipher.js';
 const L = (v) => (Array.isArray(v) ? v[LANG === 'fr' ? 0 : 1] : v);
 
 const PHONES = [
-  ['ios', ['iPhone', 'iPhone'], ['iPhone 15 à 18, en cours de validation chez Apple', 'iPhone 15 to 18, being reviewed by Apple']],
+  ['ios', ['iPhone', 'iPhone'], ['iOS 17 ou plus récent, sur l’App Store', 'iOS 17 or later, on the App Store']],
   ['old', ['Android milieu de gamme ou ancien', 'Mid-range or older Android'], ['Galaxy A, Redmi, téléphones de 2017 à 2020', 'Galaxy A, Redmi, phones from 2017 to 2020']],
   ['a16', ['Android récent, 15 ou 16', 'Recent Android, 15 or 16'], ['Pixel 8 et 9, Galaxy S24 et S25', 'Pixel 8 and 9, Galaxy S24 and S25']],
   ['a17', ['Android 17', 'Android 17'], ['Pixel 10 Pro XL, Galaxy S26 Ultra', 'Pixel 10 Pro XL, Galaxy S26 Ultra']],
@@ -110,7 +110,7 @@ registerStrings({
     'rs.n1h': 'One hop, then the next',
     'rs.n1p': 'Each range covers a single hop, from one phone to the next. Every phone in the group relays the others\' messages, up to 12&nbsp;hops: the chain reaches much further than a single hop.',
     'rs.n2h': 'Long range takes two',
-    'rs.n2p': 'It only works between two compatible phones. On iPhone, Siflo will stay on standard Bluetooth, but a nearby Android will be able to relay for it over long range.',
+    'rs.n2p': 'It only works between two compatible phones. On iPhone, Siflo stays on standard Bluetooth, but a nearby Android can relay for it over long range.',
     'rs.n3h': 'Terrain matters more than the link',
     'rs.n3p': 'Rock blocks everything: in a cave, messages go from phone to phone, in line of sight. Wet foliage divides the range by two or three, by our estimates. Nothing gets through under water.',
     'rs.n4h': 'Estimates, not yet measurements',

@@ -18,7 +18,6 @@ SIFLO = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT.parent / "siflo")
 PLAY = SIFLO / "docs" / "play"
 
 CONTACT = "contact@aidiligence.eu"
-INSTAGRAM = "https://www.instagram.com/siflo.app/"
 PUBLISHER = "Guardia SAS — SIREN 910 991 140"
 
 STYLE = """
@@ -61,7 +60,7 @@ def page(title: str, body: str, depth: int) -> str:
   <nav><a href="{up}privacy/">Privacy</a><a lang="fr" href="{up}privacy/#francais">Confidentialité</a></nav>
 </header>
 {body}
-<footer>{html.escape(PUBLISHER)} — <a href="mailto:{CONTACT}">{CONTACT}</a> — <a href="{INSTAGRAM}">Instagram</a></footer>
+<footer>{html.escape(PUBLISHER)} — <a href="mailto:{CONTACT}">{CONTACT}</a></footer>
 </main>
 </body>
 </html>

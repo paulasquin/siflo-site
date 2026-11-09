@@ -205,6 +205,10 @@ main { position: relative; z-index: 2; }
 .hero-kpis dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .hero-kpis dd { margin: 4px 0 0; font-family: var(--f-display); font-size: clamp(22px, 2.2vw, 30px); font-weight: 400; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+[data-os="ios"] .hero-cta .os-android, [data-os="ios"] .hero-cta .os-other,
+[data-os="android"] .hero-cta .os-ios, [data-os="android"] .hero-cta .os-other,
+:root:not([data-os="ios"]):not([data-os="android"]) .hero-cta .os-ios,
+:root:not([data-os="ios"]):not([data-os="android"]) .hero-cta .os-android { display: none; }
 .scroll-cue { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); }
 .scroll-cue span { width: 1px; height: 46px; background: linear-gradient(var(--orange-2), transparent); position: relative; overflow: hidden; }
 .scroll-cue span::after { content: ''; position: absolute; left: -1px; top: -20px; width: 3px; height: 20px; background: var(--peach); border-radius: 2px; animation: cue 2s infinite; box-shadow: 0 0 8px var(--orange); }
