@@ -1,5 +1,7 @@
 # Siflo film (60 s, 1080 × 1920, FR and EN)
 
+**Since 2026-11-09 the published film is edited in Claude Motion** (FR https://claude.ai/artifact/JraiDGyTv2114RQJxHu4e6, EN https://claude.ai/artifact/1ohk7G7rWmgeuGcZgZsKHc): `render.py --clean` renders the 3D alone, the clips are cut per scene with 6 frames of margin, and Motion draws the titles, screens, end card and the score, then exports the MP4 with sound. `film.js` / `film.css` below are the same overlay for a render without Motion; `compose.sh` muxes a music file onto such a render.
+
 The film is the site itself: `render.py` loads the page in `?capture` mode in the local Chrome on the GPU, drives the three acts (`canyon`, `signal`, `mesh`) frame by frame on a virtual clock, and draws the overlay of `film.js` / `film.css` on top (titles, cuts, real app screens in phone frames, the Lab card, end card).
 
 Everything sits on the music's grid: **95.7 BPM, one bar = 2.53 s, cuts on bar lines** (`SHOTS` in `render.py`, `SCENES` / `CUTS` / `BOARDS` in `film.js`).
