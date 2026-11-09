@@ -26,9 +26,12 @@ const SCREENS = {
   ],
 };
 
+// Relative to this script, so that /en/ finds them too.
+const SHOTS = new URL('../assets/screens/', import.meta.url).href;
+
 function renderScreens() {
   $('#screens').innerHTML = SCREENS[LANG].map(([f, cap]) => `
-    <figure data-lightbox="screens"><div class="shot"><img src="assets/screens/${f}.webp" data-full="assets/screens/${f}.webp" alt="${cap}" loading="lazy" width="540" height="1080"></div><figcaption>${cap}</figcaption></figure>`).join('');
+    <figure data-lightbox="screens"><div class="shot"><img src="${SHOTS}${f}.webp" data-full="${SHOTS}${f}.webp" alt="${cap}" loading="lazy" width="540" height="1080"></div><figcaption>${cap}</figcaption></figure>`).join('');
 }
 
 /** Self-hosted film (no third-party request): the source is attached on the first click. */

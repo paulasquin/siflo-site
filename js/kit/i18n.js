@@ -59,8 +59,10 @@ export function applyStatic({ onApplied } = {}) {
         localStorage.setItem('lang', b.dataset.lang);
         sessionStorage.setItem('scrollY', String(scrollY));
       } catch (e) { /* private mode */ }
-      const url = new URL(location.href);
-      url.searchParams.set('lang', b.dataset.lang);
+      // A language with its own address (<link rel="alternate" hreflang>: / and /en/) is reached there, else through ?lang=.
+      const alt = document.querySelector(`link[rel="alternate"][hreflang="${b.dataset.lang}"]`);
+      const url = alt ? new URL(new URL(alt.href).pathname + location.hash, location.href) : new URL(location.href);
+      if (!alt) url.searchParams.set('lang', b.dataset.lang);
       location.replace(url);
     });
   });
