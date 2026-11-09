@@ -58,7 +58,7 @@ a.store:hover { border-color: rgba(255, 255, 255, .5); }
 .store.small { padding: 9px 12px; gap: 10px; border-radius: 13px; }
 .store.small b { font-size: 15px; }
 .store.small svg { width: 22px; height: 22px; }
-.cta > .store { justify-content: center; }
+.store.other { justify-self: center; margin-top: 6px; }
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .fine { font-size: 12.5px; color: var(--ink-3); margin: 2px 0 0; text-align: center; }
 .qr { border: 1px solid var(--line-2); background: var(--card); border-radius: 18px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
