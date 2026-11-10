@@ -44,12 +44,13 @@ uv run --with markdown python tools/build.py ../siflo
 | `/research/`, `/recherche/` | Redirects to `/labs/` (the page's former address; `/recherche/` adds `?lang=fr`), keeping the anchor |
 | `/confidentialite/` | Redirect to `/privacy/#francais` |
 | `/j/`, `/id/`, `/c/` | Landing pages of the app links (group invitation, identity card, contact link) when Siflo is not installed; `js/link.js` picks the language and, offers an "Open in Siflo" button: `siflo://` on iPhone, an `intent://` for `app.siflo` on Android (any version with the app links, Google Play if not installed). The payload stays in the fragment, never sent to the server |
+| `/a/` | Landing page of the join approval link (`/a#<join card>`, spec D97 in the app repo) for a visitor without Siflo or with a version before 0.32: the title, the store buttons, nothing else. `js/link.js` only picks the language (no "Open in Siflo" button, the fragment is never read or sent). `noindex` |
 | `/groupe/` | Landing page of the partner group link (`/groupe#v=1&n=…&j=1`, spec in the app repo's trusted-contacts design) when Siflo is not installed: `js/groupe.js` reads the fragment in the browser, shows the place's name, and builds the Google Play button that passes the whole link as install referrer; the iPhone button copies the link, then opens the App Store. `noindex`, `no-referrer` |
 | `/communaute/`, `/community/` | Short links to the community groups « Siflo sur Siflo » (FR) and "Siflo on Siflo" (EN), used in posts: the group's `/j` invitation is the body's `data-link`; `js/community.js` shows on a phone a button that hands it to Siflo and store buttons that copy it first (first-launch Paste card), elsewhere its QR code (`qr.svg`, from `tools/community_qr.py`). An empty `data-link` shows "opens very soon" |
 | `/sos/` | Landing page of a partner's alert button (`/sos#…`, spec D106 in the app repo): Siflo opens the SOS countdown (never sends by itself); without the app the page gives 112, SMS 114 and the stores. `noindex`, `no-referrer`, kept out of robots.txt |
 | `/robots.txt`, `/sitemap.xml` | Crawlers: the home page and Labs in both languages (with their hreflang pairs), /get and the privacy policy. The home page carries a `MobileApplication` JSON-LD card (inline, no request) (`/j/`, `/id/` and `/c/` are `noindex`) |
 | `/.well-known/assetlinks.json` | Android App Links for `app.siflo`: Play app signing key + upload key (GitHub APKs) |
-| `/.well-known/apple-app-site-association` | iOS universal links for `285X8VFA49.app.siflo` (`/j`, `/id`, `/c`, `/groupe`): a copy of `ios/apple-app-site-association` in the app repo, keep both identical |
+| `/.well-known/apple-app-site-association` | iOS universal links for `285X8VFA49.app.siflo` (`/j`, `/id`, `/c`, `/a`, `/groupe`, `/sos`): a copy of `ios/apple-app-site-association` in the app repo, keep both identical |
 
 ## Testing
 
