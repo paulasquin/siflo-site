@@ -2,8 +2,10 @@
 // phone beacons, expanding rings and packets travelling along arcs.
 import * as THREE from 'three';
 import { glowTexture, clamp01 } from '../kit/fx.js';
+import { theme } from '../activity.js';
 
-export const ORANGE = new THREE.Color('#ff6a00');
+// The phones' glow: the activity's colour (orange for canyon, the app's own).
+export const SIGNAL = new THREE.Color(theme().signal);
 export const EMBER = new THREE.Color('#ff8a3d');
 export const OK_GREEN = new THREE.Color('#95d4a9');
 export const SOS_RED = new THREE.Color('#ff4b42');
@@ -69,7 +71,7 @@ export function createSky({ zenith = '#140f26', mid = '#5a2f45', horizon = '#ff8
 let GLOW;
 export const glowMap = () => (GLOW ??= glowTexture([[0, 'rgba(255,255,255,1)'], [0.18, 'rgba(255,255,255,.6)'], [0.5, 'rgba(255,255,255,.12)'], [1, 'rgba(255,255,255,0)']]));
 
-export function glowSprite(color = ORANGE, size = 1, opacity = 1) {
+export function glowSprite(color = SIGNAL, size = 1, opacity = 1) {
   const s = new THREE.Sprite(new THREE.SpriteMaterial({
     map: glowMap(), color, transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending, fog: false,
   }));
@@ -82,7 +84,7 @@ export function glowSprite(color = ORANGE, size = 1, opacity = 1) {
  * pulse (signal received); `update(t)` animates the pulse decay with wall-clock time.
  */
 export class Beacon extends THREE.Group {
-  constructor({ color = ORANGE, size = 1, halo = 2.4 } = {}) {
+  constructor({ color = SIGNAL, size = 1, halo = 2.4 } = {}) {
     super();
     this.base = new THREE.Color(color);
     this.body = new THREE.Mesh(
@@ -153,7 +155,7 @@ export class Rings extends THREE.Group {
     }
     this.i = 0;
   }
-  emit(pos, { color = ORANGE, size = 6, dur = 1.6, alpha = 1, normal = null, brokenFrom = 2, width = 0.05 } = {}) {
+  emit(pos, { color = SIGNAL, size = 6, dur = 1.6, alpha = 1, normal = null, brokenFrom = 2, width = 0.05 } = {}) {
     const r = this.pool[this.i++ % this.pool.length];
     r.mesh.position.copy(pos);
     if (normal) r.mesh.lookAt(pos.clone().add(normal));
@@ -183,7 +185,7 @@ export class Rings extends THREE.Group {
 /* ---------------- arcs and packets ---------------- */
 /** A raised arc between two points, drawn as a glowing line whose lit share can grow (0-1). */
 export class Arc extends THREE.Group {
-  constructor(a, b, { lift = 2, color = ORANGE, dashed = false, opacity = 1 } = {}) {
+  constructor(a, b, { lift = 2, color = SIGNAL, dashed = false, opacity = 1 } = {}) {
     super();
     const mid = a.clone().lerp(b, 0.5);
     mid.y += lift;
@@ -219,7 +221,7 @@ export class Packets extends THREE.Group {
   constructor(max = 16) {
     super();
     this.pool = Array.from({ length: max }, () => {
-      const s = glowSprite(ORANGE, 1.2, 0);
+      const s = glowSprite(SIGNAL, 1.2, 0);
       const core = glowSprite(new THREE.Color('#fff4e8'), 0.4, 0);
       s.add(core);
       s.visible = false;
@@ -228,7 +230,7 @@ export class Packets extends THREE.Group {
     });
     this.i = 0;
   }
-  send(curve, { color = ORANGE, dur = 0.8, size = 1.2, onArrive = null } = {}) {
+  send(curve, { color = SIGNAL, dur = 0.8, size = 1.2, onArrive = null } = {}) {
     const p = this.pool[this.i++ % this.pool.length];
     Object.assign(p, { curve, t0: performance.now(), dur: dur * 1000, onArrive, on: true });
     p.s.material.color.set(color);

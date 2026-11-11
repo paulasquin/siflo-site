@@ -1,7 +1,8 @@
-// Page wiring: strings, plain sections (screens, film, encryption), the stage and its
-// three acts (canyon, signal, mesh), then the reveal.
+// Page wiring: strings, the activity (its texts and switches), plain sections (screens,
+// film, encryption), the stage and its three acts (the activity's hero, signal, mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
 import { STRINGS } from './strings.js';
+import { activity, applyActivity, setupActivitySwitch } from './activity.js';
 import {
   $, $$, capture, debug, lenis, setupAnchors, webglOK, setupStage, bindActs, setupPanels, setupReveals,
   setupNav, setupLightbox, finishBoot,
@@ -15,6 +16,7 @@ const SCREENS = {
     ['02-group-chat', 'La discussion du groupe : photos, vocaux, réponses, réactions'],
     ['03-signals', 'Un signal à tout le groupe : reçu, puis vu'],
     ['04-topo', 'Le topo du groupe, gardé sur chaque téléphone'],
+    ['09-area-map', 'La carte de la zone, lisible sans réseau, avec les lieux du groupe'],
     ['05-before-you-go', 'Avant de partir : la liste à cocher du canyon'],
     ['06-sos-countdown', 'Le SOS : le compte à rebours et les destinataires'],
     ['07-invite-qr', 'Le QR code du groupe, à scanner sans réseau'],
@@ -25,6 +27,7 @@ const SCREENS = {
     ['02-group-chat', 'The group chat: photos, voice notes, replies, reactions'],
     ['03-signals', 'A signal to the whole group: received, then seen'],
     ['04-topo', 'The group’s topo, kept on every phone'],
+    ['09-area-map', 'The map of the area, readable with no signal, with the group’s places'],
     ['05-before-you-go', 'Before you go: the canyoning checklist'],
     ['06-sos-countdown', 'The SOS: the countdown and who gets it'],
     ['07-invite-qr', 'The group’s QR code, to scan with no signal'],
@@ -35,8 +38,12 @@ const SCREENS = {
 // Relative to this script, so that /en/ finds them too.
 const SHOTS = new URL('../assets/screens/', import.meta.url).href;
 
+// The checklist screenshot is the canyon's: other activities say so.
+const CHECKLIST = { fr: 'Avant de partir\u00a0: une liste à cocher par activité (ici, le canyon)', en: 'Before you go: a checklist per activity (here, canyoning)' };
+
 function renderScreens() {
-  $('#screens').innerHTML = SCREENS[LANG].map(([f, cap]) => `
+  const caption = (f, cap) => (f === '05-before-you-go' && activity() !== 'canyon' ? CHECKLIST[LANG] : cap);
+  $('#screens').innerHTML = SCREENS[LANG].map(([f, c]) => [f, caption(f, c)]).map(([f, cap]) => `
     <figure data-lightbox="screens"><div class="shot"><img src="${SHOTS}${f}-${LANG}.webp" data-full="${SHOTS}${f}-${LANG}.webp" alt="${cap}" loading="lazy" width="720" height="1600"></div><figcaption>${cap}</figcaption></figure>`).join('');
 }
 
@@ -70,6 +77,7 @@ async function boot() {
       ['title', 'description'].forEach((k) => $(`meta[property="og:${k}"]`).setAttribute('content', STRINGS.static[`meta.og.${k}`]));
     },
   });
+  setupActivitySwitch();
   setupAnchors();
   renderScreens();
   setupLightbox();
@@ -78,18 +86,23 @@ async function boot() {
 
   const onProgress = loaderArcs();
   onProgress(0.2);
+  applyActivity();
+  // Sections of another identity (data-only) leave the page before the stage and the panels count them.
+  $$('[data-only]').forEach((el) => { if (el.dataset.only !== activity()) el.remove(); });
   let bundle = null;
   if (webglOK()) {
     try {
       await document.fonts.ready;
       bundle = await setupStage(async ({ labelsFor }) => {
-        const [{ CanyonAct }, { SignalAct }, { MeshAct }] = await Promise.all([
-          import('./acts/canyon.js'), import('./acts/signal.js'), import('./acts/mesh.js'),
+        const climb = $('section[data-act="climb"]');
+        const [hero, { SignalAct }, { MeshAct }, extra] = await Promise.all([
+          import(`./acts/${activity()}.js`), import('./acts/signal.js'), import('./acts/mesh.js'), climb ? import('./acts/climb.js') : null,
         ]);
         onProgress(0.6);
         return {
-          canyon: new CanyonAct({ labels: labelsFor() }),
+          hero: new hero.HeroAct({ labels: labelsFor() }),
           signal: new SignalAct({ labels: labelsFor() }),
+          ...(extra && { climb: new extra.ClimbAct({ labels: labelsFor() }) }),
           mesh: new MeshAct({ labels: labelsFor() }),
         };
       }, onProgress);

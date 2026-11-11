@@ -25,6 +25,23 @@
   <link rel="alternate" hreflang="en" href="https://siflo.app/en/">
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/">
   <script>
+    // Pick the activity before first paint (css [data-activity], js/activity.js): an activity's own page
+    // (/montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=, then the
+    // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
+    (function () {
+      var ok = ['canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
+      try {
+        if (a) localStorage.setItem('activity', a);
+        else {
+          var p = new URLSearchParams(location.search), q = p.get('activite') || p.get('activity');
+          if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
+          else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
+        }
+      } catch (e) {}
+      root.dataset.activity = a || 'canyon';
+    })();
+  </script>
+  <script>
     // Hero download button for the device (css .os-*): iPhone and iPad (iPadOS says Macintosh, with a touch screen), Android, else the download section.
     (function (ua) {
       document.documentElement.dataset.os = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'ios' : /Android/.test(ua) ? 'android' : 'desktop';
@@ -52,6 +69,11 @@
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
     </symbol>
+    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0). -->
+    <symbol id="act-canyon" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M11.4 0H12.4V12H11.6ZM13 0H13.8V11H13ZM14.3 0H15V11.5H14.3Z"/><path d="M12.5 12.5c.32 0 .64.11.89.31l.32.26c.3.24.68.39 1.07.43H15V15h-.05c-.46 0-.89-.16-1.24-.44l-.32-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.32.25c-.3.25-.68.4-1.07.43L0 15v-1.5h.05c.46 0 .89-.15 1.24-.43l.32-.26c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31Z"/><circle cx="11" cy="0.5" r="0.55"/><circle cx="4.6" cy="3.2" r="1.4"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" d="M11 0.5L6.8 8.4M6.8 8.4C6.8 10.4 6.4 11.6 5 12.3"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5.2 5L6.7 8.2"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.7 8.2L10.9 9.7"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M5.6 5.7L8.6 5"/></g></symbol>
+    <symbol id="act-mountain" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path fill-rule="evenodd" d="M0 15L5.4 6.2L7.3 8.8L10.5 4.2L15 15ZM8.55 7L9.5 7.6L10.4 6.9L11.2 7.6L11.67 7L12 7.8L11.2 8.4L10.4 7.7L9.5 8.4L8 7.9Z"/><path d="M10.25 0.3H10.75V4.2H10.25ZM10.75 0.3L13.65 1.2L10.75 2.1Z"/></g></symbol>
+    <symbol id="act-gathering" viewBox="0 0 24 24"><path d="M12 12.75c1.63 0 3.07.39 4.24.9c1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73c1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3"/></symbol>
+    <symbol id="act-cave" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M6.11 3.54c.1-.11.1-.33 0-.43l-.54-.75c-.11-.22-.32-.22-.53-.11L2.46 4.39c-.1.11-.1.32 0 .43l.65.75c.1.11.32.11.43 0zM3.54 6.43c-.11.11-.22.32-.33.43c-.1.21-.21.32-.21.53l-.75 3.22l-2.04 1.93c-.1 0-.1.1-.1.21c-.22.32-.11.86.32 1.07c.21.11.64 0 .86-.21l2.25-2.15l.1-.1c0-.11.11-.11.11-.22l.43-2.03l1.71 1.5v2.57c0 .32.11.53.43.64c.32.22.86.11 1.07-.32c.11-.11.11-.21.11-.43v-2.78a.86.86 0 0 0-.21-.54L5.46 8.14l1.83-1.5l.53 1.4c0 .1.11.1.22.21l1.82 1.39c.21.11.53 0 .64-.21c.21-.22.21-.64 0-.86c0 0-.11-.11-.11-.21L9 7.29l-.96-2.15c-.11-.32-.33-.53-.54-.75c-.54-.21-1.07-.21-1.5.11zM11 3l3-3c.67.67 1 1.67 1 3s-.33 2.33-1 3zm-3.5-.32a1.61 1.61 0 1 0 3.21 0a1.61 1.61 0 1 0-3.21 0"/></g></symbol>
   </svg>
 
   <div id="loader" class="loader" aria-hidden="true">
@@ -83,6 +105,15 @@
       <a href="#aide" data-i18n="nav.help">Help</a>
     </div>
     <div class="nav-right">
+      <div class="act-switch">
+        <button class="act-current" aria-haspopup="true" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg><span class="act-name">Canyon</span><i class="act-caret"></i></button>
+        <ul class="act-menu" role="menu" hidden>
+          <li><button role="menuitemradio" aria-checked="false" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span><span class="act-n" data-i18n="act.canyon.n">Canyoning</span><small data-i18n="act.canyon.s">Abseils, waterfalls, pools</small></span></button></li>
+          <li><button role="menuitemradio" aria-checked="false" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span><span class="act-n" data-i18n="act.mountain.n">Mountain</span><small data-i18n="act.mountain.s">Ski touring, mountaineering, climbing, ice</small></span></button></li>
+          <li><button role="menuitemradio" aria-checked="false" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span><span class="act-n" data-i18n="act.cave.n">Caving</span><small data-i18n="act.cave.s">Shafts, passages, underground rivers</small></span></button></li>
+          <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Gatherings</span><small data-i18n="act.gathering.s">Festivals, events, volunteers</small></span></button></li>
+        </ul>
+      </div>
       <a href="labs/" class="nav-labs" data-i18n="nav.labs">Labs</a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
     </div>
@@ -90,8 +121,8 @@
   </nav>
 
   <main>
-    <!-- ACT · canyon (js/acts/canyon.js): dusk flight into a gorge, the whistle drowned by the waterfall, then the phones relay it. -->
-    <section id="top" class="act" data-act="canyon">
+    <!-- ACT · hero (js/acts/canyon.js, mountain.js or cave.js, after the activity): the whistle drowned by the terrain, then the phones relay the message. -->
+    <section id="top" class="act" data-act="hero">
       <div class="panel panel-hero">
         <div class="hero-content">
           <p class="eyebrow"><span class="pulse-dot"></span><span data-i18n="hero.eyebrow">Outdoor group communication</span></p>
@@ -112,6 +143,16 @@
             <a href="https://apps.apple.com/app/id6827630745" class="btn btn-primary os-ios"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span data-i18n="hero.cta1i">Download on the App Store</span></a>
             <a href="#telecharger" class="btn btn-primary os-other"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14"/></svg><span data-i18n="hero.cta1d">Get Siflo</span></a>
             <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">See how it works</a>
+          </div>
+        </div>
+        <div class="hero-acts">
+          <button class="ha-current" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg></button>
+          <span class="ha-name" data-i18n="act.canyon.n">Canyoning</span>
+          <div class="ha-list" role="group" aria-label="Terrains" data-i18n-aria="act.list">
+            <button data-activity="canyon" aria-label="Canyoning" data-i18n-aria="act.canyon.n"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyoning</span></button>
+            <button data-activity="mountain" aria-label="Mountain" data-i18n-aria="act.mountain.n"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
+            <button data-activity="cave" aria-label="Caving" data-i18n-aria="act.cave.n"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
+            <button data-activity="gathering" aria-label="Gatherings" data-i18n-aria="act.gathering.n"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Gatherings</span></button>
           </div>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Scroll</i></div>
@@ -150,7 +191,7 @@
           <div class="reveal">
             <div class="phone-frame chat" data-in aria-hidden="true">
               <div class="chat-screen">
-                <div class="chat-top"><i class="chat-back"></i><span class="chat-av">CF</span><span><b data-i18n="ch.group">Furon Canyon</b><small data-i18n="ch.members">6 members · ends in 2 days</small></span></div>
+                <div class="chat-top"><i class="chat-back"></i><span class="chat-av" data-i18n="ch.av">CF</span><span><b data-i18n="ch.group">Furon Canyon</b><small data-i18n="ch.members">6 members · ends in 2 days</small></span></div>
                 <div class="chat-list">
                   <div class="bub" style="--i:0"><span class="who">Léa</span><span data-i18n="ch.m1">Leaving the car park at 8, sharp 👀</span><span class="reac">👍 4</span></div>
                   <div class="bub poll" style="--i:1"><span class="who">Léa</span><b data-i18n="ch.pq">Lift-sharing from Grenoble</b><span class="opt" style="--v:.4"><span data-i18n="ch.p1">I’m driving, 3 seats</span><i>2</i></span><span class="opt" style="--v:.6"><span data-i18n="ch.p2">I need a lift</span><i>3</i></span><small data-i18n="ch.pv">Poll · 5 votes</small></div>
@@ -223,6 +264,25 @@
       </div>
     </section>
 
+    <!-- ACT · climb (js/acts/climb.js), mountain only (data-only, removed elsewhere by main.js): a multi-pitch route, the belayer loses sight of the leader, « Vaché » reaches his phone alone. -->
+    <section id="escalade" class="act" data-act="climb" data-only="mountain">
+      <div class="panel panel-right">
+        <div class="card">
+          <p class="kicker" data-i18n="cl1.k">Climbing focus · 01</p>
+          <h2 data-i18n="cl1.h">On a multi-pitch, the belayer loses sight of the leader.</h2>
+          <p data-i18n="cl1.p">Léa has pulled over the overhang and clips into the anchor. Tom, belaying her from below, can no longer see her. The wind carries the calls away, and the next rope team is shouting its own. One misheard call is enough for a ground fall.</p>
+        </div>
+      </div>
+      <div class="panel panel-left panel-sticky">
+        <div class="card">
+          <p class="kicker" data-i18n="cl2.k">Climbing focus · 02</p>
+          <h2 data-i18n="cl2.h">“Safe”, on the belayer’s phone only.</h2>
+          <p data-i18n="cl2.p">Create your own signals: “Safe”, “Take”, “Lower me”. They reach Tom’s phone only, with Léa’s name, never the phones of the team next door. Until Tom has it, Siflo keeps sending; as soon as he confirms, Léa sees it.</p>
+          <ul class="chips"><li class="ok"><i>✓</i><span data-i18n="cl2.c1">Tom · received</span></li><li class="ok"><i>✓✓</i><span data-i18n="cl2.c2">Tom · seen</span></li></ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ACT · mesh (js/acts/mesh.js): map of the gorge, Bluetooth hops, 4G bridge through the blind relay, late arrivals, SOS. -->
     <section id="reseau" class="act" data-act="mesh">
       <div class="panel panel-right">
@@ -260,36 +320,50 @@
         <div class="section-head reveal">
           <p class="kicker" data-i18n="fd.k">In the field</p>
           <h2 class="h-xl" data-i18n="fd.h">When voice and whistle<br><em>are not enough.</em></h2>
-          <p class="lead" data-i18n="fd.lead">Four situations described by manufacturers and federations, with what Siflo changes. Sources under each one, for the sceptics.</p>
+          <p class="lead" data-i18n="fd.lead">Situations described by manufacturers, federations and operators, with what Siflo changes. The sources are under each example, for the sceptics.</p>
         </div>
         <div class="features cases">
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="1">
             <p class="case-tag" data-i18n="fd.1t">Canyoning · releasable rigging</p>
             <h3 data-i18n="fd.1h">Asking for more rope from inside the waterfall</h3>
             <p data-i18n="fd.1p">The first person rappels on a rope that is deliberately too short, and has to ask the teammate at the anchor for slack. Under the waterfall, voices do not carry, and the whistle code had better have been agreed beforehand.</p>
             <p class="case-siflo" data-i18n="fd.1s"><b>With Siflo</b>: “Release the rope” reaches only the phone of the teammate at the anchor, with the name of whoever is asking.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source: Petzl, “Securing the first person on rappel” (in French)</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="2">
             <p class="case-tag" data-i18n="fd.2t">Canyoning · teammate in trouble</p>
             <h3 data-i18n="fd.2h">Warning the person at the anchor about a problem they cannot see</h3>
             <p data-i18n="fd.2p">Bulges, overhangs, rappels in the flow: a stuck teammate can be invisible from above. Hand signs and whistles only work if everyone learnt the same codes. And remembers them.</p>
             <p class="case-siflo" data-i18n="fd.2s"><b>With Siflo</b>: you spell it out to the whole group, “Léa stuck under the waterfall, release”. Nothing to remember.</p>
             <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source: French canyoning instructor handbook (in French)</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="3">
             <p class="case-tag" data-i18n="fd.3t">Caving · wet pitch</p>
             <h3 data-i18n="fd.3h">Getting through to those at the top of the pitch</h3>
             <p data-i18n="fd.3p">At the bottom of a wet pitch, a caver thinks the rope is damaged. Passed on by shouting, the message gets garbled and ends up triggering a rescue call-out, over a leaf caught on the rope. Word of mouth has its limits, especially underground.</p>
             <p class="case-siflo" data-i18n="fd.3s"><b>With Siflo</b>: with a teammate halfway down to link the phones, “STOP, don’t come down” and then the explanation arrive word for word, with the sender’s name.</p>
             <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source: ULSA incident report, Yorkshire, 2025</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="4">
             <p class="case-tag" data-i18n="fd.4t">Climbing · at the crag</p>
             <h3 data-i18n="fd.4h">Not mixing up the calls</h3>
             <p data-i18n="fd.4p">Out of sight, the climber calls that they are safe, or that they want to be lowered. One misheard call, or one shouted by the party next door, is enough to send someone to the ground.</p>
             <p class="case-siflo" data-i18n="fd.4s"><b>With Siflo</b>: create “Safe” and “Lower me” signals. They reach your belayer’s phone only, never those of the party next door.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source: FFME safety letter no. 8 (in French)</a>
+          </article>
+          <article class="feature case reveal" data-case="5" data-only="mountain">
+            <p class="case-tag" data-i18n="fd.5t">Ski touring · one at a time</p>
+            <h3 data-i18n="fd.5h">Keeping in touch when the group spreads out</h3>
+            <p data-i18n="fd.5p">On steep slopes, the French federation advises spacing out the group and going “one at a time” when in doubt, while staying within sight of each other. In wind or a whiteout, sight is quickly lost.</p>
+            <p class="case-siflo" data-i18n="fd.5s"><b>With Siflo</b>: “One at a time”, “Regroup” or “It’s cracking” reach the group’s phones, even out of sight. Keep the phone more than 20 cm from your transceiver, as the federation advises.</p>
+            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source: FFME, safety recommendations for ski mountaineering and ski touring (in French)</a>
+          </article>
+          <article class="feature case reveal" data-case="6" data-only="gathering">
+            <p class="case-tag" data-i18n="fd.6t">Festival · saturated network</p>
+            <h3 data-i18n="fd.6h">Reaching the first-aid post when the tower saturates</h3>
+            <p data-i18n="fd.6p">Each cell tower only accepts a limited number of connections at once. When tens of thousands of festival-goers connect to it, the operator says so itself: calls fail and photos won’t send.</p>
+            <p class="case-siflo" data-i18n="fd.6s"><b>With Siflo</b>: the volunteer team’s messages go from phone to phone, without the tower, all the way to the first-aid post. For the emergency services, call 112.</p>
+            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source: Bouygues Telecom, “Réseau en festival : pourquoi ça sature” (in French)</a>
           </article>
         </div>
       </div>
