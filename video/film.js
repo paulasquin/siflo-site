@@ -14,7 +14,7 @@
     s7: { k: 'SOS', l: ['Un SOS en deux secondes,', 'tous ceux à portée sont alertés.'] },
     s8: { k: 'Chiffrement de bout en bout', l: ['Vos messages restent entre vous.', 'Tout est expliqué sur siflo.app/labs'] },
     s9: { k: 'Et plus encore', l: ['Aussi pour les festivals', 'et les grands rassemblements.'], chips: [['•', 'Android et iPhone dans le même groupe'], ['•', 'Position partagée'], ['•', 'Invitation par QR code']] },
-    card: 'Le film : comment Siflo protège un message',
+    card: 'Vidéo de présentation du chiffrement',
     end: { tag: ['La communication de groupe', 'en pleine nature.'], facts: 'Gratuite · sans compte · sans annonces', play: ['Disponible sur', 'Google Play'], apple: ['Télécharger dans', 'l’App Store'], watch: 'Et sur votre montre : Wear OS, Garmin, Amazfit, Apple Watch' },
   } : {
     s1: { k: 'Canyoning · caving · climbing', l: ['Stay in touch,', 'even with no signal.'] },
@@ -26,7 +26,7 @@
     s7: { k: 'SOS', l: ['SOS in two seconds,', 'reaching everyone in range.'] },
     s8: { k: 'End-to-end encryption', l: ['Your messages stay between you.', 'It’s all explained at siflo.app/labs'] },
     s9: { k: 'And more', l: ['Also for festivals', 'and big gatherings.'], chips: [['•', 'Android and iPhone in one group'], ['•', 'Shared location'], ['•', 'QR code invitations']] },
-    card: 'The film: how Siflo protects a message',
+    card: 'Encryption explainer video',
     end: { tag: ['Group communication', 'for the outdoors.'], facts: 'Free · no account · no ads', play: ['Get it on', 'Google Play'], apple: ['Download on the', 'App Store'], watch: 'And on your watch: Wear OS, Garmin, Amazfit, Apple Watch' },
   };
   const scr = (n) => (/^(09|10|11|12)/.test(n) ? `video/screens/${n}-${L}.webp` : `assets/screens/${n}-${L}.webp`);
