@@ -582,7 +582,7 @@ main { position: relative; z-index: 2; }
 .act-menu .act-ico { color: var(--c); }
 body.switching main, body.switching .stage, body.switching .stage-labels { opacity: 0; transition: opacity .4s ease; }
 
-/* The hero's selector: the current terrain's logo, large; a tap fans out the two other logos. */
+/* The hero's selector: the current terrain's logo, large; a tap fans out the three logos (canyon, mountain, caving). */
 .hero-acts { position: absolute; right: calc(var(--pad) + 20px); top: 50%; z-index: 2; display: grid; justify-items: center; gap: 10px; transform: translateY(-50%); }
 .ha-current { position: relative; width: 112px; height: 112px; display: grid; place-items: center; border: 1px solid rgba(var(--accent-rgb), .55); border-radius: 50%; background: radial-gradient(circle at 50% 40%, rgba(var(--accent-rgb), .32), rgba(var(--bg-rgb), .72) 70%); color: var(--accent-soft); cursor: pointer; backdrop-filter: blur(8px); box-shadow: 0 0 0 8px rgba(var(--accent-rgb), .07), 0 20px 60px -20px rgba(var(--accent-rgb), .8); transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s; }
 .ha-current::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; border: 1px solid rgba(var(--accent-rgb), .35); animation: ha-pulse 2.8s ease-out infinite; }
@@ -596,7 +596,7 @@ body.switching main, body.switching .stage, body.switching .stage-labels { opaci
 .ha-list .act-ico { box-sizing: content-box; width: 40px; height: 40px; padding: 18px; border-radius: 50%; color: #fff; background: radial-gradient(circle at 50% 35%, rgba(var(--c-rgb), .55), rgba(10, 10, 12, .85) 72%); border: 1px solid rgba(var(--c-rgb), .6); box-shadow: 0 14px 40px -16px rgba(var(--c-rgb), .9); transition: transform .3s, box-shadow .3s; }
 .ha-list button span { text-shadow: 0 1px 3px rgba(0, 0, 0, .9); }
 .ha-list button:hover .act-ico, .ha-list button:focus-visible .act-ico { transform: translateY(-4px); box-shadow: 0 0 0 4px rgba(var(--c-rgb), .25), 0 18px 46px -14px rgba(var(--c-rgb), 1); }
-.ha-list button[aria-current] { display: none; }
+.ha-list button[aria-current] .act-ico { box-shadow: 0 0 0 3px rgba(var(--c-rgb), .9), 0 14px 40px -16px rgba(var(--c-rgb), .9); }
 .hero-acts.open .ha-list { pointer-events: auto; }
 .hero-acts.open .ha-list button { opacity: 1; transform: none; }
 @media (max-width: 1240px) {

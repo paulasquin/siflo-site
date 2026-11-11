@@ -162,7 +162,7 @@ export function setupActivitySwitch() {
   btn.addEventListener('click', (e) => { e.stopPropagation(); open(menu.hidden); });
   document.addEventListener('click', (e) => { if (!sw.contains(e.target)) open(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
-  // The hero: the current terrain's logo; a tap fans out the two others, a tap on one switches.
+  // The hero: the current terrain's logo; a tap fans out the three, a tap on one switches.
   const hero = $('.hero-acts'), logo = $('.ha-current');
   const fan = (on) => { hero?.classList.toggle('open', on); logo?.setAttribute('aria-expanded', on); };
   logo?.addEventListener('click', (e) => { e.stopPropagation(); fan(!hero.classList.contains('open')); });
