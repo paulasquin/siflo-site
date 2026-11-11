@@ -1,6 +1,6 @@
 // Act · hero for gatherings — a festival at night: a stage with its light beams sweeping the haze,
 // a crowd holding up its phones, a saturated cell tower and the first-aid post at the edge. Julie,
-// volunteering by the stage, calls out and the music drowns her while the tower lets nothing
+// volunteering by the stage, needs the first-aid post while the saturated tower lets nothing
 // through; then her message (someone collapsed in the front row) hops from phone to phone through
 // the crowd to Léa and Tom at the first-aid post, and the acknowledgements come back.
 import * as THREE from 'three';
@@ -215,7 +215,7 @@ export class HeroAct {
     const spots = { julie: at(9, STAGE_Z + 9), marc: at(15, -16), lea: at(23.5, 4.5), tom: at(30, 7) };
     this.story = new Story(s, labels, {
       spots, face: { julie: at(9, 0), marc: at(30, 10), lea: at(0, -20), tom: at(0, -20) },
-      noise: TOWER.clone().add(new THREE.Vector3(-1, 19, 0)), lifts: [2.4, 2.4, 1.2], ring: '#f0d6ff', ringSize: 7, sides: { noise: 'left', whistle: 'left' },
+      noise: TOWER.clone().add(new THREE.Vector3(-1, 19, 0)), lifts: [2.4, 2.4, 1.2], sides: { noise: 'left' }, call: false, callLabel: false,
     });
     this.towerTop = TOWER.clone().add(new THREE.Vector3(0, 26, 0));
 

@@ -26,8 +26,9 @@ export class Story {
    * spots: {julie, marc, lea, tom} ground positions; face: point they look towards (or per member);
    * noise: where the noise label sits; lifts: arc heights julie→marc, marc→lea, lea→tom.
    */
-  constructor(scene, labels, { spots, face, gear, noise, lifts = [2.2, 1.6, 1.8], ring = '#ffd9bf', ringSize = 9, chestY = 1.15, sides = {}, call = true }) {
+  constructor(scene, labels, { spots, face, gear, noise, lifts = [2.2, 1.6, 1.8], ring = '#ffd9bf', ringSize = 9, chestY = 1.15, sides = {}, call = true, callLabel = true }) {
     this.call = call; // false: no whistle rings in the first card (the scene shows its own problem)
+    this.callLabel = callLabel; // false: no label on Julie in the first card either
     this.labels = labels;
     this.beacons = {};
     this.chest = {};
@@ -101,7 +102,7 @@ export class Story {
     this.packets.update();
 
     const L = this.lab, lb = this.labels;
-    lb.show(L.whistle, ph1 > 0.5 && p < 1.3);
+    lb.show(L.whistle, this.callLabel && ph1 > 0.5 && p < 1.3);
     lb.show(L.noise, ph1 > 0.5 && p < 1.3);
     lb.show(L.julie, ph2 > 0.6);
     lb.show(L.marc, ph2 > 0.6);

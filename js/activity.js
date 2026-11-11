@@ -128,7 +128,7 @@ const COPY = {
     fr: {
       'hero.eyebrow': 'Festivals, événements, bénévoles',
       'c1.h': 'Des milliers de téléphones, une seule antenne.',
-      'c1.p': 'Le soir du concert, le réseau sature&#8239;: les messages restent bloqués, les appels ne passent plus. Devant la scène, la musique couvre la voix, et tout le monde n’a pas de talkie-walkie. Quand quelqu’un fait un malaise au premier rang, le poste de secours n’en sait rien.',
+      'c1.p': 'Le soir du concert, des milliers de téléphones se partagent les mêmes antennes&#8239;: les messages restent bloqués, les appels ne passent plus, et tout le monde n’a pas de talkie-walkie. Quand quelqu’un fait un malaise au premier rang, le poste de secours n’en sait rien.',
       'c2.p': `Julie, bénévole devant la scène, écrit ${q('Malaise au premier rang, côté gauche')}. Le téléphone de Marc, au milieu de la foule, transmet le message à Léa et Tom, au poste de secours, sans passer par l’antenne.`,
       's1.h': 'Les consignes de l’équipe, en une touche.',
       's1.p': 'Quatre grosses touches, faciles à viser dans la foule. Les points donnent le nombre de vibrations&#8239;: on les sent même quand on n’entend plus rien. Chaque équipe peut y mettre ses propres codes.',
@@ -139,7 +139,7 @@ const COPY = {
     en: {
       'hero.eyebrow': 'Festivals, events, volunteers',
       'c1.h': 'Thousands of phones, one cell tower.',
-      'c1.p': 'On concert night the network saturates: messages get stuck, calls fail. In front of the stage the music drowns the voice, and not everyone has a radio. When someone collapses in the front row, the first-aid post has no idea.',
+      'c1.p': 'On concert night, thousands of phones share the same towers: messages get stuck, calls fail, and not everyone has a radio. When someone collapses in the front row, the first-aid post has no idea.',
       'c2.p': 'Julie, volunteering by the stage, types “Someone collapsed, front row, left side”. Marc’s phone, in the middle of the crowd, passes the message on to Léa and Tom at the first-aid post, without going through the tower.',
       's1.h': 'The team’s calls, one tap away.',
       's1.p': 'Four big buttons, easy to hit in a crowd. The dots give the number of vibrations: you feel them even when you can hear nothing. Each team can put in its own codes.',
@@ -151,13 +151,13 @@ const COPY = {
       fr: {
         'phone.group': 'Festival · bénévoles', 'phone.stop': 'Attends', 'phone.ok': 'OK', 'phone.release': 'Viens', 'phone.pull': 'J’arrive',
         'label.press': 'Appui sur Attends',
-        'label.whistle': 'La voix couverte par la musique', 'label.waterfall': 'Antenne saturée · plus rien ne passe',
+'label.waterfall': 'Antenne saturée · plus rien ne passe',
         'label.julie': `Julie${NNBSP}: ${q('Malaise au premier rang')}`, 'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, au poste de secours',
       },
       en: {
         'phone.group': 'Festival volunteers', 'phone.stop': 'Wait', 'phone.ok': 'OK', 'phone.release': 'Come', 'phone.pull': 'Coming',
         'label.press': 'Wait pressed',
-        'label.whistle': 'Voice drowned by the music', 'label.waterfall': 'Tower saturated · nothing gets through',
+'label.waterfall': 'Tower saturated · nothing gets through',
         'label.julie': 'Julie: “Someone collapsed, front row”', 'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, at the first-aid post',
       },
     },
