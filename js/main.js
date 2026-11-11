@@ -1,8 +1,8 @@
-// Page wiring: strings, the activity (chooser on a first visit, its texts), plain sections (screens,
+// Page wiring: strings, the activity (its texts and switches), plain sections (screens,
 // film, encryption), the stage and its three acts (the activity's hero, signal, mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
 import { STRINGS } from './strings.js';
-import { activity, applyActivity, chooseActivity, setupActivitySwitch } from './activity.js';
+import { activity, applyActivity, setupActivitySwitch } from './activity.js';
 import {
   $, $$, capture, debug, lenis, setupAnchors, webglOK, setupStage, bindActs, setupPanels, setupReveals,
   setupNav, setupLightbox, finishBoot,
@@ -80,20 +80,23 @@ async function boot() {
 
   const onProgress = loaderArcs();
   onProgress(0.2);
-  await chooseActivity();
   applyActivity();
+  // Sections of another identity (data-only) leave the page before the stage and the panels count them.
+  $$('[data-only]').forEach((el) => { if (el.dataset.only !== activity()) el.remove(); });
   let bundle = null;
   if (webglOK()) {
     try {
       await document.fonts.ready;
       bundle = await setupStage(async ({ labelsFor }) => {
-        const [hero, { SignalAct }, { MeshAct }] = await Promise.all([
-          import(`./acts/${activity()}.js`), import('./acts/signal.js'), import('./acts/mesh.js'),
+        const climb = $('section[data-act="climb"]');
+        const [hero, { SignalAct }, { MeshAct }, extra] = await Promise.all([
+          import(`./acts/${activity()}.js`), import('./acts/signal.js'), import('./acts/mesh.js'), climb ? import('./acts/climb.js') : null,
         ]);
         onProgress(0.6);
         return {
           hero: new hero.HeroAct({ labels: labelsFor() }),
           signal: new SignalAct({ labels: labelsFor() }),
+          ...(extra && { climb: new extra.ClimbAct({ labels: labelsFor() }) }),
           mesh: new MeshAct({ labels: labelsFor() }),
         };
       }, onProgress);

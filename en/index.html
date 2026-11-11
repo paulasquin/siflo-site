@@ -26,7 +26,7 @@
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/">
   <script>
     // Pick the activity before first paint (css [data-activity], js/activity.js): ?activite= or ?activity=, then the
-    // visitor's saved choice. A first visit gets the chooser; crawlers, test browsers and captures stay on canyon.
+    // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
     (function () {
       var ok = ['canyon', 'mountain', 'cave'], a = null, root = document.documentElement;
       try {
@@ -34,9 +34,7 @@
         if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
         else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
       } catch (e) {}
-      var bot = navigator.webdriver || /bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent) || /capture/.test(location.search);
       root.dataset.activity = a || 'canyon';
-      if (!a && !bot) root.classList.add('choose-activity');
     })();
   </script>
   <script>
@@ -67,9 +65,10 @@
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
     </symbol>
-    <symbol id="act-canyon" viewBox="0 0 24 24"><path d="M4 2.5v19M20 2.5v19M9.5 3v8.5M12.5 3v11M15 3v7.5M7 18.5c1.7-1.3 3.3-1.3 5 0s3.3 1.3 5 0"/></symbol>
-    <symbol id="act-mountain" viewBox="0 0 24 24"><path d="M2 20.5 9 7.5l3.6 6.2 2.6-3.7 6.8 10.5z"/><path d="m6.6 12 2.4 1.4 1.8-1.6"/></symbol>
-    <symbol id="act-cave" viewBox="0 0 24 24"><path d="M3 21.5V12a9 9 0 0 1 18 0v9.5M8 8.2v3.3M12 6.3V11M16 8.2v2.6M2 21.5h20"/></symbol>
+    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving in paulasquin/siflo; Pinhead, CC0). -->
+    <symbol id="act-canyon" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M11.4 0H12.4V12H11.6ZM13 0H13.8V11H13ZM14.3 0H15V11.5H14.3Z"/><path d="M12.5 12.5c.32 0 .64.11.89.31l.32.26c.3.24.68.39 1.07.43H15V15h-.05c-.46 0-.89-.16-1.24-.44l-.32-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.32.25c-.3.25-.68.4-1.07.43L0 15v-1.5h.05c.46 0 .89-.15 1.24-.43l.32-.26c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31Z"/><circle cx="11" cy="0.5" r="0.55"/><circle cx="4.6" cy="3.2" r="1.4"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" d="M11 0.5L6.8 8.4M6.8 8.4C6.8 10.4 6.4 11.6 5 12.3"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5.2 5L6.7 8.2"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.7 8.2L10.9 9.7"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M5.6 5.7L8.6 5"/></g></symbol>
+    <symbol id="act-mountain" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path fill-rule="evenodd" d="M0 15L5.4 6.2L7.3 8.8L10.5 4.2L15 15ZM8.55 7L9.5 7.6L10.4 6.9L11.2 7.6L11.67 7L12 7.8L11.2 8.4L10.4 7.7L9.5 8.4L8 7.9Z"/><path d="M10.25 0.3H10.75V4.2H10.25ZM10.75 0.3L13.65 1.2L10.75 2.1Z"/></g></symbol>
+    <symbol id="act-cave" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M6.11 3.54c.1-.11.1-.33 0-.43l-.54-.75c-.11-.22-.32-.22-.53-.11L2.46 4.39c-.1.11-.1.32 0 .43l.65.75c.1.11.32.11.43 0zM3.54 6.43c-.11.11-.22.32-.33.43c-.1.21-.21.32-.21.53l-.75 3.22l-2.04 1.93c-.1 0-.1.1-.1.21c-.22.32-.11.86.32 1.07c.21.11.64 0 .86-.21l2.25-2.15l.1-.1c0-.11.11-.11.11-.22l.43-2.03l1.71 1.5v2.57c0 .32.11.53.43.64c.32.22.86.11 1.07-.32c.11-.11.11-.21.11-.43v-2.78a.86.86 0 0 0-.21-.54L5.46 8.14l1.83-1.5l.53 1.4c0 .1.11.1.22.21l1.82 1.39c.21.11.53 0 .64-.21c.21-.22.21-.64 0-.86c0 0-.11-.11-.11-.21L9 7.29l-.96-2.15c-.11-.32-.33-.53-.54-.75c-.54-.21-1.07-.21-1.5.11zM11 3l3-3c.67.67 1 1.67 1 3s-.33 2.33-1 3zm-3.5-.32a1.61 1.61 0 1 0 3.21 0a1.61 1.61 0 1 0-3.21 0"/></g></symbol>
   </svg>
 
   <div id="loader" class="loader" aria-hidden="true">
@@ -81,19 +80,6 @@
         <path class="lm-arc" d="M73,32a30,30 0,0 1,0 44"/>
       </svg>
       <p class="loader-label" data-i18n="loader">Checking the knots…</p>
-    </div>
-  </div>
-
-  <div id="chooser" class="chooser" role="dialog" aria-modal="true" aria-labelledby="chooser-h" hidden>
-    <div class="chooser-inner">
-      <p class="kicker"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</p>
-      <h2 id="chooser-h" class="h-lg" data-i18n="pick.h">Where are you heading<br><em>this weekend?</em></h2>
-      <p class="lead" data-i18n="pick.p">The site adapts to your terrain. You can switch at any time, at the top of the page.</p>
-      <div class="chooser-grid">
-        <button class="pick" data-activity="canyon"><svg class="pick-art" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice"><path class="a1" d="M0 0h52l-6 30 8 28-10 42H0z"/><path class="a1" d="M160 0h-48l7 26-9 34 12 40h38z"/><path class="a2" d="M58 34h40v66H58z"/><path class="a3" d="M70 34h14l4 66H66z"/><path class="a4" d="M56 92c10-4 20 4 30 0s16-3 24 0v8H56z"/></svg><span class="pick-txt"><svg class="act-ico"><use href="#act-canyon"/></svg><b data-i18n="act.canyon.n">Canyoning</b><small data-i18n="act.canyon.s">Abseils, waterfalls, pools</small></span></button>
-        <button class="pick" data-activity="mountain"><svg class="pick-art" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice"><path class="a1" d="M0 72 30 34l14 12 22-30 18 22 12-10 26 26 38 28v18H0z"/><path class="a2" d="m66 16 18 22 12-10 10 10-9-1-8 5-9-7-12 6-10-9z"/><path class="a3" d="M112 40h5l1 26h-7zM120 44h4l1 20h-6z"/><path class="a4" d="M0 86c30-10 60-12 90-6s50 4 70-2v22H0z"/><circle class="a5" cx="132" cy="18" r="4"/></svg><span class="pick-txt"><svg class="act-ico"><use href="#act-mountain"/></svg><b data-i18n="act.mountain.n">Mountain</b><small data-i18n="act.mountain.s">Ski touring, mountaineering, climbing, ice</small></span></button>
-        <button class="pick" data-activity="cave"><svg class="pick-art" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice"><path class="a1" d="M0 0h160v100h-26c0-40-20-64-54-64S26 60 26 100H0z"/><path class="a2" d="m48 46 3 12 3-14zM70 38l2 16 3-17zM98 38l3 10 2-11zM116 50l2 8 2-9z"/><path class="a3" d="M80 52 42 100h76z"/><circle class="a4" cx="80" cy="52" r="3.5"/></svg><span class="pick-txt"><svg class="act-ico"><use href="#act-cave"/></svg><b data-i18n="act.cave.n">Caving</b><small data-i18n="act.cave.s">Shafts, passages, underground rivers</small></span></button>
-      </div>
     </div>
   </div>
 
@@ -115,7 +101,7 @@
     </div>
     <div class="nav-right">
       <div class="act-switch">
-        <button class="act-current" aria-haspopup="true" aria-expanded="false" aria-label="Change activity" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg><span class="act-name">Canyon</span><i class="act-caret"></i></button>
+        <button class="act-current" aria-haspopup="true" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg><span class="act-name">Canyon</span><i class="act-caret"></i></button>
         <ul class="act-menu" role="menu" hidden>
           <li><button role="menuitemradio" aria-checked="false" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span><span class="act-n" data-i18n="act.canyon.n">Canyoning</span><small data-i18n="act.canyon.s">Abseils, waterfalls, pools</small></span></button></li>
           <li><button role="menuitemradio" aria-checked="false" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span><span class="act-n" data-i18n="act.mountain.n">Mountain</span><small data-i18n="act.mountain.s">Ski touring, mountaineering, climbing, ice</small></span></button></li>
@@ -150,6 +136,15 @@
             <a href="https://apps.apple.com/app/id6827630745" class="btn btn-primary os-ios"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span data-i18n="hero.cta1i">Download on the App Store</span></a>
             <a href="#telecharger" class="btn btn-primary os-other"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14"/></svg><span data-i18n="hero.cta1d">Get Siflo</span></a>
             <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">See how it works</a>
+          </div>
+        </div>
+        <div class="hero-acts">
+          <button class="ha-current" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg></button>
+          <span class="ha-name" data-i18n="act.canyon.n">Canyoning</span>
+          <div class="ha-list" role="group" aria-label="Terrains" data-i18n-aria="act.list">
+            <button data-activity="canyon" aria-label="Canyoning" data-i18n-aria="act.canyon.n"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyoning</span></button>
+            <button data-activity="mountain" aria-label="Mountain" data-i18n-aria="act.mountain.n"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
+            <button data-activity="cave" aria-label="Caving" data-i18n-aria="act.cave.n"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
           </div>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Scroll</i></div>
@@ -257,6 +252,25 @@
           <h2 data-i18n="s3.h">You know when he gets it.</h2>
           <p data-i18n="s3.p">“Received” as soon as the signal arrives, “seen” once Marc confirms it with a tap. Until it is received, Siflo keeps sending it.</p>
           <ul class="chips"><li class="ok"><i>✓</i><span data-i18n="s3.c1">Marc · received</span></li><li class="ok"><i>✓✓</i><span data-i18n="s3.c2">Marc · seen</span></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT · climb (js/acts/climb.js), mountain only (data-only, removed elsewhere by main.js): a multi-pitch route, the belayer loses sight of the leader, « Vaché » reaches his phone alone. -->
+    <section id="escalade" class="act" data-act="climb" data-only="mountain">
+      <div class="panel panel-right">
+        <div class="card">
+          <p class="kicker" data-i18n="cl1.k">Climbing focus · 01</p>
+          <h2 data-i18n="cl1.h">On a multi-pitch, the belayer loses sight of the leader.</h2>
+          <p data-i18n="cl1.p">Léa has pulled over the overhang and clips into the anchor. Tom, belaying her from below, can no longer see her. The wind carries the calls away, and the next rope team is shouting its own. One misheard call is enough for a ground fall.</p>
+        </div>
+      </div>
+      <div class="panel panel-left panel-sticky">
+        <div class="card">
+          <p class="kicker" data-i18n="cl2.k">Climbing focus · 02</p>
+          <h2 data-i18n="cl2.h">“Safe”, on the belayer’s phone only.</h2>
+          <p data-i18n="cl2.p">Create your own signals: “Safe”, “Take”, “Lower me”. They reach Tom’s phone only, with Léa’s name, never the phones of the team next door. Until Tom has it, Siflo keeps sending; as soon as he confirms, Léa sees it.</p>
+          <ul class="chips"><li class="ok"><i>✓</i><span data-i18n="cl2.c1">Tom · received</span></li><li class="ok"><i>✓✓</i><span data-i18n="cl2.c2">Tom · seen</span></li></ul>
         </div>
       </div>
     </section>

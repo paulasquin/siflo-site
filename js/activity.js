@@ -1,7 +1,7 @@
 // The three identities of the page. The inline script in index.html <head> picks the activity
-// before first paint (?activite= / ?activity=, then the visitor's saved choice; canyon for
-// crawlers) and sets <html data-activity>, which the stylesheet themes. A first visit gets the
-// chooser (#chooser) before the 3D stage loads; the switch in the top bar changes it later.
+// before first paint (?activite= / ?activity=, then the visitor's saved choice, else
+// canyon) and sets <html data-activity>, which the stylesheet themes. The selector in the hero
+// (.hero-acts) and the switch in the top bar change it.
 // The canyon copy is the page itself; the other activities replace a few texts below.
 import { LANG, registerStrings } from './kit/i18n.js';
 
@@ -70,12 +70,16 @@ const COPY = {
         'label.whistle': 'Ça craque sous les skis', 'label.waterfall': 'Jour blanc · plus personne en vue', 'label.julie': `Julie${NNBSP}: ${q('Ça craque, un par un')}`,
         'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, plus bas dans la combe', 'label.icefall': 'Cascade de glace', 'label.icecave': 'Grotte de glace',
         'label.behind': 'Resté en arrière sur l’arête',
+        'label.lea': 'Léa · vachée au relais', 'label.tom': 'Tom ne la voit plus', 'label.next': 'Cordée voisine',
+        'label.wind': 'Vent · les annonces se perdent', 'label.safe': `Léa${NNBSP}: ${q('Vaché')}`, 'label.tomok': 'Tom · reçu, puis vu', 'label.nothing': 'Cordée voisine · rien reçu',
       },
       en: {
         'phone.group': 'Belledonne', 'phone.release': 'One at\na time', 'phone.pull': 'Regroup',
         'label.whistle': 'Snow cracking under the skis', 'label.waterfall': 'Whiteout · nobody in sight', 'label.julie': 'Julie: “It’s cracking, one at a time”',
         'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, further down the bowl', 'label.icefall': 'Frozen waterfall', 'label.icecave': 'Ice cave',
         'label.behind': 'Left behind on the ridge',
+        'label.lea': 'Léa · safe at the anchor', 'label.tom': 'Tom can’t see her', 'label.next': 'Next rope team',
+        'label.wind': 'Wind · calls get lost', 'label.safe': 'Léa: “Safe”', 'label.tomok': 'Tom · received, then seen', 'label.nothing': 'Next rope team · nothing received',
       },
     },
   },
@@ -130,6 +134,10 @@ export function applyActivity() {
     $('.act-current .act-ico use')?.setAttribute('href', `#act-${a}`);
     $('.act-current .act-name').innerHTML = $('.act-n', cur).innerHTML;
     $$('.act-menu [data-activity]').forEach((b) => b.setAttribute('aria-checked', b === cur));
+    $('.ha-current use')?.setAttribute('href', `#act-${a}`);
+    const name = $('.ha-name');
+    if (name) name.innerHTML = $('.act-n', cur).innerHTML;
+    $$('.ha-list [data-activity]').forEach((b) => b.toggleAttribute('aria-current', b.dataset.activity === a));
   }
   if (!c) return;
   registerStrings({ ui: c.ui });
@@ -141,36 +149,7 @@ export function applyActivity() {
   }
 }
 
-/** First visit: show the chooser and resolve once an activity is picked (at once otherwise). */
-export function chooseActivity() {
-  const root = document.documentElement, box = $('#chooser');
-  if (!root.classList.contains('choose-activity') || !box) return Promise.resolve(activity());
-  box.hidden = false;
-  requestAnimationFrame(() => box.classList.add('on'));
-  return new Promise((resolve) => {
-    const pick = (a) => {
-      root.dataset.activity = a;
-      save(a);
-      root.classList.remove('choose-activity');
-      box.classList.remove('on');
-      document.removeEventListener('keydown', esc);
-      setTimeout(() => { box.hidden = true; }, 700);
-      resolve(a);
-    };
-    const esc = (e) => { if (e.key === 'Escape') pick(activity()); };
-    document.addEventListener('keydown', esc);
-    $$('[data-activity]', box).forEach((b) => {
-      b.addEventListener('click', () => pick(b.dataset.activity));
-      // Preview the identity on hover and focus: the page behind recolours.
-      const preview = () => { root.dataset.activity = b.dataset.activity; };
-      b.addEventListener('pointerenter', preview);
-      b.addEventListener('focus', preview);
-    });
-    $('[data-activity]', box)?.focus({ preventScroll: true });
-  });
-}
-
-/** The switch in the top bar: another activity reloads the page in its identity, from the top. */
+/** The hero's selector and the top bar's switch: another activity reloads the page in its identity, from the top. */
 export function setupActivitySwitch() {
   const sw = $('.act-switch');
   if (!sw) return;
@@ -183,8 +162,15 @@ export function setupActivitySwitch() {
   btn.addEventListener('click', (e) => { e.stopPropagation(); open(menu.hidden); });
   document.addEventListener('click', (e) => { if (!sw.contains(e.target)) open(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
-  $$('[data-activity]', menu).forEach((b) => b.addEventListener('click', () => {
+  // The hero: the current terrain's logo; a tap fans out the three, a tap on one switches.
+  const hero = $('.hero-acts'), logo = $('.ha-current');
+  const fan = (on) => { hero?.classList.toggle('open', on); logo?.setAttribute('aria-expanded', on); };
+  logo?.addEventListener('click', (e) => { e.stopPropagation(); fan(!hero.classList.contains('open')); });
+  document.addEventListener('click', (e) => { if (hero && !hero.contains(e.target)) fan(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fan(false); });
+  $$('.act-menu [data-activity], .hero-acts [data-activity]').forEach((b) => b.addEventListener('click', () => {
     open(false);
+    fan(false);
     const a = b.dataset.activity;
     if (a === activity()) return;
     save(a);
