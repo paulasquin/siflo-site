@@ -197,7 +197,7 @@ export const STRINGS = {
     'dl.s1': 'Get it on', 'dl.s2': 'Download on the', 'dl.s3': 'App Store',
     'dl.note': 'Android 8 or later, iPhone on iOS 17 or later. Apple Watch with an iPhone, Garmin and Amazfit with Android, always with the phone nearby.',
     'dl.tag': 'Be the relay.',
-    'dl.w': 'And on your watch', 'dl.now': 'Available', 'dl.zepp': 'In the Zepp app', 'dl.soon': 'Soon',
+    'dl.w': 'And on your watch', 'dl.now': 'Available', 'dl.zepp': 'In the Zepp app', 'dl.soon': 'Soon', 'dl.inreach': 'Garmin inReach satellite communicators: support under study',
     'fq.k': 'Help', 'fq.h': 'The questions<br><em>we get in the car park.</em>',
     'fq.2q': 'What is the range?', 'fq.2a': 'Over Bluetooth, about 25&nbsp;m from one phone to the next in a pocket, about a hundred metres in hand with a clear line of sight, up to 300&nbsp;m between two Android phones that support long-range Bluetooth. Every phone in the group then passes the message on to the next, up to 12 hops. With an optional LoRa radio, several kilometres. The details, link by link, are in the <a href="labs/">Labs</a>.',
     'fq.1q': 'Do I need a network to use Siflo?', 'fq.1a': 'No. Phones talk to each other directly, over Bluetooth and, on Android, nearby Wi-Fi. The internet only helps stitch a scattered group back together: if one phone on each side has signal, messages go through our relay servers.',
