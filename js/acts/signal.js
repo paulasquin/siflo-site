@@ -79,7 +79,7 @@ function drawSignals(g, { press = 0, sent = false, acks = 0 }) {
   }
   // status card: the recipient's acknowledgements, received then seen
   roundRect(g, 40, 860, SW - 80, 230, 28); g.fillStyle = C.card; g.fill();
-  g.fillStyle = C.ink; g.font = F(600, 26); g.fillText(`STOP · ${tr('phone.sent')}`, 70, 912);
+  g.fillStyle = C.ink; g.font = F(600, 26); g.fillText(`${tr('phone.stop')} · ${tr('phone.sent')}`, 70, 912);
   g.fillStyle = C.muted; g.font = F(500, 19); g.fillText(tr('phone.recipient.h'), 70, 962);
   const y = 1030;
   g.beginPath(); g.arc(92, y - 8, 22, 0, Math.PI * 2); g.fillStyle = '#e8d046'; g.fill();
@@ -107,7 +107,10 @@ function drawAlert(g, k) {
   g.beginPath(); g.arc(SW / 2, SH * 0.42, 260 + 40 * k, 0, Math.PI * 2); g.fill();
   g.fillStyle = '#fff'; g.textAlign = 'center';
   g.beginPath(); g.arc(SW / 2, 470, 12, 0, Math.PI * 2); g.fill();
-  g.font = F(800, 150); g.fillText('STOP', SW / 2, 640);
+  g.font = F(800, 150);
+  const word = tr('phone.stop'), wide = g.measureText(word).width;
+  if (wide > SW - 60) g.font = F(800, Math.floor(150 * (SW - 60) / wide));
+  g.fillText(word, SW / 2, 640);
   g.font = F(500, 40); g.fillText(tr('phone.from'), SW / 2, 716);
   g.fillRect(SW / 2 - 90, 736, 180, 4);
   g.font = F(400, 26); g.fillStyle = 'rgba(255,255,255,.85)'; g.fillText(`${tr('phone.group')} · 14:02`, SW / 2, 1180);

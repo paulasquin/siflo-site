@@ -1,11 +1,11 @@
-// The three identities of the page. The inline script in index.html <head> picks the activity
+// The four identities of the page. The inline script in index.html <head> picks the activity
 // before first paint (?activite= / ?activity=, then the visitor's saved choice, else
 // canyon) and sets <html data-activity>, which the stylesheet themes. The selector in the hero
 // (.hero-acts) and the switch in the top bar change it.
 // The canyon copy is the page itself; the other activities replace a few texts below.
 import { LANG, registerStrings } from './kit/i18n.js';
 
-export const ACTIVITIES = ['canyon', 'mountain', 'cave'];
+export const ACTIVITIES = ['canyon', 'mountain', 'cave', 'gathering'];
 export const activity = () => (ACTIVITIES.includes(document.documentElement.dataset.activity) ? document.documentElement.dataset.activity : 'canyon');
 
 /** Colours of the 3D acts: the phones' glow, the signal close-up and the contour map (a ridge instead of a gorge for the mountain). */
@@ -24,6 +24,11 @@ export const THEMES = {
     signal: '#f5b324', bg: '#090908',
     close: { bg: '#0a0907', key: '#fff1d2', rim: '#f5a524', ambient: '#2a2620', bokeh: ['#f5b324', '#ffd27a', '#fff3d6', '#3f6f68', '#7fb8a8'], body: '#25221d' },
     map: { bg: '#080706', lo: [0.004, 0.0035, 0.003], hi: [0.028, 0.024, 0.017], line: [1.0, 0.72, 0.2], river: '#4fb3a6', amber: '#9fe0c8', grey: '#b3aa98' },
+  },
+  gathering: {
+    signal: '#d946ef', bg: '#0b0812',
+    close: { bg: '#0c0812', key: '#f3e6ff', rim: '#c03cff', ambient: '#2a1f3a', bokeh: ['#d946ef', '#f0abfc', '#fdf4ff', '#6d5bd0', '#38bdf8'], body: '#231d2c' },
+    map: { bg: '#08060c', lo: [0.004, 0.003, 0.006], hi: [0.03, 0.02, 0.04], line: [0.85, 0.35, 1.0], river: '#7c6cf0', amber: '#ffd36a', grey: '#b3a8c4' },
   },
 };
 export const theme = () => THEMES[activity()];
@@ -113,6 +118,47 @@ const COPY = {
         'phone.group': 'Gouffre Berger',
         'label.waterfall': 'Shaft waterfall · sound is lost', 'label.julie': 'Julie: “Rope is rubbing, don’t come up”',
         'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, down the passage',
+      },
+    },
+  },
+  gathering: {
+    // A volunteers' team at a festival: the network is saturated, the music covers the voice, and a
+    // message reaches the first-aid post from phone to phone (js/acts/gathering.js).
+    cases: [1, 2, 3, 4],
+    fr: {
+      'hero.eyebrow': 'Festivals, événements, bénévoles',
+      'c1.h': 'Des milliers de téléphones, une seule antenne.',
+      'c1.p': 'Le soir du concert, le réseau sature&#8239;: les messages restent bloqués, les appels ne passent plus. Devant la scène, la musique couvre la voix, et tout le monde n’a pas de talkie-walkie. Quand quelqu’un fait un malaise au premier rang, le poste de secours n’en sait rien.',
+      'c2.p': `Julie, bénévole devant la scène, écrit ${q('Malaise au premier rang, côté gauche')}. Le téléphone de Marc, au milieu de la foule, transmet le message à Léa et Tom, au poste de secours, sans passer par l’antenne.`,
+      's1.h': 'Les consignes de l’équipe, en une touche.',
+      's1.p': 'Quatre grosses touches, faciles à viser dans la foule. Les points donnent le nombre de vibrations&#8239;: on les sent même quand on n’entend plus rien. Chaque équipe peut y mettre ses propres codes.',
+      'sig.stop': 'Attends', 'sig.ok': 'OK', 'sig.release': 'Viens', 'sig.pull': 'J’arrive',
+      's2.p': `Julie envoie ${q('Attends')} à Marc, de l’autre côté de la fosse. Son téléphone vibre au rythme du code, sonne et affiche l’alerte en plein écran, même verrouillé. Le reste de l’équipe continue de danser.`,
+      'ch.av': 'FB', 'ch.group': 'Festival · bénévoles', 'ch.place': 'Poste de secours', 'ch.m2': 'J’apporte les gilets. Et les croissants.',
+    },
+    en: {
+      'hero.eyebrow': 'Festivals, events, volunteers',
+      'c1.h': 'Thousands of phones, one cell tower.',
+      'c1.p': 'On concert night the network saturates: messages get stuck, calls fail. In front of the stage the music drowns the voice, and not everyone has a radio. When someone collapses in the front row, the first-aid post has no idea.',
+      'c2.p': 'Julie, volunteering by the stage, types “Someone collapsed, front row, left side”. Marc’s phone, in the middle of the crowd, passes the message on to Léa and Tom at the first-aid post, without going through the tower.',
+      's1.h': 'The team’s calls, one tap away.',
+      's1.p': 'Four big buttons, easy to hit in a crowd. The dots give the number of vibrations: you feel them even when you can hear nothing. Each team can put in its own codes.',
+      'sig.stop': 'Wait', 'sig.ok': 'OK', 'sig.release': 'Come', 'sig.pull': 'Coming',
+      's2.p': 'Julie sends “Wait” to Marc, on the other side of the pit. His phone vibrates to the rhythm of the code, rings and shows a full-screen alert, even when locked. The rest of the team keeps dancing.',
+      'ch.av': 'FB', 'ch.group': 'Festival volunteers', 'ch.place': 'First-aid post', 'ch.m2': 'I’ll bring the vests. And the croissants.',
+    },
+    ui: {
+      fr: {
+        'phone.group': 'Festival · bénévoles', 'phone.stop': 'Attends', 'phone.ok': 'OK', 'phone.release': 'Viens', 'phone.pull': 'J’arrive',
+        'label.press': 'Appui sur Attends',
+        'label.whistle': 'La voix couverte par la musique', 'label.waterfall': 'Antenne saturée · plus rien ne passe',
+        'label.julie': `Julie${NNBSP}: ${q('Malaise au premier rang')}`, 'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, au poste de secours',
+      },
+      en: {
+        'phone.group': 'Festival volunteers', 'phone.stop': 'Wait', 'phone.ok': 'OK', 'phone.release': 'Come', 'phone.pull': 'Coming',
+        'label.press': 'Wait pressed',
+        'label.whistle': 'Voice drowned by the music', 'label.waterfall': 'Tower saturated · nothing gets through',
+        'label.julie': 'Julie: “Someone collapsed, front row”', 'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, at the first-aid post',
       },
     },
   },

@@ -37,7 +37,7 @@
 
 /* Activity identities (js/activity.js): canyon is the default above. Mountain (ski touring,
    mountaineering, climbing, ice): glacier blue at blue hour. Caving: limestone darkness and the
-   gold of a headlamp. */
+   gold of a headlamp. Gatherings (festivals, events, volunteers): stage-light fuchsia at night. */
 :root[data-activity="mountain"] {
   --bg: #060a10; --bg-rgb: 6, 10, 16;
   --bg-2: #0b121b; --bg-2-rgb: 11, 18, 27;
@@ -51,6 +51,20 @@
   --accent-soft: #e0f4ff; --accent-soft-rgb: 224, 244, 255;
   --accent-warm: #bae6fd;
   --on-accent: #02121f;
+}
+:root[data-activity="gathering"] {
+  --bg: #0b0812; --bg-rgb: 11, 8, 18;
+  --bg-2: #120d1c; --bg-2-rgb: 18, 13, 28;
+  --bg-3: #1f1830; --bg-3-rgb: 31, 24, 48;
+  --bg-glow: #1c1230;
+  --ink: #f6f0fb; --ink-2: #d3c8e0; --ink-3: #968aa8;
+  --tint-rgb: 222, 192, 255;
+  --accent: #d946ef; --accent-rgb: 217, 70, 239;
+  --accent-2: #e879f9; --accent-2-rgb: 232, 121, 249;
+  --accent-deep: #a21caf;
+  --accent-soft: #fae8ff; --accent-soft-rgb: 250, 232, 255;
+  --accent-warm: #f0abfc;
+  --on-accent: #1f0322;
 }
 :root[data-activity="cave"] {
   --bg: #090908; --bg-rgb: 9, 9, 8;
@@ -579,6 +593,7 @@ main { position: relative; z-index: 2; }
 .act-menu [data-activity="canyon"] .act-ico, .ha-list [data-activity="canyon"] { --c: #ff6a00; --c2: #ff8a3d; --c-rgb: 255, 106, 0; }
 .act-menu [data-activity="mountain"] .act-ico, .ha-list [data-activity="mountain"] { --c: #38bdf8; --c2: #7dd3fc; --c-rgb: 56, 189, 248; }
 .act-menu [data-activity="cave"] .act-ico, .ha-list [data-activity="cave"] { --c: #f5b324; --c2: #fbc84f; --c-rgb: 245, 179, 36; }
+.act-menu [data-activity="gathering"] .act-ico, .ha-list [data-activity="gathering"] { --c: #d946ef; --c2: #e879f9; --c-rgb: 217, 70, 239; }
 .act-menu .act-ico { color: var(--c); }
 body.switching main, body.switching .stage, body.switching .stage-labels { opacity: 0; transition: opacity .4s ease; }
 
@@ -590,10 +605,10 @@ body.switching main, body.switching .stage, body.switching .stage-labels { opaci
 .ha-current:hover, .hero-acts.open .ha-current { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(var(--accent-rgb), .12), 0 24px 70px -18px rgba(var(--accent-rgb), .95); }
 .ha-current .act-ico { width: 58px; height: 58px; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .5)); }
 .ha-name { font-family: var(--f-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); text-shadow: 0 1px 3px rgba(0, 0, 0, .9); }
-.ha-list { position: absolute; right: calc(100% + 22px); top: 50%; display: flex; gap: 14px; transform: translateY(-62%); pointer-events: none; }
+.ha-list { position: absolute; right: calc(100% + 18px); top: 50%; display: flex; gap: 8px; transform: translateY(-62%); pointer-events: none; }
 .ha-list button { display: grid; justify-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--ink); font: 500 12px var(--f-text); cursor: pointer; opacity: 0; transform: translateX(40px) scale(.6); transition: opacity .3s, transform .45s cubic-bezier(.2, .8, .2, 1); }
 .ha-list button:nth-child(2) { transition-delay: .04s; } .ha-list button:nth-child(3) { transition-delay: .08s; }
-.ha-list .act-ico { box-sizing: content-box; width: 40px; height: 40px; padding: 18px; border-radius: 50%; color: #fff; background: radial-gradient(circle at 50% 35%, rgba(var(--c-rgb), .55), rgba(10, 10, 12, .85) 72%); border: 1px solid rgba(var(--c-rgb), .6); box-shadow: 0 14px 40px -16px rgba(var(--c-rgb), .9); transition: transform .3s, box-shadow .3s; }
+.ha-list .act-ico { box-sizing: content-box; width: 36px; height: 36px; padding: 16px; border-radius: 50%; color: #fff; background: radial-gradient(circle at 50% 35%, rgba(var(--c-rgb), .55), rgba(10, 10, 12, .85) 72%); border: 1px solid rgba(var(--c-rgb), .6); box-shadow: 0 14px 40px -16px rgba(var(--c-rgb), .9); transition: transform .3s, box-shadow .3s; }
 .ha-list button span { text-shadow: 0 1px 3px rgba(0, 0, 0, .9); }
 .ha-list button:hover .act-ico, .ha-list button:focus-visible .act-ico { transform: translateY(-4px); box-shadow: 0 0 0 4px rgba(var(--c-rgb), .25), 0 18px 46px -14px rgba(var(--c-rgb), 1); }
 .ha-list button[aria-current] .act-ico { box-shadow: 0 0 0 3px rgba(var(--c-rgb), .9), 0 14px 40px -16px rgba(var(--c-rgb), .9); }
@@ -610,6 +625,13 @@ body.switching main, body.switching .stage, body.switching .stage-labels { opaci
   .hero-acts.open .ha-name { display: none; }
   .ha-list .act-ico { width: 30px; height: 30px; padding: 13px; }
   .ha-list button { transform: translateX(-16px) scale(.8); }
+}
+@media (max-width: 560px) {
+  .ha-current { width: 64px; height: 64px; }
+  .ha-current .act-ico { width: 34px; height: 34px; }
+  .ha-list { gap: 8px; }
+  .ha-list .act-ico { width: 24px; height: 24px; padding: 11px; }
+  .ha-list button span { display: none; }
 }
 @media (max-width: 860px) {
   .act-current { padding: 6px 9px; }

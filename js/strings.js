@@ -74,6 +74,7 @@ export const STRINGS = {
     'act.aria': 'Change terrain',
     'act.canyon.n': 'Canyoning', 'act.canyon.s': 'Abseils, waterfalls, pools',
     'act.mountain.n': 'Mountain', 'act.mountain.s': 'Ski touring, mountaineering, climbing, ice',
+    'act.gathering.n': 'Gatherings', 'act.gathering.s': 'Festivals, events, volunteers',
     'act.cave.n': 'Caving', 'act.cave.s': 'Shafts, passages, underground rivers',
     'act.list': 'Terrains',
     'nav.chat': 'Messaging', 'nav.signals': 'Signals', 'nav.mesh': 'No network', 'nav.field': 'In the field', 'nav.film': 'Video', 'nav.privacy': 'Privacy', 'nav.help': 'Help', 'nav.labs': 'Labs',

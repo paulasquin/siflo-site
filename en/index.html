@@ -28,7 +28,7 @@
     // Pick the activity before first paint (css [data-activity], js/activity.js): ?activite= or ?activity=, then the
     // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
     (function () {
-      var ok = ['canyon', 'mountain', 'cave'], a = null, root = document.documentElement;
+      var ok = ['canyon', 'mountain', 'cave', 'gathering'], a = null, root = document.documentElement;
       try {
         var p = new URLSearchParams(location.search), q = p.get('activite') || p.get('activity');
         if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
@@ -65,9 +65,10 @@
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
     </symbol>
-    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving in paulasquin/siflo; Pinhead, CC0). -->
+    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0). -->
     <symbol id="act-canyon" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M11.4 0H12.4V12H11.6ZM13 0H13.8V11H13ZM14.3 0H15V11.5H14.3Z"/><path d="M12.5 12.5c.32 0 .64.11.89.31l.32.26c.3.24.68.39 1.07.43H15V15h-.05c-.46 0-.89-.16-1.24-.44l-.32-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.32.25c-.3.25-.68.4-1.07.43L0 15v-1.5h.05c.46 0 .89-.15 1.24-.43l.32-.26c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31Z"/><circle cx="11" cy="0.5" r="0.55"/><circle cx="4.6" cy="3.2" r="1.4"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" d="M11 0.5L6.8 8.4M6.8 8.4C6.8 10.4 6.4 11.6 5 12.3"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5.2 5L6.7 8.2"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.7 8.2L10.9 9.7"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M5.6 5.7L8.6 5"/></g></symbol>
     <symbol id="act-mountain" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path fill-rule="evenodd" d="M0 15L5.4 6.2L7.3 8.8L10.5 4.2L15 15ZM8.55 7L9.5 7.6L10.4 6.9L11.2 7.6L11.67 7L12 7.8L11.2 8.4L10.4 7.7L9.5 8.4L8 7.9Z"/><path d="M10.25 0.3H10.75V4.2H10.25ZM10.75 0.3L13.65 1.2L10.75 2.1Z"/></g></symbol>
+    <symbol id="act-gathering" viewBox="0 0 24 24"><path d="M12 12.75c1.63 0 3.07.39 4.24.9c1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73c1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3"/></symbol>
     <symbol id="act-cave" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M6.11 3.54c.1-.11.1-.33 0-.43l-.54-.75c-.11-.22-.32-.22-.53-.11L2.46 4.39c-.1.11-.1.32 0 .43l.65.75c.1.11.32.11.43 0zM3.54 6.43c-.11.11-.22.32-.33.43c-.1.21-.21.32-.21.53l-.75 3.22l-2.04 1.93c-.1 0-.1.1-.1.21c-.22.32-.11.86.32 1.07c.21.11.64 0 .86-.21l2.25-2.15l.1-.1c0-.11.11-.11.11-.22l.43-2.03l1.71 1.5v2.57c0 .32.11.53.43.64c.32.22.86.11 1.07-.32c.11-.11.11-.21.11-.43v-2.78a.86.86 0 0 0-.21-.54L5.46 8.14l1.83-1.5l.53 1.4c0 .1.11.1.22.21l1.82 1.39c.21.11.53 0 .64-.21c.21-.22.21-.64 0-.86c0 0-.11-.11-.11-.21L9 7.29l-.96-2.15c-.11-.32-.33-.53-.54-.75c-.54-.21-1.07-.21-1.5.11zM11 3l3-3c.67.67 1 1.67 1 3s-.33 2.33-1 3zm-3.5-.32a1.61 1.61 0 1 0 3.21 0a1.61 1.61 0 1 0-3.21 0"/></g></symbol>
   </svg>
 
@@ -106,6 +107,7 @@
           <li><button role="menuitemradio" aria-checked="false" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span><span class="act-n" data-i18n="act.canyon.n">Canyoning</span><small data-i18n="act.canyon.s">Abseils, waterfalls, pools</small></span></button></li>
           <li><button role="menuitemradio" aria-checked="false" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span><span class="act-n" data-i18n="act.mountain.n">Mountain</span><small data-i18n="act.mountain.s">Ski touring, mountaineering, climbing, ice</small></span></button></li>
           <li><button role="menuitemradio" aria-checked="false" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span><span class="act-n" data-i18n="act.cave.n">Caving</span><small data-i18n="act.cave.s">Shafts, passages, underground rivers</small></span></button></li>
+          <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Gatherings</span><small data-i18n="act.gathering.s">Festivals, events, volunteers</small></span></button></li>
         </ul>
       </div>
       <a href="labs/" class="nav-labs" data-i18n="nav.labs">Labs</a>
@@ -145,6 +147,7 @@
             <button data-activity="canyon" aria-label="Canyoning" data-i18n-aria="act.canyon.n"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyoning</span></button>
             <button data-activity="mountain" aria-label="Mountain" data-i18n-aria="act.mountain.n"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
             <button data-activity="cave" aria-label="Caving" data-i18n-aria="act.cave.n"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
+            <button data-activity="gathering" aria-label="Gatherings" data-i18n-aria="act.gathering.n"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Gatherings</span></button>
           </div>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Scroll</i></div>
