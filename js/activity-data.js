@@ -45,7 +45,7 @@ export const COPY = {
       's1.p': 'Quatre grosses touches, faciles à viser avec des gants. Plus besoin de crier dans le vent&#8239;: la consigne arrive sur le téléphone, avec le nom de celui qui l’envoie. Chaque club peut y mettre ses propres codes, même les plus ésotériques.',
       'sig.release': 'Un par un', 'sig.pull': 'Regroupement',
       's2.p': 'Julie, en haut du couloir, envoie STOP à Marc, qui s’apprête à s’y engager. Son téléphone vibre au rythme du code, sonne et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.',
-      'm1.p': 'Sur l’arête, chaque téléphone de la cordée transmet les messages au suivant par Bluetooth&#8239;: une vingtaine de mètres en poche, une centaine en main et à vue, jusqu’à 12 sauts. Pour les grandes distances, une radio LoRa en option porte jusqu’à quelques kilomètres (estimations). Pas besoin d’antenne&#8239;: chaque téléphone du groupe en devient une.',
+      'm1.p': 'Sur l’arête, chaque téléphone de la cordée transmet les messages au suivant par Bluetooth&#8239;: environ 25&nbsp;m en poche, une centaine de mètres en main et à vue, jusqu’à 300&nbsp;m entre deux Android compatibles longue portée, et jusqu’à 12 sauts. Pour les grandes distances, une radio LoRa en option porte à plusieurs kilomètres (estimations). Pas besoin d’antenne&#8239;: chaque téléphone du groupe en devient une.',
       'ch.av': 'BL', 'ch.group': 'Belledonne · ski de rando', 'ch.place': 'Parking du départ', 'ch.m2': 'J’apporte le DVA de rechange. Et les croissants.',
     },
     en: {
@@ -58,7 +58,7 @@ export const COPY = {
       's1.p': 'Four big buttons, easy to hit with gloves on. No more shouting into the wind: the call lands on the phone, with the name of whoever sent it. Each club can put in its own codes, even the most obscure ones.',
       'sig.release': 'One at a time', 'sig.pull': 'Regroup',
       's2.p': 'Julie, at the top of the couloir, sends STOP to Marc, about to drop in. His phone vibrates to the rhythm of the code, rings and shows a full-screen alert, even when locked. The rest of the group carries on with their snack bars.',
-      'm1.p': 'On the ridge, each phone of the rope team passes messages on to the next over Bluetooth: about twenty metres in a pocket, a hundred in hand with line of sight, up to 12 hops. For long distances, an optional LoRa radio carries up to a few kilometres (estimates). No antenna needed: every phone in the group becomes one.',
+      'm1.p': 'On the ridge, every phone of the rope team passes the messages on to the next over Bluetooth: about 25&nbsp;m in a pocket, about a hundred metres in hand with a clear line of sight, up to 300&nbsp;m between two Android phones with long-range Bluetooth, and up to 12 hops. For long distances, an optional LoRa radio carries several kilometres (estimates). No cell tower needed: every phone in the group becomes one.',
       'ch.av': 'BL', 'ch.group': 'Belledonne ski tour', 'ch.place': 'Trailhead car park', 'ch.m2': 'I’ll bring the spare transceiver. And the croissants.',
     },
     ui: {

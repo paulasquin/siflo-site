@@ -21,6 +21,7 @@
 #film .scene.sos .title .ln.glow .w { background: linear-gradient(95deg, #fff 0%, #ffd0c8 30%, var(--sos) 100%); -webkit-background-clip: text; background-clip: text; }
 #film .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
 #film .chips li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(16, 12, 9, .72); font-size: 14px; opacity: 0; }
+#film .scene.stack .chips { flex-direction: column; align-items: flex-start; }
 #film .chips li i { font-style: normal; font-family: var(--f-mono); color: var(--orange-2); }
 #film .chips li.ok i { color: var(--ok); }
 

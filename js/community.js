@@ -1,4 +1,4 @@
-// /communaute and /community: short links to the community groups (« Siflo sur Siflo », "Siflo on Siflo"). The group's
+// /salut and /hello (formerly /communaute and /community): short links to the community groups (« Siflo sur Siflo », "Siflo on Siflo"). The group's
 // invitation is the `data-link` of the page's body (a /j link, regenerate qr.svg with tools/community_qr.py when it
 // changes). On a phone: a button that hands it to Siflo (an intent on Android, siflo:// on iPhone), and store buttons
 // that copy it first, for the first-launch Paste card. Elsewhere: its QR code.
