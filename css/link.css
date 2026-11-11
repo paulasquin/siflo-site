@@ -42,7 +42,7 @@ button.store { font: inherit; color: inherit; cursor: pointer; text-align: left;
 .lang-switch button { background: none; border: 0; color: var(--muted); font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; padding: 7px 11px; border-radius: 999px; cursor: pointer; }
 .lang-switch button[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); }
 
-/* /communaute, /community: the community groups' short links. */
+/* /salut, /hello: the community groups' short links. */
 .community .open { display: block; text-align: center; margin: 1.4em 0 .4em; padding: 14px 18px; font-size: 1.05em; }
 .community .desk { display: flex; gap: 20px; align-items: center; margin-top: 1.6em; }
 .community .qr { width: 240px; height: 240px; flex: none; border-radius: 12px; background: #fff; padding: 8px; }

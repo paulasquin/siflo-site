@@ -1,4 +1,4 @@
-"""QR code of each community page's group invitation (communaute/qr.svg, community/qr.svg), from the page's data-link.
+"""QR code of each community page's group invitation (salut/qr.svg, hello/qr.svg), from the page's data-link.
 
     uv run --with segno python tools/community_qr.py
 """
@@ -8,7 +8,7 @@ import re
 import segno
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-for page in ("communaute", "community"):
+for page in ("salut", "hello"):
     html = (ROOT / page / "index.html").read_text()
     link = re.search(r'data-link="([^"]*)"', html).group(1)
     out = ROOT / page / "qr.svg"
