@@ -61,7 +61,7 @@ const ROWS = [
     note: ["En Europe, une radio ne peut émettre que 10 % du temps : Siflo la réserve aux messages que le Bluetooth et internet ne portent plus.", 'In Europe a radio may only transmit 10% of the time: Siflo reserves it for messages that Bluetooth and the internet no longer carry.'],
   },
   {
-    group: 'next', name: ['Satellite', 'Satellite'], sub: ['réseaux satellite des opérateurs', "carriers' satellite networks"],
+    group: 'next', name: ['Satellite', 'Satellite'], sub: ['réseaux satellite des opérateurs, communicateurs Garmin inReach (à l’étude)', "carriers' satellite networks, Garmin inReach satellite communicators (under study)"],
     tag: ['En préparation', 'In preparation'],
     range: null, reach: ['ciel ouvert', 'open sky'], rangeNote: ['partout à ciel ouvert, jamais en grotte', 'anywhere under open sky, never in caves'],
     phones: { ios: 'n', old: 'n', a16: 'p', a17: 'p' },

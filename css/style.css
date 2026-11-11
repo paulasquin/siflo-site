@@ -486,6 +486,7 @@ main { position: relative; z-index: 2; }
 .dl-watches small { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-soft); }
 .dl-watches .soon .w-logo { opacity: .55; }
 .dl-watches .soon small { opacity: .6; color: inherit; }
+.dl-w-next { margin: 14px 0 0; font-size: 13px; color: var(--accent); }
 @media (max-width: 560px) { .dl-watches ul { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; gap: 8px 10px; } }
 
 /* faq */

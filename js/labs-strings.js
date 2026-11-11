@@ -40,7 +40,7 @@ export const LABS_STRINGS = {
     'rs.n5h': 'The alert beacon is one-way',
     'rs.n5p': 'The distant phone receives the alert but cannot answer along this path: there is no acknowledgement, and the alert is repeated every two seconds. The alert beacon has been in the Android app since version 0.5; its range is yet to be measured in the field.',
     'rs.n6h': 'Satellite, in preparation',
-    'rs.n6p': 'Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo’s SOS and signals by satellite; nothing is available yet.',
+    'rs.n6p': 'Some recent Android phones send short messages by satellite, depending on the carrier; on iPhone, Apple keeps satellite for its own features. We are working on sending Siflo’s SOS and signals by satellite; nothing is available yet. Support for Garmin inReach satellite communicators is under study: a request has been sent to the manufacturer.',
     'rs.n7h': 'LoRa radio, an add-on',
     'rs.n7p': "A small off-the-shelf radio, Meshtastic-compatible (Heltec Mesh Node T1, RAK WisMesh Tag), paired with the phone over Bluetooth. It carries messages, signals and SOS, not photos or voice notes. It only steps in for members that Bluetooth and the internet no longer reach.",
     'rs.n8h': 'LoRa radios as relays',
