@@ -9,7 +9,15 @@
           { "/": "/c", "#": "*", "comment": "contact link" },
           { "/": "/a", "#": "*", "comment": "join approval link" },
           { "/": "/groupe", "#": "*", "comment": "partner group link" },
-          { "/": "/sos", "#": "*", "comment": "partner SOS button" }
+          { "/": "/sos", "#": "*", "comment": "partner SOS button" },
+          { "/": "/salut", "comment": "community group (French)" },
+          { "/": "/salut/", "comment": "community group (French)" },
+          { "/": "/hello", "comment": "community group (English)" },
+          { "/": "/hello/", "comment": "community group (English)" },
+          { "/": "/communaute", "comment": "community group, first French page" },
+          { "/": "/communaute/", "comment": "community group, first French page" },
+          { "/": "/community", "comment": "community group, first English page" },
+          { "/": "/community/", "comment": "community group, first English page" }
         ]
       }
     ]
