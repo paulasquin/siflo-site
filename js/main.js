@@ -36,8 +36,12 @@ const SCREENS = {
 // Relative to this script, so that /en/ finds them too.
 const SHOTS = new URL('../assets/screens/', import.meta.url).href;
 
+// The checklist screenshot is the canyon's: other activities say so.
+const CHECKLIST = { fr: 'Avant de partir\u00a0: une liste à cocher par activité (ici, le canyon)', en: 'Before you go: a checklist per activity (here, canyoning)' };
+
 function renderScreens() {
-  $('#screens').innerHTML = SCREENS[LANG].map(([f, cap]) => `
+  const caption = (f, cap) => (f === '05-before-you-go' && activity() !== 'canyon' ? CHECKLIST[LANG] : cap);
+  $('#screens').innerHTML = SCREENS[LANG].map(([f, c]) => [f, caption(f, c)]).map(([f, cap]) => `
     <figure data-lightbox="screens"><div class="shot"><img src="${SHOTS}${f}-${LANG}.webp" data-full="${SHOTS}${f}-${LANG}.webp" alt="${cap}" loading="lazy" width="720" height="1600"></div><figcaption>${cap}</figcaption></figure>`).join('');
 }
 

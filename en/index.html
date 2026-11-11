@@ -25,14 +25,18 @@
   <link rel="alternate" hreflang="en" href="https://siflo.app/en/">
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/">
   <script>
-    // Pick the activity before first paint (css [data-activity], js/activity.js): ?activite= or ?activity=, then the
+    // Pick the activity before first paint (css [data-activity], js/activity.js): an activity's own page
+    // (/montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=, then the
     // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
     (function () {
-      var ok = ['canyon', 'mountain', 'cave', 'gathering'], a = null, root = document.documentElement;
+      var ok = ['canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
       try {
-        var p = new URLSearchParams(location.search), q = p.get('activite') || p.get('activity');
-        if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
-        else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
+        if (a) localStorage.setItem('activity', a);
+        else {
+          var p = new URLSearchParams(location.search), q = p.get('activite') || p.get('activity');
+          if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
+          else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
+        }
       } catch (e) {}
       root.dataset.activity = a || 'canyon';
     })();
@@ -315,36 +319,50 @@
         <div class="section-head reveal">
           <p class="kicker" data-i18n="fd.k">In the field</p>
           <h2 class="h-xl" data-i18n="fd.h">When voice and whistle<br><em>are not enough.</em></h2>
-          <p class="lead" data-i18n="fd.lead">Four situations described by manufacturers and federations, with what Siflo changes. Sources under each one, for the sceptics.</p>
+          <p class="lead" data-i18n="fd.lead">Situations described by manufacturers, federations and operators, with what Siflo changes. The sources are under each example, for the sceptics.</p>
         </div>
         <div class="features cases">
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="1">
             <p class="case-tag" data-i18n="fd.1t">Canyoning · releasable rigging</p>
             <h3 data-i18n="fd.1h">Asking for more rope from inside the waterfall</h3>
             <p data-i18n="fd.1p">The first person rappels on a rope that is deliberately too short, and has to ask the teammate at the anchor for slack. Under the waterfall, voices do not carry, and the whistle code had better have been agreed beforehand.</p>
             <p class="case-siflo" data-i18n="fd.1s"><b>With Siflo</b>: “Release the rope” reaches only the phone of the teammate at the anchor, with the name of whoever is asking.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source: Petzl, “Securing the first person on rappel” (in French)</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="2">
             <p class="case-tag" data-i18n="fd.2t">Canyoning · teammate in trouble</p>
             <h3 data-i18n="fd.2h">Warning the person at the anchor about a problem they cannot see</h3>
             <p data-i18n="fd.2p">Bulges, overhangs, rappels in the flow: a stuck teammate can be invisible from above. Hand signs and whistles only work if everyone learnt the same codes. And remembers them.</p>
             <p class="case-siflo" data-i18n="fd.2s"><b>With Siflo</b>: you spell it out to the whole group, “Léa stuck under the waterfall, release”. Nothing to remember.</p>
             <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source: French canyoning instructor handbook (in French)</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="3">
             <p class="case-tag" data-i18n="fd.3t">Caving · wet pitch</p>
             <h3 data-i18n="fd.3h">Getting through to those at the top of the pitch</h3>
             <p data-i18n="fd.3p">At the bottom of a wet pitch, a caver thinks the rope is damaged. Passed on by shouting, the message gets garbled and ends up triggering a rescue call-out, over a leaf caught on the rope. Word of mouth has its limits, especially underground.</p>
             <p class="case-siflo" data-i18n="fd.3s"><b>With Siflo</b>: with a teammate halfway down to link the phones, “STOP, don’t come down” and then the explanation arrive word for word, with the sender’s name.</p>
             <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source: ULSA incident report, Yorkshire, 2025</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="4">
             <p class="case-tag" data-i18n="fd.4t">Climbing · at the crag</p>
             <h3 data-i18n="fd.4h">Not mixing up the calls</h3>
             <p data-i18n="fd.4p">Out of sight, the climber calls that they are safe, or that they want to be lowered. One misheard call, or one shouted by the party next door, is enough to send someone to the ground.</p>
             <p class="case-siflo" data-i18n="fd.4s"><b>With Siflo</b>: create “Safe” and “Lower me” signals. They reach your belayer’s phone only, never those of the party next door.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source: FFME safety letter no. 8 (in French)</a>
+          </article>
+          <article class="feature case reveal" data-case="5" data-only="mountain">
+            <p class="case-tag" data-i18n="fd.5t">Ski touring · one at a time</p>
+            <h3 data-i18n="fd.5h">Keeping in touch when the group spreads out</h3>
+            <p data-i18n="fd.5p">On steep slopes, the French federation advises spacing out the group and going “one at a time” when in doubt, while staying within sight of each other. In wind or a whiteout, sight is quickly lost.</p>
+            <p class="case-siflo" data-i18n="fd.5s"><b>With Siflo</b>: “One at a time”, “Regroup” or “It’s cracking” reach the group’s phones, even out of sight. Keep the phone more than 20 cm from your transceiver, as the federation advises.</p>
+            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source: FFME, safety recommendations for ski mountaineering and ski touring (in French)</a>
+          </article>
+          <article class="feature case reveal" data-case="6" data-only="gathering">
+            <p class="case-tag" data-i18n="fd.6t">Festival · saturated network</p>
+            <h3 data-i18n="fd.6h">Reaching the first-aid post when the tower saturates</h3>
+            <p data-i18n="fd.6p">Each cell tower only accepts a limited number of connections at once. When tens of thousands of festival-goers connect to it, the operator says so itself: calls fail and photos won’t send.</p>
+            <p class="case-siflo" data-i18n="fd.6s"><b>With Siflo</b>: the volunteer team’s messages go from phone to phone, without the tower, all the way to the first-aid post. For the emergency services, call 112.</p>
+            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source: Bouygues Telecom, “Réseau en festival : pourquoi ça sature” (in French)</a>
           </article>
         </div>
       </div>

@@ -117,48 +117,63 @@ function buildIcefall(x0, z0) {
   return g;
 }
 
-/** The snout of a glacier, with the glowing mouth of an ice cave. */
+/**
+ * The front of a glacier: a wall of blue ice sunk into the slope, cut by the arch of an ice cave
+ * whose tunnel glows from within.
+ */
 function buildIceCave(x0, z0) {
   const g = new THREE.Group();
   const base = height(x0, z0);
-  const geo = new THREE.IcosahedronGeometry(1, 5);
-  const p = geo.attributes.position, v = new THREE.Vector3();
+  const W = 9, Hh = 7, AW = 2.6, AH = 3.6, D = 8;
+  const outer = new THREE.Shape();
+  outer.moveTo(-W, -2);
+  for (let i = 0; i <= 12; i++) {
+    const x = -W + (2 * W * i) / 12;
+    outer.lineTo(x, Hh * (0.5 + 0.5 * Math.sin((i / 12) * Math.PI)) + 0.8 * noise2(i * 2.3, 3.1) + (i % 3 === 1 ? 0.6 : 0));
+  }
+  outer.lineTo(W, -2);
+  outer.lineTo(-W, -2);
+  const arch = new THREE.Path();
+  arch.moveTo(-AW, -2);
+  arch.lineTo(-AW, 0.8);
+  arch.absellipse(0, 0.8, AW, AH - 0.8, Math.PI, 0, true);
+  arch.lineTo(AW, -2);
+  arch.lineTo(-AW, -2);
+  outer.holes.push(arch);
+  let geo = new THREE.ExtrudeGeometry(outer, { depth: D, bevelEnabled: true, bevelThickness: 0.6, bevelSize: 0.5, bevelSegments: 2, curveSegments: 18, steps: 4 });
+  const p = geo.attributes.position;
   for (let i = 0; i < p.count; i++) {
-    v.fromBufferAttribute(p, i);
-    v.multiplyScalar(1 + 0.18 * noise2(v.x * 2.5 + 4, v.y * 2.5 + v.z * 2));
-    p.setXYZ(i, v.x, v.y, v.z);
+    const x = p.getX(i), y = p.getY(i), z = p.getZ(i);
+    const inTunnel = Math.abs(x) < AW + 0.6 && y < AH + 0.6;
+    const k = inTunnel ? 0.15 : 0.55;
+    p.setXYZ(i, x + k * noise2(y * 0.6 + 2, z * 0.6), y + k * noise2(x * 0.5, z * 0.5 + 4), z + k * 1.4 * noise2(x * 0.4 + 9, y * 0.4));
   }
   geo.computeVertexNormals();
-  const mat = iceMaterial(0.15);
-  const snout = new THREE.Mesh(geo, mat);
-  snout.scale.set(12, 5.5, 9);
-  snout.position.set(x0, base - 1.8, z0 - 1);
-  g.add(snout);
+  const mat = iceMaterial(0.2);
+  const front = new THREE.Mesh(geo, mat);
+  front.position.set(x0, base - 0.3, z0 - D);
+  front.rotation.y = 0.18;
+  g.add(front);
+  // The back of the tunnel: a cold glow fading into the dark.
   const mouthMat = new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false,
     uniforms: { uTime: { value: 0 } },
     vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv * 2.0 - 1.0; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
     fragmentShader: /* glsl */`
       uniform float uTime; varying vec2 vUv;
       void main() {
-        vec2 q = vec2(vUv.x, max(vUv.y, -0.2) + 0.2);
-        float r = length(vec2(q.x, q.y * 0.8));
-        float inside = smoothstep(1.0, 0.86, r) * step(-0.2, vUv.y);
-        float depth = smoothstep(0.95, 0.0, r);
-        vec3 col = mix(vec3(0.02, 0.18, 0.32), vec3(0.002, 0.012, 0.03), depth * 0.85);
-        col += vec3(0.05, 0.25, 0.4) * smoothstep(0.98, 0.8, r) * smoothstep(0.6, 0.85, r) * (0.8 + 0.2 * sin(uTime));
-        gl_FragColor = vec4(col, inside);
+        float r = length(vec2(vUv.x, vUv.y * 0.75 + 0.25));
+        float a = smoothstep(0.9, 0.0, r) * (0.85 + 0.15 * sin(uTime * 0.7));
+        gl_FragColor = vec4(mix(vec3(0.001, 0.006, 0.014), vec3(0.015, 0.1, 0.2), a), 1.0);
       }`,
   });
-  const mouth = new THREE.Mesh(new THREE.PlaneGeometry(7, 5.5), mouthMat);
-  mouth.position.set(x0 + 1, base + 0.2, z0 + 9.6);
-  mouth.rotation.y = 0.15;
-  g.add(mouth);
-  const glow = glowSprite(new THREE.Color('#3fb6ff'), 9, 0.25);
-  glow.position.set(x0 + 1, base + 0.8, z0 + 10);
-  g.add(glow);
+  const back = new THREE.Mesh(new THREE.PlaneGeometry(AW * 2.4, AH * 1.6), mouthMat);
+  back.position.set(0, 1.0, 2.5);
+  front.add(back);
+  const glow = glowSprite(new THREE.Color('#3fb6ff'), 10, 0.22);
+  glow.position.set(0, 1.4, D + 1.5);
+  front.add(glow);
   g.userData.mats = [mat, mouthMat];
-  g.userData.label = new THREE.Vector3(x0 + 1, base + 2.6, z0 + 9.8);
+  g.userData.label = new THREE.Vector3(x0 + 1.4, base + AH + 0.6, z0 + 0.8);
   return g;
 }
 

@@ -39,19 +39,25 @@
         var ls = navigator.languages || [navigator.language || ''];
         for (var i = 0; i < ls.length && !lang; i++) { var b = String(ls[i]).slice(0, 2).toLowerCase(); if (ok.indexOf(b) >= 0) lang = b; }
       }
-      if ((lang || 'en') === 'en' && !bot) location.replace('en/' + location.search + location.hash);
+      // To this page's English twin (<link rel="alternate" hreflang="en">: /en/, or /en/mountain/ for /montagne/…).
+      var en = document.querySelector('link[rel="alternate"][hreflang="en"]');
+      if ((lang || 'en') === 'en' && !bot) location.replace((en ? new URL(en.href).pathname : 'en/') + location.search + location.hash);
       document.documentElement.lang = lang || 'en';
     })();
   </script>
   <script>
-    // Pick the activity before first paint (css [data-activity], js/activity.js): ?activite= or ?activity=, then the
+    // Pick the activity before first paint (css [data-activity], js/activity.js): an activity's own page
+    // (/montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=, then the
     // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
     (function () {
-      var ok = ['canyon', 'mountain', 'cave', 'gathering'], a = null, root = document.documentElement;
+      var ok = ['canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
       try {
-        var p = new URLSearchParams(location.search), q = p.get('activite') || p.get('activity');
-        if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
-        else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
+        if (a) localStorage.setItem('activity', a);
+        else {
+          var p = new URLSearchParams(location.search), q = p.get('activite') || p.get('activity');
+          if (ok.indexOf(q) >= 0) { a = q; localStorage.setItem('activity', q); }
+          else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
+        }
       } catch (e) {}
       root.dataset.activity = a || 'canyon';
     })();
@@ -334,36 +340,50 @@
         <div class="section-head reveal">
           <p class="kicker" data-i18n="fd.k">Sur le terrain</p>
           <h2 class="h-xl" data-i18n="fd.h">Quand la voix et le sifflet<br><em>ne suffisent plus.</em></h2>
-          <p class="lead" data-i18n="fd.lead">Quatre situations décrites par les fabricants et les fédérations, avec ce que Siflo y change. Les sources sont sous chaque exemple, pour les sceptiques.</p>
+          <p class="lead" data-i18n="fd.lead">Des situations décrites par les fabricants, les fédérations et les opérateurs, avec ce que Siflo y change. Les sources sont sous chaque exemple, pour les sceptiques.</p>
         </div>
         <div class="features cases">
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="1">
             <p class="case-tag" data-i18n="fd.1t">Canyon · rappel débrayable</p>
             <h3 data-i18n="fd.1h">Faire débrayer depuis la cascade</h3>
             <p data-i18n="fd.1p">Le premier descend sur une corde volontairement trop courte. Il doit demander du mou à celui resté au relais. Sous la cascade, la voix ne porte pas&#8239;: le code au sifflet a intérêt à avoir été convenu avant.</p>
             <p class="case-siflo" data-i18n="fd.1s"><b>Avec Siflo</b>&#8239;: «&#8239;Débraye la corde&#8239;» arrive sur le seul téléphone de l’équipier au relais, avec le nom de celui qui le demande.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source&#8239;: Petzl, «&#8239;Sécuriser le premier en rappel&#8239;»</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="2">
             <p class="case-tag" data-i18n="fd.2t">Canyon · équipier en difficulté</p>
             <h3 data-i18n="fd.2h">Prévenir celui qui est au relais d’un problème qu’il ne voit pas</h3>
             <p data-i18n="fd.2p">Bombés, dévers, rappels arrosés&#8239;: un équipier bloqué peut être invisible d’en haut. Les gestes et le sifflet ne marchent que si tout le monde a appris les mêmes codes. Et s’en souvient.</p>
             <p class="case-siflo" data-i18n="fd.2s"><b>Avec Siflo</b>&#8239;: on l’écrit en toutes lettres à tout le groupe, «&#8239;Léa coincée sous la cascade, débraye&#8239;». Rien à retenir.</p>
             <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source&#8239;: mémento de l’initiateur canyon</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="3">
             <p class="case-tag" data-i18n="fd.3t">Spéléo · puits arrosé</p>
             <h3 data-i18n="fd.3h">Se faire comprendre de ceux qui sont en haut du puits</h3>
             <p data-i18n="fd.3p">Au bas d’un puits arrosé, un spéléo croit la corde abîmée. Répété de bouche en bouche, le message se déforme et finit par déclencher les secours, pour une feuille coincée dans la corde. Le bouche-à-oreille a ses limites, surtout sous terre.</p>
             <p class="case-siflo" data-i18n="fd.3s"><b>Avec Siflo</b>&#8239;: avec un équipier à mi-puits pour faire le lien, «&#8239;STOP, ne descends pas&#8239;» puis l’explication arrivent mot pour mot, avec le nom de l’expéditeur.</p>
             <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source&#8239;: rapport d’incident de l’ULSA, Yorkshire, 2025 (en anglais)</a>
           </article>
-          <article class="feature case reveal">
+          <article class="feature case reveal" data-case="4">
             <p class="case-tag" data-i18n="fd.4t">Escalade · en falaise</p>
             <h3 data-i18n="fd.4h">Ne pas confondre les annonces</h3>
             <p data-i18n="fd.4p">Hors de vue, le grimpeur annonce qu’il est vaché, ou qu’il veut être descendu. Une annonce mal comprise, ou criée par la cordée d’à côté, suffit à provoquer un retour au sol.</p>
             <p class="case-siflo" data-i18n="fd.4s"><b>Avec Siflo</b>&#8239;: créez les signaux «&#8239;Vaché&#8239;» et «&#8239;Descends-moi&#8239;». Ils n’arrivent que sur le téléphone de votre assureur, jamais sur ceux de la cordée voisine.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source&#8239;: FFME, Lettre sécurité prévention n<sup>o</sup>&nbsp;8</a>
+          </article>
+          <article class="feature case reveal" data-case="5" data-only="mountain">
+            <p class="case-tag" data-i18n="fd.5t">Ski de rando · un par un</p>
+            <h3 data-i18n="fd.5h">Garder le contact quand le groupe s’espace</h3>
+            <p data-i18n="fd.5p">Dans les pentes raides, la fédération recommande d’espacer les membres du groupe et de passer «&#8239;un par un&#8239;» en cas de doute, tout en progressant à vue les uns des autres. Dans le vent ou le jour blanc, la vue se perd vite.</p>
+            <p class="case-siflo" data-i18n="fd.5s"><b>Avec Siflo</b>&#8239;: «&#8239;Un par un&#8239;», «&#8239;Regroupement&#8239;» ou «&#8239;Ça craque&#8239;» arrivent sur les téléphones du groupe, même hors de vue. Gardez le téléphone à plus de 20&#8239;cm du DVA, comme le recommande la fédération.</p>
+            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source&#8239;: FFME, recommandations de sécurité en ski alpinisme et ski de randonnée</a>
+          </article>
+          <article class="feature case reveal" data-case="6" data-only="gathering">
+            <p class="case-tag" data-i18n="fd.6t">Festival · réseau saturé</p>
+            <h3 data-i18n="fd.6h">Prévenir le poste de secours quand l’antenne sature</h3>
+            <p data-i18n="fd.6p">Chaque antenne-relais n’accepte qu’un nombre limité de connexions à la fois. Quand des dizaines de milliers de festivaliers s’y connectent, l’opérateur le reconnaît lui-même&#8239;: les appels ne passent plus, les photos ne partent plus.</p>
+            <p class="case-siflo" data-i18n="fd.6s"><b>Avec Siflo</b>&#8239;: les messages de l’équipe de bénévoles passent de téléphone en téléphone, sans l’antenne, jusqu’au poste de secours. Pour les secours officiels, composez le 112.</p>
+            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source&#8239;: Bouygues Telecom, «&#8239;Réseau en festival&#8239;: pourquoi ça sature&#8239;»</a>
           </article>
         </div>
       </div>

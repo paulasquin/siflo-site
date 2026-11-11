@@ -1,4 +1,5 @@
-// Act · mesh — a contour map of the gorge. Signals hop from phone to phone over
+// Act · mesh — a contour map of the gorge (a ridge for the mountain, a site plan for gatherings,
+// a cave survey for caving). Signals hop from phone to phone over
 // Bluetooth, a member on the ridge bridges a distant subgroup through the blind
 // relay, a member who fell behind upstream gets the stored message back in range,
 // then an SOS reaches every Siflo phone around, even from another group.
@@ -12,7 +13,9 @@ const rx = (z) => 6 * Math.sin(z * 0.07) + 2 * Math.sin(z * 0.17 + 0.4);
 const R = 7.5; // drawn radio range
 const height = (x, z) => {
   const d = Math.abs(x - rx(z));
-  // The mountain follows a ridge (the line is the crest); the others a gorge (the line is the river).
+  // Plans (festival site, cave survey) are flat; the mountain follows a ridge (the line is the crest);
+  // the canyon a gorge (the line is the river).
+  if (MAP.plan) return 3 + 0.3 * fbm2(x * 0.05, z * 0.05);
   if (MAP.ridge) return 3 + 6 * fbm2(x * 0.035 + 3, z * 0.035) - Math.min(d, 18) * 0.5 + 7 * Math.exp(-(d * d) / 14);
   return 3 + 7 * fbm2(x * 0.035 + 3, z * 0.035) + Math.min(d, 14) * 0.45 - 6 * Math.exp(-(d * d) / 10);
 };
@@ -20,6 +23,38 @@ const MAP = theme().map;
 const GREY = new THREE.Color(MAP.grey);
 const AMBER = new THREE.Color(MAP.amber);
 const v3 = (c) => `vec3(${c.map((x) => x.toFixed(4)).join(', ')})`;
+
+const RX = 'float rx(float z) { return 6.0 * sin(z * 0.07) + 2.0 * sin(z * 0.17 + 0.4); }';
+const CONTOURS = `
+        float minor = line(vW.y / 0.8, 1.0);
+        float major = line(vW.y / 4.0, 1.4);
+        vec3 col = base + ${v3(MAP.line)} * (minor * 0.028 + major * 0.1) * near;`;
+// Drawn in the map's line colour: a festival site plan (grid, main alley, crowd barriers, the
+// stage, tents) and a cave survey (the gallery's walls, rock hatching outside).
+const box = (cx, cz, hx, hz) => `max(abs(vW.x - (${cx.toFixed(1)})) - ${hx.toFixed(1)}, abs(vW.z - (${cz.toFixed(1)})) - ${hz.toFixed(1)})`;
+const PLANS = {
+  festival: `
+        float d = vW.x - rx(vW.z);
+        float grid = max(line(vW.x / 5.0, 0.8), line(vW.z / 5.0, 0.8));
+        float alley = smoothstep(2.8, 2.3, abs(d));
+        float alleyEdge = 1.0 - smoothstep(0.0, 0.2, abs(abs(d) - 2.5));
+        float barrier = (1.0 - smoothstep(0.0, 0.18, abs(abs(d) - 11.0))) * step(0.45, fract(vW.z * 0.4));
+        float st = ${box(0, -56, 16, 4)};
+        float stage = 1.0 - smoothstep(0.0, 0.25, abs(st));
+        float tents = 0.0;
+        tents = max(tents, 1.0 - smoothstep(0.0, 0.2, abs(${box(20, -28, 2.5, 2.5)})));
+        tents = max(tents, 1.0 - smoothstep(0.0, 0.2, abs(${box(-22, -6, 3.0, 2.0)})));
+        tents = max(tents, 1.0 - smoothstep(0.0, 0.2, abs(${box(24, 16, 2.0, 3.0)})));
+        tents = max(tents, 1.0 - smoothstep(0.0, 0.2, abs(${box(-20, 28, 2.5, 2.5)})));
+        vec3 col = base + ${v3(MAP.line)} * (grid * 0.018 + alley * 0.035 + alleyEdge * 0.11 + barrier * 0.09 + stage * 0.16 + step(st, 0.0) * 0.05 + tents * 0.12) * near;`,
+  cave: `
+        float w = 8.0 + 1.8 * sin(vW.z * 0.13 + 1.0) + 0.8 * sin(vW.z * 0.41);
+        float d = abs(vW.x - rx(vW.z));
+        float inside = smoothstep(w + 0.3, w - 0.3, d);
+        float wall = 1.0 - smoothstep(0.0, 0.3, abs(d - w));
+        float hatch = line((vW.x + vW.z) / 1.6, 0.7) * (1.0 - inside) * smoothstep(w, w + 6.0, d);
+        vec3 col = base * (0.5 + 1.2 * inside) + ${v3(MAP.line)} * (wall * 0.16 + hatch * 0.025 + inside * 0.012) * near;`,
+};
 
 function buildTerrain() {
   const seg = QUALITY.tier >= 1.5 ? 200 : 130;
@@ -38,15 +73,14 @@ function buildTerrain() {
     fragmentShader: /* glsl */`
       uniform float uTime; uniform vec3 uFocus; varying vec3 vW; varying vec3 vN;
       float line(float v, float w) { float d = abs(fract(v - 0.5) - 0.5) / max(fwidth(v), 1e-4); return 1.0 - min(d / w, 1.0); }
+      ${RX}
       void main() {
         vec3 n = normalize(vN);
         float dif = clamp(dot(n, normalize(vec3(-0.5, 0.8, 0.3))), 0.0, 1.0);
         vec3 base = mix(${v3(MAP.lo)}, ${v3(MAP.hi)}, dif);
-        float minor = line(vW.y / 0.8, 1.0);
-        float major = line(vW.y / 4.0, 1.4);
         float dist = length(vW.xz - uFocus.xz);
         float near = 0.35 + 0.65 * exp(-dist * dist / 900.0);
-        vec3 col = base + ${v3(MAP.line)} * (minor * 0.028 + major * 0.1) * near;
+        ${PLANS[MAP.plan] ?? CONTOURS}
         float edge = smoothstep(62.0, 40.0, length(vW.xz - vec2(0.0, -8.0)));
         gl_FragColor = vec4(col * edge, 1.0);
       }`,
