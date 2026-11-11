@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SIFLO = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT.parent / "siflo")
 PLAY = SIFLO / "docs" / "play"
 
-CONTACT = "contact@aidiligence.eu"
+CONTACT = "contact@siflo.app"
 PUBLISHER = "Guardia SAS — SIREN 910 991 140"
 
 STYLE = """
