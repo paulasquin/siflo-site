@@ -23,6 +23,10 @@
   <link rel="alternate" hreflang="en" href="https://siflo.app/en/labs/">
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/labs/">
   <script>
+    // The visitor's activity (chosen on the home page, js/activity.js) themes this page too.
+    try { if (['canyon', 'mountain', 'cave'].indexOf(localStorage.getItem('activity')) >= 0) document.documentElement.dataset.activity = localStorage.getItem('activity'); } catch (e) {}
+  </script>
+  <script>
     // Same language pick as the home page: ?lang=, then the visitor's saved choice, then the browser languages.
     (function () {
       var ok = ['fr', 'en'], lang = null;

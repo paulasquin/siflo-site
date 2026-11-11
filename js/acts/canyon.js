@@ -5,7 +5,7 @@
 import * as THREE from 'three';
 import { smooth, clamp01, QUALITY } from '../kit/fx.js';
 import { t as tr } from '../kit/i18n.js';
-import { fbm2, noise2, createSky, glowMap, Beacon, Rings, Arc, Packets, Schedule, panelPos, ORANGE, OK_GREEN } from '../world/common.js';
+import { fbm2, noise2, createSky, glowMap, Beacon, Rings, Arc, Packets, Schedule, panelPos, SIGNAL, OK_GREEN } from '../world/common.js';
 
 const cx = (z) => 4 * Math.sin(z * 0.055) + 1.5 * Math.sin(z * 0.13 + 0.7);
 const halfW = (z) => 4.4 + 1.3 * Math.sin(z * 0.09 + 1.2);
@@ -197,7 +197,7 @@ function person(color) {
   return g;
 }
 
-export class CanyonAct {
+export class HeroAct {
   constructor({ labels }) {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 900);
@@ -358,7 +358,7 @@ export class CanyonAct {
     if (ph2 > 0.6) this.relay.tick((i) => {
       if (i === 0) {
         B.julie.flash('#ffffff');
-        this.rings.emit(this.chest.julie, { color: ORANGE, size: 3, dur: 0.9, alpha: 1, width: 0.08 });
+        this.rings.emit(this.chest.julie, { color: SIGNAL, size: 3, dur: 0.9, alpha: 1, width: 0.08 });
         this.packets.send(A.jm.curve, { dur: 0.8, onArrive: () => {
           B.marc.flash();
           this.packets.send(A.ml.curve, { dur: 0.6, onArrive: () => { B.lea.flash(); this.packets.send(A.lt.curve, { dur: 0.6, onArrive: () => B.tom.flash() }); } });

@@ -4,7 +4,8 @@
 import * as THREE from 'three';
 import { smooth, clamp01, frameOpposite, studioEnvironment, QUALITY } from '../kit/fx.js';
 import { t as tr } from '../kit/i18n.js';
-import { glowMap, glowSprite, Rings, Packets, Schedule, panelPos, arcCurve, ORANGE, OK_GREEN } from '../world/common.js';
+import { theme } from '../activity.js';
+import { glowMap, glowSprite, Rings, Packets, Schedule, panelPos, arcCurve, SIGNAL, OK_GREEN } from '../world/common.js';
 
 const SW = 600, SH = 1304; // screen canvas, same ratio as the 0.92 × 2.0 screen
 const SCREEN_W = 0.92, SCREEN_H = 2.0;
@@ -64,6 +65,8 @@ function drawSignals(g, { press = 0, sent = false, acks = 0 }) {
     g.textAlign = 'center';
     const lines = tr(labels[i]).split('\n');
     g.font = F(700, lines.length > 1 ? 32 : 40);
+    const wide = Math.max(...lines.map((l) => g.measureText(l).width));
+    if (wide > BW - 28) g.font = F(700, Math.floor((lines.length > 1 ? 32 : 40) * (BW - 28) / wide));
     lines.forEach((l, j) => g.fillText(l, cxp, y + (lines.length > 1 ? 118 + j * 38 : 132)));
     g.restore();
   });
@@ -125,7 +128,7 @@ function makePhone() {
   const g = new THREE.Group();
   const body = new THREE.Mesh(
     new THREE.ExtrudeGeometry(roundedShape(1.0, 2.1, 0.15), { depth: 0.07, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 3, curveSegments: 12 }),
-    new THREE.MeshStandardMaterial({ color: '#2a221d', metalness: 0.75, roughness: 0.32 }),
+    new THREE.MeshStandardMaterial({ color: theme().close.body, metalness: 0.75, roughness: 0.32 }),
   );
   body.geometry.translate(0, 0, -0.055);
   g.add(body);
@@ -150,7 +153,7 @@ const screenPoint = (px, py, z = 0.05) => new THREE.Vector3((px / SW - 0.5) * SC
 
 function bokeh(count) {
   const pos = new Float32Array(count * 3), col = new Float32Array(count * 3), size = new Float32Array(count);
-  const pal = ['#ff6a00', '#ff9a5a', '#ffd2a8', '#4d7f9a', '#7fc4e6'].map((c) => new THREE.Color(c));
+  const pal = theme().close.bokeh.map((c) => new THREE.Color(c));
   for (let i = 0; i < count; i++) {
     pos.set([(Math.random() - 0.5) * 16, (Math.random() - 0.5) * 9, -3 - Math.random() * 7], i * 3);
     const c = pal[(Math.random() * pal.length) | 0];
@@ -185,26 +188,26 @@ export class SignalAct {
   constructor({ labels }) {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(32, 1, 0.05, 100);
-    this.look = { bloom: 0.38, bloomRadius: 0.5, threshold: 0.92, exposure: 1, fade: 0, fadeColor: '#0e0b09', vignette: 1 };
+    this.look = { bloom: 0.38, bloomRadius: 0.5, threshold: 0.92, exposure: 1, fade: 0, fadeColor: theme().bg, vignette: 1 };
     this.labels = labels;
     this.progress = 0;
-    const s = this.scene;
-    s.background = new THREE.Color('#110c09');
+    const s = this.scene, T = theme().close;
+    s.background = new THREE.Color(T.bg);
     this.bokeh = bokeh(Math.round(90 * Math.max(0.5, QUALITY.particles)));
     s.add(this.bokeh);
-    const key = new THREE.DirectionalLight('#ffd9bd', 2.2);
+    const key = new THREE.DirectionalLight(T.key, 2.2);
     key.position.set(-3, 4, 5);
-    const rim = new THREE.DirectionalLight('#ff7a2e', 2.6);
+    const rim = new THREE.DirectionalLight(T.rim, 2.6);
     rim.position.set(4, 1, -3);
-    s.add(key, rim, new THREE.AmbientLight('#3a2a22', 0.6));
+    s.add(key, rim, new THREE.AmbientLight(T.ambient, 0.6));
 
     this.a = makePhone();
     this.b = makePhone();
     s.add(this.a, this.b);
-    this.glowA = glowSprite(ORANGE, 4.2, 0.12);
+    this.glowA = glowSprite(SIGNAL, 4.2, 0.12);
     this.glowA.position.z = -0.3;
     this.a.add(this.glowA);
-    this.glowB = glowSprite(ORANGE, 5, 0);
+    this.glowB = glowSprite(SIGNAL, 5, 0);
     this.glowB.position.z = -0.3;
     this.b.add(this.glowB);
     this.finger = glowSprite(new THREE.Color('#fff1e4'), 0.5, 0);
@@ -288,7 +291,7 @@ export class SignalAct {
     const normalA = this.w.set(0, 0, 1).transformDirection(this.a.matrixWorld).clone();
     if (p > -0.05 && p < 0.7) this.ripple.tick(() => {
       const at = this.a.localToWorld(this.stopPt.clone());
-      this.rings.emit(at, { color: ORANGE, size: 1.6, dur: 1.2, normal: normalA, width: 0.05 });
+      this.rings.emit(at, { color: SIGNAL, size: 1.6, dur: 1.2, normal: normalA, width: 0.05 });
     });
     // The signal travels A → B until B shows it.
     const bScreen = this.b.localToWorld(screenPoint(SW / 2, SH * 0.45, 0.06));

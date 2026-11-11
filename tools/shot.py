@@ -1,5 +1,5 @@
 """Screenshots of the page with the local Chrome on the real GPU.
-Usage: shot.py out_prefix act s1 s2 ... [--ui] [--w=1440 --h=900] [--url=http://127.0.0.1:8792/] [--lang=fr] [--wait=2500]
+Usage: shot.py out_prefix act s1 s2 ... [--ui] [--w=1440 --h=900] [--url=http://127.0.0.1:8792/] [--lang=fr] [--activity=canyon|mountain|cave] [--wait=2500]
 s = panel coordinate of the act (0 = first card centred, 1 = second card…). Without --ui the page
 text is hidden and the act is forced to that position; with --ui the page is scrolled there.
 act may also be a CSS selector of a plain section (e.g. '#film'), shot with --ui."""
@@ -20,7 +20,7 @@ async def main():
         logs = []
         pg.on('console', lambda m: logs.append(f'{m.type}: {m.text}') if m.type in ('error', 'warning') else None)
         pg.on('pageerror', lambda e: logs.append(f'PAGEERROR: {e}'))
-        await pg.goto(flags.get('url', 'http://127.0.0.1:8792/') + f"?debug&lang={flags.get('lang', 'fr')}", wait_until='load')
+        await pg.goto(flags.get('url', 'http://127.0.0.1:8792/') + f"?debug&lang={flags.get('lang', 'fr')}&activity={flags.get('activity', 'canyon')}", wait_until='load')
         await pg.wait_for_function("window.__kit && document.getElementById('loader').classList.contains('done')", timeout=120000)
         await pg.wait_for_timeout(1800)
         if 'ui' not in flags:

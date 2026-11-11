@@ -1,7 +1,8 @@
-// Page wiring: strings, plain sections (screens, film, encryption), the stage and its
-// three acts (canyon, signal, mesh), then the reveal.
+// Page wiring: strings, the activity (chooser on a first visit, its texts), plain sections (screens,
+// film, encryption), the stage and its three acts (the activity's hero, signal, mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
 import { STRINGS } from './strings.js';
+import { activity, applyActivity, chooseActivity, setupActivitySwitch } from './activity.js';
 import {
   $, $$, capture, debug, lenis, setupAnchors, webglOK, setupStage, bindActs, setupPanels, setupReveals,
   setupNav, setupLightbox, finishBoot,
@@ -70,6 +71,7 @@ async function boot() {
       ['title', 'description'].forEach((k) => $(`meta[property="og:${k}"]`).setAttribute('content', STRINGS.static[`meta.og.${k}`]));
     },
   });
+  setupActivitySwitch();
   setupAnchors();
   renderScreens();
   setupLightbox();
@@ -78,17 +80,19 @@ async function boot() {
 
   const onProgress = loaderArcs();
   onProgress(0.2);
+  await chooseActivity();
+  applyActivity();
   let bundle = null;
   if (webglOK()) {
     try {
       await document.fonts.ready;
       bundle = await setupStage(async ({ labelsFor }) => {
-        const [{ CanyonAct }, { SignalAct }, { MeshAct }] = await Promise.all([
-          import('./acts/canyon.js'), import('./acts/signal.js'), import('./acts/mesh.js'),
+        const [hero, { SignalAct }, { MeshAct }] = await Promise.all([
+          import(`./acts/${activity()}.js`), import('./acts/signal.js'), import('./acts/mesh.js'),
         ]);
         onProgress(0.6);
         return {
-          canyon: new CanyonAct({ labels: labelsFor() }),
+          hero: new hero.HeroAct({ labels: labelsFor() }),
           signal: new SignalAct({ labels: labelsFor() }),
           mesh: new MeshAct({ labels: labelsFor() }),
         };
