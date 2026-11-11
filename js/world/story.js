@@ -1,5 +1,5 @@
 // The hero's story, shared by the activity scenes (mountain, cave; canyon keeps its own copy):
-// Julie whistles and the rings tear apart in the noise (first card), then her message hops
+// Julie whistles and the rings tear apart in the noise (first card; the mountain has a whiteout instead), then her message hops
 // Julie → Marc → Léa → Tom and the acknowledgements come back (second card). Each scene builds
 // its terrain, places the four members and calls update() with the panel coordinate.
 import * as THREE from 'three';
@@ -26,7 +26,8 @@ export class Story {
    * spots: {julie, marc, lea, tom} ground positions; face: point they look towards (or per member);
    * noise: where the noise label sits; lifts: arc heights julie→marc, marc→lea, lea→tom.
    */
-  constructor(scene, labels, { spots, face, gear, noise, lifts = [2.2, 1.6, 1.8], ring = '#ffd9bf', ringSize = 9, chestY = 1.15, sides = {} }) {
+  constructor(scene, labels, { spots, face, gear, noise, lifts = [2.2, 1.6, 1.8], ring = '#ffd9bf', ringSize = 9, chestY = 1.15, sides = {}, call = true }) {
+    this.call = call; // false: no whistle rings in the first card (the scene shows its own problem)
     this.labels = labels;
     this.beacons = {};
     this.chest = {};
@@ -72,7 +73,7 @@ export class Story {
   update(p, t, camera) {
     // Phase 1 (problem): Julie whistles, the rings tear apart in the noise.
     const ph1 = smooth(0.55, 0.8, p) * (1 - smooth(1.35, 1.55, p));
-    if (ph1 > 0.5) this.whistle.tick(() => {
+    if (this.call && ph1 > 0.5) this.whistle.tick(() => {
       this.rings.emit(this.chest.julie, { color: this.ring.color, size: this.ring.size, dur: 2.2, alpha: 0.55, brokenFrom: 0.2, width: 0.025 });
     });
     // Phase 2 (answer): the message hops Julie → Marc → Léa → Tom; acknowledgements come back.

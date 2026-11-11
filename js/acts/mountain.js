@@ -1,8 +1,8 @@
 // Act · hero for the mountain (ski touring, mountaineering, climbing, ice) — a slope at blue hour
 // under the moon, a granite ridge, a frozen waterfall on a cliff band and the blue mouth of an ice
-// cave at the foot of a glacier. Julie, at the top of the couloir, whistles into the wind; then her
-// message (the snow is cracking, one at a time) hops down the slope to Léa and Tom, already in the
-// valley, and the acknowledgements come back.
+// cave at the foot of a glacier. Julie, at the top of the couloir, feels the snow crack as a whiteout
+// swallows the slope (no whistle, no shouting on skis); then her message (one at a time) hops down to
+// Léa and Tom, further down and out of sight, and the acknowledgements come back.
 import * as THREE from 'three';
 import { smooth, QUALITY } from '../kit/fx.js';
 import { t as tr } from '../kit/i18n.js';
@@ -257,6 +257,8 @@ export class HeroAct {
     this.progress = 0;
     const s = this.scene;
     s.fog = new THREE.FogExp2('#1c2d4a', 0.0062);
+    this.fogNight = new THREE.Color('#1c2d4a');
+    this.fogWhite = new THREE.Color('#8d9fb8');
     this.sky = createSky({ zenith: '#040917', mid: '#16294a', horizon: '#5f86ba', sunDir: new THREE.Vector3(0.25, -0.02, -1), stars: 1.0 });
     s.add(this.sky);
     const moon = glowSprite(new THREE.Color('#dce8ff'), 70, 0.5);
@@ -298,7 +300,7 @@ export class HeroAct {
 
     this.story = new Story(s, labels, {
       spots, face: new THREE.Vector3(gx(10), 0, 30), gear: skis,
-      noise: J.clone().add(new THREE.Vector3(4.5, 2.6, 0)), lifts: [3, 3.5, 2], ring: '#dbeaff', sides: { noise: 'right' },
+      noise: J.clone().add(new THREE.Vector3(-3.5, 3.2, -1)), lifts: [3, 3.5, 2], sides: { noise: 'left' }, call: false,
     });
     this.lab = {
       icefall: labels.add(tr('label.icefall'), this.icefall.userData.label),
@@ -336,8 +338,7 @@ export class HeroAct {
     this.t0 ??= performance.now();
     const it = (performance.now() - this.t0) / 1000;
     const p = panelPos(this.progress, this.marks);
-    this.look.fade = 1 - smooth(0, 1.6, it);
-    this.look.fadeColor = theme().bg;
+    this.intro = 1 - smooth(0, 1.6, it);
 
     this.sky.userData.update(t);
     for (const pts of [this.wind, this.plumes, this.glints]) pts.material.uniforms.uTime.value = t;
@@ -350,7 +351,13 @@ export class HeroAct {
     this.camera.position.copy(this.tmpP);
     this.camera.lookAt(this.tmpT);
 
-    this.story.update(p, t, this.camera);
+    const { ph1 } = this.story.update(p, t, this.camera);
+    // The whiteout of the first card: the fog closes in around Julie and the rest of the group vanishes.
+    this.scene.fog.density = 0.0062 + 0.05 * ph1;
+    this.scene.fog.color.copy(this.fogNight).lerp(this.fogWhite, ph1);
+    this.wind.material.uniforms.uAlpha.value = 0.5 + 0.6 * ph1;
+    this.look.fade = Math.max(this.intro, 0.32 * ph1);
+    this.look.fadeColor = this.intro > 0.01 ? theme().bg : '#8193ab';
     const lb = this.labels;
     lb.show(this.lab.icefall, p > 0.15 && p < 0.5);
     lb.show(this.lab.icecave, p > 0.15 && p < 0.5);

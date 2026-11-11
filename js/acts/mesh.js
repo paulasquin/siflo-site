@@ -12,6 +12,8 @@ const rx = (z) => 6 * Math.sin(z * 0.07) + 2 * Math.sin(z * 0.17 + 0.4);
 const R = 7.5; // drawn radio range
 const height = (x, z) => {
   const d = Math.abs(x - rx(z));
+  // The mountain follows a ridge (the line is the crest); the others a gorge (the line is the river).
+  if (MAP.ridge) return 3 + 6 * fbm2(x * 0.035 + 3, z * 0.035) - Math.min(d, 18) * 0.5 + 7 * Math.exp(-(d * d) / 14);
   return 3 + 7 * fbm2(x * 0.035 + 3, z * 0.035) + Math.min(d, 14) * 0.45 - 6 * Math.exp(-(d * d) / 10);
 };
 const MAP = theme().map;

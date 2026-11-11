@@ -8,7 +8,7 @@ import { LANG, registerStrings } from './kit/i18n.js';
 export const ACTIVITIES = ['canyon', 'mountain', 'cave'];
 export const activity = () => (ACTIVITIES.includes(document.documentElement.dataset.activity) ? document.documentElement.dataset.activity : 'canyon');
 
-/** Colours of the 3D acts: the phones' glow, the signal close-up and the contour map. */
+/** Colours of the 3D acts: the phones' glow, the signal close-up and the contour map (a ridge instead of a gorge for the mountain). */
 export const THEMES = {
   canyon: {
     signal: '#ff6a00', bg: '#0e0b09',
@@ -18,7 +18,7 @@ export const THEMES = {
   mountain: {
     signal: '#3fc3ff', bg: '#060a10',
     close: { bg: '#070c13', key: '#dff1ff', rim: '#3aa8ff', ambient: '#1c2a3a', bokeh: ['#3fc3ff', '#9fe0ff', '#e6f6ff', '#5d7dc4', '#b9c8ff'], body: '#1d2630' },
-    map: { bg: '#05080d', lo: [0.006, 0.009, 0.014], hi: [0.05, 0.07, 0.095], line: [0.45, 0.8, 1.0], river: '#e8f4ff', amber: '#c9b6ff', grey: '#9fb3c6' },
+    map: { ridge: true, bg: '#05080d', lo: [0.006, 0.009, 0.014], hi: [0.05, 0.07, 0.095], line: [0.45, 0.8, 1.0], river: '#e8f4ff', amber: '#c9b6ff', grey: '#9fb3c6' },
   },
   cave: {
     signal: '#f5b324', bg: '#090908',
@@ -38,36 +38,44 @@ const q = (s) => `«${NNBSP}${s}${NNBSP}»`;
 const COPY = {
   mountain: {
     cases: [4, 1, 2, 3],
+    // No whistle and no shouting here: on skis the group spreads out one at a time, often out of
+    // sight, and the voice is lost in the wind, the whiteout and the distance (js/acts/mountain.js).
     fr: {
       'hero.eyebrow': 'Ski de rando, alpinisme, escalade',
-      'c1.h': 'Le sifflet, c’est bien. Quand le vent le laisse passer.',
-      'c1.p': 'Quatre codes seulement, qui changent d’un club à l’autre. Une rafale sur l’arête suffit à les couvrir. Quand la neige craque sous les skis en haut du couloir, ceux d’en bas n’en savent rien. Ceux déjà au fond du vallon, encore moins.',
-      'c2.p': `Julie écrit ${q('Ça craque, un par un')}. Le téléphone de Marc, à mi-pente, transmet le message à Léa et Tom, déjà au fond du vallon.`,
-      's1.p': 'Quatre grosses touches, faciles à viser avec des gants. Les points rappellent le nombre de coups de sifflet. Chaque club peut y mettre ses propres codes, même les plus ésotériques.',
+      'c1.h': 'En haut de la pente, les autres sont déjà loin.',
+      'c1.p': 'On descend un par un et on s’attend plus bas, souvent hors de vue. Le vent couvre la voix, le jour blanc efface les silhouettes, et crier d’un bout à l’autre de la combe ne sert pas à grand-chose. Quand la neige craque sous les skis de Julie, ceux d’en bas n’en savent rien.',
+      'c2.p': `Julie écrit ${q('Ça craque, un par un')}. Le téléphone de Marc, à mi-pente, transmet le message à Léa et Tom, plus bas dans la combe, hors de vue de Julie. Avec une radio LoRa en option, il porte jusqu’à quelques kilomètres.`,
+      's1.h': 'Les consignes du groupe, en une touche.',
+      's1.p': 'Quatre grosses touches, faciles à viser avec des gants. Plus besoin de crier dans le vent&#8239;: la consigne arrive sur le téléphone, avec le nom de celui qui l’envoie. Chaque club peut y mettre ses propres codes, même les plus ésotériques.',
       'sig.release': 'Un par un', 'sig.pull': 'Regroupement',
-      's2.p': 'Julie, en haut du couloir, envoie STOP à Marc, qui s’apprête à s’y engager. Son téléphone vibre au rythme du code, siffle et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.',
+      's2.p': 'Julie, en haut du couloir, envoie STOP à Marc, qui s’apprête à s’y engager. Son téléphone vibre au rythme du code, sonne et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.',
+      'm1.p': 'Sur l’arête, chaque téléphone de la cordée transmet les messages au suivant par Bluetooth&#8239;: une vingtaine de mètres en poche, une centaine en main et à vue, jusqu’à 12 sauts. Pour les grandes distances, une radio LoRa en option porte jusqu’à quelques kilomètres (estimations). Pas besoin d’antenne&#8239;: chaque téléphone du groupe en devient une.',
       'ch.av': 'BL', 'ch.group': 'Belledonne · ski de rando', 'ch.place': 'Parking du départ', 'ch.m2': 'J’apporte le DVA de rechange. Et les croissants.',
     },
     en: {
       'hero.eyebrow': 'Ski touring, mountaineering, climbing',
-      'c1.h': 'A whistle is great. When the wind lets it through.',
-      'c1.p': 'Only four codes, which change from club to club. One gust on the ridge is enough to drown them out. When the snow cracks under the skis at the top of the couloir, those below have no idea. And those already down in the valley have even less.',
-      'c2.p': 'Julie types “It’s cracking, one at a time”. Marc’s phone, halfway down the slope, passes the message on to Léa and Tom, already down in the valley.',
-      's1.p': 'Four big buttons, easy to hit with gloves on. The dots match the number of whistle blasts. Each club can put in its own codes, even the most obscure ones.',
+      'c1.h': 'At the top of the slope, the others are already far away.',
+      'c1.p': 'You ski down one at a time and wait further down, often out of sight. The wind swallows the voice, a whiteout wipes out the silhouettes, and shouting across the bowl does not get you far. When the snow cracks under Julie’s skis, those below have no idea.',
+      'c2.p': 'Julie types “It’s cracking, one at a time”. Marc’s phone, halfway down the slope, passes the message on to Léa and Tom, further down the bowl and out of Julie’s sight. With an optional LoRa radio, it carries up to a few kilometres.',
+      's1.h': 'The group’s calls, one tap away.',
+      's1.p': 'Four big buttons, easy to hit with gloves on. No more shouting into the wind: the call lands on the phone, with the name of whoever sent it. Each club can put in its own codes, even the most obscure ones.',
       'sig.release': 'One at a time', 'sig.pull': 'Regroup',
-      's2.p': 'Julie, at the top of the couloir, sends STOP to Marc, about to drop in. His phone vibrates to the rhythm of the code, whistles and shows a full-screen alert, even when locked. The rest of the group carries on with their snack bars.',
+      's2.p': 'Julie, at the top of the couloir, sends STOP to Marc, about to drop in. His phone vibrates to the rhythm of the code, rings and shows a full-screen alert, even when locked. The rest of the group carries on with their snack bars.',
+      'm1.p': 'On the ridge, each phone of the rope team passes messages on to the next over Bluetooth: about twenty metres in a pocket, a hundred in hand with line of sight, up to 12 hops. For long distances, an optional LoRa radio carries up to a few kilometres (estimates). No antenna needed: every phone in the group becomes one.',
       'ch.av': 'BL', 'ch.group': 'Belledonne ski tour', 'ch.place': 'Trailhead car park', 'ch.m2': 'I’ll bring the spare transceiver. And the croissants.',
     },
     ui: {
       fr: {
         'phone.group': 'Belledonne', 'phone.release': 'Un par un', 'phone.pull': 'Regroupement',
-        'label.waterfall': 'Rafales · le son se perd', 'label.julie': `Julie${NNBSP}: ${q('Ça craque, un par un')}`,
-        'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, au fond du vallon', 'label.icefall': 'Cascade de glace', 'label.icecave': 'Grotte de glace',
+        'label.whistle': 'Ça craque sous les skis', 'label.waterfall': 'Jour blanc · plus personne en vue', 'label.julie': `Julie${NNBSP}: ${q('Ça craque, un par un')}`,
+        'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, plus bas dans la combe', 'label.icefall': 'Cascade de glace', 'label.icecave': 'Grotte de glace',
+        'label.behind': 'Resté en arrière sur l’arête',
       },
       en: {
         'phone.group': 'Belledonne', 'phone.release': 'One at\na time', 'phone.pull': 'Regroup',
-        'label.waterfall': 'Gusts · sound is lost', 'label.julie': 'Julie: “It’s cracking, one at a time”',
-        'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, down in the valley', 'label.icefall': 'Frozen waterfall', 'label.icecave': 'Ice cave',
+        'label.whistle': 'Snow cracking under the skis', 'label.waterfall': 'Whiteout · nobody in sight', 'label.julie': 'Julie: “It’s cracking, one at a time”',
+        'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, further down the bowl', 'label.icefall': 'Frozen waterfall', 'label.icecave': 'Ice cave',
+        'label.behind': 'Left behind on the ridge',
       },
     },
   },
