@@ -110,7 +110,7 @@ def sitemap(d: dict) -> None:
                f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{fr}"/>')
         for path in (fr, en_):
             rows.append(f"  <url><loc>{SITE}{path}</loc><lastmod>{today if path not in ('/labs/', '/en/labs/') else lastmod.get(SITE + path, today)}</lastmod>\n    {alt}</url>")
-    for path in ("/get/", "/privacy/"):
+    for path in ("/get/", "/presse/", "/suivre/", "/privacy/"):
         rows.append(f"  <url><loc>{SITE}{path}</loc><lastmod>{lastmod.get(SITE + path, today)}</lastmod></url>")
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
                                       + "\n".join(rows) + "\n</urlset>\n")

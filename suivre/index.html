@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Suivre Siflo</title>
+<meta name="description" content="Siflo sur Bluesky, X, Instagram et Threads, le groupe de la communauté dans l’application, et un avis sur les stores.">
+<link rel="canonical" href="https://siflo.app/suivre/">
+<link rel="icon" href="../assets/icon.png">
+<link rel="stylesheet" href="../css/link.css">
+</head>
+<body class="follow">
+<main>
+<header>
+  <img src="../assets/icon.png" alt="">
+  <a href="../">Siflo</a>
+  <nav class="lang-switch" aria-label="Langue · Language"><button type="button" data-lang="fr" lang="fr" aria-pressed="true">FR</button><button type="button" data-lang="en" lang="en">EN</button></nav>
+</header>
+
+<section lang="fr" data-title="Suivre Siflo">
+<h1>Suivre Siflo</h1>
+<p class="lead">Les nouveautés, les conseils de sortie et les coulisses de l’application, sur le réseau que vous préférez.</p>
+<div class="links">
+  <a class="store" href="https://bsky.app/profile/siflo.app"><span><b>Bluesky</b><small>@siflo.app</small></span></a>
+  <a class="store" href="https://x.com/sifloapp"><span><b>X</b><small>@sifloapp</small></span></a>
+  <a class="store" href="https://www.instagram.com/siflo.app/"><span><b>Instagram</b><small>@siflo.app</small></span></a>
+  <a class="store" href="https://www.threads.com/@siflo.app"><span><b>Threads</b><small>@siflo.app</small></span></a>
+</div>
+<h2>Dans l’application</h2>
+<p>Le groupe «&nbsp;Siflo sur Siflo&nbsp;» réunit la communauté dans Siflo même&nbsp;: vos retours, vos idées, les bugs que vous trouvez. <a href="../salut/">Rejoindre le groupe</a>.</p>
+<h2>Donner votre avis</h2>
+<p>Si Siflo vous rend service, un avis sur le store aide d’autres pratiquants à la trouver. <a href="../avis/">Laisser un avis</a>.</p>
+<p class="note">Une question&nbsp;? <a href="mailto:contact@siflo.app">contact@siflo.app</a> · <a href="../">Découvrir Siflo</a></p>
+</section>
+
+<section lang="en" data-title="Follow Siflo" hidden>
+<h1>Follow Siflo</h1>
+<p class="lead">News, outdoor tips and the making of the app, on the network you prefer.</p>
+<div class="links">
+  <a class="store" href="https://bsky.app/profile/siflo.app"><span><b>Bluesky</b><small>@siflo.app</small></span></a>
+  <a class="store" href="https://x.com/sifloapp"><span><b>X</b><small>@sifloapp</small></span></a>
+  <a class="store" href="https://www.instagram.com/siflo.app/"><span><b>Instagram</b><small>@siflo.app</small></span></a>
+  <a class="store" href="https://www.threads.com/@siflo.app"><span><b>Threads</b><small>@siflo.app</small></span></a>
+</div>
+<h2>In the app</h2>
+<p>The “Siflo on Siflo” group brings the community together inside Siflo: your feedback, your ideas, the bugs you find. <a href="../hello/">Join the group</a>.</p>
+<h2>Rate the app</h2>
+<p>If Siflo helps you, a review on the store helps others find it. <a href="../avis/">Leave a review</a>.</p>
+<p class="note">A question? <a href="mailto:contact@siflo.app">contact@siflo.app</a> · <a href="../">Discover Siflo</a></p>
+</section>
+</main>
+<script>
+// Same language pick as the other pages: ?lang=, then the saved choice, then the browser.
+let saved = null;
+try { saved = localStorage.getItem('lang'); } catch (e) {}
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('section[lang]').forEach(e => { e.hidden = e.lang !== lang; });
+  document.querySelectorAll('.lang-switch button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  document.title = document.querySelector(`section[lang="${lang}"]`).dataset.title;
+}
+setLang(/^fr\b/i.test(new URLSearchParams(location.search).get('lang') || saved || navigator.language || '') ? 'fr' : 'en');
+document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => {
+  try { localStorage.setItem('lang', b.dataset.lang); } catch (e) {}
+  const url = new URL(location.href);
+  url.searchParams.set('lang', b.dataset.lang);
+  history.replaceState(null, '', url);
+  setLang(b.dataset.lang);
+}));
+</script>
+</body>
+</html>
