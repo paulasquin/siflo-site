@@ -57,9 +57,6 @@ button.store { font: inherit; color: inherit; cursor: pointer; text-align: left;
 .facts dt { font-weight: 600; }
 .facts dd { margin: 0; }
 @media (max-width: 520px) { .facts { grid-template-columns: 1fr; gap: 2px; } .facts dd { margin-bottom: 10px; } }
-.press blockquote { margin: 2em 0; padding: 4px 0 4px 18px; border-left: 3px solid var(--accent); }
-.press blockquote p { margin: 0 0 .4em; font-size: 1.05em; }
-.press cite { font-style: normal; color: var(--muted); font-size: .9em; }
 .press-list { padding-left: 1.1em; }
 .press-list small { display: block; color: var(--muted); }
 .kit { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
