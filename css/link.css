@@ -67,3 +67,10 @@ button.store { font: inherit; color: inherit; cursor: pointer; text-align: left;
 .shots { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 @media (max-width: 520px) { .kit a.wide { grid-column: 1 / -1; } }
 .press .contact { font-size: 1.1em; font-weight: 600; }
+
+/* /suivre: the app's accounts, then the community group and reviews. */
+.follow header { position: relative; }
+.follow .lang-switch { position: static; margin-left: auto; }
+.follow h2 { font-size: 1.15em; margin: 1.8em 0 .3em; }
+.follow .links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 1.2em; }
+.follow .links .store { padding: 12px 16px; }
