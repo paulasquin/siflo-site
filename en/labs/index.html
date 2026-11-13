@@ -171,7 +171,7 @@
         <div class="honest two fv-cards">
           <div>
             <h3 data-i18n="fv.a1h">End to end</h3>
-            <p data-i18n="fv.a1p">Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone, and only their recipients can open them. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.</p>
+            <p data-i18n="fv.a1p">Group and private messages are encrypted (ChaCha20-Poly1305) and signed (Ed25519) on the sending phone. Only their recipients can open them. An SOS sent to every phone nearby (position included) and public messages are meant for anyone: they are signed, not encrypted.</p>
           </div>
           <div>
             <h3 data-i18n="fv.a2h">Keys that change</h3>
@@ -190,8 +190,8 @@
         <div class="fv-method">
           <h3 data-i18n="fv.w.h">Who sees what</h3>
           <dl class="fv-who">
-            <div><dt data-i18n="fv.w1t">A member of the group</dt><dd data-i18n="fv.w1d">The whole message, and its author, checked by their signature.</dd></div>
-            <div><dt data-i18n="fv.w2t">A stranger’s phone that relays it</dt><dd data-i18n="fv.w2d">Only the header: the time, the size, and a tag that changes every day and reveals neither the group nor the author.</dd></div>
+            <div><dt data-i18n="fv.w1t">A member of the group</dt><dd data-i18n="fv.w1d">The whole message and its author, checked by their signature.</dd></div>
+            <div><dt data-i18n="fv.w2t">A stranger’s phone that relays it</dt><dd data-i18n="fv.w2d">Only the header: the time, the size and a tag that changes every day and reveals neither the group nor the author.</dd></div>
             <div><dt data-i18n="fv.w3t">Our internet relays</dt><dd data-i18n="fv.w3d">The same, plus the IP address of the phone that drops off or picks up the packet. They keep it for 48 hours without being able to open it.</dd></div>
             <div><dt data-i18n="fv.w4t">Someone listening in on LoRa traffic</dt><dd data-i18n="fv.w4d">The number of the radio that transmits, the time and size of each frame: enough to recognise a radio from one day to the next, but not the text, the author or the group.</dd></div>
             <div><dt data-i18n="fv.w5t">Guardia, which publishes Siflo</dt><dd data-i18n="fv.w5d">Nothing more than our relay servers: no account, no address book, no content.</dd></div>
