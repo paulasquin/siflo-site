@@ -136,6 +136,7 @@ export const COPY = {
       'sig.stop': 'Attends', 'sig.ok': 'OK', 'sig.release': 'Viens', 'sig.pull': 'J’arrive',
       's2.p': `Julie envoie ${q('Attends')} à Marc, de l’autre côté de la fosse. Son téléphone vibre au rythme du code, sonne et affiche l’alerte en plein écran, même verrouillé. Le reste de l’équipe continue de danser.`,
       'ch.av': 'FB', 'ch.group': 'Festival · bénévoles', 'ch.place': 'Poste de secours', 'ch.m2': 'J’apporte les gilets. Et les croissants.',
+      'wd.2p': 'Le mécanisme de Signal pour les messages privés, une clé qui change chaque jour pour les groupes. Ses mécanismes clés ont été vérifiés par des outils de preuve mathématique. Oui, des maths. Siflo n’est pas conçu pour échapper à une surveillance organisée&#8239;: un téléphone reste repérable par qui s’équipe pour le suivre.',
     },
     en: {
       'hero.t1': 'Stay in touch,', 'hero.t2': 'even when', 'hero.t3': 'the network jams.',
@@ -148,6 +149,7 @@ export const COPY = {
       'sig.stop': 'Wait', 'sig.ok': 'OK', 'sig.release': 'Come', 'sig.pull': 'Coming',
       's2.p': 'Julie sends “Wait” to Marc, on the other side of the pit. His phone vibrates to the rhythm of the code, rings and shows a full-screen alert, even when locked. The rest of the team keeps dancing.',
       'ch.av': 'FB', 'ch.group': 'Festival volunteers', 'ch.place': 'First-aid post', 'ch.m2': 'I’ll bring the vests. And the croissants.',
+      'wd.2p': 'Signal’s mechanism for private messages, a key that changes every day for groups. Its key mechanisms have been checked with mathematical proof tools. Yes, maths. Siflo is not designed to escape organised surveillance: a phone can still be followed by someone equipped to do so.',
     },
     ui: {
       fr: {
