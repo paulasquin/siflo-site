@@ -73,7 +73,7 @@ const ROWS = [
 
 // Formal verification: what each model proves, in a line. Tool and files are in formal/ of the Siflo repository.
 const MODELS = [
-  [['Liens de contact', 'Contact links'], 'ProVerif, Tamarin', ["la demande et l’acceptation restent secrètes, et personne ne peut s’interposer entre les deux personnes", 'the request and the acceptance stay secret, and nobody can step in between the two people']],
+  [['Liens de contact', 'Contact links'], 'ProVerif, Tamarin', ["la demande et l’acceptation restent secrètes&#8239;; personne ne peut s’interposer entre les deux personnes", 'the request and the acceptance stay secret; nobody can step in between the two people']],
   [['Début des conversations privées', 'Start of private conversations'], 'ProVerif, Tamarin', ["premier message secret, contenu infalsifiable, réponses à l’abri même d’une clé volée plus tard", 'first message secret, content that cannot be forged, answers safe even from a key stolen later']],
   [['Enveloppe des messages privés', 'Private message envelope'], 'ProVerif', ["pour qui observe le réseau, rien dans l’enveloppe ne trahit la conversation&#8239;: seule l’adresse du destinataire est visible", "to someone watching the network, nothing in the envelope gives the conversation away: only the recipient’s address shows"]],
   [['Nouvelles clés et réponses SOS', 'New keys and SOS answers'], 'ProVerif, Tamarin', ["chacune ne peut être ouverte que par la personne à qui elle est adressée", 'each can only be opened by the person it is addressed to']],
