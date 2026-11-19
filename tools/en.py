@@ -111,6 +111,8 @@ def build(src: str, path: str, module: str, name: str) -> Path:
     s = set_attr(s, "data-i18n-badge", "data-badge", st)
     # English readers start at the top of the policy, where the English text is.
     s = s.replace("privacy/#francais", "privacy/")
+    # The English follow page and the films in English.
+    s = s.replace('href="suivre/"', 'href="follow/"').replace('href="expeditions/"', 'href="expeditions/?lang=en"')
     s = rewrite_urls(s, path, en_path)
     # The film's English poster from the start.
     s = re.sub(r'poster="[^"]*"([^>]*?)data-poster-en="([^"]*)"', r'poster="\2"\1data-poster-en="\2"', s)
