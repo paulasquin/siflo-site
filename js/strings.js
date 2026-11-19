@@ -212,7 +212,7 @@ export const STRINGS = {
     'fq.6q': 'How much does Siflo cost?', 'fq.6a': 'Nothing, and it will stay that way. If it helps you out, you can leave a tip from its settings, on Android for now.',
     'fq.7q': 'Who develops Siflo?', 'fq.7a': 'Siflo is developed by Guardia SAS, a French company, under its <a href="https://aidiligence.eu">AI Diligence</a> brand.',
     'sp.1': 'A question, a problem, an idea?', 'sp.2': 'Write to us: we answer every message, as soon as we have signal.',
-    'foot.aria': 'Links', 'foot.labs': 'Labs', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact', 'foot.tag': 'Be the relay.',
+    'foot.aria': 'Links', 'foot.labs': 'Labs', 'foot.films': 'Our films', 'foot.follow': 'Follow us', 'foot.privacy': 'Privacy', 'foot.contact': 'Contact', 'foot.tag': 'Be the relay.',
     'lb.aria': 'Enlarged screenshot', 'lb.close': 'Close', 'lb.prev': 'Previous screenshot', 'lb.next': 'Next screenshot',
   },
 };
