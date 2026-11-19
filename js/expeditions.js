@@ -2,16 +2,16 @@
 // Videos stay on YouTube: the card shows the self-hosted poster, and nothing from YouTube loads before the visitor clicks.
 const EPISODES = [
   {
-    n: '01', yt: 'mu_ZxiS-yGo', poster: 'mont-blanc.jpg',
+    n: '01', yt: 'TAhiUHu_9Xw', poster: 'mont-blanc.jpg',
     date: ['8 août 1786', '8 August 1786'],
     title: ['Mont Blanc', 'Mont Blanc'],
     sub: ['La première ascension', 'The first ascent'],
-    text: ['Michel-Gabriel Paccard et Jacques Balmat sont les premiers au sommet, suivis à la longue-vue depuis Chamonix. Suivez leur trace, de Chamonix au sommet.',
-      'Michel-Gabriel Paccard and Jacques Balmat are the first on the summit, watched through a telescope from Chamonix. Follow their trail, from Chamonix to the top.'],
+    text: ['Personne n’était jamais monté là-haut. Partis de Chamonix sans corde ni crampons, Michel-Gabriel Paccard et Jacques Balmat atteignent le sommet le 8 août 1786 à 18&nbsp;h&nbsp;23, suivis à la longue-vue depuis la vallée.',
+      'Nobody had ever been up there. Leaving Chamonix without rope or crampons, Michel-Gabriel Paccard and Jacques Balmat reach the summit on 8 August 1786 at 6:23 pm, watched through a telescope from the valley.'],
     credits: ['Relief et image&nbsp;: IGN (LiDAR HD, BD ORTHO). Tracé indicatif&nbsp;: itinéraire de 1786 par la montagne de la Côte et les Grands Mulets, d’après Wikipédia («&nbsp;Michel-Gabriel Paccard&nbsp;»). Musique&nbsp;: Grieg, «&nbsp;Au matin&nbsp;» (<i>Peer Gynt</i>), Musopen Symphony, domaine public.',
       'Terrain and imagery: IGN (LiDAR HD, BD ORTHO). Indicative route: the 1786 route by the Montagne de la Côte and the Grands Mulets, after Wikipedia (“Michel-Gabriel Paccard”). Music: Grieg, “Morning Mood” (<i>Peer Gynt</i>), Musopen Symphony, public domain.'],
     also: {
-      Instagram: 'https://www.instagram.com/siflo.app/reel/Df4zreMBgVN/',
+      Instagram: 'https://www.instagram.com/siflo.app/reel/Df7CO6DhgYw/',
       X: 'https://x.com/sifloapp/status/2123076193109029349',
       Bluesky: 'https://bsky.app/profile/siflo.app/post/3n2lv6z3pak2g',
       Threads: 'https://www.threads.com/@siflo.app/post/Df44MFujFCb',
