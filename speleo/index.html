@@ -73,7 +73,7 @@
   <link rel="apple-touch-icon" href="../assets/icon.png">
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/unbounded-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/inter-latin.woff2" crossorigin>
-  <link href="../css/style.css" rel="stylesheet">
+  <link href="../css/style.css?v=web" rel="stylesheet">
   <script type="importmap">
   {
     "imports": {
@@ -125,6 +125,7 @@
       <a href="#film" data-i18n="nav.film">Vidéo</a>
       <a href="#confidentialite" data-i18n="nav.privacy">Vie privée</a>
       <a href="#aide" data-i18n="nav.help">Aide</a>
+      <a href="https://web.siflo.app" class="nav-menu-only">Siflo Web</a>
     </div>
     <div class="nav-right">
       <div class="act-switch">
@@ -136,6 +137,7 @@
           <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Rassemblements</span><small data-i18n="act.gathering.s">Festivals, événements, bénévoles</small></span></button></li>
         </ul>
       </div>
+      <a href="https://web.siflo.app" class="nav-labs nav-web" aria-label="Siflo Web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>Siflo Web</span></a>
       <a href="../labs/" class="nav-labs" data-i18n="nav.labs">Labo</a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
     </div>
@@ -515,7 +517,11 @@
           </ul>
           <p class="dl-w-next" data-i18n="dl.inreach">Garmin inReach&#8239;: écrivez au groupe par satellite. Connexion Bluetooth directe à l’étude</p>
         </div>
-        <p class="dl-web reveal" data-i18n="dl.web">Sur l’ordinateur aussi&#8239;: ouvrez <a href="https://web.siflo.app">web.siflo.app</a>, scannez son QR code avec Siflo, et vos conversations s’affichent sur grand écran.</p>
+        <div class="dl-watches dl-web reveal">
+          <p class="dl-w-label" data-i18n="dl.webk">Et sur l’ordinateur</p>
+          <a class="w-item" href="https://web.siflo.app"><span class="w-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Siflo Web</span><small>web.siflo.app</small></a>
+          <p class="dl-web-how" data-i18n="dl.web">Ouvrez la page, scannez son QR code avec Siflo&#8239;: vos conversations s’affichent sur grand écran.</p>
+        </div>
         <p class="dl-note reveal" data-i18n="dl.note">Android 8 ou plus récent, iPhone sous iOS 17 ou plus récent. Apple Watch avec l’iPhone, Garmin et Amazfit avec Android, toujours avec le téléphone à proximité.</p>
       </div>
     </section>
@@ -578,6 +584,6 @@
   <script src="../assets/vendor/ScrollTrigger.min.js"></script>
   <script src="../assets/vendor/SplitText.min.js"></script>
   <script src="../assets/vendor/lenis.min.js"></script>
-  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/main.js?v=web"></script>
 </body>
 </html>
