@@ -77,7 +77,7 @@ export const STRINGS = {
     'act.gathering.n': 'Gatherings', 'act.gathering.s': 'Festivals, events, volunteers',
     'act.cave.n': 'Caving', 'act.cave.s': 'Shafts, passages, underground rivers',
     'act.list': 'Terrains',
-    'nav.chat': 'Messaging', 'nav.signals': 'Signals', 'nav.mesh': 'No network', 'nav.field': 'In the field', 'nav.film': 'Video', 'nav.privacy': 'Privacy', 'nav.help': 'Help', 'nav.labs': 'Labs',
+    'nav.chat': 'Messaging', 'nav.signals': 'Signals', 'nav.mesh': 'No network', 'nav.privacy': 'Privacy', 'nav.help': 'Help', 'nav.labs': 'Lab',
     'hero.eyebrow': 'Outdoor group communication',
     'hero.t1': 'Stay in touch',
     'hero.t2': 'outdoors,',
