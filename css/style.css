@@ -472,6 +472,8 @@ main { position: relative; z-index: 2; }
 .store.pending::after { content: attr(data-badge); position: absolute; top: -10px; right: -10px; padding: 3px 9px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .dl-tag { margin: 34px 0 0; font-family: var(--f-display); font-weight: 500; font-size: clamp(20px, 3vw, 26px); letter-spacing: -.01em; color: var(--accent-2); }
 .dl-tag + .dl-buttons { margin-top: 20px; }
+.dl-web { max-width: 620px; margin: 26px auto 0; font-size: 15px; }
+.dl-web a { color: var(--accent); font-weight: 600; }
 .dl-note { max-width: 620px; margin: 22px auto 0; font-size: 15px; }
 .dl-watches { margin: 0 auto; }
 .dl-w-label { margin: 0 0 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
