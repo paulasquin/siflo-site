@@ -1,12 +1,12 @@
 // Page wiring: strings, the activity (its texts and switches), plain sections (screens,
 // film, encryption), the stage and its three acts (the activity's hero, signal, mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
-import { STRINGS } from './strings.js';
+import { STRINGS } from './strings.js?v=web';
 import { activity, applyActivity, setupActivitySwitch } from './activity.js';
 import {
   $, $$, capture, debug, lenis, setupAnchors, webglOK, setupStage, bindActs, setupPanels, setupReveals,
   setupNav, setupLightbox, finishBoot,
-} from './kit/page.js';
+} from './kit/page.js?v=web';
 
 registerStrings(STRINGS);
 

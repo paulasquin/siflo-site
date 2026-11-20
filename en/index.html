@@ -51,7 +51,7 @@
   <link rel="apple-touch-icon" href="../assets/icon.png">
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/unbounded-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/inter-latin.woff2" crossorigin>
-  <link href="../css/style.css" rel="stylesheet">
+  <link href="../css/style.css?v=web" rel="stylesheet">
   <script type="importmap">
   {
     "imports": {
@@ -99,8 +99,6 @@
       <a href="#messagerie" data-i18n="nav.chat">Messaging</a>
       <a href="#signaux" data-i18n="nav.signals">Signals</a>
       <a href="#reseau" data-i18n="nav.mesh">No network</a>
-      <a href="#terrain" data-i18n="nav.field">In the field</a>
-      <a href="#film" data-i18n="nav.film">Video</a>
       <a href="#confidentialite" data-i18n="nav.privacy">Privacy</a>
       <a href="#aide" data-i18n="nav.help">Help</a>
     </div>
@@ -114,7 +112,8 @@
           <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Gatherings</span><small data-i18n="act.gathering.s">Festivals, events, volunteers</small></span></button></li>
         </ul>
       </div>
-      <a href="labs/" class="nav-labs" data-i18n="nav.labs">Labs</a>
+      <a href="https://web.siflo.app" class="nav-labs nav-web" aria-label="Siflo Web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>Web</span></a>
+      <a href="labs/" class="nav-labs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg><span data-i18n="nav.labs">Lab</span></a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
     </div>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
@@ -525,6 +524,11 @@
           </ul>
           <p class="dl-w-next" data-i18n="dl.inreach">Garmin inReach: write to the group by satellite. Direct Bluetooth link under study</p>
         </div>
+        <div class="dl-watches dl-web reveal">
+          <p class="dl-w-label" data-i18n="dl.webk">And on your computer</p>
+          <a class="w-item" href="https://web.siflo.app"><span class="w-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Siflo Web</span><small>web.siflo.app</small></a>
+          <p class="dl-web-how" data-i18n="dl.web">Open the page, scan its QR code with Siflo: your conversations on the big screen.</p>
+        </div>
         <p class="dl-note reveal" data-i18n="dl.note">Android 8 or later, iPhone on iOS 17 or later. Apple Watch with an iPhone, Garmin and Amazfit with Android, always with the phone nearby.</p>
       </div>
     </section>
@@ -567,6 +571,7 @@
         <a href="labs/" data-i18n="foot.labs">Labs</a>
         <a href="../expeditions/?lang=en" data-i18n="foot.films">Our films</a>
         <a href="../follow/" data-i18n="foot.follow">Follow us</a>
+        <a href="https://web.siflo.app">Siflo Web</a>
         <a href="../privacy/" data-i18n="foot.privacy">Privacy</a>
         <a href="mailto:contact@siflo.app" data-i18n="foot.contact">Contact</a>
         <a href="https://aidiligence.eu">AI Diligence</a>
@@ -586,6 +591,6 @@
   <script src="../assets/vendor/ScrollTrigger.min.js"></script>
   <script src="../assets/vendor/SplitText.min.js"></script>
   <script src="../assets/vendor/lenis.min.js"></script>
-  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/main.js?v=web"></script>
 </body>
 </html>

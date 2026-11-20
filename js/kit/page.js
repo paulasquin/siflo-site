@@ -138,6 +138,7 @@ export function setupNav() {
   });
   const links = $$('.nav-links a');
   links.forEach((a) => {
+    if (!a.getAttribute('href').startsWith('#')) return;
     const sec = $(a.getAttribute('href'));
     if (!sec) return;
     ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: (s) => a.classList.toggle('active', s.isActive) });
