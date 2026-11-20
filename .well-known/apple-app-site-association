@@ -10,6 +10,7 @@
           { "/": "/a", "#": "*", "comment": "join approval link" },
           { "/": "/groupe", "#": "*", "comment": "partner group link" },
           { "/": "/sos", "#": "*", "comment": "partner SOS button" },
+          { "/": "/w", "#": "*", "comment": "Siflo Web pairing" },
           { "/": "/salut", "comment": "community group (French)" },
           { "/": "/salut/", "comment": "community group (French)" },
           { "/": "/hello", "comment": "community group (English)" },
