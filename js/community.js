@@ -1,7 +1,7 @@
 // /salut and /hello (formerly /communaute and /community): short links to the community groups (« Siflo sur Siflo », "Siflo on Siflo"). The group's
 // invitation is the `data-link` of the page's body (a /j link, regenerate qr.svg with tools/community_qr.py when it
-// changes). On a phone: a button that hands it to Siflo (an intent on Android, siflo:// on iPhone), and store buttons
-// that copy it first, for the first-launch Paste card. Elsewhere: its QR code.
+// changes). On a phone: a button that hands it to Siflo (an intent on Android, the universal link open.siflo.app on
+// iPhone), and store buttons that copy it first, for the first-launch Paste card. Elsewhere: its QR code.
 const link = document.body.dataset.link;
 const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
 const android = /Android/.test(navigator.userAgent);
@@ -15,7 +15,7 @@ if (!link) {
   document.querySelectorAll('.phone').forEach(e => { e.hidden = !phone; });
   document.querySelectorAll('.desk').forEach(e => { e.hidden = phone; });
   document.querySelectorAll('.open').forEach(a => {
-    a.href = android ? `intent://siflo.app${path}#Intent;scheme=https;package=app.siflo;end` : 'siflo:/' + path;
+    a.href = android ? `intent://siflo.app${path}#Intent;scheme=https;package=app.siflo;end` : 'https://open.siflo.app' + path;
   });
   document.querySelectorAll('button.copy').forEach(b => b.addEventListener('click', () => {
     const open = () => { location.href = b.dataset.store; };
