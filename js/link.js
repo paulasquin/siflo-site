@@ -1,5 +1,6 @@
-// Landing pages of the app links: page language, and on a phone a button that hands the link to the app (siflo:// on
-// iPhone, an intent on Android: the page shows when a camera or scanner app opens the link in a browser instead of Siflo).
+// Landing pages of the app links: page language, and on a phone a button that hands the link to the app (the universal
+// link open.siflo.app on iPhone, an intent on Android: the page shows when a camera or scanner app opens the link in a
+// browser instead of Siflo).
 // The invitation or identity card sits in the fragment, which the browser never sends to the server.
 let saved = null;
 try { saved = localStorage.getItem('lang'); } catch (e) {}
@@ -26,7 +27,8 @@ if (location.hash && (ios || android)) {
   const link = location.pathname.replace(/\/$/, '') + location.hash;
   document.querySelectorAll('.open').forEach(a => {
     // Android: this very link, handed to Siflo whatever its version, or to Google Play when it is not installed.
-    a.href = android ? `intent://siflo.app${link}#Intent;scheme=https;package=app.siflo;end` : 'siflo:/' + link;
+    // iPhone: a tap from siflo.app to the other domain open.siflo.app opens Siflo (the app has had no siflo:// since 0.35).
+    a.href = android ? `intent://siflo.app${link}#Intent;scheme=https;package=app.siflo;end` : 'https://open.siflo.app' + link;
     a.hidden = a.closest('[lang]').hidden;
   });
 }
