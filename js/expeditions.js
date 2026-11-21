@@ -17,6 +17,23 @@ const EPISODES = [
       Threads: 'https://www.threads.com/@siflo.app/post/Df44MFujFCb',
     },
   },
+  {
+    n: '02', yt: 'kI0ZGB8_91E', poster: 'cervin.jpg',
+    date: ['14 juillet 1865', '14 July 1865'],
+    title: ['Le Cervin', 'The Matterhorn'],
+    sub: ['La première, par l’arête du Hörnli', 'The first ascent, by the Hörnli ridge'],
+    text: ['Sept hommes, une arête, un sommet encore vierge. Partis de Zermatt le 13 juillet 1865, Edward Whymper, le guide chamoniard Michel Croz et cinq compagnons remontent l’arête du Hörnli. Le 14 à 13&nbsp;h&nbsp;40, Whymper et Croz atteignent les premiers le sommet. Michel Croz, Charles Hudson, Douglas Hadow et Francis Douglas ne redescendront pas&nbsp;; des milliers de cordées ont suivi leur trace.',
+      'Seven men, one ridge, a summit no one had reached. Leaving Zermatt on 13 July 1865, Edward Whymper, the Chamonix guide Michel Croz and five companions climb the Hörnli ridge. On the 14th at 1:40 pm, Whymper and Croz are the first on the summit. Michel Croz, Charles Hudson, Douglas Hadow and Francis Douglas will not come back down; thousands of rope teams have followed in their steps.'],
+    credits: ['Relief et image&nbsp;: swisstopo (swissALTI3D, SWISSIMAGE). Tracé&nbsp;: l’arête du Hörnli, suivie sur le relief. Gravure&nbsp;: Edward Whymper, «&nbsp;Scrambles Amongst the Alps&nbsp;», 1871, domaine public. Musique&nbsp;: Mahler, Symphonie n°&nbsp;5, «&nbsp;Adagietto&nbsp;», Peabody, CC0.',
+      'Terrain and imagery: swisstopo (swissALTI3D, SWISSIMAGE). Route: the Hörnli ridge, followed on the terrain. Engraving: Edward Whymper, <i>Scrambles Amongst the Alps</i>, 1871, public domain. Music: Mahler, Symphony No. 5, “Adagietto”, Peabody, CC0.'],
+    also: {
+      Instagram: 'https://www.instagram.com/siflo.app/reel/DgAKDw2Mtnn/',
+      TikTok: 'https://www.tiktok.com/@siflo.app/video/7710591037206678816',
+      X: 'https://x.com/sifloapp/status/2124109828939203001',
+      Bluesky: 'https://bsky.app/profile/siflo.app/post/3n2t2h33j3k2f',
+      Threads: 'https://www.threads.com/@siflo.app/post/DgAL2IijEh3',
+    },
+  },
 ];
 
 const UI = {
