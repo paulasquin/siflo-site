@@ -34,6 +34,23 @@ const EPISODES = [
       Threads: 'https://www.threads.com/@siflo.app/post/DgAL2IijEh3',
     },
   },
+  {
+    n: '03', yt: 'O7rdNWv_w-8', poster: 'jorasses.jpg',
+    date: ['4-6 août 1938', '4-6 August 1938'],
+    title: ['Les Grandes Jorasses', 'The Grandes Jorasses'],
+    sub: ['La première de l’éperon Walker', 'The first ascent of the Walker Spur'],
+    text: ['Deux nuits dans 1&nbsp;200&nbsp;m de paroi. Le 4 août 1938, Riccardo Cassin, Gino Esposito et Ugo Tizzoni attaquent l’éperon Walker, l’un des derniers grands problèmes des Alpes. Trois jours d’escalade et deux bivouacs plus tard, ils sortent dans la tempête au sommet de la pointe Walker (4&nbsp;208&nbsp;m), le 6 août vers 15&nbsp;h. Leur voie est devenue l’une des grandes classiques des Alpes.',
+      'Two nights on a 1,200&nbsp;m wall. On 4 August 1938, Riccardo Cassin, Gino Esposito and Ugo Tizzoni set off up the Walker Spur, one of the last great problems of the Alps. After three days of climbing and two bivouacs, they top out in a storm on the Pointe Walker (4,208&nbsp;m) around 3 pm on 6 August. Their route has become one of the great classics of the Alps.'],
+    credits: ['Relief et image&nbsp;: IGN (LiDAR HD, BD ORTHO), Copernicus Sentinel-2 côté italien. Tracé&nbsp;: l’éperon Walker, calé sur «&nbsp;Grandes Jorasses - Tracé des voies&nbsp;» (Michmuch38, L. Besson, Wikimedia Commons, CC BY-SA 3.0). Musique&nbsp;: Brahms, Symphonie n°&nbsp;3, «&nbsp;Poco allegretto&nbsp;», Musopen, domaine public.',
+      'Terrain and imagery: IGN (LiDAR HD, BD ORTHO), Copernicus Sentinel-2 on the Italian side. Route: the Walker Spur, fitted to “Grandes Jorasses - Tracé des voies” (Michmuch38, L. Besson, Wikimedia Commons, CC BY-SA 3.0). Music: Brahms, Symphony No. 3, “Poco allegretto”, Musopen, public domain.'],
+    also: {
+      Instagram: 'https://www.instagram.com/siflo.app/reel/DgDX8iMsfgR/',
+      TikTok: 'https://www.tiktok.com/@siflo.app/video/7711055293987179808',
+      X: 'https://x.com/sifloapp/status/2124570900100227451',
+      Bluesky: 'https://bsky.app/profile/siflo.app/post/3n2war6yfsc2j',
+      Threads: 'https://www.threads.com/@siflo.app/post/DgDdO2gDABh',
+    },
+  },
 ];
 
 const UI = {
