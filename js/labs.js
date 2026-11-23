@@ -54,7 +54,7 @@ const ROWS = [
   },
   {
     group: 'lora', name: ['Radio LoRa', 'LoRa radio'], sub: ['un boîtier Meshtastic relié au téléphone en Bluetooth : longue portée, bas débit', 'a Meshtastic device paired with the phone over Bluetooth: long range, low rate'],
-    range: [500, 2000, 2000, 5000], rangeNote: ['sur soi, radio à la ceinture ou sur le sac ; en main, radio tenue à vue ; posée sur un point haut dégagé, plus de 10 km', 'on body, radio on the belt or pack; in hand, held up in line of sight; on a clear high point, over 10 km'],
+    range: [700, 3000, 3000, 7000], rangeNote: ['sur soi, radio à la ceinture ou sur le sac ; en main, radio tenue à vue ; posée sur un point haut dégagé, plus de 10 km', 'on body, radio on the belt or pack; in hand, held up in line of sight; on a clear high point, over 10 km'],
     phones: { ios: 'y', old: 'y', a16: 'y', a17: 'y' },
     feats: ['y', 'y', 'y', 'n'],
     speed: ['quelques centaines de trames de 233 octets par heure', 'a few hundred 233-byte frames an hour'], battery: ['faible pour le téléphone : la radio a sa propre batterie', 'low for the phone: the radio has its own battery'],
