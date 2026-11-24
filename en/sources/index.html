@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siflo — Map sources</title>
+<meta name="description" content="The sources of Siflo’s map and aerial photos, with their licences: OpenStreetMap, Protomaps, Mapterhorn, IGN, swisstopo, Italian regions, Copernicus Sentinel.">
+<link rel="canonical" href="https://siflo.app/en/sources/">
+<link rel="alternate" hreflang="fr" href="https://siflo.app/sources/">
+<link rel="alternate" hreflang="en" href="https://siflo.app/en/sources/">
+<link rel="alternate" hreflang="x-default" href="https://siflo.app/sources/">
+<script>
+  try { if (new URLSearchParams(location.search).get('lang') === 'en') localStorage.setItem('lang', 'en'); } catch (e) {}
+</script>
+<link rel="icon" href="../../assets/icon.png">
+<style>
+:root { color-scheme: light dark; --fg: #1f1b18; --muted: #6a625c; --bg: #fffbf8; --line: #eee4dc; --accent: #d95a00; }
+@media (prefers-color-scheme: dark) { :root { --fg: #efe9e4; --muted: #a99f97; --bg: #17130f; --line: #2f2822; --accent: #ff8a3d; } }
+* { box-sizing: border-box; }
+body { font: 16px/1.6 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); margin: 0; }
+main { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+header { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+header img { width: 40px; height: 40px; border-radius: 10px; }
+header a { color: inherit; text-decoration: none; font-weight: 600; font-size: 1.15em; }
+nav { margin-left: auto; display: flex; gap: 16px; font-size: .95em; }
+nav a { font-weight: 400; font-size: 1em; color: var(--muted); }
+h1 { font-size: 1.7em; line-height: 1.25; margin: 1.2em 0 .4em; }
+h2 { font-size: 1.2em; margin-top: 2em; }
+a { color: var(--accent); }
+li { margin: .5em 0; }
+.lead { font-size: 1.15em; color: var(--muted); }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85em; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <img src="../../assets/icon.png" alt="">
+  <a href="../">Siflo</a>
+  <nav><a lang="fr" hreflang="fr" href="../../sources/?lang=fr">Français</a></nav>
+</header>
+<h1>Map sources</h1>
+<p class="lead">Siflo’s map and aerial photos, and so its track videos, come from these open data.</p>
+<h2>Map</h2>
+<ul>
+<li>Trails and places: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors (<a href="https://opendatacommons.org/licenses/odbl/">ODbL</a>), tiles by <a href="https://protomaps.com/">Protomaps</a>.</li>
+<li>Relief and contour lines: <a href="https://mapterhorn.com/">Mapterhorn</a>, from <a href="https://geoservices.ign.fr/rgealti">IGN</a>, <a href="https://www.swisstopo.admin.ch/en/height-model-swissalti3d">swisstopo</a>, <a href="https://www.bev.gv.at/">BEV</a> and <a href="https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM">Copernicus GLO-30</a> (<a href="https://mapterhorn.com/attribution/">licences</a>).</li>
+</ul>
+<h2>Aerial photos</h2>
+<ul>
+<li>France: <a href="https://geoservices.ign.fr/bdortho">IGN BD ORTHO®</a> (<a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/">Licence Ouverte 2.0</a>), credited with the year Siflo downloaded the photos, 2026.</li>
+<li>Spain: <a href="https://pnoa.ign.es/">PNOA cedido por © Instituto Geográfico Nacional</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>).</li>
+<li>Switzerland and Liechtenstein: <a href="https://www.swisstopo.admin.ch/en/orthoimage-swissimage-10">© swisstopo SWISSIMAGE</a> (<a href="https://www.swisstopo.admin.ch/en/terms-of-use-free-geodata-and-geoservices">OGD swisstopo</a>).</li>
+<li>South Tyrol: <a href="https://geoservices.buergernetz.bz.it/">Provincia autonoma di Bolzano – Alto Adige, Ortofoto 2023</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>).</li>
+<li>Trentino: <a href="https://siat.provincia.tn.it/stem/">Provincia Autonoma di Trento, Ortofoto Digitale 2015 - PAT</a> (<a href="https://creativecommons.org/licenses/by/2.5/it/deed.en">CC BY 2.5 IT</a>).</li>
+<li>The rest of Italy, including Piedmont and the Aosta Valley for now: <a href="https://esa-worldcover.org/">Contains modified Copernicus Sentinel data 2021, ESA WorldCover</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>).</li>
+</ul>
+<footer>Guardia SAS — SIREN 910 991 140 — <a href="mailto:contact@siflo.app">contact@siflo.app</a></footer>
+</main>
+</body>
+</html>
