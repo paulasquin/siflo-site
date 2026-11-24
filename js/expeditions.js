@@ -61,6 +61,8 @@ const EPISODES = [
     credits: ['Relief et image&nbsp;: IGN (LiDAR HD, BD ORTHO). Tracé&nbsp;: voie normale du Grand Pic, calée sur «&nbsp;Meije - South face - Routes&nbsp;» (Krist@f, Camptocamp, Wikimedia Commons, CC BY-SA 2.0 fr). Musique&nbsp;: Brahms, Danse hongroise n°&nbsp;1, US Air Force Band, domaine public.',
       'Terrain and imagery: IGN (LiDAR HD, BD ORTHO). Route: the normal route on the Grand Pic, fitted to “Meije - South face - Routes” (Krist@f, Camptocamp, Wikimedia Commons, CC BY-SA 2.0 fr). Music: Brahms, Hungarian Dance No. 1, US Air Force Band, public domain.'],
     also: {
+      Instagram: 'https://www.instagram.com/siflo.app/reel/DgIj1dLIX_v/',
+      TikTok: 'https://www.tiktok.com/@siflo.app/video/7711801917642460455',
       X: 'https://x.com/sifloapp/status/2125289977672323092',
       Bluesky: 'https://bsky.app/profile/siflo.app/post/3n33acyr24k2p',
       Threads: 'https://www.threads.com/@siflo.app/post/DgIjo_3jPAl',
