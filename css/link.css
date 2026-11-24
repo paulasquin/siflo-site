@@ -67,6 +67,9 @@ button.store { font: inherit; color: inherit; cursor: pointer; text-align: left;
 .shots { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 @media (max-width: 520px) { .kit a.wide { grid-column: 1 / -1; } }
 .press .contact { font-size: 1.1em; font-weight: 600; }
+.press .news { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; background: var(--card); padding: 4px 18px 8px; margin-top: 24px; }
+.press .news h2 { margin: .8em 0 .3em; }
+.press .news ul { padding-left: 1.1em; margin: 0 0 .6em; }
 
 /* /suivre: the app's accounts, then the community group and reviews. */
 .follow header, .expeditions header { position: relative; }
