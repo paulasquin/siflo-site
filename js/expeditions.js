@@ -51,6 +51,21 @@ const EPISODES = [
       Threads: 'https://www.threads.com/@siflo.app/post/DgDdO2gDABh',
     },
   },
+  {
+    n: '04', yt: 'mADAASTI__I', poster: 'meije.jpg',
+    date: ['16 août 1877', '16 August 1877'],
+    title: ['La Meije', 'La Meije'],
+    sub: ['Le dernier grand sommet des Alpes', 'The last great summit of the Alps'],
+    text: ['Tous les grands sommets des Alpes sont gravis. Sauf un. Depuis des années, les meilleures cordées tentent la Meije sans atteindre le Grand Pic. Emmanuel Boileau de Castelnau, 20&nbsp;ans, s’y engage avec deux guides de Saint-Christophe-en-Oisans, Pierre Gaspard et son fils. Le 4 août, au-dessus du Promontoire, une dalle lisse les arrête&nbsp;: les clous des chaussures glissent, Gaspard la passe pieds nus. Le 16 août 1877, ils atteignent le Grand Pic (3&nbsp;983&nbsp;m). Sceptique, Coolidge refera leur voie un an plus tard et reconnaîtra leur réussite. Leur itinéraire est devenu la voie normale.',
+      'Every great summit in the Alps has been climbed. All but one. For years the best climbers have tried the Meije without reaching the Grand Pic. Emmanuel Boileau de Castelnau, aged 20, sets off with two guides from Saint-Christophe-en-Oisans, Pierre Gaspard and his son. On 4 August, above the Promontoire, a smooth slab stops them: their nailed boots slip, so Gaspard climbs it barefoot. On 16 August 1877 they reach the Grand Pic (3,983&nbsp;m). Doubtful, Coolidge will repeat their route a year later and acknowledge their success. Their line has become the normal route.'],
+    credits: ['Relief et image&nbsp;: IGN (LiDAR HD, BD ORTHO). Tracé&nbsp;: voie normale du Grand Pic, calée sur «&nbsp;Meije - South face - Routes&nbsp;» (Krist@f, Camptocamp, Wikimedia Commons, CC BY-SA 2.0 fr). Musique&nbsp;: Brahms, Danse hongroise n°&nbsp;1, US Air Force Band, domaine public.',
+      'Terrain and imagery: IGN (LiDAR HD, BD ORTHO). Route: the normal route on the Grand Pic, fitted to “Meije - South face - Routes” (Krist@f, Camptocamp, Wikimedia Commons, CC BY-SA 2.0 fr). Music: Brahms, Hungarian Dance No. 1, US Air Force Band, public domain.'],
+    also: {
+      X: 'https://x.com/sifloapp/status/2125289977672323092',
+      Bluesky: 'https://bsky.app/profile/siflo.app/post/3n33acyr24k2p',
+      Threads: 'https://www.threads.com/@siflo.app/post/DgIjo_3jPAl',
+    },
+  },
 ];
 
 const UI = {
