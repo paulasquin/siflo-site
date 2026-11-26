@@ -68,6 +68,23 @@ const EPISODES = [
       Threads: 'https://www.threads.com/@siflo.app/post/DgIjo_3jPAl',
     },
   },
+  {
+    n: '05', yt: 'mZH0lG7qQ1w', poster: 'angeville.jpg',
+    date: ['4 septembre 1838', '4 September 1838'],
+    title: ['Henriette d’Angeville', 'Henriette d’Angeville'],
+    sub: ['La fiancée du mont Blanc', 'The bride of Mont Blanc'],
+    text: ['En 1838, le pantalon était interdit aux femmes. Avant elle, une seule femme avait atteint le sommet du mont Blanc, Marie Paradis, en 1808. Henriette d’Angeville, 44&nbsp;ans, conçoit son propre pantalon d’alpinisme et part de Chamonix le 3&nbsp;septembre avec six guides, six porteurs, 24&nbsp;poulets et 18&nbsp;bouteilles de vin. Près du sommet, le mal des montagnes la terrasse, mais elle refuse de renoncer. Le 4&nbsp;septembre 1838, elle atteint le sommet (4&nbsp;807&nbsp;m) et confie la nouvelle à un pigeon, qu’on ne reverra jamais. Chamonix célèbre son retour à coups de canon, et elle devient «&nbsp;la fiancée du mont Blanc&nbsp;».',
+      'In 1838, trousers were forbidden to women. Before her, only one woman had reached the summit of Mont Blanc, Marie Paradis, in 1808. Henriette d’Angeville, 44, designs her own climbing trousers and leaves Chamonix on 3 September with six guides, six porters, 24 chickens and 18 bottles of wine. Near the top, altitude sickness floors her, but she refuses to give up. On 4 September 1838 she reaches the summit (4,807&nbsp;m) and entrusts the news to a pigeon, never seen again. Chamonix fires its cannon for her return, and she becomes “the bride of Mont Blanc”.'],
+    credits: ['Relief et image&nbsp;: IGN (LiDAR HD, BD ORTHO). Tracé indicatif&nbsp;: itinéraire de 1838 par les Grands Mulets et le Grand Plateau. Musique&nbsp;: Mendelssohn, Symphonie n°&nbsp;4 «&nbsp;Italienne&nbsp;» (1833), Allegro vivace, Musopen Symphony, domaine public.',
+      'Terrain and imagery: IGN (LiDAR HD, BD ORTHO). Indicative route: the 1838 route via the Grands Mulets and the Grand Plateau. Music: Mendelssohn, Symphony No.&nbsp;4 “Italian” (1833), Allegro vivace, Musopen Symphony, public domain.'],
+    also: {
+      Instagram: 'https://www.instagram.com/siflo.app/reel/DgNl6lLRNWt/',
+      TikTok: 'https://www.tiktok.com/@siflo.app/video/7712551920354725159',
+      X: 'https://x.com/sifloapp/status/2126009446467776828',
+      Bluesky: 'https://bsky.app/profile/siflo.app/post/3n3aa35m5mc2c',
+      Threads: 'https://www.threads.com/@siflo.app/post/DgNq922DOg0',
+    },
+  },
 ];
 
 const UI = {
