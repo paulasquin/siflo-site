@@ -1,14 +1,18 @@
-// Page wiring: strings, the activity (its texts and switches), plain sections (screens,
-// film, encryption), the stage and its three acts (the activity's hero, signal, mesh), then the reveal.
+// Page wiring: strings, the activity (its texts and chips), plain sections (screens, films,
+// encryption), the stage and its acts (the activity's hero, none for the general identity; signal,
+// mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
-import { STRINGS } from './strings.js?v=web';
+import { STRINGS } from './strings.js?v=partout';
 import { activity, applyActivity, setupActivitySwitch } from './activity.js';
 import {
   $, $$, capture, debug, lenis, setupAnchors, webglOK, setupStage, bindActs, setupPanels, setupReveals,
   setupNav, setupLightbox, finishBoot,
-} from './kit/page.js?v=web';
+} from './kit/page.js?v=partout';
 
 registerStrings(STRINGS);
+
+// The presentation film in the hero, on YouTube. English: the current English Short until the new one is up.
+const HERO_FILM = { fr: '6FA-N-e3nms', en: 'SSMs3xLIuFo' };
 
 const SCREENS = {
   fr: [
@@ -62,6 +66,22 @@ function setupFilm() {
   });
 }
 
+/** The hero's film: the self-hosted poster until a click, then the YouTube player in its place (no request to YouTube before). */
+function setupHeroFilm() {
+  const box = $('.hero-film');
+  if (!box) return;
+  const img = $('img', box);
+  if (LANG === 'en' && img.getAttribute('src') !== img.dataset.enSrc) img.src = img.dataset.enSrc;
+  $('.hf-play', box).addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${HERO_FILM[LANG]}?autoplay=1&playsinline=1&rel=0`;
+    f.title = t('hero.film.title');
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    box.replaceChildren(f);
+    box.classList.add('playing');
+  }, { once: true });
+}
+
 /** Loader: the three arcs of the whistle icon light up with the loading progress. */
 function loaderArcs() {
   const arcs = $$('.loader-mark .lm-arc');
@@ -83,12 +103,13 @@ async function boot() {
   setupLightbox();
   setupNav();
   setupFilm();
+  setupHeroFilm();
 
   const onProgress = loaderArcs();
   onProgress(0.2);
   applyActivity();
-  // Sections of another identity (data-only) leave the page before the stage and the panels count them.
-  $$('[data-only]').forEach((el) => { if (el.dataset.only !== activity()) el.remove(); });
+  // Sections of other identities (data-only, a list) leave the page before the stage and the panels count them.
+  $$('[data-only]').forEach((el) => { if (!el.dataset.only.split(' ').includes(activity())) el.remove(); });
   let bundle = null;
   if (webglOK()) {
     try {
@@ -96,11 +117,11 @@ async function boot() {
       bundle = await setupStage(async ({ labelsFor }) => {
         const climb = $('section[data-act="climb"]');
         const [hero, { SignalAct }, { MeshAct }, extra] = await Promise.all([
-          import(`./acts/${activity()}.js`), import('./acts/signal.js'), import('./acts/mesh.js'), climb ? import('./acts/climb.js') : null,
+          activity() === 'general' ? null : import(`./acts/${activity()}.js`), import('./acts/signal.js'), import('./acts/mesh.js'), climb ? import('./acts/climb.js') : null,
         ]);
         onProgress(0.6);
         return {
-          hero: new hero.HeroAct({ labels: labelsFor() }),
+          ...(hero && { hero: new hero.HeroAct({ labels: labelsFor() }) }),
           signal: new SignalAct({ labels: labelsFor() }),
           ...(extra && { climb: new extra.ClimbAct({ labels: labelsFor() }) }),
           mesh: new MeshAct({ labels: labelsFor() }),
@@ -115,7 +136,7 @@ async function boot() {
   if (bundle) {
     bindActs(bundle);
     // Each act learns at which progress its cards are centred (layout differs on phones).
-    const marks = () => $$('section.act').forEach((sec) => {
+    const marks = () => $$('section.act').filter((sec) => bundle.acts[sec.dataset.act]).forEach((sec) => {
       const range = sec.offsetHeight - innerHeight;
       bundle.acts[sec.dataset.act].marks = $$('.panel', sec).map((pn) => (pn.offsetTop + pn.offsetHeight / 2 - innerHeight / 2) / range);
     });

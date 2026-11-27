@@ -204,7 +204,7 @@ export function heroIntro() {
   const words = $$('.ht-word:not(.ht-glow)');
   const split = new SplitText(words, { type: 'chars' });
   const glow = $('.ht-glow');
-  const rest = $$('.eyebrow, .hero-sub, .hero-kpis, .hero-cta, .scroll-cue, .hud');
+  const rest = $$('.hero-ids, .hero-film, .hero-sub, .hero-kpis, .hero-cta, .scroll-cue, .hud');
   const all = [glow, ...rest].filter(Boolean);
   const done = () => { split.revert(); gsap.set(all, { clearProps: 'opacity,transform,translate' }); };
   gsap.fromTo(split.chars, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.3, ease: 'expo.out', stagger: 0.035, delay: 0.3 });

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Siflo — communication at festivals, even when the network jams</title>
   <meta name="description" content="Festivals, events, volunteer teams: messages, signals and SOS from phone to phone when the cell towers saturate. Free, encrypted app, no account.">
-  <meta name="theme-color" content="#0e0b09">
+  <meta name="theme-color" content="#11151d">
   <meta property="og:title" content="Siflo — Stay in touch, even when the network jams.">
   <meta property="og:description" content="Festivals, events, volunteer teams: messages, signals and SOS from phone to phone when the cell towers saturate. Free, encrypted app, no account.">
   <meta property="og:image" content="https://siflo.app/assets/og-gathering-en.jpg">
@@ -26,10 +26,10 @@
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/festival/">
   <script>
     // Pick the activity before first paint (css [data-activity], js/activity.js): an activity's own page
-    // (/montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=, then the
-    // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
+    // (/canyon/, /montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=,
+    // then the visitor's saved choice, else the general identity. The chips above the hero title switch it.
     (function () {
-      var ok = ['canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
+      var ok = ['general', 'canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
       try {
         if (a) localStorage.setItem('activity', a);
         else {
@@ -38,7 +38,7 @@
           else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
         }
       } catch (e) {}
-      root.dataset.activity = a || 'canyon';
+      root.dataset.activity = a || 'general';
     })();
   </script>
   <script>
@@ -51,7 +51,7 @@
   <link rel="apple-touch-icon" href="../../assets/icon.png">
   <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/unbounded-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/inter-latin.woff2" crossorigin>
-  <link href="../../css/style.css?v=web" rel="stylesheet">
+  <link href="../../css/style.css?v=partout" rel="stylesheet">
   <script type="importmap">
   {
     "imports": {
@@ -69,7 +69,8 @@
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
     </symbol>
-    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0). -->
+    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0), and a compass for the general identity. -->
+    <symbol id="act-general" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 1 0 19a9.5 9.5 0 0 1 0-19Zm0 2a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15Z"/><path d="M16.6 7.4l-2.6 6.6l-6.6 2.6l2.6-6.6Zm-4.6 3.4a1.2 1.2 0 1 0 0 2.4a1.2 1.2 0 0 0 0-2.4Z" fill-rule="evenodd"/></symbol>
     <symbol id="act-canyon" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M11.4 0H12.4V12H11.6ZM13 0H13.8V11H13ZM14.3 0H15V11.5H14.3Z"/><path d="M12.5 12.5c.32 0 .64.11.89.31l.32.26c.3.24.68.39 1.07.43H15V15h-.05c-.46 0-.89-.16-1.24-.44l-.32-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.32.25c-.3.25-.68.4-1.07.43L0 15v-1.5h.05c.46 0 .89-.15 1.24-.43l.32-.26c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31Z"/><circle cx="11" cy="0.5" r="0.55"/><circle cx="4.6" cy="3.2" r="1.4"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" d="M11 0.5L6.8 8.4M6.8 8.4C6.8 10.4 6.4 11.6 5 12.3"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5.2 5L6.7 8.2"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.7 8.2L10.9 9.7"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M5.6 5.7L8.6 5"/></g></symbol>
     <symbol id="act-mountain" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path fill-rule="evenodd" d="M0 15L5.4 6.2L7.3 8.8L10.5 4.2L15 15ZM8.55 7L9.5 7.6L10.4 6.9L11.2 7.6L11.67 7L12 7.8L11.2 8.4L10.4 7.7L9.5 8.4L8 7.9Z"/><path d="M10.25 0.3H10.75V4.2H10.25ZM10.75 0.3L13.65 1.2L10.75 2.1Z"/></g></symbol>
     <symbol id="act-gathering" viewBox="0 0 24 24"><path d="M12 12.75c1.63 0 3.07.39 4.24.9c1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73c1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3"/></symbol>
@@ -103,15 +104,6 @@
       <a href="#aide" data-i18n="nav.help">Help</a>
     </div>
     <div class="nav-right">
-      <div class="act-switch">
-        <button class="act-current" aria-haspopup="true" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg><span class="act-name">Canyon</span><i class="act-caret"></i></button>
-        <ul class="act-menu" role="menu" hidden>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span><span class="act-n" data-i18n="act.canyon.n">Canyoning</span><small data-i18n="act.canyon.s">Abseils, waterfalls, pools</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span><span class="act-n" data-i18n="act.mountain.n">Mountain</span><small data-i18n="act.mountain.s">Ski touring, mountaineering, climbing, ice</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span><span class="act-n" data-i18n="act.cave.n">Caving</span><small data-i18n="act.cave.s">Shafts, passages, underground rivers</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Gatherings</span><small data-i18n="act.gathering.s">Festivals, events, volunteers</small></span></button></li>
-        </ul>
-      </div>
       <a href="https://web.siflo.app" class="nav-labs nav-web" aria-label="Siflo Web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>Web</span></a>
       <a href="../labs/" class="nav-labs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg><span data-i18n="nav.labs">Lab</span></a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
@@ -120,11 +112,17 @@
   </nav>
 
   <main>
-    <!-- ACT · hero (js/acts/canyon.js, mountain.js or cave.js, after the activity): the whistle drowned by the terrain, then the phones relay the message. -->
+    <!-- ACT · hero (js/acts/canyon.js, mountain.js, cave.js or gathering.js, after the activity; none for the general identity, a still sky in css/style.css): the whistle drowned by the terrain, then the phones relay the message. -->
     <section id="top" class="act" data-act="hero">
       <div class="panel panel-hero">
         <div class="hero-content">
-          <p class="eyebrow"><span class="pulse-dot"></span><span data-i18n="hero.eyebrow">Festivals, events, volunteers</span></p>
+          <div class="hero-ids" role="group" aria-label="Pages by activity" data-i18n-aria="act.list">
+            <button type="button" data-activity="general"><svg class="act-ico"><use href="#act-general"/></svg><span data-i18n="act.general.n">Everywhere</span></button>
+            <button type="button" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyon</span></button>
+            <button type="button" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
+            <button type="button" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
+            <button type="button" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Gatherings</span></button>
+          </div>
           <h1 class="hero-title">
             <span class="ht-line"><span class="ht-word" data-i18n="hero.t1">Stay in touch,</span></span>
             <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">even when</span></span>
@@ -144,15 +142,13 @@
             <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">See how it works</a>
           </div>
         </div>
-        <div class="hero-acts">
-          <button class="ha-current" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg></button>
-          <span class="ha-name" data-i18n="act.canyon.n">Canyoning</span>
-          <div class="ha-list" role="group" aria-label="Terrains" data-i18n-aria="act.list">
-            <button data-activity="canyon" aria-label="Canyoning" data-i18n-aria="act.canyon.n"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyoning</span></button>
-            <button data-activity="mountain" aria-label="Mountain" data-i18n-aria="act.mountain.n"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
-            <button data-activity="cave" aria-label="Caving" data-i18n-aria="act.cave.n"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
-            <button data-activity="gathering" aria-label="Gatherings" data-i18n-aria="act.gathering.n"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Gatherings</span></button>
-          </div>
+        <!-- The presentation film (js/main.js, HERO_FILM): a self-hosted poster; YouTube loads only on a click. -->
+        <div class="hero-film">
+          <button type="button" class="hf-play" aria-label="Play the presentation film" data-i18n-aria="hero.film.aria">
+            <img src="../../assets/film/demo-poster-en.webp" data-en-src="../../assets/film/demo-poster-en.webp" alt="" width="540" height="960">
+            <span class="hf-btn" aria-hidden="true"></span>
+            <span class="hf-cap" data-i18n="hero.film">Siflo in 37&nbsp;s</span>
+          </button>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Scroll</i></div>
       </div>
@@ -311,19 +307,19 @@
             <p class="case-siflo" data-i18n="fd.1s"><b>With Siflo</b>: “Release the rope” reaches only the phone of the teammate at the anchor, with the name of whoever is asking.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source: Petzl, “Securing the first person on rappel” (in French)</a>
           </article>
-          <article class="feature case reveal" data-case="2">
-            <p class="case-tag" data-i18n="fd.2t">Canyoning · teammate in trouble</p>
-            <h3 data-i18n="fd.2h">Warning the person at the anchor about a problem they cannot see</h3>
-            <p data-i18n="fd.2p">Bulges, overhangs, rappels in the flow: a stuck teammate can be invisible from above. Hand signs and whistles only work if everyone learnt the same codes. And remembers them.</p>
-            <p class="case-siflo" data-i18n="fd.2s"><b>With Siflo</b>: you spell it out to the whole group, “Léa stuck under the waterfall, release”. Nothing to remember.</p>
-            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source: French canyoning instructor handbook (in French)</a>
-          </article>
           <article class="feature case reveal" data-case="3">
             <p class="case-tag" data-i18n="fd.3t">Caving · wet pitch</p>
             <h3 data-i18n="fd.3h">Getting through to those at the top of the pitch</h3>
             <p data-i18n="fd.3p">At the bottom of a wet pitch, a caver thinks the rope is damaged. Passed on by shouting, the message gets garbled and ends up triggering a rescue call-out, over a leaf caught on the rope. Word of mouth has its limits, especially underground.</p>
             <p class="case-siflo" data-i18n="fd.3s"><b>With Siflo</b>: with a teammate halfway down to link the phones, “STOP, don’t come down” and then the explanation arrive word for word, with the sender’s name.</p>
             <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source: ULSA incident report, Yorkshire, 2025</a>
+          </article>
+          <article class="feature case reveal" data-case="6" data-only="gathering general">
+            <p class="case-tag" data-i18n="fd.6t">Festival · saturated network</p>
+            <h3 data-i18n="fd.6h">Reaching the first-aid post when the tower saturates</h3>
+            <p data-i18n="fd.6p">Each cell tower only accepts a limited number of connections at once. When tens of thousands of festival-goers connect to it, the operator says so itself: calls fail and photos won’t send.</p>
+            <p class="case-siflo" data-i18n="fd.6s"><b>With Siflo</b>: the volunteer team’s messages go from phone to phone, without the tower, all the way to the first-aid post. For the emergency services, call 112.</p>
+            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source: Bouygues Telecom, “Réseau en festival : pourquoi ça sature” (in French)</a>
           </article>
           <article class="feature case reveal" data-case="4">
             <p class="case-tag" data-i18n="fd.4t">Climbing · at the crag</p>
@@ -332,12 +328,12 @@
             <p class="case-siflo" data-i18n="fd.4s"><b>With Siflo</b>: create “Safe” and “Lower me” signals. They reach your belayer’s phone only, never those of the party next door.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source: FFME safety letter no. 8 (in French)</a>
           </article>
-          <article class="feature case reveal" data-case="6" data-only="gathering">
-            <p class="case-tag" data-i18n="fd.6t">Festival · saturated network</p>
-            <h3 data-i18n="fd.6h">Reaching the first-aid post when the tower saturates</h3>
-            <p data-i18n="fd.6p">Each cell tower only accepts a limited number of connections at once. When tens of thousands of festival-goers connect to it, the operator says so itself: calls fail and photos won’t send.</p>
-            <p class="case-siflo" data-i18n="fd.6s"><b>With Siflo</b>: the volunteer team’s messages go from phone to phone, without the tower, all the way to the first-aid post. For the emergency services, call 112.</p>
-            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source: Bouygues Telecom, “Réseau en festival : pourquoi ça sature” (in French)</a>
+          <article class="feature case reveal" data-case="2">
+            <p class="case-tag" data-i18n="fd.2t">Canyoning · teammate in trouble</p>
+            <h3 data-i18n="fd.2h">Warning the person at the anchor about a problem they cannot see</h3>
+            <p data-i18n="fd.2p">Bulges, overhangs, rappels in the flow: a stuck teammate can be invisible from above. Hand signs and whistles only work if everyone learnt the same codes. And remembers them.</p>
+            <p class="case-siflo" data-i18n="fd.2s"><b>With Siflo</b>: you spell it out to the whole group, “Léa stuck under the waterfall, release”. Nothing to remember.</p>
+            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source: French canyoning instructor handbook (in French)</a>
           </article>
         </div>
       </div>
@@ -567,6 +563,6 @@
   <script src="../../assets/vendor/ScrollTrigger.min.js"></script>
   <script src="../../assets/vendor/SplitText.min.js"></script>
   <script src="../../assets/vendor/lenis.min.js"></script>
-  <script type="module" src="../../js/main.js?v=web"></script>
+  <script type="module" src="../../js/main.js?v=partout"></script>
 </body>
 </html>

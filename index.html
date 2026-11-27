@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Siflo — communication outdoor de groupe, même hors ligne</title>
   <meta name="description" content="Messages, photos, signaux et SOS pour votre groupe en sortie, même sans réseau. Canyon, escalade, spéléo, alpinisme. Application gratuite, chiffrée, sans compte.">
-  <meta name="theme-color" content="#0e0b09">
+  <meta name="theme-color" content="#11151d">
   <meta property="og:title" content="Siflo — Restez en contact dehors, même hors ligne.">
   <meta property="og:description" content="Messages, photos, vocaux, signaux et SOS pour votre groupe en sortie, avec ou sans réseau. Gratuite, chiffrée, sans compte.">
   <meta property="og:image" content="https://siflo.app/assets/og.jpg">
@@ -47,10 +47,10 @@
   </script>
   <script>
     // Pick the activity before first paint (css [data-activity], js/activity.js): an activity's own page
-    // (/montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=, then the
-    // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
+    // (/canyon/, /montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=,
+    // then the visitor's saved choice, else the general identity. The chips above the hero title switch it.
     (function () {
-      var ok = ['canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
+      var ok = ['general', 'canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
       try {
         if (a) localStorage.setItem('activity', a);
         else {
@@ -59,7 +59,7 @@
           else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
         }
       } catch (e) {}
-      root.dataset.activity = a || 'canyon';
+      root.dataset.activity = a || 'general';
     })();
   </script>
   <script>
@@ -72,7 +72,7 @@
   <link rel="apple-touch-icon" href="assets/icon.png">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-latin.woff2" crossorigin>
-  <link href="css/style.css?v=web" rel="stylesheet">
+  <link href="css/style.css?v=partout" rel="stylesheet">
   <script type="importmap">
   {
     "imports": {
@@ -90,7 +90,8 @@
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
     </symbol>
-    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0). -->
+    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0), and a compass for the general identity. -->
+    <symbol id="act-general" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 1 0 19a9.5 9.5 0 0 1 0-19Zm0 2a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15Z"/><path d="M16.6 7.4l-2.6 6.6l-6.6 2.6l2.6-6.6Zm-4.6 3.4a1.2 1.2 0 1 0 0 2.4a1.2 1.2 0 0 0 0-2.4Z" fill-rule="evenodd"/></symbol>
     <symbol id="act-canyon" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M11.4 0H12.4V12H11.6ZM13 0H13.8V11H13ZM14.3 0H15V11.5H14.3Z"/><path d="M12.5 12.5c.32 0 .64.11.89.31l.32.26c.3.24.68.39 1.07.43H15V15h-.05c-.46 0-.89-.16-1.24-.44l-.32-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.32.25c-.3.25-.68.4-1.07.43L0 15v-1.5h.05c.46 0 .89-.15 1.24-.43l.32-.26c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31Z"/><circle cx="11" cy="0.5" r="0.55"/><circle cx="4.6" cy="3.2" r="1.4"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" d="M11 0.5L6.8 8.4M6.8 8.4C6.8 10.4 6.4 11.6 5 12.3"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5.2 5L6.7 8.2"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.7 8.2L10.9 9.7"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M5.6 5.7L8.6 5"/></g></symbol>
     <symbol id="act-mountain" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path fill-rule="evenodd" d="M0 15L5.4 6.2L7.3 8.8L10.5 4.2L15 15ZM8.55 7L9.5 7.6L10.4 6.9L11.2 7.6L11.67 7L12 7.8L11.2 8.4L10.4 7.7L9.5 8.4L8 7.9Z"/><path d="M10.25 0.3H10.75V4.2H10.25ZM10.75 0.3L13.65 1.2L10.75 2.1Z"/></g></symbol>
     <symbol id="act-gathering" viewBox="0 0 24 24"><path d="M12 12.75c1.63 0 3.07.39 4.24.9c1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73c1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3"/></symbol>
@@ -124,15 +125,6 @@
       <a href="#aide" data-i18n="nav.help">Aide</a>
     </div>
     <div class="nav-right">
-      <div class="act-switch">
-        <button class="act-current" aria-haspopup="true" aria-expanded="false" aria-label="Changer de terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg><span class="act-name">Canyon</span><i class="act-caret"></i></button>
-        <ul class="act-menu" role="menu" hidden>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span><span class="act-n" data-i18n="act.canyon.n">Canyon</span><small data-i18n="act.canyon.s">Rappels, cascades, vasques</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span><span class="act-n" data-i18n="act.mountain.n">Montagne</span><small data-i18n="act.mountain.s">Ski de rando, alpinisme, escalade, glace</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span><span class="act-n" data-i18n="act.cave.n">Spéléo</span><small data-i18n="act.cave.s">Puits, galeries, rivières souterraines</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Rassemblements</span><small data-i18n="act.gathering.s">Festivals, événements, bénévoles</small></span></button></li>
-        </ul>
-      </div>
       <a href="https://web.siflo.app" class="nav-labs nav-web" aria-label="Siflo Web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>Web</span></a>
       <a href="labs/" class="nav-labs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg><span data-i18n="nav.labs">Lab</span></a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
@@ -141,14 +133,20 @@
   </nav>
 
   <main>
-    <!-- ACT · hero (js/acts/canyon.js, mountain.js or cave.js, after the activity): the whistle drowned by the terrain, then the phones relay the message. -->
+    <!-- ACT · hero (js/acts/canyon.js, mountain.js, cave.js or gathering.js, after the activity; none for the general identity, a still sky in css/style.css): the whistle drowned by the terrain, then the phones relay the message. -->
     <section id="top" class="act" data-act="hero">
       <div class="panel panel-hero">
         <div class="hero-content">
-          <p class="eyebrow"><span class="pulse-dot"></span><span data-i18n="hero.eyebrow">Communication outdoor de groupe</span></p>
+          <div class="hero-ids" role="group" aria-label="Pages par activité" data-i18n-aria="act.list">
+            <button type="button" data-activity="general"><svg class="act-ico"><use href="#act-general"/></svg><span data-i18n="act.general.n">Partout</span></button>
+            <button type="button" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyon</span></button>
+            <button type="button" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Montagne</span></button>
+            <button type="button" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Spéléo</span></button>
+            <button type="button" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Rassemblements</span></button>
+          </div>
           <h1 class="hero-title">
             <span class="ht-line"><span class="ht-word" data-i18n="hero.t1">Restez en contact</span></span>
-            <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">dehors,</span></span>
+            <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">partout,</span></span>
             <span class="ht-line"><span class="ht-word ht-glow" data-i18n="hero.t3">même hors ligne.</span></span>
           </h1>
           <p class="hero-sub" data-i18n="hero.sub">Messages, photos, signaux et SOS pour le groupe. Par internet quand quelqu’un capte, de téléphone en téléphone sinon, jusqu’à celui qui part toujours devant. Gratuite, chiffrée, sans compte.</p>
@@ -165,30 +163,28 @@
             <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">Voir comment ça marche</a>
           </div>
         </div>
-        <div class="hero-acts">
-          <button class="ha-current" aria-expanded="false" aria-label="Changer de terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg></button>
-          <span class="ha-name" data-i18n="act.canyon.n">Canyon</span>
-          <div class="ha-list" role="group" aria-label="Terrains" data-i18n-aria="act.list">
-            <button data-activity="canyon" aria-label="Canyon" data-i18n-aria="act.canyon.n"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyon</span></button>
-            <button data-activity="mountain" aria-label="Montagne" data-i18n-aria="act.mountain.n"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Montagne</span></button>
-            <button data-activity="cave" aria-label="Spéléo" data-i18n-aria="act.cave.n"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Spéléo</span></button>
-            <button data-activity="gathering" aria-label="Rassemblements" data-i18n-aria="act.gathering.n"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Rassemblements</span></button>
-          </div>
+        <!-- The presentation film (js/main.js, HERO_FILM): a self-hosted poster; YouTube loads only on a click. -->
+        <div class="hero-film">
+          <button type="button" class="hf-play" aria-label="Lancer le film de présentation" data-i18n-aria="hero.film.aria">
+            <img src="assets/film/demo-poster-fr.webp" data-en-src="assets/film/demo-poster-en.webp" alt="" width="540" height="960">
+            <span class="hf-btn" aria-hidden="true"></span>
+            <span class="hf-cap" data-i18n="hero.film">Siflo en 37&nbsp;s</span>
+          </button>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Défiler</i></div>
       </div>
       <div class="panel panel-right">
         <div class="card">
           <p class="kicker" data-i18n="c1.k">Le problème</p>
-          <h2 data-i18n="c1.h">Le sifflet, c’est bien. Quand on l’entend.</h2>
-          <p data-i18n="c1.p">Quatre codes seulement, qui changent d’un club à l’autre. Le bruit d’une cascade suffit à les couvrir. Quand la corde se coince en haut du rappel, ceux d’en bas n’en savent rien. Ceux partis devant, encore moins.</p>
+          <h2 data-i18n="c1.h">La voix porte mal. Le réseau, pas partout.</h2>
+          <p data-i18n="c1.p">Au fond d’une gorge, sous terre, sur une crête ou au milieu d’un festival, la dernière barre de réseau disparaît et la voix se perd dans le bruit ou la distance. Ceux partis devant ne savent pas ce qui se passe derrière. Et inversement.</p>
         </div>
       </div>
       <div class="panel panel-left">
         <div class="card">
           <p class="kicker" data-i18n="c2.k">Avec Siflo</p>
           <h2 data-i18n="c2.h">Le message, lui, fait le tour du groupe.</h2>
-          <p data-i18n="c2.p">Julie écrit «&#8239;Corde coincée, attendez-moi&#8239;». Le téléphone de Marc, au pied de la cascade, transmet le message à Léa et Tom, partis devant.</p>
+          <p data-i18n="c2.p">Julie écrit «&#8239;On fait une pause, attendez-nous&#8239;». Le téléphone de Marc, entre les deux, transmet le message à Léa et Tom, partis devant. Dès que quelqu’un capte, internet prend le relais.</p>
         </div>
       </div>
     </section>
@@ -211,12 +207,12 @@
           <div class="reveal">
             <div class="phone-frame chat" data-in aria-hidden="true">
               <div class="chat-screen">
-                <div class="chat-top"><i class="chat-back"></i><span class="chat-av" data-i18n="ch.av">CF</span><span><b data-i18n="ch.group">Canyon du Furon</b><small data-i18n="ch.members">6 membres · fin dans 2 jours</small></span></div>
+                <div class="chat-top"><i class="chat-back"></i><span class="chat-av" data-i18n="ch.av">SW</span><span><b data-i18n="ch.group">Sortie du week-end</b><small data-i18n="ch.members">6 membres · fin dans 2 jours</small></span></div>
                 <div class="chat-list">
                   <div class="bub" style="--i:0"><span class="who">Léa</span><span data-i18n="ch.m1">Départ du parking à 8&nbsp;h, pile 👀</span><span class="reac">👍 4</span></div>
                   <div class="bub poll" style="--i:1"><span class="who">Léa</span><b data-i18n="ch.pq">Covoiturage depuis Grenoble</b><span class="opt" style="--v:.4"><span data-i18n="ch.p1">Je conduis, 3 places</span><i>2</i></span><span class="opt" style="--v:.6"><span data-i18n="ch.p2">Je cherche une place</span><i>3</i></span><small data-i18n="ch.pv">Sondage · 5 votes</small></div>
-                  <div class="bub place" style="--i:2"><span class="who">Marc</span><span class="pin"></span><span><b data-i18n="ch.place">Parking du canyon</b><small>45.1871, 5.6493</small></span></div>
-                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Parking du canyon</span></span><span data-i18n="ch.m2">J’apporte la deuxième corde. Et les croissants.</span><span class="meta" data-i18n="ch.seen">✓✓ Vu par 5</span></div>
+                  <div class="bub place" style="--i:2"><span class="who">Marc</span><span class="pin"></span><span><b data-i18n="ch.place">Point de rendez-vous</b><small>45.1871, 5.6493</small></span></div>
+                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Point de rendez-vous</span></span><span data-i18n="ch.m2">J’apporte le pique-nique. Et les croissants.</span><span class="meta" data-i18n="ch.seen">✓✓ Vu par 5</span></div>
                   <div class="bub photos" style="--i:4"><span class="who">Tom</span><span class="ph"></span><span class="ph"></span><span class="ph more">+2</span></div>
                 </div>
                 <div class="chat-bar"><i>+</i><span data-i18n="ch.input">Message</span><i class="mic"></i></div>
@@ -257,13 +253,13 @@
       <div class="panel panel-left">
         <div class="card">
           <p class="kicker" data-i18n="s1.k">Les signaux · 01</p>
-          <h2 data-i18n="s1.h">Les codes du sifflet, en une touche.</h2>
-          <p data-i18n="s1.p">Quatre grosses touches, faciles à viser avec des doigts mouillés. Les points rappellent le nombre de coups de sifflet. Chaque club peut y mettre ses propres codes, même les plus ésotériques.</p>
+          <h2 data-i18n="s1.h">Les consignes du groupe, en une touche.</h2>
+          <p data-i18n="s1.p">Quatre grosses touches, faciles à viser même avec des gants. Les points donnent le nombre de vibrations&#8239;: on les sent même quand on n’entend plus rien. Chaque groupe peut y mettre ses propres codes, même les plus ésotériques.</p>
           <ul class="chips">
-            <li><i>•</i><span data-i18n="sig.stop">STOP</span></li>
+            <li><i>•</i><span data-i18n="sig.stop">Attends</span></li>
             <li><i>••</i><span data-i18n="sig.ok">OK</span></li>
-            <li><i>•••</i><span data-i18n="sig.release">Débraye la corde</span></li>
-            <li><i>••••</i><span data-i18n="sig.pull">Remonte la corde</span></li>
+            <li><i>•••</i><span data-i18n="sig.release">Viens</span></li>
+            <li><i>••••</i><span data-i18n="sig.pull">J’arrive</span></li>
           </ul>
         </div>
       </div>
@@ -271,7 +267,7 @@
         <div class="card">
           <p class="kicker" data-i18n="s2.k">Les signaux · 02</p>
           <h2 data-i18n="s2.h">À tout le groupe, ou à Marc seulement.</h2>
-          <p data-i18n="s2.p">Julie, au relais, envoie STOP à Marc, en pleine descente dans la cascade. Son téléphone vibre au rythme du code, siffle et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.</p>
+          <p data-i18n="s2.p">Julie envoie «&#8239;Attends&#8239;» à Marc, parti devant. Son téléphone vibre au rythme du code, sonne et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.</p>
         </div>
       </div>
       <div class="panel panel-left panel-sticky">
@@ -350,12 +346,12 @@
             <p class="case-siflo" data-i18n="fd.1s"><b>Avec Siflo</b>&#8239;: «&#8239;Débraye la corde&#8239;» arrive sur le seul téléphone de l’équipier au relais, avec le nom de celui qui le demande.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source&#8239;: Petzl, «&#8239;Sécuriser le premier en rappel&#8239;»</a>
           </article>
-          <article class="feature case reveal" data-case="2">
-            <p class="case-tag" data-i18n="fd.2t">Canyon · équipier en difficulté</p>
-            <h3 data-i18n="fd.2h">Prévenir celui qui est au relais d’un problème qu’il ne voit pas</h3>
-            <p data-i18n="fd.2p">Bombés, dévers, rappels arrosés&#8239;: un équipier bloqué peut être invisible d’en haut. Les gestes et le sifflet ne marchent que si tout le monde a appris les mêmes codes. Et s’en souvient.</p>
-            <p class="case-siflo" data-i18n="fd.2s"><b>Avec Siflo</b>&#8239;: on l’écrit en toutes lettres à tout le groupe, «&#8239;Léa coincée sous la cascade, débraye&#8239;». Rien à retenir.</p>
-            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source&#8239;: mémento de l’initiateur canyon</a>
+          <article class="feature case reveal" data-case="5" data-only="mountain general">
+            <p class="case-tag" data-i18n="fd.5t">Ski de rando · un par un</p>
+            <h3 data-i18n="fd.5h">Garder le contact quand le groupe s’espace</h3>
+            <p data-i18n="fd.5p">Dans les pentes raides, la fédération recommande d’espacer les membres du groupe et de passer «&#8239;un par un&#8239;» en cas de doute, tout en progressant à vue les uns des autres. Dans le vent ou le jour blanc, la vue se perd vite.</p>
+            <p class="case-siflo" data-i18n="fd.5s"><b>Avec Siflo</b>&#8239;: «&#8239;Un par un&#8239;», «&#8239;Regroupement&#8239;» ou «&#8239;Ça craque&#8239;» arrivent sur les téléphones du groupe, même hors de vue. Gardez le téléphone à plus de 20&#8239;cm du DVA, comme le recommande la fédération.</p>
+            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source&#8239;: FFME, recommandations de sécurité en ski alpinisme et ski de randonnée</a>
           </article>
           <article class="feature case reveal" data-case="3">
             <p class="case-tag" data-i18n="fd.3t">Spéléo · puits arrosé</p>
@@ -364,6 +360,13 @@
             <p class="case-siflo" data-i18n="fd.3s"><b>Avec Siflo</b>&#8239;: avec un équipier à mi-puits pour faire le lien, «&#8239;STOP, ne descends pas&#8239;» puis l’explication arrivent mot pour mot, avec le nom de l’expéditeur.</p>
             <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source&#8239;: rapport d’incident de l’ULSA, Yorkshire, 2025 (en anglais)</a>
           </article>
+          <article class="feature case reveal" data-case="6" data-only="gathering general">
+            <p class="case-tag" data-i18n="fd.6t">Festival · réseau saturé</p>
+            <h3 data-i18n="fd.6h">Prévenir le poste de secours quand l’antenne sature</h3>
+            <p data-i18n="fd.6p">Chaque antenne-relais n’accepte qu’un nombre limité de connexions à la fois. Quand des dizaines de milliers de festivaliers s’y connectent, l’opérateur le reconnaît lui-même&#8239;: les appels ne passent plus, les photos ne partent plus.</p>
+            <p class="case-siflo" data-i18n="fd.6s"><b>Avec Siflo</b>&#8239;: les messages de l’équipe de bénévoles passent de téléphone en téléphone, sans l’antenne, jusqu’au poste de secours. Pour les secours officiels, composez le 112.</p>
+            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source&#8239;: Bouygues Telecom, «&#8239;Réseau en festival&#8239;: pourquoi ça sature&#8239;»</a>
+          </article>
           <article class="feature case reveal" data-case="4">
             <p class="case-tag" data-i18n="fd.4t">Escalade · en falaise</p>
             <h3 data-i18n="fd.4h">Ne pas confondre les annonces</h3>
@@ -371,19 +374,12 @@
             <p class="case-siflo" data-i18n="fd.4s"><b>Avec Siflo</b>&#8239;: créez les signaux «&#8239;Vaché&#8239;» et «&#8239;Descends-moi&#8239;». Ils n’arrivent que sur le téléphone de votre assureur, jamais sur ceux de la cordée voisine.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source&#8239;: FFME, Lettre sécurité prévention n<sup>o</sup>&nbsp;8</a>
           </article>
-          <article class="feature case reveal" data-case="5" data-only="mountain">
-            <p class="case-tag" data-i18n="fd.5t">Ski de rando · un par un</p>
-            <h3 data-i18n="fd.5h">Garder le contact quand le groupe s’espace</h3>
-            <p data-i18n="fd.5p">Dans les pentes raides, la fédération recommande d’espacer les membres du groupe et de passer «&#8239;un par un&#8239;» en cas de doute, tout en progressant à vue les uns des autres. Dans le vent ou le jour blanc, la vue se perd vite.</p>
-            <p class="case-siflo" data-i18n="fd.5s"><b>Avec Siflo</b>&#8239;: «&#8239;Un par un&#8239;», «&#8239;Regroupement&#8239;» ou «&#8239;Ça craque&#8239;» arrivent sur les téléphones du groupe, même hors de vue. Gardez le téléphone à plus de 20&#8239;cm du DVA, comme le recommande la fédération.</p>
-            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source&#8239;: FFME, recommandations de sécurité en ski alpinisme et ski de randonnée</a>
-          </article>
-          <article class="feature case reveal" data-case="6" data-only="gathering">
-            <p class="case-tag" data-i18n="fd.6t">Festival · réseau saturé</p>
-            <h3 data-i18n="fd.6h">Prévenir le poste de secours quand l’antenne sature</h3>
-            <p data-i18n="fd.6p">Chaque antenne-relais n’accepte qu’un nombre limité de connexions à la fois. Quand des dizaines de milliers de festivaliers s’y connectent, l’opérateur le reconnaît lui-même&#8239;: les appels ne passent plus, les photos ne partent plus.</p>
-            <p class="case-siflo" data-i18n="fd.6s"><b>Avec Siflo</b>&#8239;: les messages de l’équipe de bénévoles passent de téléphone en téléphone, sans l’antenne, jusqu’au poste de secours. Pour les secours officiels, composez le 112.</p>
-            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source&#8239;: Bouygues Telecom, «&#8239;Réseau en festival&#8239;: pourquoi ça sature&#8239;»</a>
+          <article class="feature case reveal" data-case="2">
+            <p class="case-tag" data-i18n="fd.2t">Canyon · équipier en difficulté</p>
+            <h3 data-i18n="fd.2h">Prévenir celui qui est au relais d’un problème qu’il ne voit pas</h3>
+            <p data-i18n="fd.2p">Bombés, dévers, rappels arrosés&#8239;: un équipier bloqué peut être invisible d’en haut. Les gestes et le sifflet ne marchent que si tout le monde a appris les mêmes codes. Et s’en souvient.</p>
+            <p class="case-siflo" data-i18n="fd.2s"><b>Avec Siflo</b>&#8239;: on l’écrit en toutes lettres à tout le groupe, «&#8239;Léa coincée sous la cascade, débraye&#8239;». Rien à retenir.</p>
+            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source&#8239;: mémento de l’initiateur canyon</a>
           </article>
         </div>
       </div>
@@ -613,6 +609,6 @@
   <script src="assets/vendor/ScrollTrigger.min.js"></script>
   <script src="assets/vendor/SplitText.min.js"></script>
   <script src="assets/vendor/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=web"></script>
+  <script type="module" src="js/main.js?v=partout"></script>
 </body>
 </html>

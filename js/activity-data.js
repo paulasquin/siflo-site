@@ -1,7 +1,15 @@
 // What changes with the activity (js/activity.js): colours of the 3D acts, texts, the order of the
 // field cases, and each identity's own page. Pure data, so that tools/activities.py reads it too.
+// The page itself (index.html, js/strings.js) speaks for the general identity, « Partout »; every
+// other identity writes its own texts over it, canyon included.
 /** Colours of the 3D acts: the phones' glow, the signal close-up and the contour map (a ridge for the mountain, a cave survey and a festival site plan for caving and gatherings). */
 export const THEMES = {
+  // No hero act for the general identity (a still dusk sky in css/style.css), only these colours for the later acts.
+  general: {
+    signal: '#ff9a5a', bg: '#11151d',
+    close: { bg: '#12151c', key: '#ffe6d2', rim: '#ff9a5a', ambient: '#2c2a2a', bokeh: ['#ff9a5a', '#ffb27a', '#ffe2cc', '#8f7b60', '#b89b74'], body: '#24221f' },
+    map: { bg: '#0b0d11', lo: [0.004, 0.0038, 0.004], hi: [0.03, 0.025, 0.019], line: [1.0, 0.58, 0.32], river: '#7fb0cc', amber: '#ffc46a', grey: '#b9ad9c' },
+  },
   canyon: {
     signal: '#ff6a00', bg: '#0e0b09',
     close: { bg: '#110c09', key: '#ffd9bd', rim: '#ff7a2e', ambient: '#3a2a22', bokeh: ['#ff6a00', '#ff9a5a', '#ffd2a8', '#4d7f9a', '#7fc4e6'], body: '#2a221d' },
@@ -31,39 +39,67 @@ const q = (s) => `«${NNBSP}${s}${NNBSP}»`;
  * order of the field cases (#terrain), the activity's own first.
  */
 export const COPY = {
+  canyon: {
+    cases: [1, 2, 3, 4],
+    // The whistle drowned by the waterfall, the rope signals (js/acts/canyon.js).
+    fr: {
+      'hero.t2': 'dehors,',
+      'c1.h': 'Le sifflet, c’est bien. Quand on l’entend.',
+      'c1.p': 'Quatre codes seulement, qui changent d’un club à l’autre. Le bruit d’une cascade suffit à les couvrir. Quand la corde se coince en haut du rappel, ceux d’en bas n’en savent rien. Ceux partis devant, encore moins.',
+      'c2.p': `Julie écrit ${q('Corde coincée, attendez-moi')}. Le téléphone de Marc, au pied de la cascade, transmet le message à Léa et Tom, partis devant.`,
+      's1.h': 'Les codes du sifflet, en une touche.',
+      's1.p': 'Quatre grosses touches, faciles à viser avec des doigts mouillés. Les points rappellent le nombre de coups de sifflet. Chaque club peut y mettre ses propres codes, même les plus ésotériques.',
+      'sig.stop': 'STOP', 'sig.release': 'Débraye la corde', 'sig.pull': 'Remonte la corde',
+      's2.p': 'Julie, au relais, envoie STOP à Marc, en pleine descente dans la cascade. Son téléphone vibre au rythme du code, siffle et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.',
+      'ch.av': 'CF', 'ch.group': 'Canyon du Furon', 'ch.place': 'Parking du canyon', 'ch.m2': 'J’apporte la deuxième corde. Et les croissants.',
+    },
+    en: {
+      'hero.t2': 'outdoors,',
+      'c1.h': 'A whistle is great. When you can hear it.',
+      'c1.p': 'Only four codes, which change from club to club. The roar of one waterfall is enough to drown them out. When the rope jams at the top of a rappel, those at the bottom have no idea. And those who went ahead have even less.',
+      'c2.p': 'Julie types “Rope stuck, wait for me”. Marc’s phone, at the foot of the waterfall, passes the message on to Léa and Tom, who went ahead.',
+      's1.h': 'Whistle codes, one tap away.',
+      's1.p': 'Four big buttons, easy to hit with wet fingers. The dots match the number of whistle blasts. Each club can put in its own codes, even the most obscure ones.',
+      'sig.stop': 'STOP', 'sig.release': 'Release the rope', 'sig.pull': 'Pull up the rope',
+      's2.p': 'Julie, at the anchor, sends STOP to Marc, halfway down the waterfall. His phone vibrates to the rhythm of the code, whistles and shows a full-screen alert, even when locked. The rest of the group carries on with their snack bars.',
+      'ch.av': 'CF', 'ch.group': 'Furon Canyon', 'ch.place': 'Canyon car park', 'ch.m2': 'I’ll bring the second rope. And the croissants.',
+    },
+    ui: {
+      fr: { 'phone.group': 'Canyon du Furon', 'phone.stop': 'STOP', 'phone.release': 'Débraye\nla corde', 'phone.pull': 'Remonte\nla corde', 'label.press': 'Appui sur STOP' },
+      en: { 'phone.group': 'Furon Canyon', 'phone.stop': 'STOP', 'phone.release': 'Release\nthe rope', 'phone.pull': 'Pull up\nthe rope', 'label.press': 'STOP pressed' },
+    },
+  },
   mountain: {
     cases: [5, 4, 1, 2, 3],
     // No whistle and no shouting here: on skis the group spreads out one at a time, often out of
     // sight, and the voice is lost in the wind, the whiteout and the distance (js/acts/mountain.js).
     fr: {
       'hero.t1': 'Restez en contact', 'hero.t2': 'en montagne,', 'hero.t3': 'même hors ligne.',
-      'hero.eyebrow': 'Ski de rando, alpinisme, escalade',
       'c1.h': 'En haut de la pente, les autres sont déjà loin.',
       'c1.p': 'On descend un par un et on s’attend plus bas, souvent hors de vue. Le vent couvre la voix et le jour blanc efface les silhouettes. Crier d’un bout à l’autre de la combe ne sert pas à grand-chose. Quand la neige craque sous les skis de Julie, ceux d’en bas n’en savent rien.',
       'c2.p': `Julie écrit ${q('Ça craque, un par un')}. Le téléphone de Marc, à mi-pente, transmet le message à Léa et Tom, plus bas dans la combe, hors de vue de Julie. Avec une radio LoRa en option, il porte jusqu’à quelques kilomètres.`,
       's1.h': 'Les consignes du groupe, en une touche.',
       's1.p': 'Quatre grosses touches, faciles à viser avec des gants. Plus besoin de crier dans le vent&#8239;: la consigne arrive sur le téléphone, avec le nom de celui qui l’envoie. Chaque club peut y mettre ses propres codes, même les plus ésotériques.',
-      'sig.release': 'Un par un', 'sig.pull': 'Regroupement',
+      'sig.stop': 'STOP', 'sig.release': 'Un par un', 'sig.pull': 'Regroupement',
       's2.p': 'Julie, en haut du couloir, envoie STOP à Marc, qui s’apprête à s’y engager. Son téléphone vibre au rythme du code, sonne et affiche l’alerte en plein écran, même verrouillé. Le reste du groupe continue de manger ses barres.',
       'm1.p': 'Sur l’arête, chaque téléphone de la cordée transmet les messages au suivant par Bluetooth&#8239;: environ 25&nbsp;m en poche, une centaine de mètres en main et à vue, jusqu’à 300&nbsp;m entre deux Android compatibles longue portée. Le message peut faire jusqu’à 12 sauts. Pour les grandes distances, une radio LoRa en option porte à plusieurs kilomètres (estimations). Pas besoin d’antenne&#8239;: chaque téléphone du groupe en devient une.',
       'ch.av': 'BL', 'ch.group': 'Belledonne · ski de rando', 'ch.place': 'Parking du départ', 'ch.m2': 'J’apporte le DVA de rechange. Et les croissants.',
     },
     en: {
       'hero.t1': 'Stay in touch', 'hero.t2': 'in the mountains,', 'hero.t3': 'even offline.',
-      'hero.eyebrow': 'Ski touring, mountaineering, climbing',
       'c1.h': 'At the top of the slope, the others are already far away.',
       'c1.p': 'You ski down one at a time and wait further down, often out of sight. The wind swallows the voice and a whiteout wipes out the silhouettes. Shouting across the bowl does not get you far. When the snow cracks under Julie’s skis, those below have no idea.',
       'c2.p': 'Julie types “It’s cracking, one at a time”. Marc’s phone, halfway down the slope, passes the message on to Léa and Tom, further down the bowl and out of Julie’s sight. With an optional LoRa radio, it carries up to a few kilometres.',
       's1.h': 'The group’s calls, one tap away.',
       's1.p': 'Four big buttons, easy to hit with gloves on. No more shouting into the wind: the call lands on the phone, with the name of whoever sent it. Each club can put in its own codes, even the most obscure ones.',
-      'sig.release': 'One at a time', 'sig.pull': 'Regroup',
+      'sig.stop': 'STOP', 'sig.release': 'One at a time', 'sig.pull': 'Regroup',
       's2.p': 'Julie, at the top of the couloir, sends STOP to Marc, about to drop in. His phone vibrates to the rhythm of the code, rings and shows a full-screen alert, even when locked. The rest of the group carries on with their snack bars.',
       'm1.p': 'On the ridge, every phone of the rope team passes the messages on to the next over Bluetooth: about 25&nbsp;m in a pocket, about a hundred metres in hand with a clear line of sight, up to 300&nbsp;m between two Android phones with long-range Bluetooth. A message can make up to 12 hops. For long distances, an optional LoRa radio carries several kilometres (estimates). No cell tower needed: every phone in the group becomes one.',
       'ch.av': 'BL', 'ch.group': 'Belledonne ski tour', 'ch.place': 'Trailhead car park', 'ch.m2': 'I’ll bring the spare transceiver. And the croissants.',
     },
     ui: {
       fr: {
-        'phone.group': 'Belledonne', 'phone.release': 'Un par un', 'phone.pull': 'Regroupement',
+        'phone.group': 'Belledonne', 'phone.stop': 'STOP', 'phone.release': 'Un par un', 'phone.pull': 'Regroupement', 'label.press': 'Appui sur STOP',
         'label.whistle': 'Ça craque sous les skis', 'label.waterfall': 'Jour blanc · plus personne en vue', 'label.julie': `Julie${NNBSP}: ${q('Ça craque, un par un')}`,
         'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, plus bas dans la combe', 'label.icefall': 'Cascade de glace', 'label.icecave': 'Grotte de glace',
         'label.behind': 'Resté en arrière sur l’arête',
@@ -71,7 +107,7 @@ export const COPY = {
         'label.wind': 'Vent · les annonces se perdent', 'label.safe': `Léa${NNBSP}: ${q('Vaché')}`, 'label.tomok': 'Tom · reçu, puis vu', 'label.nothing': 'Cordée voisine · rien reçu',
       },
       en: {
-        'phone.group': 'Belledonne', 'phone.release': 'One at\na time', 'phone.pull': 'Regroup',
+        'phone.group': 'Belledonne', 'phone.stop': 'STOP', 'phone.release': 'One at\na time', 'phone.pull': 'Regroup', 'label.press': 'STOP pressed',
         'label.whistle': 'Snow cracking under the skis', 'label.waterfall': 'Whiteout · nobody in sight', 'label.julie': 'Julie: “It’s cracking, one at a time”',
         'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, further down the bowl', 'label.icefall': 'Frozen waterfall', 'label.icecave': 'Ice cave',
         'label.behind': 'Left behind on the ridge',
@@ -86,10 +122,11 @@ export const COPY = {
       'm2.h': 'L’équipe de surface&#8239;? Internet fait le lien.',
       'm2.p': 'Sous terre, personne ne capte. Mais un équipier resté à l’entrée fait le lien&#8239;: ce qui l’atteint de téléphone en téléphone part par internet vers ceux qui attendent dehors, via nos serveurs relais, qui gardent les messages 48&nbsp;h sans pouvoir les lire.',
       'hero.t1': 'Restez en contact', 'hero.t2': 'sous terre,', 'hero.t3': 'même hors ligne.',
-      'hero.eyebrow': 'Spéléologie',
       'c1.h': 'Le sifflet, c’est bien. Quand le puits le laisse remonter.',
       'c1.p': 'Quatre codes seulement, qui changent d’un club à l’autre. Sous terre, l’écho les brouille et la moindre cascade les couvre. Quand la corde frotte au fractionnement, ceux d’en bas n’en savent rien. Ceux partis devant dans la galerie, encore moins.',
       'c2.p': `Julie écrit ${q('La corde frotte, ne montez pas')}. Le téléphone de Marc, au pied du puits, transmet le message à Léa et Tom, plus loin dans la galerie. Tant que chacun reste à portée du suivant, le message suit l’équipe.`,
+      's1.h': 'Les codes du sifflet, en une touche.',
+      'sig.stop': 'STOP', 'sig.release': 'Débraye la corde', 'sig.pull': 'Remonte la corde',
       's1.p': 'Quatre grosses touches, faciles à viser avec des doigts pleins de boue. Les points rappellent le nombre de coups de sifflet. Chaque club peut y mettre ses propres codes, même les plus ésotériques.',
       's2.p': 'Julie, en haut du puits, envoie STOP à Marc, en pleine remontée sur la corde. Son téléphone vibre au rythme du code, siffle et affiche l’alerte en plein écran, même verrouillé. Le reste de l’équipe continue de manger ses barres.',
       'ch.av': 'GB', 'ch.group': 'Gouffre Berger', 'ch.place': 'Entrée du gouffre', 'ch.m2': 'J’apporte le kit de secours. Et les croissants.',
@@ -98,24 +135,25 @@ export const COPY = {
       'm2.h': 'The surface team? The internet bridges the gap.',
       'm2.p': 'Underground, nobody has signal. But a teammate who stayed at the entrance bridges the gap: whatever reaches them from phone to phone goes over the internet to those waiting outside, through our relay servers, which keep messages for 48 hours without being able to read them.',
       'hero.t1': 'Stay in touch', 'hero.t2': 'underground,', 'hero.t3': 'even offline.',
-      'hero.eyebrow': 'Caving',
       'c1.h': 'A whistle is great. When the shaft lets it back up.',
       'c1.p': 'Only four codes, which change from club to club. Underground, echoes blur them and the smallest waterfall drowns them out. When the rope rubs at the rebelay, those at the bottom have no idea. And those who went ahead down the passage have even less.',
       'c2.p': 'Julie types “Rope is rubbing, don’t come up”. Marc’s phone, at the foot of the shaft, passes the message on to Léa and Tom, further down the passage. As long as each one stays in range of the next, the message follows the team.',
+      's1.h': 'Whistle codes, one tap away.',
+      'sig.stop': 'STOP', 'sig.release': 'Release the rope', 'sig.pull': 'Pull up the rope',
       's1.p': 'Four big buttons, easy to hit with muddy fingers. The dots match the number of whistle blasts. Each club can put in its own codes, even the most obscure ones.',
       's2.p': 'Julie, at the top of the shaft, sends STOP to Marc, halfway up the rope. His phone vibrates to the rhythm of the code, whistles and shows a full-screen alert, even when locked. The rest of the team carries on with their snack bars.',
       'ch.av': 'GB', 'ch.group': 'Gouffre Berger', 'ch.place': 'Cave entrance', 'ch.m2': 'I’ll bring the rescue kit. And the croissants.',
     },
     ui: {
       fr: {
-        'label.4g': '4G · resté à l’entrée', 
-        'phone.group': 'Gouffre Berger',
+        'label.4g': '4G · resté à l’entrée',
+        'phone.group': 'Gouffre Berger', 'phone.stop': 'STOP', 'phone.release': 'Débraye\nla corde', 'phone.pull': 'Remonte\nla corde', 'label.press': 'Appui sur STOP',
         'label.waterfall': 'Cascade du puits · le son se perd', 'label.julie': `Julie${NNBSP}: ${q('La corde frotte, ne montez pas')}`,
         'label.relay': 'Marc relaie le message', 'label.ahead': 'Léa et Tom, dans la galerie',
       },
       en: {
-        'label.4g': '4G · at the entrance', 
-        'phone.group': 'Gouffre Berger',
+        'label.4g': '4G · at the entrance',
+        'phone.group': 'Gouffre Berger', 'phone.stop': 'STOP', 'phone.release': 'Release\nthe rope', 'phone.pull': 'Pull up\nthe rope', 'label.press': 'STOP pressed',
         'label.waterfall': 'Shaft waterfall · sound is lost', 'label.julie': 'Julie: “Rope is rubbing, don’t come up”',
         'label.relay': 'Marc relays the message', 'label.ahead': 'Léa and Tom, down the passage',
       },
@@ -127,7 +165,6 @@ export const COPY = {
     cases: [6, 1, 2, 3, 4],
     fr: {
       'hero.t1': 'Restez en contact,', 'hero.t2': 'même quand', 'hero.t3': 'le réseau sature.',
-      'hero.eyebrow': 'Festivals, événements, bénévoles',
       'c1.h': 'Des milliers de téléphones, une seule antenne.',
       'c1.p': 'Le soir du concert, des milliers de téléphones se partagent les mêmes antennes&#8239;: les messages restent bloqués et les appels ne passent plus. Tout le monde n’a pas de talkie-walkie. Quand quelqu’un fait un malaise au premier rang, le poste de secours n’en sait rien.',
       'c2.p': `Julie, bénévole devant la scène, écrit ${q('Malaise au premier rang, côté gauche')}. Le téléphone de Marc, au milieu de la foule, transmet le message à Léa et Tom, au poste de secours, sans passer par l’antenne.`,
@@ -140,7 +177,6 @@ export const COPY = {
     },
     en: {
       'hero.t1': 'Stay in touch,', 'hero.t2': 'even when', 'hero.t3': 'the network jams.',
-      'hero.eyebrow': 'Festivals, events, volunteers',
       'c1.h': 'Thousands of phones, one cell tower.',
       'c1.p': 'On concert night, thousands of phones share the same towers: messages get stuck and calls fail. Not everyone has a radio. When someone collapses in the front row, the first-aid post has no idea.',
       'c2.p': 'Julie, volunteering by the stage, types “Someone collapsed, front row, left side”. Marc’s phone, in the middle of the crowd, passes the message on to Léa and Tom at the first-aid post, without going through the tower.',
@@ -170,10 +206,24 @@ export const COPY = {
 
 /**
  * The address of each identity's own page (built by tools/activities.py from index.html and
- * en/index.html) with its title and descriptions; canyon is the home page itself.
+ * en/index.html) with its title and descriptions; the general identity is the home page itself.
  */
 export const PAGES = {
-  canyon: { fr: { path: '/' }, en: { path: '/en/' } },
+  general: { fr: { path: '/' }, en: { path: '/en/' } },
+  canyon: {
+    fr: {
+      path: '/canyon/',
+      title: 'Siflo — communication de groupe en canyon, même sans réseau',
+      description: 'Canyonisme\u202f: messages, signaux et SOS de téléphone en téléphone, même sous la cascade et sans réseau. Application gratuite, chiffrée, sans compte.',
+      og: 'Siflo — Restez en contact dehors, même hors ligne.',
+    },
+    en: {
+      path: '/en/canyon/',
+      title: 'Siflo — group communication for canyoning, even with no signal',
+      description: 'Canyoning: messages, signals and SOS from phone to phone, even under the waterfall and with no signal. Free, encrypted app, no account.',
+      og: 'Siflo — Stay in touch outdoors, even offline.',
+    },
+  },
   mountain: {
     fr: {
       path: '/montagne/',

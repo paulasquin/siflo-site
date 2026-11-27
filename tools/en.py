@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://siflo.app"
 PAGES = [("index.html", "/", "js/strings.js", "STRINGS"), ("labs/index.html", "/labs/", "js/labs-strings.js", "LABS_STRINGS")]
-URL_ATTRS = r"href|src|poster|data-full|data-src-fr|data-src-en|data-poster-en"
+URL_ATTRS = r"href|src|poster|data-full|data-src-fr|data-src-en|data-poster-en|data-en-src"
 
 
 def strings(module: str, name: str) -> dict:
@@ -116,6 +116,8 @@ def build(src: str, path: str, module: str, name: str) -> Path:
     s = rewrite_urls(s, path, en_path)
     # The film's English poster from the start.
     s = re.sub(r'poster="[^"]*"([^>]*?)data-poster-en="([^"]*)"', r'poster="\2"\1data-poster-en="\2"', s)
+    # The hero film's English poster too.
+    s = re.sub(r'src="[^"]*"([^>]*?)data-en-src="([^"]*)"', r'src="\2"\1data-en-src="\2"', s)
     out = ROOT / en_path.strip("/") / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(s)
