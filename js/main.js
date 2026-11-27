@@ -82,6 +82,50 @@ function setupHeroFilm() {
   }, { once: true });
 }
 
+/** The hero's range: members drift, a link shows between two of them when they are within reach (100 to 300 m), one
+ *  LoRa link spans the gap between two clusters, and a message hops from the first member to the last. A still drawing
+ *  for reduced motion; paused off screen. */
+function setupRangeNet() {
+  const svg = $('.hr-net');
+  if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg', REACH = 74;
+  const el = (n, a, p = svg) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+  // Two clusters joined by a LoRa link: members 0 to 4 on the left, 5 to 8 on the right.
+  const base = [[10, 40], [52, 22], [70, 52], [112, 34], [150, 50], [206, 30], [244, 50], [272, 24], [310, 42]];
+  const ph = base.map((_, i) => i * 1.7);
+  const lora = [4, 5];
+  const gLinks = el('g', {}), gNodes = el('g', {});
+  const loraPath = el('path', { class: 'lora' }, gLinks);
+  const links = [];
+  for (let i = 0; i < base.length; i++) for (let j = i + 1; j < base.length; j++) if (!(i === lora[0] && j === lora[1])) links.push([i, j, el('line', { class: 'lk' }, gLinks)]);
+  const nodes = base.map(() => { const g = el('g', {}, gNodes); return [el('circle', { class: 'halo', r: 14 }, g), el('circle', { class: 'nd', r: 3.4 }, g)]; });
+  const msg = el('circle', { class: 'msg', r: 2.6 });
+  const pos = (t) => base.map(([x, y], i) => [x + 3 * Math.sin(t * 0.0007 + ph[i]), y + 5 * Math.sin(t * 0.0009 + ph[i] * 1.3)]);
+  const HOPS = base.length - 1, HOP = 420, PAUSE = 1400;
+  const draw = (t) => {
+    const p = pos(t), k = (t % (base.length * HOP + PAUSE)) / HOP, hop = Math.min(Math.floor(k), HOPS);
+    for (const [i, j, l] of links) {
+      const d = Math.hypot(p[i][0] - p[j][0], p[i][1] - p[j][1]);
+      l.setAttribute('x1', p[i][0]); l.setAttribute('y1', p[i][1]); l.setAttribute('x2', p[j][0]); l.setAttribute('y2', p[j][1]);
+      l.style.opacity = d < REACH ? Math.min(1, (REACH - d) / 16) : 0;
+      l.classList.toggle('on', j === i + 1 && j <= hop);
+    }
+    const [a, b] = [p[lora[0]], p[lora[1]]];
+    loraPath.setAttribute('d', `M${a[0]},${a[1]} Q${(a[0] + b[0]) / 2},${Math.min(a[1], b[1]) - 26} ${b[0]},${b[1]}`);
+    nodes.forEach(([h, c], i) => { for (const e of [h, c]) { e.setAttribute('cx', p[i][0]); e.setAttribute('cy', p[i][1]); } c.classList.toggle('on', i <= hop); });
+    if (k < HOPS) {
+      const f = k - hop, [x0, y0] = p[hop], [x1, y1] = p[hop + 1];
+      // Over the LoRa link the message follows the arc (a quadratic Bézier).
+      const cy = Math.min(y0, y1) - 26, y = hop === lora[0] ? (1 - f) * (1 - f) * y0 + 2 * f * (1 - f) * cy + f * f * y1 : y0 + (y1 - y0) * f;
+      msg.setAttribute('cx', x0 + (x1 - x0) * f); msg.setAttribute('cy', y); msg.style.opacity = 1;
+    } else msg.style.opacity = 0;
+  };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { draw(0); return; }
+  let on = false, raf = 0;
+  const loop = (t) => { draw(t); if (on) raf = requestAnimationFrame(loop); };
+  new IntersectionObserver(([e]) => { on = e.isIntersecting; cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(loop); }).observe(svg);
+}
+
 /** Loader: the three arcs of the whistle icon light up with the loading progress. */
 function loaderArcs() {
   const arcs = $$('.loader-mark .lm-arc');
@@ -104,6 +148,7 @@ async function boot() {
   setupNav();
   setupFilm();
   setupHeroFilm();
+  setupRangeNet();
 
   const onProgress = loaderArcs();
   onProgress(0.2);

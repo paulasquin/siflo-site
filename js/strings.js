@@ -80,7 +80,7 @@ export const STRINGS = {
     'hero.t2': 'wherever you go,',
     'hero.t3': 'even offline.',
     'hero.sub': 'Messages, photos, signals and SOS for the group. Over the internet when someone has signal, phone to phone when nobody does, all the way to the one who always rushes ahead. Free, encrypted, no account.',
-    'hero.k1': 'price', 'hero.v1': 'Free', 'hero.k2': 'ads', 'hero.v2': 'None', 'hero.k3': 'mobile network', 'hero.v3': 'Optional', 'hero.k4': 'range · collaborative network', 'hero.v4': '100 to 300&nbsp;m', 'hero.k5': 'LoRa radio', 'hero.v5': 'up to 7&nbsp;km',
+    'hero.k1': 'price', 'hero.v1': 'Free', 'hero.k2': 'ads', 'hero.v2': 'None', 'hero.k3': 'mobile network', 'hero.v3': 'Optional', 'hero.rk': 'range · collaborative network', 'hero.rv': '100&nbsp;m to several&nbsp;km', 'hero.rm1': '100 to 300&nbsp;m between two members', 'hero.rm2': 'each one relays', 'hero.rm3': 'LoRa radio up to 7&nbsp;km', 'hero.rm4': 'internet as soon as someone has signal',
     'hero.cta1': 'Get it on Google Play', 'hero.cta1i': 'Download on the App Store', 'hero.cta1d': 'Get Siflo', 'hero.cta2': 'See how it works',
     'hero.scroll': 'Scroll',
     'hero.film': 'Siflo in 37&nbsp;s', 'hero.film.aria': 'Play the presentation film',
