@@ -53,9 +53,9 @@
   --accent-warm: #ffd2a8;
   --on-accent: #2a1406;
   --chip-on: var(--accent-2);
-  /* The hero's still sky and a ridge line that fades into the page. */
+  /* The hero’s still sky, and the Alps seen from the Jura (assets/alps.svg, real skylines) fading into the page. */
   --hero-sky: linear-gradient(180deg, #121826 0%, #1f2636 30%, #4b4a4c 55%, #8f7b60 78%, #b89b74 100%);
-  --hero-ridge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23574f45'/%3E%3Cstop offset='.55' stop-color='%23232530'/%3E%3Cstop offset='1' stop-color='%2311151d'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%2337363a'/%3E%3Cstop offset='1' stop-color='%2311151d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M0 170 L120 120 L190 150 L300 70 L390 130 L470 100 L560 160 L650 90 L720 120 L830 40 L930 120 L1010 95 L1110 150 L1200 80 L1300 130 L1380 105 L1440 125 V320 H0Z'/%3E%3Cpath fill='url(%23h)' d='M0 240 L140 200 L260 230 L380 185 L520 225 L640 200 L780 240 L900 205 L1040 235 L1180 195 L1320 230 L1440 210 V320 H0Z'/%3E%3C/svg%3E");
+  --hero-ridge: url("../assets/alps.svg");
 }
 :root[data-activity="mountain"] {
   --bg: #060a10; --bg-rgb: 6, 10, 16;
@@ -264,7 +264,7 @@ main { position: relative; z-index: 2; }
 .panel-hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 62% 58% at 0% 100%, rgba(var(--bg-rgb), .84), transparent 72%); }
 .hero-content { position: relative; max-width: 780px; }
 :root[data-activity="general"] .act[data-act="hero"] { background: radial-gradient(ellipse 60% 40% at 75% 45%, rgba(var(--accent-rgb), .09), transparent 70%); }
-:root[data-activity="general"] .panel-hero { background: var(--hero-ridge) bottom / 100% 42% no-repeat, var(--hero-sky); }
+:root[data-activity="general"] .panel-hero { background: var(--hero-ridge) 50% 100% / max(100%, 1100px) auto no-repeat, var(--hero-sky); }
 .hero-title { width: max-content; font-family: var(--f-display); font-weight: 300; font-size: clamp(28px, 5.4vw, 92px); white-space: nowrap; line-height: .92; letter-spacing: -.045em; margin: 0 0 26px; }
 .ht-line { display: block; overflow: hidden; padding-bottom: .2em; margin-bottom: -.12em; }
 .ht-word { display: inline-block; }
