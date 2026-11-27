@@ -1,4 +1,4 @@
-// The identity chips (.hero-ids) merge into the nav logo once the page scrolls past them: they break
+// The identity chips (.hero-ids) merge into the nav logo as soon as the page starts scrolling: they break
 // into points that fly into the logo, which then wears a five-colour badge. Scrolling back up sends the
 // points back to re-form the chips. Once merged, the logo is a button that opens the same chips as a
 // column under it, re-formed from points out of the logo; Escape or a click outside sends them back.
@@ -7,7 +7,7 @@ import { t } from './kit/i18n.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const DUR = 900, STEP = 3;
+const DUR = 480, STEP = 3;
 const ease = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
 
 /** The chips' pixels as points, relative to the box's top-left: each pill redrawn from its computed style. */
@@ -32,7 +32,7 @@ function sample(box) {
   const d = c.getImageData(0, 0, cv.width, cv.height).data, pts = [], s = Math.round(STEP * dpr);
   for (let y = 0; y < cv.height; y += s) for (let x = 0; x < cv.width; x += s) {
     const k = (y * cv.width + x) * 4;
-    if (d[k + 3] > 90) pts.push({ x: x / dpr, y: y / dpr, col: `rgb(${d[k]},${d[k + 1]},${d[k + 2]})`, d: Math.random() * 0.35, jx: Math.random() * 10 - 5, jy: Math.random() * 10 - 5 });
+    if (d[k + 3] > 90) pts.push({ x: x / dpr, y: y / dpr, col: `rgb(${d[k]},${d[k + 1]},${d[k + 2]})`, d: Math.random() * 0.2, jx: Math.random() * 10 - 5, jy: Math.random() * 10 - 5 });
   }
   return pts;
 }
@@ -84,7 +84,7 @@ export function setupIdMerge() {
       const ox = r0.left + (r.left - r0.left), oy = r0.top + (r.top - r0.top);
       ctx.clearRect(0, 0, innerWidth, innerHeight);
       for (const p of pts) {
-        const v = ease((u - p.d) / 0.65), w = toLogo ? v : 1 - v;
+        const v = ease((u - p.d) / 0.8), w = toLogo ? v : 1 - v;
         ctx.globalAlpha = 1 - w * w * w;
         ctx.fillStyle = p.col;
         ctx.fillRect(ox + p.x + (lx + p.jx - ox - p.x) * w, oy + p.y + (ly + p.jy - oy - p.y) * w, 2, 2);
@@ -175,10 +175,9 @@ export function setupIdMerge() {
     bs[(i + (e.key === 'ArrowDown' ? 1 : bs.length - 1)) % bs.length].focus();
   });
 
-  // Merged once the chips have gone under the nav bar.
+  // Merged after a few dozen pixels of scroll (the chips sit at the top of the page), back near the top.
   const check = (instant) => {
-    const r = chips.getBoundingClientRect(), navB = nav.getBoundingClientRect().bottom;
-    merge(r.bottom < navB + (merged ? 24 : 0), instant);
+    merge(scrollY > (merged ? 12 : 28), instant);
     if (isOpen()) place();
   };
   check(true);
