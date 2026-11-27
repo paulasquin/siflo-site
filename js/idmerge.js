@@ -7,7 +7,7 @@ import { t } from './kit/i18n.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const DUR = 650, STEP = 3;
+const DUR = 1000, STEP = 3;
 const ease = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
 
 /** The chips' pixels as points, relative to the box's top-left: each pill redrawn from its computed style. */
