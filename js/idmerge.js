@@ -1,5 +1,5 @@
 // The identity chips (.hero-ids) merge into the nav logo as soon as the page starts scrolling: they break
-// into points that fly into the logo, which then wears a five-colour badge. Scrolling back up sends the
+// into points that fly into the logo, the points leaving from where the chips stood on screen. Scrolling back up sends the
 // points back to re-form the chips. Once merged, the logo is a button that opens the same chips as a
 // column under it, re-formed from points out of the logo; Escape or a click outside sends them back.
 // One fixed canvas over the page, idle between transitions. Reduced motion: a plain fade, no points.
@@ -7,7 +7,7 @@ import { t } from './kit/i18n.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const DUR = 480, STEP = 3;
+const DUR = 650, STEP = 3;
 const ease = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
 
 /** The chips' pixels as points, relative to the box's top-left: each pill redrawn from its computed style. */
@@ -32,7 +32,7 @@ function sample(box) {
   const d = c.getImageData(0, 0, cv.width, cv.height).data, pts = [], s = Math.round(STEP * dpr);
   for (let y = 0; y < cv.height; y += s) for (let x = 0; x < cv.width; x += s) {
     const k = (y * cv.width + x) * 4;
-    if (d[k + 3] > 90) pts.push({ x: x / dpr, y: y / dpr, col: `rgb(${d[k]},${d[k + 1]},${d[k + 2]})`, d: Math.random() * 0.2, jx: Math.random() * 10 - 5, jy: Math.random() * 10 - 5 });
+    if (d[k + 3] > 90) pts.push({ x: x / dpr, y: y / dpr, col: `rgb(${d[k]},${d[k + 1]},${d[k + 2]})`, d: Math.random() * 0.2, jx: Math.random() * 5 - 2.5, jy: Math.random() * 5 - 2.5 });
   }
   return pts;
 }
@@ -41,11 +41,6 @@ export function setupIdMerge() {
   const chips = $('#top .hero-ids'), brand = $('.topnav .brand'), nav = $('.topnav');
   if (!chips || !brand) return;
   const root = document.documentElement, mark = $('.brand-mark', brand);
-  const badge = document.createElement('span');
-  badge.className = 'brand-badge';
-  badge.setAttribute('aria-hidden', 'true');
-  badge.innerHTML = '<i></i><i></i><i></i><i></i><i></i>';
-  mark.appendChild(badge);
 
   const menu = chips.cloneNode(true);
   menu.className = 'hero-ids id-menu';
@@ -81,13 +76,14 @@ export function setupIdMerge() {
     const t0 = performance.now(), r0 = box.getBoundingClientRect();
     anim = () => {
       const u = (performance.now() - t0) / DUR, r = box.getBoundingClientRect(), [lx, ly] = logoPt();
-      const ox = r0.left + (r.left - r0.left), oy = r0.top + (r.top - r0.top);
+      // Into the logo, the points leave from where the chips were on screen (they stay put while the page scrolls); back, they follow the chips.
+      const ox = toLogo ? r0.left : r.left, oy = toLogo ? r0.top : r.top;
       ctx.clearRect(0, 0, innerWidth, innerHeight);
       for (const p of pts) {
         const v = ease((u - p.d) / 0.8), w = toLogo ? v : 1 - v;
         ctx.globalAlpha = 1 - w * w * w;
         ctx.fillStyle = p.col;
-        ctx.fillRect(ox + p.x + (lx + p.jx - ox - p.x) * w, oy + p.y + (ly + p.jy - oy - p.y) * w, 2, 2);
+        ctx.fillRect(ox + p.x + (lx + p.jx - ox - p.x) * w, oy + p.y + (ly + p.jy - oy - p.y) * w, 1.4, 1.4);
       }
       ctx.globalAlpha = 1;
       if (u < 1) raf = requestAnimationFrame(anim);
@@ -96,7 +92,7 @@ export function setupIdMerge() {
     raf = requestAnimationFrame(anim);
   }
 
-  // Merged: the chips are hidden, the badge shows and the logo becomes the menu's button.
+  // Merged: the chips are hidden and the logo becomes the menu's button.
   let merged = false;
   const setButton = (on) => {
     if (on) {

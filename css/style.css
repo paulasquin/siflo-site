@@ -186,16 +186,8 @@ b, strong { font-weight: 600; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-display); font-weight: 600; font-size: 17px; letter-spacing: .01em; }
 .brand-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); display: grid; place-items: center; box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .18), 0 0 18px -3px rgba(var(--accent-rgb), .6); }
 .brand-mark svg { width: 24px; height: 24px; }
-/* The identity chips merged into the logo (js/idmerge.js): a five-colour badge, the menu under the logo, the points' canvas. */
+/* The identity chips merged into the logo (js/idmerge.js): the menu under the logo, the points' canvas. */
 .brand-mark { position: relative; }
-.brand-badge { position: absolute; right: -6px; bottom: -6px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 1px var(--line-2); opacity: 0; transform: scale(.4); transition: opacity .35s, transform .35s; pointer-events: none; }
-.brand-badge i { position: absolute; left: 50%; top: 50%; width: 3.6px; height: 3.6px; margin: -1.8px 0 0 -1.8px; border-radius: 50%; }
-.brand-badge i:nth-child(1) { background: #ffb27a; transform: translate(0, -3.7px); }
-.brand-badge i:nth-child(2) { background: #ff8a3d; transform: translate(3.5px, -1.15px); }
-.brand-badge i:nth-child(3) { background: #7dd3fc; transform: translate(2.2px, 3px); }
-.brand-badge i:nth-child(4) { background: #fbc84f; transform: translate(-2.2px, 3px); }
-.brand-badge i:nth-child(5) { background: #e879f9; transform: translate(-3.5px, -1.15px); }
-.ids-merged:not(.ids-flying) .brand-badge { opacity: 1; transform: none; }
 #top .hero-ids { transition: opacity .3s, visibility .3s; }
 .ids-merged #top .hero-ids, .ids-flying #top .hero-ids { opacity: 0; visibility: hidden; }
 .id-particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 56; pointer-events: none; }
