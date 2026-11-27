@@ -12,8 +12,8 @@ import {
 
 registerStrings(STRINGS);
 
-// The presentation film in the hero, on YouTube. English: the current English Short until the new one is up.
-const HERO_FILM = { fr: '6FA-N-e3nms', en: 'SSMs3xLIuFo' };
+// The presentation film in the hero, on YouTube (the same Shorts as /demo-fr and /demo-en).
+const HERO_FILM = { fr: '6FA-N-e3nms', en: 'GnOBaMHkm2M' };
 
 // The 0.37.0 store captures, without their captions: Android or iPhone after the visitor's phone (Android on a computer).
 const SCREENS = {
