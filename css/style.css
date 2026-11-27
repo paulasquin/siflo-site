@@ -186,6 +186,21 @@ b, strong { font-weight: 600; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-display); font-weight: 600; font-size: 17px; letter-spacing: .01em; }
 .brand-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); display: grid; place-items: center; box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .18), 0 0 18px -3px rgba(var(--accent-rgb), .6); }
 .brand-mark svg { width: 24px; height: 24px; }
+/* The identity chips merged into the logo (js/idmerge.js): a five-colour badge, the menu under the logo, the points' canvas. */
+.brand-mark { position: relative; }
+.brand-badge { position: absolute; right: -6px; bottom: -6px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 1px var(--line-2); opacity: 0; transform: scale(.4); transition: opacity .35s, transform .35s; pointer-events: none; }
+.brand-badge i { position: absolute; left: 50%; top: 50%; width: 3.6px; height: 3.6px; margin: -1.8px 0 0 -1.8px; border-radius: 50%; }
+.brand-badge i:nth-child(1) { background: #ffb27a; transform: translate(0, -3.7px); }
+.brand-badge i:nth-child(2) { background: #ff8a3d; transform: translate(3.5px, -1.15px); }
+.brand-badge i:nth-child(3) { background: #7dd3fc; transform: translate(2.2px, 3px); }
+.brand-badge i:nth-child(4) { background: #fbc84f; transform: translate(-2.2px, 3px); }
+.brand-badge i:nth-child(5) { background: #e879f9; transform: translate(-3.5px, -1.15px); }
+.ids-merged:not(.ids-flying) .brand-badge { opacity: 1; transform: none; }
+#top .hero-ids { transition: opacity .3s, visibility .3s; }
+.ids-merged #top .hero-ids, .ids-flying #top .hero-ids { opacity: 0; visibility: hidden; }
+.id-particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 56; pointer-events: none; }
+.hero-ids.id-menu { position: fixed; z-index: 55; flex-direction: column; flex-wrap: nowrap; align-items: flex-start; gap: 8px; margin: 0; padding: 12px; border-radius: 20px; border: 1px solid var(--line); background: rgba(var(--bg-rgb), .94); box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .8); opacity: 0; transition: opacity .25s; }
+.hero-ids.id-menu.shown { opacity: 1; }
 .nav-links { display: flex; gap: 26px; }
 .nav-links a { text-decoration: none; font-size: 13.5px; color: var(--ink-2); position: relative; transition: color .25s; text-shadow: 0 1px 2px rgba(0, 0, 0, .7), 0 0 14px rgba(var(--bg-rgb), .9); }
 .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--accent-2); transform: scaleX(0); transition: transform .3s; }
@@ -334,7 +349,7 @@ main { position: relative; z-index: 2; }
 .film-play span { width: 0; height: 0; border-style: solid; border-width: 13px 0 13px 21px; border-color: transparent transparent transparent #fff; margin-left: 6px; }
 .film.playing .film-play { opacity: 0; pointer-events: none; }
 
-/* messaging: a group chat drawn in HTML, feature groups, five worlds, uses */
+/* messaging: a group chat drawn in HTML, feature groups, five worlds and uses as icon lists */
 .section-chat { background: radial-gradient(ellipse 50% 45% at 80% 25%, rgba(var(--accent-rgb), .1), transparent 65%), var(--bg); }
 .chat-split { align-items: start; }
 .ms-groups { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; }
@@ -380,15 +395,17 @@ main { position: relative; z-index: 2; }
 .chat-bar i { font-style: normal; color: var(--accent-2); font-size: 16px; line-height: 1; }
 .chat-bar .mic { width: 7px; height: 12px; border-radius: 4px; background: var(--accent-2); box-shadow: 0 4px 0 -2px #1d1814, 0 5px 0 -1px var(--accent-2); }
 .worlds-head { margin-top: clamp(90px, 13vh, 150px); }
-.worlds { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
-.worlds article { background: var(--bg-2); padding: clamp(22px, 2.6vw, 32px); }
-.worlds h3 { font-family: var(--f-display); font-weight: 400; font-size: 19px; line-height: 1.3; margin-bottom: 10px; color: var(--ink); }
-.worlds p:last-child { margin: 0; font-size: 14.5px; color: var(--ink-2); }
-/* five worlds: three then two on a computer, two columns (the last one across) on a tablet */
-.worlds.five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.worlds.five article { grid-column: span 2; }
-.worlds.five article:nth-child(n+4) { grid-column: span 3; }
-.worlds-foot { margin: 22px 0 0; color: var(--ink-2); }
+/* icon lists: a thin accent icon, one bold line, a few words (like the hero's range modes) */
+.ilist { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px 36px; margin: 0; padding: 0; list-style: none; }
+.ilist li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; align-items: start; }
+.ilist svg { width: 28px; height: 28px; margin-top: 1px; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ilist b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 17px; line-height: 1.3; color: var(--ink); }
+.ilist li > span > span { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+/* the SOS card: four small icons under its paragraph */
+.sos-icons { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--ink-2); }
+.sos-icons li { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.sos-icons svg { width: 17px; height: 17px; fill: none; stroke: var(--sos); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.worlds-foot { margin: 30px 0 0; color: var(--ink-2); }
 .uses-head { margin-top: clamp(90px, 13vh, 150px); }
 
 /* the map: six tiles, three app captures, the data credit */
@@ -585,9 +602,7 @@ main { position: relative; z-index: 2; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1000px) {
-  .worlds, .worlds.five { grid-template-columns: 1fr 1fr; }
-  .worlds.five article, .worlds.five article:nth-child(n+4) { grid-column: auto; }
-  .worlds.five article:last-child { grid-column: 1 / -1; }
+  .ilist { grid-template-columns: 1fr 1fr; }
   .features { grid-template-columns: 1fr 1fr; }
   .features.span-last > :last-child { grid-column: 1 / -1; }
   .honest { grid-template-columns: 1fr; }
@@ -614,9 +629,8 @@ main { position: relative; z-index: 2; }
   .support { padding: 22px; }
 }
 @media (max-width: 600px) {
-  .worlds, .ms-groups { grid-template-columns: 1fr; }
-  .worlds.five { grid-template-columns: 1fr; }
-  .worlds.five article:last-child { grid-column: auto; }
+  .ilist, .ms-groups { grid-template-columns: 1fr; }
+  .ilist { gap: 20px; }
   .features, .features.cases { grid-template-columns: 1fr; }
   .features.span-last > :last-child { grid-column: auto; }
   /* The map's tiles: compact rows, the icon at the left. */

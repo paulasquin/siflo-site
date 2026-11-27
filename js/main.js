@@ -4,6 +4,7 @@
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
 import { STRINGS } from './strings.js?v=partout';
 import { activity, applyActivity, setupActivitySwitch } from './activity.js';
+import { setupIdMerge } from './idmerge.js?v=partout';
 import {
   $, $$, capture, debug, lenis, setupAnchors, webglOK, setupStage, bindActs, setupPanels, setupReveals,
   setupNav, setupLightbox, finishBoot,
@@ -139,6 +140,7 @@ async function boot() {
   const onProgress = loaderArcs();
   onProgress(0.2);
   applyActivity();
+  setupIdMerge();
   // The general identity has no 3D behind the hero's two cards: they follow the hero as a plain row, revealed like a section.
   if (activity() === 'general') $$('#top .panel:not(.panel-hero)').forEach((pn) => { pn.classList.add('panel-flat'); $('.card', pn).classList.add('reveal'); });
   // Sections of other identities (data-only, a list) leave the page before the stage and the panels count them.
