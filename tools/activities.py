@@ -1,9 +1,10 @@
-"""Builds each identity's own page (/montagne/, /speleo/, /festival/ and /en/mountain/, /en/caving/,
-/en/festival/) from index.html and en/index.html, and the sitemap.
+"""Builds each identity's own page (/canyon/, /montagne/, /speleo/, /festival/ and /en/canyon/,
+/en/mountain/, /en/caving/, /en/festival/) from index.html and en/index.html, and the sitemap. The
+home pages themselves (/ and /en/) are the general identity.
 
 The page is the home page with the activity set before first paint (<html data-page-activity>), its
 texts written in (js/activity-data.js: COPY for the copy, PAGES for the address, title and
-descriptions), the sections of the other identities left out (data-only), its own canonical
+descriptions), the sections of the other identities left out (data-only, a list of identities), its own canonical
 address, hreflang pair, social image (assets/og-<activity>.jpg, made by tools/og.py) and every
 relative link rewritten for its folder. It runs tools/en.py first. Run it after any change to
 index.html, the English strings or js/activity-data.js:
@@ -49,9 +50,9 @@ def rewrite(s: str, src_dir: str, out_dir: str) -> str:
 
 
 def drop_others(s: str, act: str) -> str:
-    """Removes the elements meant for another identity (data-only="…"), with a comment just before them."""
+    """Removes the elements meant for other identities (data-only="mountain general"), with a comment just before them."""
     while True:
-        m = next((m for m in re.finditer(r'<([a-z]+)\b[^>]*\bdata-only="([^"]+)"[^>]*>', s) if m.group(2) != act), None)
+        m = next((m for m in re.finditer(r'<([a-z]+)\b[^>]*\bdata-only="([^"]+)"[^>]*>', s) if act not in m.group(2).split()), None)
         if not m:
             return s
         tag, depth, end = m.group(1), 1, None
@@ -102,7 +103,7 @@ def sitemap(d: dict) -> None:
     today = date.today().isoformat()
     old = (ROOT / "sitemap.xml").read_text()
     lastmod = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", old))
-    pairs = [(d["PAGES"][a]["fr"]["path"], d["PAGES"][a]["en"]["path"]) for a in ("canyon", "mountain", "cave", "gathering")]
+    pairs = [(d["PAGES"][a]["fr"]["path"], d["PAGES"][a]["en"]["path"]) for a in ("general", "canyon", "mountain", "cave", "gathering")]
     pairs += [("/labs/", "/en/labs/"), ("/sources/", "/en/sources/")]
     rows = []
     for fr, en_ in pairs:
@@ -120,7 +121,7 @@ if __name__ == "__main__":
     for p in en.PAGES:
         print(en.build(*p).relative_to(ROOT))
     d = data()
-    for act in ("mountain", "cave", "gathering"):
+    for act in ("canyon", "mountain", "cave", "gathering"):
         for lang in ("fr", "en"):
             print(build(act, lang, d).relative_to(ROOT))
     sitemap(d)

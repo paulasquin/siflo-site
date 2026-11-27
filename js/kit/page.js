@@ -86,11 +86,12 @@ export function bindActs({ stage, acts }) {
 }
 
 /* ---------------- act panels & reveals ---------------- */
-/** Cards of the act panels fade in, hold and fade out with the scroll. Panels with .panel-sticky hold longer. */
+/** Cards of the act panels fade in, hold and fade out with the scroll. Panels with .panel-sticky hold longer; .panel-flat
+ *  ones (no 3D behind them) are left to the reveals. */
 export function setupPanels() {
   $$('.act .panel').forEach((panel) => {
     const card = $('.card, .hero-content', panel);
-    if (!card) return;
+    if (!card || panel.classList.contains('panel-flat')) return;
     const hero = panel.classList.contains('panel-hero');
     const sticky = panel.classList.contains('panel-sticky');
     const tl = gsap.timeline({ scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -204,7 +205,7 @@ export function heroIntro() {
   const words = $$('.ht-word:not(.ht-glow)');
   const split = new SplitText(words, { type: 'chars' });
   const glow = $('.ht-glow');
-  const rest = $$('.eyebrow, .hero-sub, .hero-kpis, .hero-cta, .scroll-cue, .hud');
+  const rest = $$('.hero-ids, .hero-film, .hero-sub, .hero-kpis, .hero-range, .hero-cta, .scroll-cue, .hud');
   const all = [glow, ...rest].filter(Boolean);
   const done = () => { split.revert(); gsap.set(all, { clearProps: 'opacity,transform,translate' }); };
   gsap.fromTo(split.chars, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.3, ease: 'expo.out', stagger: 0.035, delay: 0.3 });

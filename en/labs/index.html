@@ -25,7 +25,7 @@
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/labs/">
   <script>
     // The visitor's activity (chosen on the home page, js/activity.js) themes this page too.
-    try { if (['canyon', 'mountain', 'cave', 'gathering'].indexOf(localStorage.getItem('activity')) >= 0) document.documentElement.dataset.activity = localStorage.getItem('activity'); } catch (e) {}
+    try { if (['general', 'canyon', 'mountain', 'cave', 'gathering'].indexOf(localStorage.getItem('activity')) >= 0) document.documentElement.dataset.activity = localStorage.getItem('activity'); } catch (e) {}
   </script>
   <link rel="icon" href="../../assets/icon.png">
   <link rel="apple-touch-icon" href="../../assets/icon.png">
@@ -87,7 +87,7 @@
           <p class="kicker" data-i18n="rs.k">Radio range</p>
           <h2 class="h-lg" data-i18n="rs.h">Seven ways<br><em>to reach each other.</em></h2>
           <p class="lead" data-i18n="rs.lead">How a Siflo phone reaches another one: over Bluetooth, Wi-Fi, the internet, a LoRa radio and, later, satellite. For each link, the estimated range, the phones that can use it and what gets through.</p>
-          <p data-i18n="rs.p1">The ranges are estimated by calculation, not yet measured in the field. The scale is logarithmic: from one mark to the next, the distance is multiplied by ten. The first six links are in the app, including the alert beacon (Android only) and the LoRa radio (an add-on); satellite is in preparation.</p>
+          <p data-i18n="rs.p1">The ranges are estimated by calculation; in the field, we measured 80&nbsp;m underground from one phone to the next (a quarry in the Val-d’Oise, 18&nbsp;November 2026). The scale is logarithmic: from one mark to the next, the distance is multiplied by ten. The first six links are in the app, including the alert beacon (Android only) and the LoRa radio (an add-on); satellite is in preparation.</p>
         </div>
 
         <div class="rs-legend" aria-hidden="true">
@@ -120,7 +120,7 @@
           </div>
           <div>
             <h3 data-i18n="rs.n3h">Terrain matters more than the link</h3>
-            <p data-i18n="rs.n3p">Rock blocks everything: in a cave, messages go from phone to phone, in line of sight. Wet foliage divides the range by two or three, by our estimates. Nothing gets through under water.</p>
+            <p data-i18n="rs.n3p">Rock blocks everything: in a cave, messages go from phone to phone along the passage: 80&nbsp;m measured despite its bends. Wet foliage divides the range by two or three, by our estimates. Nothing gets through under water.</p>
           </div>
           <div>
             <h3 data-i18n="rs.n4h">Estimates, not yet measurements</h3>

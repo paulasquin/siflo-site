@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Siflo — outdoor group communication, even offline</title>
   <meta name="description" content="Messages, photos, signals and SOS for your group on outings, even without signal. Canyoning, climbing, caving, mountaineering. Free, encrypted app, no account.">
-  <meta name="theme-color" content="#0e0b09">
+  <meta name="theme-color" content="#11151d">
   <meta property="og:title" content="Siflo — Stay in touch outdoors, even offline.">
   <meta property="og:description" content="Messages, photos, voice notes, signals and SOS for your group on an outing, with or without a network. Free, encrypted, no account.">
   <meta property="og:image" content="https://siflo.app/assets/og.jpg">
@@ -26,10 +26,10 @@
   <link rel="alternate" hreflang="x-default" href="https://siflo.app/">
   <script>
     // Pick the activity before first paint (css [data-activity], js/activity.js): an activity's own page
-    // (/montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=, then the
-    // visitor's saved choice, else canyon. The hero's selector and the top bar switch it.
+    // (/canyon/, /montagne/, /speleo/, /festival/… set data-page-activity), else ?activite= or ?activity=,
+    // then the visitor's saved choice, else the general identity. The chips above the hero title switch it.
     (function () {
-      var ok = ['canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
+      var ok = ['general', 'canyon', 'mountain', 'cave', 'gathering'], root = document.documentElement, a = root.getAttribute('data-page-activity');
       try {
         if (a) localStorage.setItem('activity', a);
         else {
@@ -38,7 +38,7 @@
           else if (ok.indexOf(localStorage.getItem('activity')) >= 0) a = localStorage.getItem('activity');
         }
       } catch (e) {}
-      root.dataset.activity = a || 'canyon';
+      root.dataset.activity = a || 'general';
     })();
   </script>
   <script>
@@ -51,7 +51,7 @@
   <link rel="apple-touch-icon" href="../assets/icon.png">
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/unbounded-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/inter-latin.woff2" crossorigin>
-  <link href="../css/style.css?v=web" rel="stylesheet">
+  <link href="../css/style.css?v=partout" rel="stylesheet">
   <script type="importmap">
   {
     "imports": {
@@ -69,7 +69,8 @@
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M67,38a22,22 0,0 1,0 32"/>
       <path class="arc" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M73,32a30,30 0,0 1,0 44"/>
     </symbol>
-    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0). -->
+    <!-- Activity icons: the app's own (app/src/main/res/drawable/ic_activity_canyon, _mountaineering, _caving, _nearby in paulasquin/siflo; Pinhead CC0, Material Icons Apache 2.0), and a compass for the general identity. -->
+    <symbol id="act-general" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 1 0 19a9.5 9.5 0 0 1 0-19Zm0 2a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15Z"/><path d="M16.6 7.4l-2.6 6.6l-6.6 2.6l2.6-6.6Zm-4.6 3.4a1.2 1.2 0 1 0 0 2.4a1.2 1.2 0 0 0 0-2.4Z" fill-rule="evenodd"/></symbol>
     <symbol id="act-canyon" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path d="M11.4 0H12.4V12H11.6ZM13 0H13.8V11H13ZM14.3 0H15V11.5H14.3Z"/><path d="M12.5 12.5c.32 0 .64.11.89.31l.32.26c.3.24.68.39 1.07.43H15V15h-.05c-.46 0-.89-.16-1.24-.44l-.32-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.31.25c-.36.28-.8.44-1.25.44h-.1c-.45 0-.89-.16-1.25-.44l-.31-.25c-.25-.2-.57-.31-.89-.31s-.64.11-.89.31l-.32.25c-.3.25-.68.4-1.07.43L0 15v-1.5h.05c.46 0 .89-.15 1.24-.43l.32-.26c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31s.64.11.89.31l.31.25c.36.28.8.44 1.25.44h.1c.45 0 .89-.16 1.25-.44l.31-.25c.25-.2.57-.31.89-.31Z"/><circle cx="11" cy="0.5" r="0.55"/><circle cx="4.6" cy="3.2" r="1.4"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.6" d="M11 0.5L6.8 8.4M6.8 8.4C6.8 10.4 6.4 11.6 5 12.3"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5.2 5L6.7 8.2"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.7 8.2L10.9 9.7"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M5.6 5.7L8.6 5"/></g></symbol>
     <symbol id="act-mountain" viewBox="0 0 18 18"><g transform="translate(1.5 1.5)"><path fill-rule="evenodd" d="M0 15L5.4 6.2L7.3 8.8L10.5 4.2L15 15ZM8.55 7L9.5 7.6L10.4 6.9L11.2 7.6L11.67 7L12 7.8L11.2 8.4L10.4 7.7L9.5 8.4L8 7.9Z"/><path d="M10.25 0.3H10.75V4.2H10.25ZM10.75 0.3L13.65 1.2L10.75 2.1Z"/></g></symbol>
     <symbol id="act-gathering" viewBox="0 0 24 24"><path d="M12 12.75c1.63 0 3.07.39 4.24.9c1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73c1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3"/></symbol>
@@ -97,21 +98,13 @@
     <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
     <div class="nav-links">
       <a href="#messagerie" data-i18n="nav.chat">Messaging</a>
+      <a href="#carte" data-i18n="nav.map">Map</a>
       <a href="#signaux" data-i18n="nav.signals">Signals</a>
       <a href="#reseau" data-i18n="nav.mesh">No network</a>
       <a href="#confidentialite" data-i18n="nav.privacy">Privacy</a>
       <a href="#aide" data-i18n="nav.help">Help</a>
     </div>
     <div class="nav-right">
-      <div class="act-switch">
-        <button class="act-current" aria-haspopup="true" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg><span class="act-name">Canyon</span><i class="act-caret"></i></button>
-        <ul class="act-menu" role="menu" hidden>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span><span class="act-n" data-i18n="act.canyon.n">Canyoning</span><small data-i18n="act.canyon.s">Abseils, waterfalls, pools</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span><span class="act-n" data-i18n="act.mountain.n">Mountain</span><small data-i18n="act.mountain.s">Ski touring, mountaineering, climbing, ice</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span><span class="act-n" data-i18n="act.cave.n">Caving</span><small data-i18n="act.cave.s">Shafts, passages, underground rivers</small></span></button></li>
-          <li><button role="menuitemradio" aria-checked="false" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span><span class="act-n" data-i18n="act.gathering.n">Gatherings</span><small data-i18n="act.gathering.s">Festivals, events, volunteers</small></span></button></li>
-        </ul>
-      </div>
       <a href="https://web.siflo.app" class="nav-labs nav-web" aria-label="Siflo Web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>Web</span></a>
       <a href="labs/" class="nav-labs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg><span data-i18n="nav.labs">Lab</span></a>
       <div class="lang-switch" role="group" aria-label="Langue / Language"><button data-lang="fr" lang="fr">FR</button><button data-lang="en" lang="en">EN</button></div>
@@ -120,23 +113,42 @@
   </nav>
 
   <main>
-    <!-- ACT · hero (js/acts/canyon.js, mountain.js or cave.js, after the activity): the whistle drowned by the terrain, then the phones relay the message. -->
+    <!-- ACT · hero (js/acts/canyon.js, mountain.js, cave.js or gathering.js, after the activity; none for the general identity, a still sky in css/style.css): the whistle drowned by the terrain, then the phones relay the message. -->
     <section id="top" class="act" data-act="hero">
       <div class="panel panel-hero">
         <div class="hero-content">
-          <p class="eyebrow"><span class="pulse-dot"></span><span data-i18n="hero.eyebrow">Outdoor group communication</span></p>
+          <div class="hero-ids" role="group" aria-label="Pages by activity" data-i18n-aria="act.list">
+            <button type="button" data-activity="general"><svg class="act-ico"><use href="#act-general"/></svg><span data-i18n="act.general.n">Everywhere</span></button>
+            <button type="button" data-activity="canyon"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyon</span></button>
+            <button type="button" data-activity="mountain"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
+            <button type="button" data-activity="cave"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
+            <button type="button" data-activity="gathering"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Gatherings</span></button>
+          </div>
           <h1 class="hero-title">
             <span class="ht-line"><span class="ht-word" data-i18n="hero.t1">Stay in touch</span></span>
-            <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">outdoors,</span></span>
+            <span class="ht-line"><span class="ht-word" data-i18n="hero.t2">wherever you go,</span></span>
             <span class="ht-line"><span class="ht-word ht-glow" data-i18n="hero.t3">even offline.</span></span>
           </h1>
-          <p class="hero-sub" data-i18n="hero.sub">Messages, photos, signals and SOS for the group. Over the internet when someone has signal, phone to phone when nobody does, all the way to the one who always rushes ahead. Free, encrypted, no account.</p>
+          <p class="hero-sub" data-i18n="hero.sub">Messages, photos, signals and SOS for the group. Over the internet if someone has signal, phone to phone otherwise. Free, encrypted, no account.</p>
           <dl class="hero-kpis">
             <div><dt data-i18n="hero.k1">price</dt><dd data-i18n="hero.v1">Free</dd></div>
             <div><dt data-i18n="hero.k2">ads</dt><dd data-i18n="hero.v2">None</dd></div>
             <div><dt data-i18n="hero.k3">mobile network</dt><dd data-i18n="hero.v3">Optional</dd></div>
-            <div><dt data-i18n="hero.k4">range between phones</dt><dd data-i18n="hero.v4">25 to 300&nbsp;m</dd></div>
           </dl>
+          <!-- Range: one block. Each member relays to the next, 100 to 300 m apart, so the group builds its own network (js/main.js draws it). -->
+          <div class="hero-range">
+            <div class="hr-head">
+              <p class="hr-k" data-i18n="hero.rk">range · collaborative network</p>
+              <p class="hr-v" data-i18n="hero.rv">100&nbsp;m to several&nbsp;km</p>
+            </div>
+            <svg class="hr-net" viewBox="0 0 320 70" aria-hidden="true"></svg>
+            <ul class="hr-modes">
+              <li><svg viewBox="0 0 24 24"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg><span data-i18n="hero.rm1">100 to 300&nbsp;m between two members</span></li>
+              <li><svg viewBox="0 0 24 24"><circle cx="5" cy="17" r="2.2"/><circle cx="12" cy="6" r="2.2"/><circle cx="19" cy="17" r="2.2"/><path d="M6.2 15.1l4.6-7.2M13.2 7.9l4.6 7.2M7.2 17h9.6"/></svg><span data-i18n="hero.rm2">each one relays</span></li>
+              <li><svg viewBox="0 0 24 24"><path d="M12 12v9M8.5 8.5a5 5 0 0 1 7 0M5.6 5.6a9 9 0 0 1 12.8 0"/><circle cx="12" cy="11.5" r="1.4"/></svg><span data-i18n="hero.rm3">LoRa radio up to 7&nbsp;km</span></li>
+              <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg><span data-i18n="hero.rm4">internet as soon as someone has signal</span></li>
+            </ul>
+          </div>
           <div class="hero-cta">
             <a href="https://play.google.com/store/apps/details?id=app.siflo" class="btn btn-primary os-android"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.2.9.4 1.2l9.7-9.8L3.6 2.2zm10.8 10.9 2.8 2.8-11.5 6.6 8.7-9.4zm0-2.2L5.7 1.5l11.5 6.6-2.8 2.8zm3.9 4.3-3.1-3.1 3.1-3.1 3.6 2c1 .6 1 1.6 0 2.2l-3.6 2z"/></svg><span data-i18n="hero.cta1">Get it on Google Play</span></a>
             <a href="https://apps.apple.com/app/id6827630745" class="btn btn-primary os-ios"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.6-1-2.6-4zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span data-i18n="hero.cta1i">Download on the App Store</span></a>
@@ -144,35 +156,33 @@
             <a href="#signaux" class="btn btn-ghost" data-i18n="hero.cta2">See how it works</a>
           </div>
         </div>
-        <div class="hero-acts">
-          <button class="ha-current" aria-expanded="false" aria-label="Change terrain" data-i18n-aria="act.aria"><svg class="act-ico"><use href="#act-canyon"/></svg></button>
-          <span class="ha-name" data-i18n="act.canyon.n">Canyoning</span>
-          <div class="ha-list" role="group" aria-label="Terrains" data-i18n-aria="act.list">
-            <button data-activity="canyon" aria-label="Canyoning" data-i18n-aria="act.canyon.n"><svg class="act-ico"><use href="#act-canyon"/></svg><span data-i18n="act.canyon.n">Canyoning</span></button>
-            <button data-activity="mountain" aria-label="Mountain" data-i18n-aria="act.mountain.n"><svg class="act-ico"><use href="#act-mountain"/></svg><span data-i18n="act.mountain.n">Mountain</span></button>
-            <button data-activity="cave" aria-label="Caving" data-i18n-aria="act.cave.n"><svg class="act-ico"><use href="#act-cave"/></svg><span data-i18n="act.cave.n">Caving</span></button>
-            <button data-activity="gathering" aria-label="Gatherings" data-i18n-aria="act.gathering.n"><svg class="act-ico"><use href="#act-gathering"/></svg><span data-i18n="act.gathering.n">Gatherings</span></button>
-          </div>
+        <!-- The presentation film (js/main.js, HERO_FILM): a self-hosted poster; YouTube loads only on a click. -->
+        <div class="hero-film">
+          <button type="button" class="hf-play" aria-label="Play the presentation film" data-i18n-aria="hero.film.aria">
+            <img src="../assets/film/demo-poster-en.webp" data-en-src="../assets/film/demo-poster-en.webp" alt="" width="540" height="960">
+            <span class="hf-btn" aria-hidden="true"></span>
+            <span class="hf-cap" data-i18n="hero.film">Siflo in 37&nbsp;s</span>
+          </button>
         </div>
         <div class="scroll-cue" aria-hidden="true"><span></span><i data-i18n="hero.scroll">Scroll</i></div>
       </div>
       <div class="panel panel-right">
         <div class="card">
-          <p class="kicker" data-i18n="c1.k">The problem</p>
-          <h2 data-i18n="c1.h">A whistle is great. When you can hear it.</h2>
-          <p data-i18n="c1.p">Only four codes, which change from club to club. The roar of one waterfall is enough to drown them out. When the rope jams at the top of a rappel, those at the bottom have no idea. And those who went ahead have even less.</p>
+          <p class="kicker" data-i18n="c1.k">Out of signal</p>
+          <h2 data-i18n="c1.h">No signal. Still a need to talk.</h2>
+          <p data-i18n="c1.p">Waterfalls, water, distance, whiteout: voices don’t carry and the signal is gone. You still need to say you’re stopping or waiting.</p>
         </div>
       </div>
       <div class="panel panel-left">
         <div class="card">
-          <p class="kicker" data-i18n="c2.k">With Siflo</p>
-          <h2 data-i18n="c2.h">The message, though, gets round the whole group.</h2>
-          <p data-i18n="c2.p">Julie types “Rope stuck, wait for me”. Marc’s phone, at the foot of the waterfall, passes the message on to Léa and Tom, who went ahead.</p>
+          <p class="kicker" data-i18n="c2.k">Phone to phone</p>
+          <h2 data-i18n="c2.h">The group keeps talking.</h2>
+          <p data-i18n="c2.p">Julie types “Break, wait for us”. Marc’s phone passes it on to Léa and Tom, who went ahead. The internet takes over as soon as someone has signal.</p>
         </div>
       </div>
     </section>
 
-    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the four worlds it joins, who it is for. -->
+    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the five worlds it joins, who it is for. -->
     <section id="messagerie" class="section section-chat">
       <div class="wrap">
         <div class="split chat-split">
@@ -183,19 +193,19 @@
             <div class="ms-groups">
               <div><h3 data-i18n="ms.g1h">Write</h3><p data-i18n="ms.g1p">Reply, react, mention, fix your typo, delete what you regret, forward, pin the departure time, star what matters.</p></div>
               <div><h3 data-i18n="ms.g2h">Share</h3><p data-i18n="ms.g2p">Ten photos at once, voice notes, the meeting point. And single-use photos and voice notes, for the incriminating evidence.</p></div>
-              <div><h3 data-i18n="ms.g3h">Organise</h3><p data-i18n="ms.g3p">Polls, a group description and photo, groups where only admins get a say. The group deletes itself after 24 h, 48 h, 7 days… or never.</p></div>
-              <div><h3 data-i18n="ms.g4h">Get together</h3><p data-i18n="ms.g4p">A QR code to scan to join, even with no network, or an invitation link. “Received” and “seen” under every message. And a nearby channel to talk to every Siflo user around: handy for asking the party next door whether the rest of the route is dry.</p></div>
+              <div><h3 data-i18n="ms.g3h">Organise</h3><p data-i18n="ms.g3p">Polls, a group photo, admin-only announcements. Auto-delete after 24&nbsp;h, 7&nbsp;days… or never.</p></div>
+              <div><h3 data-i18n="ms.g4h">Get together</h3><p data-i18n="ms.g4p">Join by QR code, even with no signal. “Received” and “seen” under every message. A channel to talk to Siflo users nearby.</p></div>
             </div>
           </div>
           <div class="reveal">
             <div class="phone-frame chat" data-in aria-hidden="true">
               <div class="chat-screen">
-                <div class="chat-top"><i class="chat-back"></i><span class="chat-av" data-i18n="ch.av">CF</span><span><b data-i18n="ch.group">Furon Canyon</b><small data-i18n="ch.members">6 members · ends in 2 days</small></span></div>
+                <div class="chat-top"><i class="chat-back"></i><span class="chat-av" data-i18n="ch.av">WO</span><span><b data-i18n="ch.group">Weekend outing</b><small data-i18n="ch.members">6 members · ends in 2 days</small></span></div>
                 <div class="chat-list">
                   <div class="bub" style="--i:0"><span class="who">Léa</span><span data-i18n="ch.m1">Leaving the car park at 8, sharp 👀</span><span class="reac">👍 4</span></div>
                   <div class="bub poll" style="--i:1"><span class="who">Léa</span><b data-i18n="ch.pq">Lift-sharing from Grenoble</b><span class="opt" style="--v:.4"><span data-i18n="ch.p1">I’m driving, 3 seats</span><i>2</i></span><span class="opt" style="--v:.6"><span data-i18n="ch.p2">I need a lift</span><i>3</i></span><small data-i18n="ch.pv">Poll · 5 votes</small></div>
-                  <div class="bub place" style="--i:2"><span class="who">Marc</span><span class="pin"></span><span><b data-i18n="ch.place">Canyon car park</b><small>45.1871, 5.6493</small></span></div>
-                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Canyon car park</span></span><span data-i18n="ch.m2">I’ll bring the second rope. And the croissants.</span><span class="meta" data-i18n="ch.seen">✓✓ Seen by 5</span></div>
+                  <div class="bub place" style="--i:2"><span class="who">Marc</span><span class="pin"></span><span><b data-i18n="ch.place">Meeting point</b><small>45.1871, 5.6493</small></span></div>
+                  <div class="bub me" style="--i:3"><span class="quote"><b>Marc</b><span data-i18n="ch.place">Meeting point</span></span><span data-i18n="ch.m2">I’ll bring the picnic. And the croissants.</span><span class="meta" data-i18n="ch.seen">✓✓ Seen by 5</span></div>
                   <div class="bub photos" style="--i:4"><span class="who">Tom</span><span class="ph"></span><span class="ph"></span><span class="ph more">+2</span></div>
                 </div>
                 <div class="chat-bar"><i>+</i><span data-i18n="ch.input">Message</span><i class="mic"></i></div>
@@ -205,29 +215,76 @@
         </div>
 
         <div class="section-head reveal worlds-head">
-          <p class="kicker" data-i18n="wd.k">The best of four worlds</p>
-          <h2 class="h-lg" data-i18n="wd.h">Four apps in one.<br><em>Your pocket can breathe.</em></h2>
+          <p class="kicker" data-i18n="wd.k">The best of five worlds</p>
+          <h2 class="h-lg" data-i18n="wd.h">5+&nbsp;apps in one.<br><em>Your pocket can breathe.</em></h2>
         </div>
-        <div class="worlds">
-          <article class="reveal"><p class="case-tag" data-i18n="wd.1t">Like WhatsApp</p><h3 data-i18n="wd.1h">Easy to use</h3><p data-i18n="wd.1p">Groups, reactions, polls, voice notes: even your uncle will figure it out.</p></article>
-          <article class="reveal"><p class="case-tag" data-i18n="wd.2t">Like Signal</p><h3 data-i18n="wd.2h">End-to-end encrypted</h3><p data-i18n="wd.2p">Signal’s mechanism for private messages, a key that changes every day for groups. Its key mechanisms have been checked with mathematical proof tools. Yes, maths.</p></article>
-          <article class="reveal"><p class="case-tag" data-i18n="wd.3t">Like BitChat</p><h3 data-i18n="wd.3h">No network needed</h3><p data-i18n="wd.3p">With no cell tower and no internet, messages hop from phone to phone over Bluetooth. Siflo adds private groups, LoRa radio and, on Android, nearby Wi-Fi.</p></article>
-          <article class="reveal"><p class="case-tag" data-i18n="wd.4t">Like Meshtastic</p><h3 data-i18n="wd.4h">Several kilometres away</h3><p data-i18n="wd.4p">With a small optional LoRa radio, messages carry up to several kilometres.</p></article>
-        </div>
+        <ul class="ilist worlds-list">
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg><span><b data-i18n="wd.1h">Simple like WhatsApp</b><span data-i18n="wd.1p">Groups, polls, voice notes</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><b data-i18n="wd.2h">Encrypted like Signal</b><span data-i18n="wd.2p">Proved with mathematical tools</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg><span><b data-i18n="wd.3h">No network, like BitChat</b><span data-i18n="wd.3p">Phone to phone</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12v9M8.5 8.5a5 5 0 0 1 7 0M5.6 5.6a9 9 0 0 1 12.8 0"/><circle cx="12" cy="11.5" r="1.4"/></svg><span><b data-i18n="wd.4h">Up to 7&nbsp;km, like Meshtastic</b><span data-i18n="wd.4p">With a LoRa radio</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg><span><b data-i18n="wd.5h">Maps and 3D film</b><span data-i18n="wd.5p">Like Komoot, FATMAP, Relive…</span></span></li>
+        </ul>
         <p class="worlds-foot reveal" data-i18n="wd.foot">And no big platform behind it. We don’t read your bivouac chats.</p>
 
         <div class="section-head reveal uses-head">
           <p class="kicker" data-i18n="us.k">Who is it for?</p>
           <h2 class="h-lg" data-i18n="us.h">Wherever the network<br><em>lets you down.</em></h2>
         </div>
-        <div class="features uses">
-          <article class="feature reveal"><h3 data-i18n="us.1h">Outdoor sports</h3><p data-i18n="us.1p">Canyoning, caving, climbing, mountaineering, ski touring: where the last bar of signal stayed behind in the car park.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.2h">Festivals and gatherings</h3><p data-i18n="us.2p">Thousands of phones on one cell tower: nothing gets through. Your messages do: phone to phone, then over the internet as soon as someone in the group has signal.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.3h">Outings and trips</h3><p data-i18n="us.3p">The poll for the start time (no, not 4 am), the meeting point, the lift-sharing. Out there, the group keeps talking, even offline.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.4h">Network outages</h3><p data-i18n="us.4p">Storm, power cut, mast down: nearby Siflo phones keep talking to each other.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.5h">Leading a group</h3><p data-i18n="us.5p">Club, school, summer camp: one “Regroup” signal to everyone. You see who has received it, who has seen it. And who is pretending not to.</p></article>
-          <article class="feature reveal"><h3 data-i18n="us.6h">Working with no signal</h3><p data-i18n="us.6p">Mountain huts, building sites, farms: the team stays in touch on site, with no mast and no subscription, and the SOS stays at hand.</p></article>
+        <ul class="ilist uses-list">
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 20 9.5 7l4 7 2.5-4 5.5 10z"/><path d="m7.2 11.3 2.3 1.4 2-1.5"/></svg><span><b data-i18n="us.1h">Outdoor sports</b><span data-i18n="us.1p">Canyoning, caving, climbing, mountaineering, skiing</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg><span><b data-i18n="us.2h">Festivals</b><span data-i18n="us.2p">When the cell tower is saturated</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span><b data-i18n="us.3h">Outings and trips</b><span data-i18n="us.3p">Polls, meeting points, car sharing</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 16a5 5 0 1 1 9.6-2H18a3 3 0 0 1 0 6H7"/><path d="m12 14-2 4h3l-2 4"/></svg><span><b data-i18n="us.4h">Network outages</b><span data-i18n="us.4p">Storms, power cuts, towers down</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 5 2 5 5"/></svg><span><b data-i18n="us.5h">Leading a group</b><span data-i18n="us.5p">Clubs, schools, summer camps</span></span></li>
+          <li class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg><span><b data-i18n="us.6h">Dead zones</b><span data-i18n="us.6p">Huts, building sites, farms</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- The map: what the offline map shows, three app captures (js/main.js, the gallery's files for the visitor's phone and language), the data credit. -->
+    <section id="carte" class="section section-map">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="mp.k">The map</p>
+          <h2 class="h-xl" data-i18n="mp.h">The map of the outing,<br><em>even with no signal.</em></h2>
         </div>
+        <div class="features map-tiles">
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v7.5"/><path d="M9 4v13.5L3.5 20V6.5M15 6.5v5"/><path d="M18 14.5v6m-2.6-2.6 2.6 2.6 2.6-2.6"/></svg></div>
+            <h3 data-i18n="mp.1h">Offline map</h3>
+            <p data-i18n="mp.1p">Trails, huts, aerial photos and 3D relief, downloaded for the area.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M2.5 20 9.5 7l4 7 2.5-4 5.5 10z"/><path d="m7.2 11.3 2.3 1.4 2-1.5"/></svg></div>
+            <h3 data-i18n="mp.2h">Read the terrain</h3>
+            <p data-i18n="mp.2p">Slope, aspect, snow seen by satellite, avalanche bulletin.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M5.5 18.5l1.6-1.6M16.9 7.1l1.6-1.6"/></svg></div>
+            <h3 data-i18n="mp.3h">Shade and sun</h3>
+            <p data-i18n="mp.3p">Hour by hour, on your route.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M5 20c0-4 3.5-4.5 6-7.5s1.5-5.5 5-6.5"/><path d="M16 6V2.8l3.6 1.6L16 6"/><circle cx="5" cy="20" r="1.3"/></svg></div>
+            <h3 data-i18n="mp.4h">Routes</h3>
+            <p data-i18n="mp.4p">Ski touring, snowshoes, climbing, via ferrata, canyons, caves.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M12 3.2 18.8 20 12 16.3 5.2 20z"/></svg></div>
+            <h3 data-i18n="mp.5h">Follow and arrive</h3>
+            <p data-i18n="mp.5p">Draw a route, follow it, see your arrival time.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M2.5 20 8 11l3 4.5 4-7.5 6.5 12z"/><path d="M15 8V3.2h4.2l-1.2 1.4 1.2 1.4H15"/></svg></div>
+            <h3 data-i18n="mp.6h">Every peak named</h3>
+            <p data-i18n="mp.6p">The panorama, and your outing as a 3D film.</p>
+          </article>
+        </div>
+      </div>
+      <div class="screens map-shots" id="map-shots"></div>
+      <div class="wrap">
+        <p class="map-credit reveal" data-i18n="mp.credit">Data: OpenStreetMap, IGN, swisstopo, Copernicus… · <a href="sources/">sources and licences</a></p>
       </div>
     </section>
 
@@ -236,13 +293,13 @@
       <div class="panel panel-left">
         <div class="card">
           <p class="kicker" data-i18n="s1.k">Signals · 01</p>
-          <h2 data-i18n="s1.h">Whistle codes, one tap away.</h2>
-          <p data-i18n="s1.p">Four big buttons, easy to hit with wet fingers. The dots match the number of whistle blasts. Each club can put in its own codes, even the most obscure ones.</p>
+          <h2 data-i18n="s1.h">The group’s calls, one tap away.</h2>
+          <p data-i18n="s1.p">Four big buttons, easy even with gloves on. One vibration per dot: you feel the code without hearing it. And your own codes.</p>
           <ul class="chips">
-            <li><i>•</i><span data-i18n="sig.stop">STOP</span></li>
+            <li><i>•</i><span data-i18n="sig.stop">Wait</span></li>
             <li><i>••</i><span data-i18n="sig.ok">OK</span></li>
-            <li><i>•••</i><span data-i18n="sig.release">Release the rope</span></li>
-            <li><i>••••</i><span data-i18n="sig.pull">Pull up the rope</span></li>
+            <li><i>•••</i><span data-i18n="sig.release">Come</span></li>
+            <li><i>••••</i><span data-i18n="sig.pull">Coming</span></li>
           </ul>
         </div>
       </div>
@@ -250,7 +307,7 @@
         <div class="card">
           <p class="kicker" data-i18n="s2.k">Signals · 02</p>
           <h2 data-i18n="s2.h">To the whole group, or just to Marc.</h2>
-          <p data-i18n="s2.p">Julie, at the anchor, sends STOP to Marc, halfway down the waterfall. His phone vibrates to the rhythm of the code, whistles and shows a full-screen alert, even when locked. The rest of the group carries on with their snack bars.</p>
+          <p data-i18n="s2.p">Julie sends “Wait” to Marc. His phone vibrates, rings and shows full screen, even when locked. The others carry on with their snack bars.</p>
         </div>
       </div>
       <div class="panel panel-left panel-sticky">
@@ -269,14 +326,14 @@
         <div class="card">
           <p class="kicker" data-i18n="cl1.k">Climbing focus · 01</p>
           <h2 data-i18n="cl1.h">On a multi-pitch, the belayer loses sight of the leader.</h2>
-          <p data-i18n="cl1.p">Léa has pulled over the overhang and clips into the anchor. Tom, belaying her from below, can no longer see her. The wind carries the calls away, and the next rope team is shouting its own. One misheard call is enough to cause an accident.</p>
+          <p data-i18n="cl1.p">Léa clips into the anchor, out of Tom’s sight. The wind carries the calls away, the next team shouts its own. One misheard call is enough.</p>
         </div>
       </div>
       <div class="panel panel-left panel-sticky">
         <div class="card">
           <p class="kicker" data-i18n="cl2.k">Climbing focus · 02</p>
           <h2 data-i18n="cl2.h">“Safe”, on the belayer’s phone only.</h2>
-          <p data-i18n="cl2.p">Create your own signals: “Safe”, “Take”, “Lower me”. They reach Tom’s phone only, with Léa’s name, never the phones of the team next door. Until Tom has it, Siflo keeps sending; as soon as he confirms, Léa sees it.</p>
+          <p data-i18n="cl2.p">“Safe”, “Take”, “Lower me” reach Tom alone, with Léa’s name. Siflo keeps sending until he confirms.</p>
           <ul class="chips"><li class="ok"><i>✓</i><span data-i18n="cl2.c1">Tom · received</span></li><li class="ok"><i>✓✓</i><span data-i18n="cl2.c2">Tom · seen</span></li></ul>
         </div>
       </div>
@@ -288,28 +345,29 @@
         <div class="card">
           <p class="kicker" data-i18n="m1.k">No network · 01</p>
           <h2 data-i18n="m1.h">Every phone passes the word on.</h2>
-          <p data-i18n="m1.p">Over Bluetooth, every Siflo phone passes the messages on to the next: about 25&nbsp;m in a pocket, about a hundred metres in hand with a clear line of sight, up to 300&nbsp;m between two Android phones with long-range Bluetooth. A message can make up to 12 hops. On Android, nearby Wi-Fi speeds up photos and voice notes. No cell tower needed: every phone in the group becomes one.</p>
+          <p data-i18n="m1.p">Each phone passes the message on to the next, 100 to 300&nbsp;m in hand with a clear line of sight. Up to 12 hops, and 7&nbsp;km with a LoRa radio. Every member becomes a cell tower.</p>
         </div>
       </div>
       <div class="panel panel-left">
         <div class="card">
           <p class="kicker" data-i18n="m2.k">No network · 02</p>
           <h2 data-i18n="m2.h">Two subgroups too far apart? The internet links them.</h2>
-          <p data-i18n="m2.p">As soon as one phone in the group has signal, the whole group benefits: messages go through our relay servers, which keep them for 48 hours without being able to read them. These servers are independent: if one goes down, another takes over.</p>
+          <p data-i18n="m2.p">One phone has signal, and the whole group benefits. Our relays keep messages for 48 hours, unable to read them.</p>
         </div>
       </div>
       <div class="panel panel-right">
         <div class="card">
           <p class="kicker" data-i18n="m3.k">No network · 03</p>
           <h2 data-i18n="m3.h">Messages wait for whoever lags behind.</h2>
-          <p data-i18n="m3.p">The teammate who stayed behind for a photo gets everything as soon as they come back near another phone. A signal that arrives several minutes late shows up without ringing: no need to stop for an expired STOP.</p>
+          <p data-i18n="m3.p">Whoever stayed behind gets everything once back in range. A signal that arrives late shows up without ringing.</p>
         </div>
       </div>
       <div class="panel panel-left panel-sticky">
         <div class="card card-sos">
           <p class="kicker" data-i18n="m4.k">SOS</p>
           <h2 data-i18n="m4.h">Hold the SOS button for two seconds.</h2>
-          <p data-i18n="m4.p">A five-second countdown lets you cancel, then your SOS, with your location if you allow it, reaches every Siflo phone in range, including those of other groups. It also goes to the group of your choice, over the internet when someone has signal. It goes out again every minute, like the six whistle blasts of the mountain distress signal. Siflo can also prepare a text message to the numbers saved in the group. The SOS does not call emergency services: if you have signal, dial 112. It is the one Siflo button we hope you never try.</p>
+          <p data-i18n="m4.p">5 seconds to cancel. Then the SOS goes out with your location, to every Siflo phone in range and to your group, every minute. It doesn’t call the emergency services: if you have signal, dial 112.</p>
+          <ul class="sos-icons"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span data-i18n="m4.i1">position</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1.6"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg><span data-i18n="m4.i2">in range</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 5 2 5 5"/></svg><span data-i18n="m4.i3">group</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span data-i18n="m4.i4">SMS</span></li></ul>
         </div>
       </div>
     </section>
@@ -319,76 +377,51 @@
         <div class="section-head reveal">
           <p class="kicker" data-i18n="fd.k">In the field</p>
           <h2 class="h-xl" data-i18n="fd.h">When voice and whistle<br><em>are not enough.</em></h2>
-          <p class="lead" data-i18n="fd.lead">Situations described by manufacturers, federations and operators, with what Siflo changes. The sources are under each example, for the sceptics.</p>
+          <p class="lead" data-i18n="fd.lead">Situations described by manufacturers and federations, and what Siflo changes. Sources under each example.</p>
         </div>
         <div class="features cases">
           <article class="feature case reveal" data-case="1">
             <p class="case-tag" data-i18n="fd.1t">Canyoning · releasable rigging</p>
             <h3 data-i18n="fd.1h">Asking for more rope from inside the waterfall</h3>
-            <p data-i18n="fd.1p">The first person rappels on a rope that is deliberately too short, and has to ask the teammate at the anchor for slack. Under the waterfall, voices do not carry, and the whistle code had better have been agreed beforehand.</p>
+            <p data-i18n="fd.1p">A rope deliberately too short: the first one down has to ask for slack. Under the waterfall, voices don’t carry.</p>
             <p class="case-siflo" data-i18n="fd.1s"><b>With Siflo</b>: “Release the rope” reaches only the phone of the teammate at the anchor, with the name of whoever is asking.</p>
             <a class="case-src" href="https://www.petzl.com/FR/fr/Sport/Securiser-le-premier-en-rappel" data-i18n="fd.1src">Source: Petzl, “Securing the first person on rappel” (in French)</a>
           </article>
-          <article class="feature case reveal" data-case="2">
-            <p class="case-tag" data-i18n="fd.2t">Canyoning · teammate in trouble</p>
-            <h3 data-i18n="fd.2h">Warning the person at the anchor about a problem they cannot see</h3>
-            <p data-i18n="fd.2p">Bulges, overhangs, rappels in the flow: a stuck teammate can be invisible from above. Hand signs and whistles only work if everyone learnt the same codes. And remembers them.</p>
-            <p class="case-siflo" data-i18n="fd.2s"><b>With Siflo</b>: you spell it out to the whole group, “Léa stuck under the waterfall, release”. Nothing to remember.</p>
-            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source: French canyoning instructor handbook (in French)</a>
+          <article class="feature case reveal" data-case="5" data-only="mountain general">
+            <p class="case-tag" data-i18n="fd.5t">Ski touring · one at a time</p>
+            <h3 data-i18n="fd.5h">Keeping in touch when the group spreads out</h3>
+            <p data-i18n="fd.5p">Steep slope: one at a time, in sight of each other. In the wind or a whiteout, sight is quickly lost.</p>
+            <p class="case-siflo" data-i18n="fd.5s"><b>With Siflo</b>: “One at a time”, “Regroup”, “It’s cracking” arrive even out of sight. Keep the phone more than 20 cm from your transceiver.</p>
+            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source: FFME, safety recommendations for ski mountaineering and ski touring (in French)</a>
           </article>
           <article class="feature case reveal" data-case="3">
             <p class="case-tag" data-i18n="fd.3t">Caving · wet pitch</p>
             <h3 data-i18n="fd.3h">Getting through to those at the top of the pitch</h3>
-            <p data-i18n="fd.3p">At the bottom of a wet pitch, a caver thinks the rope is damaged. Passed on by shouting, the message gets garbled and ends up triggering a rescue call-out, over a leaf caught on the rope. Word of mouth has its limits, especially underground.</p>
-            <p class="case-siflo" data-i18n="fd.3s"><b>With Siflo</b>: with a teammate halfway down to link the phones, “STOP, don’t come down” and then the explanation arrive word for word, with the sender’s name.</p>
+            <p data-i18n="fd.3p">Passed mouth to mouth at the bottom of a shaft, a message gets distorted, until it triggers a rescue for a leaf caught in the rope.</p>
+            <p class="case-siflo" data-i18n="fd.3s"><b>With Siflo</b>: with a teammate halfway down, the message arrives word for word, with the sender’s name.</p>
             <a class="case-src" href="https://ulsa.org.uk/wp-content/uploads/2026/04/ULSAAlumPotNovember2025CallOutIncidentReport.pdf" data-i18n="fd.3src">Source: ULSA incident report, Yorkshire, 2025</a>
+          </article>
+          <article class="feature case reveal" data-case="6" data-only="gathering general">
+            <p class="case-tag" data-i18n="fd.6t">Festival · saturated network</p>
+            <h3 data-i18n="fd.6h">Reaching the first-aid post when the tower saturates</h3>
+            <p data-i18n="fd.6p">A cell tower only takes so many connections. At a festival, calls and photos stop going through.</p>
+            <p class="case-siflo" data-i18n="fd.6s"><b>With Siflo</b>: volunteers talk phone to phone, all the way to the first-aid post. Emergency services: 112.</p>
+            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source: Bouygues Telecom, “Réseau en festival : pourquoi ça sature” (in French)</a>
           </article>
           <article class="feature case reveal" data-case="4">
             <p class="case-tag" data-i18n="fd.4t">Climbing · at the crag</p>
             <h3 data-i18n="fd.4h">Not mixing up the calls</h3>
-            <p data-i18n="fd.4p">Out of sight, the climber calls that they are safe, or that they want to be lowered. One misheard call, or one shouted by the party next door, is enough to cause an accident.</p>
-            <p class="case-siflo" data-i18n="fd.4s"><b>With Siflo</b>: create “Safe” and “Lower me” signals. They reach your belayer’s phone only, never those of the party next door.</p>
+            <p data-i18n="fd.4p">Out of sight, one misheard call, or one shouted by the next team, is enough to cause an accident.</p>
+            <p class="case-siflo" data-i18n="fd.4s"><b>With Siflo</b>: “Safe” and “Lower me” reach your belayer alone.</p>
             <a class="case-src" href="https://www.ffme.fr/wp-content/uploads/2019/06/lettre-secu-prevention-8.pdf" data-i18n="fd.4src">Source: FFME safety letter no. 8 (in French)</a>
           </article>
-          <article class="feature case reveal" data-case="5" data-only="mountain">
-            <p class="case-tag" data-i18n="fd.5t">Ski touring · one at a time</p>
-            <h3 data-i18n="fd.5h">Keeping in touch when the group spreads out</h3>
-            <p data-i18n="fd.5p">On steep slopes, the French federation advises spacing out the group and going “one at a time” when in doubt, while staying within sight of each other. In wind or a whiteout, sight is quickly lost.</p>
-            <p class="case-siflo" data-i18n="fd.5s"><b>With Siflo</b>: “One at a time”, “Regroup” or “It’s cracking” reach the group’s phones, even out of sight. Keep the phone more than 20 cm from your transceiver, as the federation advises.</p>
-            <a class="case-src" href="https://ffme.fr/wp-content/uploads/2024/12/Recommandations-de-securite-et-de-pratique-en-Ski-Alpinisme-Ski-de-randonnee.pdf" data-i18n="fd.5src">Source: FFME, safety recommendations for ski mountaineering and ski touring (in French)</a>
+          <article class="feature case reveal" data-case="2">
+            <p class="case-tag" data-i18n="fd.2t">Canyoning · teammate in trouble</p>
+            <h3 data-i18n="fd.2h">Warning the person at the anchor about a problem they cannot see</h3>
+            <p data-i18n="fd.2p">Bulges, overhangs, wet rappels: a stuck teammate is invisible from above. Signs and whistles assume everyone knows the same codes.</p>
+            <p class="case-siflo" data-i18n="fd.2s"><b>With Siflo</b>: you spell it out to the whole group, “Léa stuck under the waterfall, release”. Nothing to remember.</p>
+            <a class="case-src" href="https://infos-canyon.fr/wp-content/uploads/2015/01/Memento_problematiques_solutions.pdf" data-i18n="fd.2src">Source: French canyoning instructor handbook (in French)</a>
           </article>
-          <article class="feature case reveal" data-case="6" data-only="gathering">
-            <p class="case-tag" data-i18n="fd.6t">Festival · saturated network</p>
-            <h3 data-i18n="fd.6h">Reaching the first-aid post when the tower saturates</h3>
-            <p data-i18n="fd.6p">Each cell tower only accepts a limited number of connections at once. When tens of thousands of festival-goers connect to it, the operator says so itself: calls fail and photos won’t send.</p>
-            <p class="case-siflo" data-i18n="fd.6s"><b>With Siflo</b>: the volunteer team’s messages go from phone to phone, without the tower, all the way to the first-aid post. For the emergency services, call 112.</p>
-            <a class="case-src" href="https://www.bouyguestelecom.fr/guide-pratique/forfaits-mobile/reseau-festival-saturation-astuces" data-i18n="fd.6src">Source: Bouygues Telecom, “Réseau en festival : pourquoi ça sature” (in French)</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="film" class="section section-film">
-      <div class="wrap split">
-        <div class="reveal">
-          <p class="kicker" data-i18n="film.k">The video</p>
-          <h2 class="h-xl" data-i18n="film.h">Siflo in<br><em>one minute.</em></h2>
-          <p class="lead" data-i18n="film.lead">A canyoning outing, from the whistle drowned out by the waterfall to the SOS, and everything else.</p>
-          <ul class="film-points">
-            <li><b>0:05</b><span data-i18n="film.p1">Deep in the canyon, the waterfall drowns out the whistle and there is no signal.</span></li>
-            <li><b>0:10</b><span data-i18n="film.p2">The message hops from phone to phone, all the way to those who went ahead.</span></li>
-            <li><b>0:18</b><span data-i18n="film.p3">A STOP for your partner at the anchor, not for the team next door: received, then seen.</span></li>
-            <li><b>0:23</b><span data-i18n="film.p4">A real messenger: photos, voice messages, polls, route notes readable offline.</span></li>
-            <li><b>0:30</b><span data-i18n="film.p5">Relayed phone to phone with no signal; the internet takes over if someone has signal.</span></li>
-            <li><b>0:35</b><span data-i18n="film.p6">The SOS alerts every Siflo phone in range, even those of other groups.</span></li>
-            <li><b>0:41</b><span data-i18n="film.p7">End-to-end encrypted. For festivals and large gatherings too.</span></li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <div class="phone-frame film" id="film-player">
-            <video id="film-video" preload="none" playsinline poster="../assets/film/poster-en.jpg" data-poster-en="../assets/film/poster-en.jpg" data-src-fr="../assets/film/siflo-fr.mp4" data-src-en="../assets/film/siflo-en.mp4"></video>
-            <button class="film-play" aria-label="Play the video" data-i18n-aria="film.play"><span></span></button>
-          </div>
         </div>
       </div>
     </section>
@@ -399,36 +432,51 @@
           <p class="kicker" data-i18n="ft.k">And also</p>
           <h2 class="h-xl" data-i18n="ft.h">Everything you need<br><em>to stay in touch.</em></h2>
         </div>
-        <div class="features">
+        <div class="features span-last">
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 14v6M14 17h6"/></svg></div>
             <h3 data-i18n="ft.3h">Your own signals</h3>
             <p data-i18n="ft.3p">“Safe”, “Anchor”, “Come”… up to eight signals per group, your club’s way.</p>
           </article>
           <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></div>
+            <h3 data-i18n="ft.11h">Walkie-talkie</h3>
+            <p data-i18n="ft.11p">Hold the button and your voice goes to the group, even with no signal.</p>
+          </article>
+          <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></div>
             <h3 data-i18n="ft.10h">The topo in your pocket</h3>
-            <p data-i18n="ft.10p">The route topo, photos of the approach, the time of the last bus: up to twelve pages, saved on every phone in the group and readable offline. And “Before you go”, a checklist for each activity with its safety sheet. No more headlamps left in the car park.</p>
+            <p data-i18n="ft.10p">Topo, approach photos, bus times: on every phone, offline. And a “Before you go” checklist per activity.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v7.5"/><path d="M9 4v13.5L3.5 20V6.5M15 6.5v5"/><path d="M18 14.5v6m-2.6-2.6 2.6 2.6 2.6-2.6"/></svg></div>
+            <h3 data-i18n="ft.12h">Offline map</h3>
+            <p data-i18n="ft.12p">Terrain, snow, shade and sun, routes: it all fits on the phone.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="m3.5 16.5 5.5-6 3.5 3.5 2.5-2.5 5.5 5"/><circle cx="16.5" cy="8.5" r="1.3"/></svg></div>
+            <h3 data-i18n="ft.13h">Your outing as a 3D film</h3>
+            <p data-i18n="ft.13p">Siflo makes a 3D fly-over film of your track, on the phone.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
             <h3 data-i18n="ft.5h">Distance and direction</h3>
-            <p data-i18n="ft.5p">Siflo shows how far away and in which direction each member who shares their location is. More reliable than “ten minutes away, just past the ridge”.</p>
+            <p data-i18n="ft.5p">How far away, and in which direction, each member who shares their location is.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="6.5" y="6" width="11" height="12" rx="3"/><path d="M9 6 9.6 2.5h4.8L15 6M9 18l.6 3.5h4.8L15 18M12 9.5V12l1.6 1"/></svg></div>
             <h3 data-i18n="ft.7h">On your watch</h3>
-            <p data-i18n="ft.7p">For those who already look at their watch more often than at the view: at last a useful notification, between the elevation gain and the heart rate. Signal or SOS from your wrist, alerts in the same place. The watch holds no key: everything goes through your phone.</p>
+            <p data-i18n="ft.7p">Signals, SOS and alerts on your wrist: Apple Watch, Garmin, Amazfit. The watch keeps no keys.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="7" y="9" width="10" height="12" rx="2"/><path d="M14.5 9V3M10 13h4M10 16.5h4"/><path d="M18 3.5a6 6 0 0 1 2 4M17 6a3 3 0 0 1 .9 2"/></svg></div>
             <h3 data-i18n="ft.8h">An optional LoRa radio</h3>
-            <p data-i18n="ft.8p">A small off-the-shelf LoRa radio (Meshtastic-compatible), paired with your phone over Bluetooth: messages, signals and SOS carry 700&nbsp;m to 3&nbsp;km with the radio on your belt, and up to 7&nbsp;km held in hand with a clear line of sight (estimates). A relay radio placed up high extends the chain.</p>
+            <p data-i18n="ft.8p">A Meshtastic device paired over Bluetooth. Messages, signals and SOS up to 7&nbsp;km in open terrain.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6z"/><path d="m8.8 12.2 2.3 2.3 4.2-4.6"/></svg></div>
             <h3 data-i18n="ft.9h">Verified rescuers, with our partners</h3>
-            <p data-i18n="ft.9p">On a partner’s page, a canyoning site for example, a button creates a Siflo group and offers to invite rescuers whose phones are verified. You choose who to invite, each of them accepts the invitation, nobody joins without your agreement, and everything stays encrypted.</p>
+            <p data-i18n="ft.9p">At our partners, a button creates the group and suggests verified rescuers. Everyone accepts, everything stays encrypted.</p>
           </article>
         </div>
       </div>
@@ -471,19 +519,19 @@
         </div>
         <div class="honest reveal">
           <div>
-            <span class="num" data-i18n="ho.1n">25 to 300&nbsp;m</span>
-            <h3 data-i18n="ho.1h">from one phone to the next</h3>
+            <span class="num" data-i18n="ho.1n">100 to 300&nbsp;m</span>
+            <h3 data-i18n="ho.1h">from one phone to the next, then hop by hop</h3>
             <dl class="tiers">
-              <div><dt data-i18n="ho.1t1">≈&nbsp;25&nbsp;m</dt><dd data-i18n="ho.1d1">phone in a pocket</dd></div>
+              <div><dt data-i18n="ho.1t1">80&nbsp;m</dt><dd data-i18n="ho.1d1">underground, measured between two phones despite the bends of a passage</dd></div>
               <div><dt data-i18n="ho.1t2">≈&nbsp;100&nbsp;m</dt><dd data-i18n="ho.1d2">in hand, clear line of sight</dd></div>
               <div><dt data-i18n="ho.1t3">300&nbsp;m</dt><dd data-i18n="ho.1d3">at best: in hand, clear line of sight, between two Android phones that support long-range Bluetooth</dd></div>
             </dl>
-            <p data-i18n="ho.1p">These are estimates: as always, the mountain decides. On Android 17 and later, the SOS, sent at full power, carries further: a few hundred metres in hand with a clear line of sight. Every phone in the group extends the chain.</p>
+            <p data-i18n="ho.1p">Estimates: the terrain decides. Every member relays, up to 12 hops, and LoRa carries up to 7&nbsp;km.</p>
           </div>
           <div>
             <span class="num" data-i18n="ho.2n">Rock, water</span>
             <h3 data-i18n="ho.2h">stop radio waves</h3>
-            <p data-i18n="ho.2p">Water and rock block the signal: behind a canyon bend, at the bottom of a shaft or under water, it no longer gets through. A teammate halfway, phone in pocket, then links the two.</p>
+            <p data-i18n="ho.2p">Rock and water stop the signal. A teammate halfway along bridges the gap.</p>
           </div>
           <div>
             <span class="num" data-i18n="ho.3n">Top pocket</span>
@@ -541,16 +589,18 @@
           <h2 class="h-lg" data-i18n="fq.h">The questions<br><em>we get in the car park.</em></h2>
         </div>
         <div class="faq reveal">
-          <details><summary data-i18n="fq.2q">What is the range?</summary><p data-i18n="fq.2a">Over Bluetooth, about 25&nbsp;m from one phone to the next in a pocket, about a hundred metres in hand with a clear line of sight, up to 300&nbsp;m between two Android phones that support long-range Bluetooth. Every phone in the group then passes the message on to the next, up to 12 hops. With an optional LoRa radio, several kilometres. The details, link by link, are in the <a href="labs/">Labs</a>.</p></details>
-          <details><summary data-i18n="fq.1q">Do I need a network to use Siflo?</summary><p data-i18n="fq.1a">No. Phones talk to each other directly, over Bluetooth and, on Android, nearby Wi-Fi. The internet only helps stitch a scattered group back together: as soon as one phone in the group has signal, messages go through our relay servers.</p></details>
-          <details><summary data-i18n="fq.3q">Does it drain the battery?</summary><p data-i18n="fq.3a">Very little: 2% of the battery a day on average, measured on a Google Pixel 10 with Siflo active all day. Transmit power only goes up when a message is not received, and there is a battery saver mode.</p></details>
-          <details><summary data-i18n="fq.4q">Are my messages private?</summary><p data-i18n="fq.4a">Yes, they are end-to-end encrypted: only the members of the group, or the person you write to, can read them. Two exceptions, meant to be read by everyone: the nearby channel and the SOS sent to every phone in range. They are signed, not encrypted. It is all in the <a href="../privacy/">privacy policy</a>.</p></details>
-          <details><summary data-i18n="fq.5q">Can iPhones and Android phones be in the same group?</summary><p data-i18n="fq.5a">Yes, they finally talk to each other, with or without a network. Two differences: long-range Bluetooth and nearby Wi-Fi only exist on Android. A nearby Android shares them with the whole group, iPhones included.</p></details>
-          <details><summary data-i18n="fq.8q">Does Siflo work on my watch?</summary><p data-i18n="fq.8a">Yes, with your phone nearby. Apple Watch with an iPhone, from the App Store; Garmin with an Android phone, in the Connect IQ store; Amazfit with an Android phone, in the Zepp app’s store (search for Siflo). Wear OS is coming very soon. Depending on the watch, you can also dictate a reply. A member out with a Garmin inReach satellite communicator can write to the group and read your replies: the messages arrive as soon as a group member has internet. They go through Garmin and are not encrypted by Siflo. A direct Bluetooth link with the inReach is under study with the manufacturer.</p></details>
-          <details><summary data-i18n="fq.9q">What is a LoRa radio for?</summary><p data-i18n="fq.9a">To reach further than Bluetooth. You need an off-the-shelf Meshtastic-compatible box (Heltec Mesh Node T1, RAK WisMesh Tag…). It carries messages, signals and SOS, but no photos or voice notes. Two members with a radio are enough. Details in the <a href="labs/">Labs</a>.</p></details>
-          <details><summary data-i18n="fq.12q">What are verified rescuers?</summary><p data-i18n="fq.12a">Rescuers and guides whose phones are listed in a register signed by Siflo’s publisher: the app checks it itself, and nobody, not even our relay servers, can slip a name in. They are only offered to you through our partners, when you create a group from their page. You stay in charge: you remove whoever you like, each of them must accept the invitation, and messages stay end-to-end encrypted.</p></details>
-          <details><summary data-i18n="fq.10q">Why not WhatsApp or Signal?</summary><p data-i18n="fq.10a">Siflo borrows the best of both: WhatsApp’s simplicity, Signal’s encryption for private messages. But both need the internet and a phone number, and WhatsApp belongs to Meta, which can change its rules: on 8 May 2026, Meta dropped the opt-in end-to-end encryption of Instagram’s private messages (<a href="https://www.bbc.com/news/articles/clypzxl3lvqo">source: BBC</a>). Siflo needs neither.</p></details>
-          <details><summary data-i18n="fq.11q">Is it like BitChat?</summary><p data-i18n="fq.11a">Same principle for the nearby network: messages hop from phone to phone, without the internet. Siflo adds private groups run by admins, signals and SOS, long-range Bluetooth, LoRa radios, and one key per private message, as in Signal.</p></details>
+          <details><summary data-i18n="fq.2q">What is the range?</summary><p data-i18n="fq.2a">100 to 300&nbsp;m between two phones in hand with a clear line of sight, 80&nbsp;m measured underground. Every member relays, up to 12 hops, and a LoRa radio carries up to 7&nbsp;km. Details in the <a href="labs/">Labs</a>.</p></details>
+          <details><summary data-i18n="fq.13q">Does the map work with no signal?</summary><p data-i18n="fq.13a">Yes, once the area is downloaded, for free: map, relief, aerial photos and snow stay on the phone.</p></details>
+          <details><summary data-i18n="fq.14q">Where does the map data come from?</summary><p data-i18n="fq.14a">OpenStreetMap, IGN, swisstopo, Copernicus, Météo-France and its neighbours, Skitourenguru, Grottocenter. It’s all on the <a href="sources/">Sources</a> page.</p></details>
+          <details><summary data-i18n="fq.1q">Do I need a network to use Siflo?</summary><p data-i18n="fq.1a">No. Phones talk to each other directly. The internet only links up a scattered group, as soon as one member has signal.</p></details>
+          <details><summary data-i18n="fq.3q">Does it drain the battery?</summary><p data-i18n="fq.3a">About 2% a day, measured on a Pixel 10. There is a battery-saving mode too.</p></details>
+          <details><summary data-i18n="fq.4q">Are my messages private?</summary><p data-i18n="fq.4a">Yes, end-to-end encrypted. Only the nearby channel and the public SOS can be read by all, and they are signed. Details in the <a href="../privacy/">privacy policy</a>.</p></details>
+          <details><summary data-i18n="fq.5q">Can iPhones and Android phones be in the same group?</summary><p data-i18n="fq.5a">Yes, with or without a network. A nearby Android brings long-range Bluetooth to the whole group.</p></details>
+          <details><summary data-i18n="fq.8q">Does Siflo work on my watch?</summary><p data-i18n="fq.8a">Yes, with your phone nearby: Apple Watch, Garmin, Amazfit, and Wear OS soon. A Garmin inReach can write to the group too.</p></details>
+          <details><summary data-i18n="fq.9q">What is a LoRa radio for?</summary><p data-i18n="fq.9a">To reach further, with an off-the-shelf Meshtastic device. Messages, signals and SOS, no photos or voice notes. Details in the <a href="labs/">Labs</a>.</p></details>
+          <details><summary data-i18n="fq.12q">What are verified rescuers?</summary><p data-i18n="fq.12a">Rescuers and guides whose phones are listed in a register signed by Siflo’s publisher, checked by the app. Everyone accepts, everything stays encrypted.</p></details>
+          <details><summary data-i18n="fq.10q">Why not WhatsApp or Signal?</summary><p data-i18n="fq.10a">Their simplicity and their encryption, with no internet and no phone number. WhatsApp belongs to Meta, which can change its rules.</p></details>
+          <details><summary data-i18n="fq.11q">Is it like BitChat?</summary><p data-i18n="fq.11a">Same principle off the grid, plus private groups, signals, the SOS, LoRa and a fresh key for every private message.</p></details>
           <details><summary data-i18n="fq.6q">How much does Siflo cost?</summary><p data-i18n="fq.6a">Nothing, and it will stay that way. If it helps you out, you can leave a tip from its settings, on Android for now.</p></details>
           <details><summary data-i18n="fq.7q">Who develops Siflo?</summary><p data-i18n="fq.7a">Siflo is developed by Guardia SAS, a French company, under its <a href="https://aidiligence.eu">AI Diligence</a> brand.</p></details>
         </div>
@@ -592,6 +642,6 @@
   <script src="../assets/vendor/ScrollTrigger.min.js"></script>
   <script src="../assets/vendor/SplitText.min.js"></script>
   <script src="../assets/vendor/lenis.min.js"></script>
-  <script type="module" src="../js/main.js?v=web"></script>
+  <script type="module" src="../js/main.js?v=partout"></script>
 </body>
 </html>
