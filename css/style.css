@@ -211,7 +211,7 @@ b, strong { font-weight: 600; }
   transition: transform .25s, background .25s, border-color .25s, box-shadow .25s;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn-primary { background: linear-gradient(135deg, var(--accent-warm), var(--accent) 55%, var(--accent-deep)); color: var(--on-accent); border-color: transparent; box-shadow: 0 8px 32px -8px rgba(var(--accent-rgb), .7); }
+.btn-primary { background: linear-gradient(135deg, var(--accent-warm), var(--accent) 55%, var(--accent-deep)) border-box; color: var(--on-accent); border-color: transparent; box-shadow: 0 8px 32px -8px rgba(var(--accent-rgb), .7); }
 .btn-primary:hover { box-shadow: 0 10px 40px -6px rgba(var(--accent-rgb), .95); }
 .btn-ghost { background: rgba(255, 255, 255, .03); color: var(--ink); backdrop-filter: blur(8px); }
 .btn-ghost:hover { border-color: var(--accent-2); background: rgba(var(--accent-rgb), .08); }
