@@ -98,6 +98,7 @@
     <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
     <div class="nav-links">
       <a href="#messagerie" data-i18n="nav.chat">Messaging</a>
+      <a href="#carte" data-i18n="nav.map">Map</a>
       <a href="#signaux" data-i18n="nav.signals">Signals</a>
       <a href="#reseau" data-i18n="nav.mesh">No network</a>
       <a href="#confidentialite" data-i18n="nav.privacy">Privacy</a>
@@ -181,7 +182,7 @@
       </div>
     </section>
 
-    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the four worlds it joins, who it is for. -->
+    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the five worlds it joins, who it is for. -->
     <section id="messagerie" class="section section-chat">
       <div class="wrap">
         <div class="split chat-split">
@@ -214,14 +215,15 @@
         </div>
 
         <div class="section-head reveal worlds-head">
-          <p class="kicker" data-i18n="wd.k">The best of four worlds</p>
-          <h2 class="h-lg" data-i18n="wd.h">Four apps in one.<br><em>Your pocket can breathe.</em></h2>
+          <p class="kicker" data-i18n="wd.k">The best of five worlds</p>
+          <h2 class="h-lg" data-i18n="wd.h">5+&nbsp;apps in one.<br><em>Your pocket can breathe.</em></h2>
         </div>
-        <div class="worlds">
+        <div class="worlds five">
           <article class="reveal"><p class="case-tag" data-i18n="wd.1t">Like WhatsApp</p><h3 data-i18n="wd.1h">Easy to use</h3><p data-i18n="wd.1p">Groups, reactions, polls, voice notes: even your uncle will figure it out.</p></article>
           <article class="reveal"><p class="case-tag" data-i18n="wd.2t">Like Signal</p><h3 data-i18n="wd.2h">End-to-end encrypted</h3><p data-i18n="wd.2p">Signal’s mechanism for private messages, a key that changes every day for groups. Its key mechanisms have been checked with mathematical proof tools. Yes, maths.</p></article>
           <article class="reveal"><p class="case-tag" data-i18n="wd.3t">Like BitChat</p><h3 data-i18n="wd.3h">No network needed</h3><p data-i18n="wd.3p">With no cell tower and no internet, messages hop from phone to phone over Bluetooth. Siflo adds private groups, LoRa radio and, on Android, nearby Wi-Fi.</p></article>
           <article class="reveal"><p class="case-tag" data-i18n="wd.4t">Like Meshtastic</p><h3 data-i18n="wd.4h">Up to 7&nbsp;km</h3><p data-i18n="wd.4p">With a small optional LoRa radio, messages carry up to 7&nbsp;km in open terrain.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.5t">Like Komoot, FATMAP, Relive…</p><h3 data-i18n="wd.5h">Maps, slopes, 3D film</h3><p data-i18n="wd.5p">The terrain offline, slope, snow and sun included, and your outing replayed in 3D.</p></article>
         </div>
         <p class="worlds-foot reveal" data-i18n="wd.foot">And no big platform behind it. We don’t read your bivouac chats.</p>
 
@@ -237,6 +239,52 @@
           <article class="feature reveal"><h3 data-i18n="us.5h">Leading a group</h3><p data-i18n="us.5p">Club, school, summer camp: one “Regroup” signal to everyone. You see who has received it, who has seen it. And who is pretending not to.</p></article>
           <article class="feature reveal"><h3 data-i18n="us.6h">Working with no signal</h3><p data-i18n="us.6p">Mountain huts, building sites, farms: the team stays in touch on site, with no mast and no subscription, and the SOS stays at hand.</p></article>
         </div>
+      </div>
+    </section>
+
+    <!-- The map: what the offline map shows, three app captures (js/main.js, the gallery's files for the visitor's phone and language), the data credit. -->
+    <section id="carte" class="section section-map">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="mp.k">The map</p>
+          <h2 class="h-xl" data-i18n="mp.h">The map of the outing,<br><em>even with no signal.</em></h2>
+        </div>
+        <div class="features map-tiles">
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v7.5"/><path d="M9 4v13.5L3.5 20V6.5M15 6.5v5"/><path d="M18 14.5v6m-2.6-2.6 2.6 2.6 2.6-2.6"/></svg></div>
+            <h3 data-i18n="mp.1h">Offline map</h3>
+            <p data-i18n="mp.1p">Trails, huts, aerial photos and 3D relief, downloaded for the area.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M2.5 20 9.5 7l4 7 2.5-4 5.5 10z"/><path d="m7.2 11.3 2.3 1.4 2-1.5"/></svg></div>
+            <h3 data-i18n="mp.2h">Read the terrain</h3>
+            <p data-i18n="mp.2p">Slope, aspect, snow seen by satellite, avalanche bulletin.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M5.5 18.5l1.6-1.6M16.9 7.1l1.6-1.6"/></svg></div>
+            <h3 data-i18n="mp.3h">Shade and sun</h3>
+            <p data-i18n="mp.3p">Hour by hour, on your route.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M5 20c0-4 3.5-4.5 6-7.5s1.5-5.5 5-6.5"/><path d="M16 6V2.8l3.6 1.6L16 6"/><circle cx="5" cy="20" r="1.3"/></svg></div>
+            <h3 data-i18n="mp.4h">Routes</h3>
+            <p data-i18n="mp.4p">Ski touring, snowshoes, climbing, via ferrata, canyons, caves.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M12 3.2 18.8 20 12 16.3 5.2 20z"/></svg></div>
+            <h3 data-i18n="mp.5h">Follow and arrive</h3>
+            <p data-i18n="mp.5p">Draw a route, follow it, see your arrival time.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M2.5 20 8 11l3 4.5 4-7.5 6.5 12z"/><path d="M15 8V3.2h4.2l-1.2 1.4 1.2 1.4H15"/></svg></div>
+            <h3 data-i18n="mp.6h">Every peak named</h3>
+            <p data-i18n="mp.6p">The panorama, and your outing as a 3D film.</p>
+          </article>
+        </div>
+      </div>
+      <div class="screens map-shots" id="map-shots"></div>
+      <div class="wrap">
+        <p class="map-credit reveal" data-i18n="mp.credit">Data: OpenStreetMap, IGN, swisstopo, Copernicus… · <a href="../sources/">sources and licences</a></p>
       </div>
     </section>
 
@@ -345,47 +393,37 @@
       </div>
     </section>
 
-    <section id="film" class="section section-film">
-      <div class="wrap split">
-        <div class="reveal">
-          <p class="kicker" data-i18n="film.k">The video</p>
-          <h2 class="h-xl" data-i18n="film.h">Siflo in<br><em>one minute.</em></h2>
-          <p class="lead" data-i18n="film.lead">A canyoning outing, from the whistle drowned out by the waterfall to the SOS, and everything else.</p>
-          <ul class="film-points">
-            <li><b>0:05</b><span data-i18n="film.p1">Deep in the canyon, the waterfall drowns out the whistle and there is no signal.</span></li>
-            <li><b>0:10</b><span data-i18n="film.p2">The message hops from phone to phone, all the way to those who went ahead.</span></li>
-            <li><b>0:18</b><span data-i18n="film.p3">A STOP for your partner at the anchor, not for the team next door: received, then seen.</span></li>
-            <li><b>0:23</b><span data-i18n="film.p4">A real messenger: photos, voice messages, polls, route notes readable offline.</span></li>
-            <li><b>0:30</b><span data-i18n="film.p5">Relayed phone to phone with no signal; the internet takes over if someone has signal.</span></li>
-            <li><b>0:35</b><span data-i18n="film.p6">The SOS alerts every Siflo phone in range, even those of other groups.</span></li>
-            <li><b>0:41</b><span data-i18n="film.p7">End-to-end encrypted. For festivals and large gatherings too.</span></li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <div class="phone-frame film" id="film-player">
-            <video id="film-video" preload="none" playsinline poster="../../assets/film/poster-en.jpg" data-poster-en="../../assets/film/poster-en.jpg" data-src-fr="../../assets/film/siflo-fr.mp4" data-src-en="../../assets/film/siflo-en.mp4"></video>
-            <button class="film-play" aria-label="Play the video" data-i18n-aria="film.play"><span></span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="fonctions" class="section section-features">
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker" data-i18n="ft.k">And also</p>
           <h2 class="h-xl" data-i18n="ft.h">Everything you need<br><em>to stay in touch.</em></h2>
         </div>
-        <div class="features">
+        <div class="features span-last">
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 14v6M14 17h6"/></svg></div>
             <h3 data-i18n="ft.3h">Your own signals</h3>
             <p data-i18n="ft.3p">“Safe”, “Anchor”, “Come”… up to eight signals per group, your club’s way.</p>
           </article>
           <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></div>
+            <h3 data-i18n="ft.11h">Walkie-talkie</h3>
+            <p data-i18n="ft.11p">Hold the button and your voice goes to the group, even with no signal.</p>
+          </article>
+          <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></div>
             <h3 data-i18n="ft.10h">The topo in your pocket</h3>
             <p data-i18n="ft.10p">The route topo, photos of the approach, the time of the last bus: up to twelve pages, saved on every phone in the group and readable offline. And “Before you go”, a checklist for each activity with its safety sheet. No more headlamps left in the car park.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v7.5"/><path d="M9 4v13.5L3.5 20V6.5M15 6.5v5"/><path d="M18 14.5v6m-2.6-2.6 2.6 2.6 2.6-2.6"/></svg></div>
+            <h3 data-i18n="ft.12h">Offline map</h3>
+            <p data-i18n="ft.12p">Terrain, snow, shade and sun, routes: it all fits on the phone.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="m3.5 16.5 5.5-6 3.5 3.5 2.5-2.5 5.5 5"/><circle cx="16.5" cy="8.5" r="1.3"/></svg></div>
+            <h3 data-i18n="ft.13h">Your outing as a 3D film</h3>
+            <p data-i18n="ft.13p">Siflo makes a 3D fly-over film of your track, on the phone.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
@@ -519,6 +557,8 @@
         </div>
         <div class="faq reveal">
           <details><summary data-i18n="fq.2q">What is the range?</summary><p data-i18n="fq.2a">Over Bluetooth, 100 to 300&nbsp;m from one phone to the next in hand with a clear line of sight, and 80&nbsp;m measured underground, despite the bends of a passage. Every phone in the group then passes the message on to the next, up to 12 hops: the range grows with the group. With an optional LoRa radio, up to 7&nbsp;km in open terrain. The details, link by link, are in the <a href="../labs/">Labs</a>.</p></details>
+          <details><summary data-i18n="fq.13q">Does the map work with no signal?</summary><p data-i18n="fq.13a">Yes, once the area is downloaded: the map, the relief, the aerial photos and the snow stay on the phone, and everything works offline. Downloading an area is free. When you have signal, the online map also covers what lies outside the area.</p></details>
+          <details><summary data-i18n="fq.14q">Where does the map data come from?</summary><p data-i18n="fq.14a">Trails, huts and places come from the OpenStreetMap contributors, the relief from Mapterhorn (after IGN, swisstopo and Copernicus), the aerial photos from IGN, swisstopo and their neighbours. The snow is seen by the Copernicus Sentinel-2 satellites, the avalanche bulletins come from Météo-France and the neighbouring services (SLF, AINEVA…), the ski routes from Skitourenguru (Fondation Petzl) and the caves from Grottocenter. The full list and the licences are on the <a href="../sources/">Sources</a> page.</p></details>
           <details><summary data-i18n="fq.1q">Do I need a network to use Siflo?</summary><p data-i18n="fq.1a">No. Phones talk to each other directly, over Bluetooth and, on Android, nearby Wi-Fi. The internet only helps stitch a scattered group back together: as soon as one phone in the group has signal, messages go through our relay servers.</p></details>
           <details><summary data-i18n="fq.3q">Does it drain the battery?</summary><p data-i18n="fq.3a">Very little: 2% of the battery a day on average, measured on a Google Pixel 10 with Siflo active all day. Transmit power only goes up when a message is not received, and there is a battery saver mode.</p></details>
           <details><summary data-i18n="fq.4q">Are my messages private?</summary><p data-i18n="fq.4a">Yes, they are end-to-end encrypted: only the members of the group, or the person you write to, can read them. Two exceptions, meant to be read by everyone: the nearby channel and the SOS sent to every phone in range. They are signed, not encrypted. It is all in the <a href="../../privacy/">privacy policy</a>.</p></details>

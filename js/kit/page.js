@@ -86,11 +86,12 @@ export function bindActs({ stage, acts }) {
 }
 
 /* ---------------- act panels & reveals ---------------- */
-/** Cards of the act panels fade in, hold and fade out with the scroll. Panels with .panel-sticky hold longer. */
+/** Cards of the act panels fade in, hold and fade out with the scroll. Panels with .panel-sticky hold longer; .panel-flat
+ *  ones (no 3D behind them) are left to the reveals. */
 export function setupPanels() {
   $$('.act .panel').forEach((panel) => {
     const card = $('.card, .hero-content', panel);
-    if (!card) return;
+    if (!card || panel.classList.contains('panel-flat')) return;
     const hero = panel.classList.contains('panel-hero');
     const sticky = panel.classList.contains('panel-sticky');
     const tl = gsap.timeline({ scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true } });

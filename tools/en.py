@@ -69,7 +69,7 @@ def rewrite_urls(s: str, fr_dir: str, en_dir: str) -> str:
         path, sep, rest = re.match(r"^([^?#]*)([?#]?)(.*)$", u).groups()
         absolute = posixpath.normpath(posixpath.join(fr_dir, path)) + ("/" if path.endswith("/") or path in ("", ".", "./") else "")
         absolute = absolute.replace("//", "/")
-        if absolute == "/" or absolute.startswith("/labs/"):
+        if absolute == "/" or absolute.startswith(("/labs/", "/sources/")):
             absolute = "/en" + absolute
         rel = posixpath.relpath(absolute, en_dir) + ("/" if absolute.endswith("/") else "")
         rel = "./" if rel in (".", "./") else rel.replace("//", "/")

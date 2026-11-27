@@ -119,6 +119,7 @@
     <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#whistle"/></svg></span>Siflo</a>
     <div class="nav-links">
       <a href="#messagerie" data-i18n="nav.chat">Messagerie</a>
+      <a href="#carte" data-i18n="nav.map">Carte</a>
       <a href="#signaux" data-i18n="nav.signals">Signaux</a>
       <a href="#reseau" data-i18n="nav.mesh">Sans réseau</a>
       <a href="#confidentialite" data-i18n="nav.privacy">Vie privée</a>
@@ -202,7 +203,7 @@
       </div>
     </section>
 
-    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the four worlds it joins, who it is for. -->
+    <!-- Messaging: a group chat drawn in HTML (the app's dark theme), what it offers, the five worlds it joins, who it is for. -->
     <section id="messagerie" class="section section-chat">
       <div class="wrap">
         <div class="split chat-split">
@@ -235,14 +236,15 @@
         </div>
 
         <div class="section-head reveal worlds-head">
-          <p class="kicker" data-i18n="wd.k">Le meilleur de quatre mondes</p>
-          <h2 class="h-lg" data-i18n="wd.h">Quatre applications en une.<br><em>Votre poche respire.</em></h2>
+          <p class="kicker" data-i18n="wd.k">Le meilleur de cinq mondes</p>
+          <h2 class="h-lg" data-i18n="wd.h">5+&nbsp;applications en une.<br><em>Votre poche respire.</em></h2>
         </div>
-        <div class="worlds">
+        <div class="worlds five">
           <article class="reveal"><p class="case-tag" data-i18n="wd.1t">Comme WhatsApp</p><h3 data-i18n="wd.1h">Simple à utiliser</h3><p data-i18n="wd.1p">Groupes, réactions, sondages, vocaux&#8239;: même votre oncle saura s’en servir.</p></article>
           <article class="reveal"><p class="case-tag" data-i18n="wd.2t">Comme Signal</p><h3 data-i18n="wd.2h">Chiffrée de bout en bout</h3><p data-i18n="wd.2p">Le mécanisme de Signal pour les messages privés, une clé qui change chaque jour pour les groupes. Ses mécanismes clés ont été vérifiés par des outils de preuve mathématique. Oui, des maths.</p></article>
           <article class="reveal"><p class="case-tag" data-i18n="wd.3t">Comme BitChat</p><h3 data-i18n="wd.3h">Sans réseau</h3><p data-i18n="wd.3p">Sans antenne ni internet, les messages sautent de téléphone en téléphone par Bluetooth. Siflo y ajoute des groupes privés, la radio LoRa et, sur Android, le Wi-Fi de proximité.</p></article>
           <article class="reveal"><p class="case-tag" data-i18n="wd.4t">Comme Meshtastic</p><h3 data-i18n="wd.4h">Jusqu’à 7&nbsp;km</h3><p data-i18n="wd.4p">Avec une petite radio LoRa en option, les messages portent jusqu’à 7&nbsp;km en terrain dégagé.</p></article>
+          <article class="reveal"><p class="case-tag" data-i18n="wd.5t">Comme Komoot, FATMAP, Relive…</p><h3 data-i18n="wd.5h">Cartes, pentes, film 3D</h3><p data-i18n="wd.5p">Le terrain hors ligne, pente, neige et soleil compris, et votre sortie rejouée en 3D.</p></article>
         </div>
         <p class="worlds-foot reveal" data-i18n="wd.foot">Et aucune grande plateforme derrière. Nous ne lisons pas vos conversations de bivouac.</p>
 
@@ -258,6 +260,52 @@
           <article class="feature reveal"><h3 data-i18n="us.5h">Encadrer un groupe</h3><p data-i18n="us.5p">Club, école, colo&#8239;: un signal «&#8239;Regroupement&#8239;» à tout le monde. Vous voyez qui l’a reçu, qui l’a vu. Et qui fait semblant.</p></article>
           <article class="feature reveal"><h3 data-i18n="us.6h">Travailler en zone blanche</h3><p data-i18n="us.6p">Refuges, chantiers, exploitations agricoles&#8239;: l’équipe garde le contact sur place, sans antenne ni abonnement. Le SOS reste à portée de main.</p></article>
         </div>
+      </div>
+    </section>
+
+    <!-- The map: what the offline map shows, three app captures (js/main.js, the gallery's files for the visitor's phone and language), the data credit. -->
+    <section id="carte" class="section section-map">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="mp.k">La carte</p>
+          <h2 class="h-xl" data-i18n="mp.h">La carte de la sortie,<br><em>même sans réseau.</em></h2>
+        </div>
+        <div class="features map-tiles">
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v7.5"/><path d="M9 4v13.5L3.5 20V6.5M15 6.5v5"/><path d="M18 14.5v6m-2.6-2.6 2.6 2.6 2.6-2.6"/></svg></div>
+            <h3 data-i18n="mp.1h">La carte hors ligne</h3>
+            <p data-i18n="mp.1p">Sentiers, refuges, vue satellite et relief 3D, téléchargés pour la zone.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M2.5 20 9.5 7l4 7 2.5-4 5.5 10z"/><path d="m7.2 11.3 2.3 1.4 2-1.5"/></svg></div>
+            <h3 data-i18n="mp.2h">Lire le terrain</h3>
+            <p data-i18n="mp.2p">Pente, exposition, neige vue par satellite, bulletin d’avalanche.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M5.5 18.5l1.6-1.6M16.9 7.1l1.6-1.6"/></svg></div>
+            <h3 data-i18n="mp.3h">Ombre et soleil</h3>
+            <p data-i18n="mp.3p">Heure par heure, sur votre itinéraire.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M5 20c0-4 3.5-4.5 6-7.5s1.5-5.5 5-6.5"/><path d="M16 6V2.8l3.6 1.6L16 6"/><circle cx="5" cy="20" r="1.3"/></svg></div>
+            <h3 data-i18n="mp.4h">Les itinéraires</h3>
+            <p data-i18n="mp.4p">Ski de rando, raquettes, escalade, via ferrata, canyons, grottes.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M12 3.2 18.8 20 12 16.3 5.2 20z"/></svg></div>
+            <h3 data-i18n="mp.5h">Suivre et arriver</h3>
+            <p data-i18n="mp.5p">Tracez un itinéraire, suivez-le, voyez l’heure d’arrivée.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M2.5 20 8 11l3 4.5 4-7.5 6.5 12z"/><path d="M15 8V3.2h4.2l-1.2 1.4 1.2 1.4H15"/></svg></div>
+            <h3 data-i18n="mp.6h">Chaque sommet nommé</h3>
+            <p data-i18n="mp.6p">Le panorama, et votre sortie en film 3D.</p>
+          </article>
+        </div>
+      </div>
+      <div class="screens map-shots" id="map-shots"></div>
+      <div class="wrap">
+        <p class="map-credit reveal" data-i18n="mp.credit">Données&#8239;: OpenStreetMap, IGN, swisstopo, Copernicus… · <a href="sources/">sources et licences</a></p>
       </div>
     </section>
 
@@ -398,47 +446,37 @@
       </div>
     </section>
 
-    <section id="film" class="section section-film">
-      <div class="wrap split">
-        <div class="reveal">
-          <p class="kicker" data-i18n="film.k">La vidéo</p>
-          <h2 class="h-xl" data-i18n="film.h">Siflo en<br><em>une minute.</em></h2>
-          <p class="lead" data-i18n="film.lead">Une sortie en canyon, du sifflet couvert par la cascade jusqu’au SOS, puis tout le reste.</p>
-          <ul class="film-points">
-            <li><b>0:05</b><span data-i18n="film.p1">Au fond du canyon, la cascade couvre le sifflet et le réseau ne passe pas.</span></li>
-            <li><b>0:10</b><span data-i18n="film.p2">Le message passe de téléphone en téléphone, jusqu’à ceux partis devant.</span></li>
-            <li><b>0:18</b><span data-i18n="film.p3">Un STOP pour votre relais, pas pour la cordée d’à côté&#8239;: reçu, puis vu.</span></li>
-            <li><b>0:23</b><span data-i18n="film.p4">Une vraie messagerie&#8239;: photos, vocaux, sondages, topo lisible sans réseau.</span></li>
-            <li><b>0:30</b><span data-i18n="film.p5">De proche en proche sans réseau mobile&#8239;; internet prend le relais si un membre a du réseau.</span></li>
-            <li><b>0:35</b><span data-i18n="film.p6">Le SOS alerte tous les téléphones Siflo à portée, même ceux des autres groupes.</span></li>
-            <li><b>0:41</b><span data-i18n="film.p7">Chiffré de bout en bout. Aussi pour les festivals et les grands rassemblements.</span></li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <div class="phone-frame film" id="film-player">
-            <video id="film-video" preload="none" playsinline poster="assets/film/poster-fr.jpg" data-poster-en="assets/film/poster-en.jpg" data-src-fr="assets/film/siflo-fr.mp4" data-src-en="assets/film/siflo-en.mp4"></video>
-            <button class="film-play" aria-label="Lire la vidéo" data-i18n-aria="film.play"><span></span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="fonctions" class="section section-features">
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker" data-i18n="ft.k">Et aussi</p>
           <h2 class="h-xl" data-i18n="ft.h">Tout ce qu’il faut<br><em>pour garder le contact.</em></h2>
         </div>
-        <div class="features">
+        <div class="features span-last">
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 14v6M14 17h6"/></svg></div>
             <h3 data-i18n="ft.3h">Vos propres signaux</h3>
             <p data-i18n="ft.3p">«&#8239;Vaché&#8239;», «&#8239;Relais&#8239;», «&#8239;Viens&#8239;»… jusqu’à huit signaux par groupe, à la mode de chez vous.</p>
           </article>
           <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></div>
+            <h3 data-i18n="ft.11h">Le talkie-walkie</h3>
+            <p data-i18n="ft.11p">Maintenez le bouton, votre voix part au groupe, même sans réseau.</p>
+          </article>
+          <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></div>
             <h3 data-i18n="ft.10h">Le topo dans la poche</h3>
             <p data-i18n="ft.10p">Le topo de la course, les photos de l’approche, l’horaire du dernier bus&#8239;: jusqu’à douze pages, enregistrées sur chaque téléphone du groupe et lisibles même sans réseau. Et «&#8239;Avant de partir&#8239;», une liste à cocher par activité, avec sa fiche sécurité. Fini la frontale oubliée au parking.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v7.5"/><path d="M9 4v13.5L3.5 20V6.5M15 6.5v5"/><path d="M18 14.5v6m-2.6-2.6 2.6 2.6 2.6-2.6"/></svg></div>
+            <h3 data-i18n="ft.12h">La carte hors ligne</h3>
+            <p data-i18n="ft.12p">Terrain, neige, ombre et soleil, itinéraires&#8239;: tout tient sur le téléphone.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="m3.5 16.5 5.5-6 3.5 3.5 2.5-2.5 5.5 5"/><circle cx="16.5" cy="8.5" r="1.3"/></svg></div>
+            <h3 data-i18n="ft.13h">La sortie en film 3D</h3>
+            <p data-i18n="ft.13p">Siflo fabrique sur le téléphone le film de votre trace survolée en 3D.</p>
           </article>
           <article class="feature reveal">
             <div class="feature-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
@@ -571,7 +609,9 @@
           <h2 class="h-lg" data-i18n="fq.h">Les questions<br><em>qu’on nous pose au parking.</em></h2>
         </div>
         <div class="faq reveal">
-          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">Par Bluetooth, de 100 à 300&nbsp;m d’un téléphone à l’autre en main et à vue, et 80&nbsp;m mesurés sous terre, malgré les coudes d’une galerie. Chaque téléphone du groupe relaie ensuite le message au suivant, jusqu’à 12 sauts&#8239;: la portée grandit avec le groupe. Avec une radio LoRa en option, jusqu’à 7&nbsp;km en terrain dégagé. Le détail, liaison par liaison, est au <a href="labs/">Labo</a>.</a>.</p></details>
+          <details><summary data-i18n="fq.2q">Quelle est la portée&#8239;?</summary><p data-i18n="fq.2a">Par Bluetooth, de 100 à 300&nbsp;m d’un téléphone à l’autre en main et à vue, et 80&nbsp;m mesurés sous terre, malgré les coudes d’une galerie. Chaque téléphone du groupe relaie ensuite le message au suivant, jusqu’à 12 sauts&#8239;: la portée grandit avec le groupe. Avec une radio LoRa en option, jusqu’à 7&nbsp;km en terrain dégagé. Le détail, liaison par liaison, est au <a href="labs/">Labo</a>.</p></details>
+          <details><summary data-i18n="fq.13q">La carte marche-t-elle sans réseau&#8239;?</summary><p data-i18n="fq.13a">Oui, une fois la zone téléchargée&#8239;: la carte, le relief, la vue satellite et la neige restent sur le téléphone, et tout fonctionne hors ligne. Télécharger une zone est gratuit. Quand vous captez, la carte en ligne couvre aussi ce qui sort de la zone.</p></details>
+          <details><summary data-i18n="fq.14q">D’où viennent les données de la carte&#8239;?</summary><p data-i18n="fq.14a">Les sentiers, refuges et lieux viennent des contributeurs d’OpenStreetMap, le relief de Mapterhorn (d’après l’IGN, swisstopo et Copernicus), les photos aériennes de l’IGN, de swisstopo et de leurs voisins. La neige est vue par les satellites Sentinel-2 de Copernicus, les bulletins d’avalanche viennent de Météo-France et des services voisins (SLF, AINEVA…), les itinéraires de ski de Skitourenguru (Fondation Petzl) et les grottes de Grottocenter. La liste complète et les licences sont sur la page <a href="sources/">Sources</a>.</p></details>
           <details><summary data-i18n="fq.1q">Faut-il du réseau pour utiliser Siflo&#8239;?</summary><p data-i18n="fq.1a">Non. Les téléphones se parlent directement, par Bluetooth et, sur Android, par Wi-Fi de proximité. Internet ne sert qu’à recoller un groupe éparpillé&#8239;: dès qu’un téléphone du groupe capte, les messages passent par nos serveurs relais.</p></details>
           <details><summary data-i18n="fq.3q">Est-ce que ça vide la batterie&#8239;?</summary><p data-i18n="fq.3a">Très peu&#8239;: en moyenne 2&#8239;% de la batterie par jour, mesuré sur un Google Pixel 10, Siflo actif toute la journée. La puissance d’émission n’augmente que si un message n’est pas reçu. Un mode économie existe aussi.</p></details>
           <details><summary data-i18n="fq.4q">Mes messages sont-ils privés&#8239;?</summary><p data-i18n="fq.4a">Oui, ils sont chiffrés de bout en bout&#8239;: seuls les membres du groupe ou la personne à qui vous écrivez peuvent les lire. Deux exceptions, faites pour être lues par tous&#8239;: le canal de proximité et le SOS envoyé à tous les téléphones à portée. Ils sont signés, mais pas chiffrés. Tout est dans la <a href="privacy/#francais">politique de confidentialité</a>.</p></details>

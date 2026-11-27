@@ -19,7 +19,7 @@ const FEATS = [['Signaux', 'Signals'], ['SOS', 'SOS'], ['Messages', 'Messages'],
 const ROWS = [
   {
     group: 'app', name: ['Bluetooth standard', 'Standard Bluetooth'], sub: ['débit normal, connexion dans les deux sens', 'normal rate, two-way connection'],
-    range: [5, 25, 50, 150],
+    range: [5, 25, 100, 150],
     phones: { ios: 'y', old: 'y', a16: 'y', a17: 'y' },
     feats: ['y', 'y', 'y', 'y'], speed: ['30 à 100 ko/s', '30–100 kB/s'], battery: ['faible, toujours actif', 'low, always on'],
   },
@@ -32,7 +32,7 @@ const ROWS = [
   },
   {
     group: 'app', name: ['Wi-Fi de proximité', 'Nearby Wi-Fi'], sub: ['pour le débit, pas pour la portée', 'for throughput, not range'],
-    range: [5, 25, 50, 150], rangeNote: ['même portée que le Bluetooth standard', 'same range as standard Bluetooth'],
+    range: [5, 25, 100, 150], rangeNote: ['même portée que le Bluetooth standard', 'same range as standard Bluetooth'],
     phones: { ios: 'n', old: 'y', a16: 'y', a17: 'y' }, phoneNotes: { old: ['Wi-Fi allumé', 'Wi-Fi on'], a16: ['Wi-Fi allumé', 'Wi-Fi on'], a17: ['Wi-Fi allumé', 'Wi-Fi on'] },
     feats: ['y', 'y', 'y', 'y'], speed: ['1 à 6 Mo/s', '1–6 MB/s'], battery: ['élevée : médias et SOS seulement', 'high: media and SOS only'],
   },

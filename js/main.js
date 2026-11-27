@@ -1,4 +1,4 @@
-// Page wiring: strings, the activity (its texts and chips), plain sections (screens, films,
+// Page wiring: strings, the activity (its texts and chips), plain sections (screens, the hero film,
 // encryption), the stage and its acts (the activity's hero, none for the general identity; signal,
 // mesh), then the reveal.
 import { registerStrings, applyStatic, LANG, t } from './kit/i18n.js';
@@ -14,56 +14,43 @@ registerStrings(STRINGS);
 // The presentation film in the hero, on YouTube. English: the current English Short until the new one is up.
 const HERO_FILM = { fr: '6FA-N-e3nms', en: 'SSMs3xLIuFo' };
 
+// The 0.37.0 store captures, without their captions: Android or iPhone after the visitor's phone (Android on a computer).
 const SCREENS = {
   fr: [
-    ['01-home', 'L’accueil : vos groupes et vos conversations privées'],
-    ['02-group-chat', 'La discussion du groupe : photos, vocaux, réponses, réactions'],
-    ['03-signals', 'Un signal à tout le groupe : reçu, puis vu'],
-    ['04-topo', 'Le topo du groupe, gardé sur chaque téléphone'],
-    ['09-area-map', 'La carte de la zone, lisible sans réseau, avec les lieux du groupe'],
-    ['05-before-you-go', 'Avant de partir : la liste à cocher du canyon'],
-    ['06-sos-countdown', 'Le SOS : le compte à rebours et les destinataires'],
-    ['07-invite-qr', 'Le QR code du groupe, à scanner sans réseau'],
-    ['08-member-distances', 'La distance et la direction de chaque membre'],
+    ['01-offgrid', 'La carte et le groupe, sans réseau'],
+    ['02-chat', 'La discussion du groupe'],
+    ['03-talkie', 'Le talkie-walkie'],
+    ['04-film', 'La sortie en film 3D'],
+    ['05-light', 'Ombre et soleil sur l’itinéraire'],
+    ['06-point', 'Un point du terrain'],
+    ['07-signals', 'Les signaux du groupe'],
+    ['08-sos', 'Le SOS'],
   ],
   en: [
-    ['01-home', 'Home: your groups and private chats'],
-    ['02-group-chat', 'The group chat: photos, voice notes, replies, reactions'],
-    ['03-signals', 'A signal to the whole group: received, then seen'],
-    ['04-topo', 'The group’s topo, kept on every phone'],
-    ['09-area-map', 'The map of the area, readable with no signal, with the group’s places'],
-    ['05-before-you-go', 'Before you go: the canyoning checklist'],
-    ['06-sos-countdown', 'The SOS: the countdown and who gets it'],
-    ['07-invite-qr', 'The group’s QR code, to scan with no signal'],
-    ['08-member-distances', 'How far away each member is, and in which direction'],
+    ['01-offgrid', 'The map and the group, with no signal'],
+    ['02-chat', 'The group chat'],
+    ['03-talkie', 'The walkie-talkie'],
+    ['04-film', 'Your outing as a 3D film'],
+    ['05-light', 'Shade and sun on your route'],
+    ['06-point', 'A point on the terrain'],
+    ['07-signals', 'The group’s signals'],
+    ['08-sos', 'The SOS'],
   ],
 };
+// The map section shows three of them.
+const MAP_SHOTS = ['05-light', '06-point', '04-film'];
 
 // Relative to this script, so that /en/ finds them too.
-const SHOTS = new URL('../assets/screens/', import.meta.url).href;
-
-// The checklist screenshot is the canyon's: other activities say so.
-const CHECKLIST = { fr: 'Avant de partir\u00a0: une liste à cocher par activité (ici, le canyon)', en: 'Before you go: a checklist per activity (here, canyoning)' };
+const SHOTS = new URL('../assets/screens/037/', import.meta.url).href;
 
 function renderScreens() {
-  const caption = (f, cap) => (f === '05-before-you-go' && activity() !== 'canyon' ? CHECKLIST[LANG] : cap);
-  $('#screens').innerHTML = SCREENS[LANG].map(([f, c]) => [f, caption(f, c)]).map(([f, cap]) => `
-    <figure data-lightbox="screens"><div class="shot"><img src="${SHOTS}${f}-${LANG}.webp" data-full="${SHOTS}${f}-${LANG}.webp" alt="${cap}" loading="lazy" width="720" height="1600"></div><figcaption>${cap}</figcaption></figure>`).join('');
-}
-
-/** Self-hosted film (no third-party request): the source is attached on the first click. */
-function setupFilm() {
-  const box = $('#film-player'), video = $('#film-video');
-  if (LANG !== 'fr') video.poster = video.dataset.posterEn;
-  $('.film-play', box).addEventListener('click', () => {
-    if (!video.src) {
-      video.src = video.dataset[LANG === 'fr' ? 'srcFr' : 'srcEn'];
-      video.textContent = t('film.unsupported');
-    }
-    video.controls = true;
-    video.play();
-    box.classList.add('playing');
-  });
+  const os = document.documentElement.dataset.os === 'ios' ? 'ios' : 'android';
+  const [w, h] = os === 'ios' ? [640, 1391] : [640, 1422];
+  const fig = ([f, cap], group) => `
+    <figure data-lightbox="${group}"><div class="shot"><img src="${SHOTS}${f}-${os}-${LANG}.webp" data-full="${SHOTS}${f}-${os}-${LANG}.webp" alt="${cap}" loading="lazy" width="${w}" height="${h}"></div><figcaption>${cap}</figcaption></figure>`;
+  $('#screens').innerHTML = SCREENS[LANG].map((e) => fig(e, 'screens')).join('');
+  const map = $('#map-shots');
+  if (map) map.innerHTML = MAP_SHOTS.map((f) => fig(SCREENS[LANG].find(([g]) => g === f), 'map')).join('');
 }
 
 /** The hero's film: the self-hosted poster until a click, then the YouTube player in its place (no request to YouTube before). */
@@ -146,13 +133,14 @@ async function boot() {
   renderScreens();
   setupLightbox();
   setupNav();
-  setupFilm();
   setupHeroFilm();
   setupRangeNet();
 
   const onProgress = loaderArcs();
   onProgress(0.2);
   applyActivity();
+  // The general identity has no 3D behind the hero's two cards: they follow the hero as a plain row, revealed like a section.
+  if (activity() === 'general') $$('#top .panel:not(.panel-hero)').forEach((pn) => { pn.classList.add('panel-flat'); $('.card', pn).classList.add('reveal'); });
   // Sections of other identities (data-only, a list) leave the page before the stage and the panels count them.
   $$('[data-only]').forEach((el) => { if (!el.dataset.only.split(' ').includes(activity())) el.remove(); });
   let bundle = null;
